@@ -1,0 +1,13 @@
+<div
+  [formGroup]="questionnaireForm"
+  *ngIf="questionnaireForm?.contains(question._id)"
+>
+  <input
+    type="number"
+    [formControlName]="question?._id"
+    class="sb-form-control"
+    [placeholder]="placeholder"
+    (change)="onChange($event)"
+    [value]="question.value"
+  />
+</div>

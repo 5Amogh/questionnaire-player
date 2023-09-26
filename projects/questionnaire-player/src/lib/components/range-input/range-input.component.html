@@ -1,0 +1,11 @@
+<div class="
+    ng-dirty ng-invalid ng-touched
+    range-wrap
+  " style="display: flex;align-items: center;justify-content: center;" [formGroup]="questionnaireForm" *ngIf="questionnaireForm?.contains(question._id)">
+    <!-- <div class="range-value">{{ this.question.value }}</div> -->
+    <mat-slider class="example-margin" style="width: 90%;display: flex;justify-content: center;align-items: center;"
+        [max]="options.max" [min]="options.min" [step]="options.step" [discrete]="options.thumbLabel"
+        [showTickMarks]="options.showTicks">
+        <input matSliderThumb (valueChange)="onChange($event)" [formControlName]="question?._id" #slider>
+    </mat-slider>
+</div>

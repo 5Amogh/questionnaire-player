@@ -1,0 +1,140 @@
+<div *ngFor="let question of questions; let qi = index">
+  <ng-container
+    *ngIf="
+      question?.sectionHeader &&
+      (!question.visibleIf.length || question.canDisplay == true)
+    "
+  >
+    <h4 class="section-header-style">{{ question?.sectionHeader }}</h4>
+    <hr
+      [ngStyle]="{
+        'background-color':
+          question.responseType != 'pageQuestions' ? 'rebeccapurple' : null,
+        height: question.responseType != 'pageQuestions' ? '3px' : 0
+      }"
+    />
+  </ng-container>
+  <div
+    [ngStyle]="{
+      padding: question.responseType != 'pageQuestions' ? '30px' : 0
+    }"
+    [ngClass]="{
+      'mat-elevation-z8': question.responseType != 'pageQuestions',
+      activeCard: question.responseType != 'pageQuestions'
+    }"
+    style="margin: 20px; border-radius: 10px"
+    *ngIf="!question.visibleIf.length || question.canDisplay == true"
+  >
+    <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
+      <div class="d-flex flex-ai-flex-start flex-jc-space-between">
+        <div
+          *ngFor="let q of question.question; let qai = index"
+          style="margin-bottom: 20px"
+          [ngClass]="{
+            'mb-20': q.length,
+            'valid-response': questionnaireForm?.controls[question._id]?.valid
+          }"
+        >
+          <div class="sb-h5" *ngIf="q != ''" style="color: rgb(99, 55, 187)">
+            {{ question.questionNumber + " . " }}&nbsp;{{ q }}
+            <hr
+              [ngStyle]="{
+                'background-color':
+                  question.responseType != 'pageQuestions'
+                    ? 'rebeccapurple'
+                    : null
+              }"
+            />
+          </div>
+        </div>
+        <div *ngIf="question?.hint">
+          <i
+            class="icon large lightbulb"
+            (click)="dimmerIndex = qi; isDimmed = !isDimmed"
+          ></i>
+        </div>
+      </div>
+      <div *ngIf="question?.tip" class="mb-10">
+        <small class="mb-10">{{ question?.tip }}</small>
+      </div>
+      <div
+        class="sbt-page-content-questionnaireFormarea"
+        style="margin-bottom: 10px"
+      >
+        <lib-text-input
+          *ngIf="question.responseType == reponseType.TEXT"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+        ></lib-text-input>
+        <ng-container
+          *ngIf="
+            question.responseType == reponseType.PAGEQUESTIONS;
+            pageQuestions
+          "
+        >
+          <lib-main
+            [questionnaireForm]="questionnaireForm"
+            [questions]="question.pageQuestions"
+          ></lib-main>
+        </ng-container>
+        <lib-number-input
+          *ngIf="question.responseType == reponseType.NUMBER"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+        ></lib-number-input>
+        <lib-radio-input
+          *ngIf="question.responseType == reponseType.RADIO"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+          [options]="question.options"
+          (dependentParent)="toggleQuestion($event)"
+        ></lib-radio-input>
+        <lib-checkbox-input
+          *ngIf="question.responseType == reponseType.MULTISELECT"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+          [options]="question.options"
+          (dependentParent)="toggleQuestion($event)"
+        ></lib-checkbox-input>
+        <lib-range-input
+          *ngIf="question.responseType == reponseType.SLIDER"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+        ></lib-range-input>
+        <!---  <sl-date-input
+            *ngIf="question.responseType == reponseType.DATE"
+            [questionnaireForm]="questionnaireForm"
+            [question]="question"
+          ></sl-date-input>
+
+
+
+          <sl-page-questions
+            *ngIf="
+              question.responseType == reponseType.PAGEQUESTIONS;
+              pageQuestions
+            "
+            [questionnaireForm]="questionnaireForm"
+            [question]="question"
+          ></sl-page-questions>
+          <sl-matrix-questions
+            *ngIf="question.responseType == reponseType.MATRIX"
+            [questionnaireForm]="questionnaireForm"
+            [question]="question"
+          ></sl-matrix-questions>
+          <sl-ques-remarks
+            [question]="question"
+            *ngIf="question.showRemarks"
+          ></sl-ques-remarks>
+          <sl-attachment
+            [data]="{
+              submissionId: qService.getSubmissionId(),
+              files: question.fileName
+            }"
+            *ngIf="question.file"
+          ></sl-attachment> -->
+        <!-- <sl-alert-modal *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint" (closeHintEmitter)="closeHint()"></sl-alert-modal> -->
+      </div>
+    </div>
+  </div>
+</div>

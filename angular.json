@@ -3,5 +3,135 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "questionnaire-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/questionnaire-app",
+      "sourceRoot": "projects/questionnaire-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/questionnaire-app",
+            "index": "projects/questionnaire-app/src/index.html",
+            "main": "projects/questionnaire-app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/questionnaire-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/questionnaire-app/src/favicon.ico",
+              "projects/questionnaire-app/src/assets"
+            ],
+            "styles": [
+              "projects/questionnaire-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "questionnaire-app:build:production"
+            },
+            "development": {
+              "browserTarget": "questionnaire-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "questionnaire-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/questionnaire-app/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/questionnaire-app/src/favicon.ico",
+              "projects/questionnaire-app/src/assets"
+            ],
+            "styles": [
+              "projects/questionnaire-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "questionnaire-player": {
+      "projectType": "library",
+      "root": "projects/questionnaire-player",
+      "sourceRoot": "projects/questionnaire-player/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/questionnaire-player/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/questionnaire-player/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/questionnaire-player/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/questionnaire-player/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
   }
 }

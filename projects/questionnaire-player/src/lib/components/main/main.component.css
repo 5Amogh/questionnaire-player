@@ -1,0 +1,32 @@
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.section-header-style {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 0;
+  color: rebeccapurple !important;
+}
+.help {
+  font-size: 30px;
+  z-index: 557;
+  margin-right: 15px;
+  position: absolute;
+  color: grey;
+}
+
+/* ::ng-deep{
+    .mat-accent{
+        --mat-option-selected-state-label-text-color: rebeccapurple !important;
+      }
+} */
+
+
+.activeCard {
+  background-color: white;
+  border-left: solid 10px transparent;
+  transition: border-left 0.5s ease;
+}
+.activeCard:hover {
+  border-left: solid 10px rebeccapurple;
+}
