@@ -8227,7 +8227,7 @@ export class AppComponent {
                           "externalId": "D1CQ1_1630069778179-1630069803723",
                           "tip": "",
                           "hint": "",
-                          "responseType": "text",
+                          "responseType": "number",
                           "modeOfCollection": "onfield",
                           "accessibility": "No",
                           "rubricLevel": "",
@@ -8261,12 +8261,14 @@ export class AppComponent {
                               {
                                   "value": "R1",
                                   "label": "Yes",
-                                  "score": 0
+                                  "score": 0,
+                                  "hint":"This is an hint for the option yes"
                               },
                               {
                                   "value": "R2",
                                   "label": "Not Yet",
-                                  "score": 0
+                                  "score": 0,
+                                  "hint":"This is an hint for the option no"
                               }
                           ],
                           "sliderOptions": [],

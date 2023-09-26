@@ -37,14 +37,13 @@
         >
           <div class="sb-h5" *ngIf="q != ''" style="color: rgb(99, 55, 187)">
             {{ question.questionNumber + " . " }}&nbsp;{{ q }}
-            <hr
-              [ngStyle]="{
+            <mat-divider style="margin-top: 10px;"  [ngStyle]="{
                 'background-color':
                   question.responseType != 'pageQuestions'
                     ? 'rebeccapurple'
                     : null
-              }"
-            />
+              }">
+            </mat-divider>
           </div>
         </div>
         <div *ngIf="question?.hint">
@@ -54,11 +53,10 @@
           ></i>
         </div>
       </div>
-      <div *ngIf="question?.tip" class="mb-10">
-        <small class="mb-10">{{ question?.tip }}</small>
-      </div>
+      <ng-container *ngIf="question?.tip">
+        <p style="font-size: smaller;color: gray;">{{ question?.tip }}</p>
+      </ng-container>
       <div
-        class="sbt-page-content-questionnaireFormarea"
         style="margin-bottom: 10px"
       >
         <lib-text-input
@@ -107,16 +105,6 @@
             [question]="question"
           ></sl-date-input>
 
-
-
-          <sl-page-questions
-            *ngIf="
-              question.responseType == reponseType.PAGEQUESTIONS;
-              pageQuestions
-            "
-            [questionnaireForm]="questionnaireForm"
-            [question]="question"
-          ></sl-page-questions>
           <sl-matrix-questions
             *ngIf="question.responseType == reponseType.MATRIX"
             [questionnaireForm]="questionnaireForm"

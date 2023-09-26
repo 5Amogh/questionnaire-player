@@ -1,4 +1,15 @@
-<div [formGroup]="questionnaireForm" *ngIf="questionnaireForm?.contains(question._id)">
-    <input type="text" [formControlName]="question?._id" [ngClass]="!isValid && isTouched ? 'is-invalid ' : 'is-valid'"
-        class="sb-form-control" [placeholder]="placeholder" (change)="onChange($event)" [value]="question.value" />
-</div>
+<mat-form-field
+  style="width: 100%"
+  [formGroup]="questionnaireForm"
+  *ngIf="questionnaireForm?.contains(question._id)"
+  appearance="outline"
+>
+  <textarea
+    style="width: 100%; padding: 5px; border-radius: 5px;"
+    matInput
+    [formControlName]="question._id"
+    [placeholder]="placeholder"
+    (change)="onChange($event)"
+    [value]="question.value"
+  ></textarea>
+</mat-form-field>

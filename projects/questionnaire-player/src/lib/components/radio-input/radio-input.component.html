@@ -1,35 +1,55 @@
-<div *ngIf="questionnaireForm?.contains(question._id)">
-    <div
+<div
+  *ngIf="questionnaireForm?.contains(question._id)"
+  [formGroup]="questionnaireForm"
+>
+  <mat-radio-group [formControlName]="question._id">
+    <mat-radio-button
+      class="custom-radio"
       *ngFor="let o of options; let optionIndex = index"
-      [formGroup]="questionnaireForm"
-      class="
-        mb-15
-        sb-radio-btn-checkbox sb-radio-btn-primary
-        d-flex
-        flex-ai-baseline
-      "
-    >
-      <input
-        type="radio"
-        (change)="onChange(o.value)"
-        [name]="question._id"
-        [ngClass]="isValid && isTouched ? 'is-invalid' : 'is-valid'"
-        [value]="o.value"
-        [formControlName]="question._id"
-        id="{{question._id + o.value}}"
-      />
-      <label for="{{question._id + o.value}}">{{ o.label }}</label>
-      <div *ngIf="options && options[optionIndex]?.hint">
-        <i
+      (change)="onChange(o.value)"
+      [value]="o.value"
+      id="{{ question._id + o.value }}"
+      >{{ o.label }}
+      <ng-container *ngIf="options">
+        <!-- <mat-icon class="material-icons md-18">emoji_objects</mat-icon> -->
+        <button
+          mat-icon-button
+          matTooltip="Primary"
+          style="color: rebeccapurple"
+          aria-label="Example icon-button with a lightbulb icon"
+          (click)="openDialog(optionIndex)"
+        >
+          <mat-icon>help_outline</mat-icon>
+        </button>
+        <!--  && options[optionIndex]?.hint -->
+        <!-- <i
           class="icon large lightbulb"
-          (click)="
-            isDimmed = !isDimmed; hint = options[optionIndex]?.hint
-          "
-        ></i>
-      </div>
-    </div>
-  </div>
-  
-  <!-- <sl-alert-modal [isDimmed]="isDimmed" (closeHintEmitter)="closeHint()" [hint]="hint"></sl-alert-modal> -->
-  
-  
+         
+        > -->
+        <!--  (click)="isDimmed = !isDimmed; hint = options[optionIndex]?.hint" -->
+        <!-- </i> -->
+      </ng-container>
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <!-- <mat-radio-group
+    *ngFor="let o of options; let optionIndex = index"
+    [formGroup]="questionnaireForm"
+    style="margin-bottom: 15px; display: flex; align-items: baseline"
+  >
+    <mat-radio-button
+      (change)="onChange(o.value)"
+      [name]="question._id"
+      [ngClass]="isValid && isTouched ? 'is-invalid' : 'is-valid'"
+      [value]="o.value"
+      [formControlName]="question._id"
+      id="{{ question._id + o.value }}"
+      >{{ o.label }}</mat-radio-button
+    >
+    <label for="{{question._id + o.value}}"></label> 
+ 
+  </mat-radio-group> -->
+</div>
+
+<lib-dialog [isDimmed]="isDimmed" (closeHintEmitter)="closeHint()" [hint]="hint"></lib-dialog>
+<!-- <sl-alert-modal [isDimmed]="isDimmed" (closeHintEmitter)="closeHint()" [hint]="hint"></sl-alert-modal> -->

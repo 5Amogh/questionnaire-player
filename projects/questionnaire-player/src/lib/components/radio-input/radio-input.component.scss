@@ -1,0 +1,11 @@
+mat-radio-button{
+    display: block;
+    margin-bottom: 10px;
+}
+
+::ng-deep{
+    .custom-radio .mdc-label{
+        display: flex;
+        align-items: center;
+    }
+}

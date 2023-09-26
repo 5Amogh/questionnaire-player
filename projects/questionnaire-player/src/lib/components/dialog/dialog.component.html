@@ -1,0 +1,15 @@
+<ng-template #modal>
+    <div style="padding: 10px 0;">
+        <div mat-dialog-title style="display: flex;flex-direction: row;align-items: center;color:rebeccapurple;gap: 3px;justify-content: flex-start;padding: 0 10px;"><mat-icon>info</mat-icon>{{ hintModalNote }}</div>
+        <mat-divider></mat-divider>
+        <h2 mat-dialog-content style="align-items: self-start;">
+          {{ hint }}
+        </h2>
+        <div mat-dialog-actions style="display: flex; justify-content: center">
+          <button mat-button mat-dialog-close (click)="(closeHint)" style="background-color: rebeccapurple;border-radius: 20px;color: white;">
+            {{ hintCloseText }}
+          </button>
+        </div>
+    </div>
+
+</ng-template>

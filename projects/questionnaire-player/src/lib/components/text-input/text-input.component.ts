@@ -5,7 +5,7 @@ import { Question } from '../../interfaces/questionnaire.type';
 @Component({
   selector: 'lib-text-input',
   templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+  styleUrls: ['./text-input.component.scss']
 })
 export class TextInputComponent implements OnInit {
   text: string;

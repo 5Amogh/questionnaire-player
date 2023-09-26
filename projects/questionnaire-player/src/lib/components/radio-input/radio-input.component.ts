@@ -1,25 +1,27 @@
-import { Output } from '@angular/core';
+import { Output, TemplateRef, ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Question } from '../../interfaces/questionnaire.type';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'lib-radio-input',
   templateUrl: './radio-input.component.html',
-  styleUrls: ['./radio-input.component.css'],
+  styleUrls: ['./radio-input.component.scss'],
 })
 export class RadioInputComponent implements OnInit {
   @Input() options: any;
   @Input() questionnaireForm: FormGroup;
   @Input() question: Question;
   hintCloseText: string;
-  hintModalNote:string;
+  hintModalNote: string;
   @Output() dependentParent = new EventEmitter<Question>();
+  @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   isDimmed: any;
   hint: any;
-
-  constructor(){}
+  constructor() { }
 
   ngOnInit() {
     this.hintCloseText = 'Close';
@@ -44,6 +46,12 @@ export class RadioInputComponent implements OnInit {
     });
   }
 
+  openDialog(optionIndex: number) {
+    this.isDimmed = !this.isDimmed;
+    this.hint = this.options[optionIndex]?.hint
+    this.childDialogComponent.openDialog('300ms', '150ms');
+  }
+
   get isValid(): boolean {
     return this.questionnaireForm.controls[this.question._id].valid;
   }
@@ -61,7 +69,7 @@ export class RadioInputComponent implements OnInit {
     }
   }
 
-  closeHint(){
+  closeHint() {
     this.isDimmed = false;
   }
 }
