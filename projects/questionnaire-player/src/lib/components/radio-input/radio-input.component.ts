@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Question } from '../../interfaces/questionnaire.type';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { QuestionnaireService } from '../../services/questionnaire.service';
 
 @Component({
   selector: 'lib-radio-input',
@@ -21,7 +22,7 @@ export class RadioInputComponent implements OnInit {
   @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   isDimmed: any;
   hint: any;
-  constructor() { }
+  constructor(public qService:QuestionnaireService) { }
 
   ngOnInit() {
     this.hintCloseText = 'Close';
@@ -31,7 +32,7 @@ export class RadioInputComponent implements OnInit {
         this.question._id,
         new FormControl(
           this.question.value || null,
-          // this.qService.validate(this.question)
+          this.qService.validate(this.question)
         )
       );
 

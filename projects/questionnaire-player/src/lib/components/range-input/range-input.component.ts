@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Question, Validation } from '../../interfaces/questionnaire.type';
+import { QuestionnaireService } from '../../services/questionnaire.service';
 
 @Component({
   selector: 'lib-range-input',
@@ -20,16 +21,15 @@ export class RangeInputComponent implements OnInit {
     // hideLimitLabels:true,
     // showSelectionBar:true
   };
-  constructor() {}
+  constructor(public qService:QuestionnaireService) {}
 
   ngOnInit() {
     setTimeout(() => {
       this.questionnaireForm.addControl(
         this.question._id,
-        new FormControl(this.question.value || +this.min)
-        //  [
-          // this.qService.validate(this.question),
-        // ]
+        new FormControl(this.question.value || +this.min, [
+          this.qService.validate(this.question),
+        ])
       );
       this.question.startTime = this.question.startTime
         ? this.question.startTime

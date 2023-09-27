@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Question, ResponseType } from '../../interfaces/questionnaire.type';
 import { FormGroup } from '@angular/forms';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'lib-main',
@@ -10,6 +11,7 @@ import { FormGroup } from '@angular/forms';
 export class MainComponent {
   @Input() questions: Array<Question>;
   @Input() questionnaireForm: FormGroup;
+  @ViewChild(DialogComponent) childDialogComponent:DialogComponent;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;
@@ -20,6 +22,12 @@ export class MainComponent {
 
   public get reponseType(): typeof ResponseType {
     return ResponseType;
+  }
+
+  openDialog(questionIndex:number) {
+    this.dimmerIndex = questionIndex;
+    this.isDimmed = !this.isDimmed;
+    this.childDialogComponent.openDialog('300ms', '150ms');
   }
 
   toggleQuestion(parent) {

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Question } from '../../interfaces/questionnaire.type';
+import { QuestionnaireService } from '../../services/questionnaire.service';
 
 @Component({
   selector: 'lib-number-input',
@@ -12,17 +13,16 @@ export class NumberInputComponent implements OnInit {
   response: string;
   @Input() questionnaireForm: FormGroup;
   @Input() question: Question;
-  constructor() {}
+  constructor(public qService:QuestionnaireService) {}
 
   ngOnInit() {
     this.placeholder = 'Enter your response';
     setTimeout(() => {
       this.questionnaireForm.addControl(
         this.question._id,
-        new FormControl(this.question.value || null)
-        // , [
-        //   this.qService.validate(this.question),
-        // ]
+        new FormControl(this.question.value || null, [
+          this.qService.validate(this.question),
+        ])
       );
       this.question.startTime = this.question.startTime
         ? this.question.startTime

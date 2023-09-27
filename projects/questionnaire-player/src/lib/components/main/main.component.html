@@ -46,12 +46,18 @@
             </mat-divider>
           </div>
         </div>
-        <div *ngIf="question?.hint">
-          <i
-            class="icon large lightbulb"
-            (click)="dimmerIndex = qi; isDimmed = !isDimmed"
-          ></i>
-        </div>
+          <ng-container *ngIf="question?.hint">
+            <button
+              mat-icon-button
+              matTooltip="Primary"
+              style="color: rebeccapurple"
+              aria-label="Example icon-button with a lightbulb icon"
+              (click)="openDialog(qi)"
+            >
+            <mat-icon>emoji_objects_outline</mat-icon>
+          </button>
+          </ng-container>
+
       </div>
       <ng-container *ngIf="question?.tip">
         <p style="font-size: smaller;color: gray;">{{ question?.tip }}</p>
@@ -121,7 +127,7 @@
             }"
             *ngIf="question.file"
           ></sl-attachment> -->
-        <!-- <sl-alert-modal *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint" (closeHintEmitter)="closeHint()"></sl-alert-modal> -->
+        <lib-dialog *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint" (closeHintEmitter)="closeHint()"></lib-dialog>
       </div>
     </div>
   </div>

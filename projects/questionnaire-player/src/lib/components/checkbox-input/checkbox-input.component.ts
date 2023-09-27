@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Question } from '../../interfaces/questionnaire.type';
+import { QuestionnaireService } from '../../services/questionnaire.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'lib-checkbox-input',
@@ -14,9 +16,10 @@ export class CheckboxInputComponent implements OnInit {
   hintCloseText: string;
   hintModalNote:string
   @Output() dependentParent = new EventEmitter<Question>();
+  @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   isDimmed: any;
   hint: any;
-  constructor() {}
+  constructor(public qService: QuestionnaireService) {}
 
   ngOnInit() {
     this.hintCloseText = 'Close';
@@ -34,8 +37,7 @@ export class CheckboxInputComponent implements OnInit {
 
       this.questionnaireForm.addControl(
         this.question._id,
-        new FormArray(optionControl)
-        // this.qService.validate(this.question)
+        new FormArray(optionControl, this.qService.validate(this.question))
       );
 
       this.question.startTime = this.question.startTime
@@ -47,6 +49,12 @@ export class CheckboxInputComponent implements OnInit {
         }
       }
     });
+  }
+
+  openDialog(optionIndex: number) {
+    this.isDimmed = !this.isDimmed;
+    this.hint = this.options[optionIndex]?.hint
+    this.childDialogComponent.openDialog('300ms', '150ms');
   }
 
   onChange(oId: string, isChecked: boolean, oIndex: number) {

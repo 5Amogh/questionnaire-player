@@ -1,26 +1,33 @@
 <div *ngIf="questionnaireForm?.contains(question._id)">
-    <div
-      *ngFor="let o of options; let i = index"
-      [formGroup]="questionnaireForm"
-      class="mb-15 sb-checkbox sb-checkbox-secondary d-flex flex-ai-baseline"
-    >
-      <div [formArrayName]="question._id">
-        <mat-checkbox
-          (change)="onChange(o.value, $event.checked, i)"
-          [formControlName]="i"
-        >
-          {{ o.label }}
-        </mat-checkbox>
-      </div>
-      <div *ngIf="question?.option && question?.option[i]?.hint">
-        <i
-          class="icon large lightbulb"
-          (click)="isDimmed = !isDimmed; hint = question?.option[i]?.hint"
-        ></i>
-      </div>
+  <div
+    *ngFor="let o of options; let i = index"
+    [formGroup]="questionnaireForm"
+    class="mb-15 sb-checkbox sb-checkbox-secondary d-flex flex-ai-baseline"
+  >
+    <div [formArrayName]="question._id">
+      <mat-checkbox
+        (change)="onChange(o.value, $event.checked, i)"
+        [formControlName]="i"
+      >
+        {{ o.label }}
+      </mat-checkbox>
     </div>
+    <ng-container *ngIf="question?.option && question?.option[i]?.hint">
+      <button
+        mat-icon-button
+        matTooltip="Primary"
+        style="color: rebeccapurple"
+        aria-label="Example icon-button with a lightbulb icon"
+        (click)="openDialog(i)"
+      >
+      <mat-icon>emoji_objects_outline</mat-icon>
+    </button>
+    </ng-container>
   </div>
-  
-  <!-- <sl-alert-modal [isDimmed]="isDimmed" [hint]="hint" (closeHintEmitter)="closeHint()"></sl-alert-modal> -->
-  
-  
+</div>
+
+<lib-dialog
+  [isDimmed]="isDimmed"
+  [hint]="hint"
+  (closeHintEmitter)="closeHint()"
+></lib-dialog>
