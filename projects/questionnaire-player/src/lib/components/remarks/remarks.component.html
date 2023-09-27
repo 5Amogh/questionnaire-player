@@ -1,0 +1,32 @@
+<div style="display: flex; align-items: center; justify-content: space-between">
+  <h5 class="my-10">{{ title }}</h5>
+  <button class="btn" *ngIf="!remark.length" (click)="showRemarks = true">
+    {{ remarksAddText }}
+  </button>
+
+  <button
+    *ngIf="remark.length"
+    mat-icon-button
+    matTooltip="Primary"
+    style="color: rebeccapurple"
+    aria-label="Example icon-button with a delete icon"
+    (click)="deleteRemark()"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+
+<mat-form-field
+  style="display: flex; align-items: flex-end"
+  *ngIf="showRemarks"
+  appearance="outline"
+>
+  <textarea
+    matInput
+    placeholder="Add a remark"
+    rows="3"
+    style="width: 100%"
+    [(ngModel)]="remark"
+    (ngModelChange)="saveRemark()"
+  ></textarea>
+</mat-form-field>

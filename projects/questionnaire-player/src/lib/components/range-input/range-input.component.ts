@@ -17,9 +17,6 @@ export class RangeInputComponent implements OnInit {
     showTicks:true,
     max:null,
     min:null
-    // hidePointerLabels:true,
-    // hideLimitLabels:true,
-    // showSelectionBar:true
   };
   constructor(public qService:QuestionnaireService) {}
 
@@ -50,8 +47,7 @@ export class RangeInputComponent implements OnInit {
     },100);
   }
 
-  onChange(e) {
-    let value = e.value;
+  onChange(value) {
     this.question.value = value;
     this.question.endTime = Date.now();
   }

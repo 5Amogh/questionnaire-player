@@ -37,34 +37,34 @@
         >
           <div class="sb-h5" *ngIf="q != ''" style="color: rgb(99, 55, 187)">
             {{ question.questionNumber + " . " }}&nbsp;{{ q }}
-            <mat-divider style="margin-top: 10px;"  [ngStyle]="{
+            <mat-divider
+              style="margin-top: 10px"
+              [ngStyle]="{
                 'background-color':
                   question.responseType != 'pageQuestions'
                     ? 'rebeccapurple'
                     : null
-              }">
+              }"
+            >
             </mat-divider>
           </div>
         </div>
-          <ng-container *ngIf="question?.hint">
-            <button
-              mat-icon-button
-              matTooltip="Primary"
-              style="color: rebeccapurple"
-              aria-label="Example icon-button with a lightbulb icon"
-              (click)="openDialog(qi)"
-            >
+        <ng-container *ngIf="question?.hint">
+          <button
+            mat-icon-button
+            matTooltip="Primary"
+            style="color: rebeccapurple"
+            aria-label="Example icon-button with a lightbulb icon"
+            (click)="openDialog(qi)"
+          >
             <mat-icon>emoji_objects_outline</mat-icon>
           </button>
-          </ng-container>
-
+        </ng-container>
       </div>
       <ng-container *ngIf="question?.tip">
-        <p style="font-size: smaller;color: gray;">{{ question?.tip }}</p>
+        <p style="font-size: smaller; color: gray">{{ question?.tip }}</p>
       </ng-container>
-      <div
-        style="margin-bottom: 10px"
-      >
+      <div style="margin-bottom: 10px">
         <lib-text-input
           *ngIf="question.responseType == reponseType.TEXT"
           [questionnaireForm]="questionnaireForm"
@@ -105,11 +105,16 @@
           [questionnaireForm]="questionnaireForm"
           [question]="question"
         ></lib-range-input>
-        <!---  <sl-date-input
-            *ngIf="question.responseType == reponseType.DATE"
-            [questionnaireForm]="questionnaireForm"
-            [question]="question"
-          ></sl-date-input>
+        <lib-date-input
+          *ngIf="question.responseType == reponseType.DATE"
+          [questionnaireForm]="questionnaireForm"
+          [question]="question"
+        ></lib-date-input>
+        <lib-remarks
+          [question]="question"
+          *ngIf="question.showRemarks"
+        ></lib-remarks>
+        <!--- 
 
           <sl-matrix-questions
             *ngIf="question.responseType == reponseType.MATRIX"
@@ -127,7 +132,12 @@
             }"
             *ngIf="question.file"
           ></sl-attachment> -->
-        <lib-dialog *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint" (closeHintEmitter)="closeHint()"></lib-dialog>
+        <lib-dialog
+          *ngIf="dimmerIndex == qi && question?.hint"
+          [isDimmed]="isDimmed"
+          [hint]="question?.hint"
+          (closeHintEmitter)="closeHint()"
+        ></lib-dialog>
       </div>
     </div>
   </div>
