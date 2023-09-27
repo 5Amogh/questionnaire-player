@@ -8399,6 +8399,554 @@ export class AppComponent {
           "name": "CURRICULUM, PEDAGOGY AND ASSESSMENT"
       }
   ]
-  
+    // this.sections = [
+    //     {
+    //         "code": "SEC1",
+    //         "questions": [
+    //             {
+    //                 "_id": "",
+    //                 "question": "",
+    //                 "isCompleted": "",
+    //                 "showRemarks": "",
+    //                 "options": "",
+    //                 "sliderOptions": "",
+    //                 "children": "",
+    //                 "questionGroup": "",
+    //                 "fileName": "",
+    //                 "instanceQuestions": "",
+    //                 "isAGeneralQuestion": "",
+    //                 "autoCapture": "",
+    //                 "allowAudioRecording": "",
+    //                 "prefillFromEntityProfile": "",
+    //                 "entityFieldName": "",
+    //                 "isEditable": "",
+    //                 "showQuestionInPreview": "",
+    //                 "deleted": "",
+    //                 "remarks": "",
+    //                 "value": "",
+    //                 "usedForScoring": "",
+    //                 "questionType": "",
+    //                 "canBeNotApplicable": "",
+    //                 "visibleIf": "",
+    //                 "validation": "",
+    //                 "file": "",
+    //                 "externalId": "",
+    //                 "tip": "",
+    //                 "hint": "",
+    //                 "responseType": "pageQuestions",
+    //                 "modeOfCollection": "",
+    //                 "accessibility": "",
+    //                 "rubricLevel": "",
+    //                 "sectionHeader": "",
+    //                 "page": "p1",
+    //                 "questionNumber": "",
+    //                 "updatedAt": "",
+    //                 "createdAt": "",
+    //                 "__v": "",
+    //                 "createdFromQuestionId": "",
+    //                 "evidenceMethod": "",
+    //                 "payload": "",
+    //                 "startTime": "",
+    //                 "endTime": "",
+    //                 "gpsLocation": "",
+    //                 "pageQuestions": [
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef44d",
+    //                         "question": [
+    //                             "drag the slider to give rating",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [],
+    //                         "sliderOptions": [],
+    //                         "children": [],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": false,
+    //                         "allowAudioRecording": false,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "1",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true,
+    //                             "max": "10",
+    //                             "min": "1"
+    //                         },
+    //                         "file": {
+    //                             "required": true,
+    //                             "type": [
+    //                                 "image/jpeg",
+    //                                 "docx",
+    //                                 "pdf",
+    //                                 "ppt"
+    //                             ],
+    //                             "minCount": 0,
+    //                             "maxCount": 10,
+    //                             "caption": "FALSE"
+    //                         },
+    //                         "externalId": "Q1_1669631123159-1669631127657",
+    //                         "tip": "",
+    //                         "hint": "",
+    //                         "responseType": "slider",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p1",
+    //                         "questionNumber": "1",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.634Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3cf",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "slider",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792507945,
+    //                         "endTime": "",
+    //                         "gpsLocation": ""
+    //                     },
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef44e",
+    //                         "question": [
+    //                             "enter the current date",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [],
+    //                         "sliderOptions": [],
+    //                         "children": [],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": true,
+    //                         "allowAudioRecording": false,
+    //                         "weightage": 0,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true,
+    //                             "max": "",
+    //                             "min": ""
+    //                         },
+    //                         "dateFormat": "DD-MM-YYYY",
+    //                         "externalId": "Q2_1669631123159-1669631127660",
+    //                         "tip": "Here is the tip",
+    //                         "hint": "",
+    //                         "responseType": "date",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p1",
+    //                         "questionNumber": "2",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.645Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3d5",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "date",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792507972,
+    //                         "endTime": "",
+    //                         "gpsLocation": "",
+    //                         "file": ""
+    //                     },
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef44f",
+    //                         "question": [
+    //                             "enter any number you want",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [],
+    //                         "sliderOptions": [],
+    //                         "children": [],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": false,
+    //                         "allowAudioRecording": false,
+    //                         "weightage": 0,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true,
+    //                             "IsNumber": "true"
+    //                         },
+    //                         "externalId": "Q3_1669631123159-1669631127661",
+    //                         "tip": "",
+    //                         "hint": "",
+    //                         "responseType": "number",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p1",
+    //                         "questionNumber": "3",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.655Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3db",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "number",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792507984,
+    //                         "endTime": "",
+    //                         "gpsLocation": "",
+    //                         "file": ""
+    //                     },
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef450",
+    //                         "question": [
+    //                             "MPG extension refers usually to what kind of file?",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [
+    //                             {
+    //                                 "value": "R1",
+    //                                 "label": "L: Does not state the lesson objective(s), nor can one be inferred from the lesson activities"
+    //                             },
+    //                             {
+    //                                 "value": "R2",
+    //                                 "label": "Achieve the required enrolment with equal focus towards all sections by involving parents and influential community members in reviewing progress and addressing gaps."
+    //                             },
+    //                             {
+    //                                 "value": "R3",
+    //                                 "label": "Regularly conduct reviews of the efforts made by schools towards increasing enrolment with equal focus"
+    //                             },
+    //                             {
+    //                                 "value": "R4",
+    //                                 "label": "Sometimes take feedback from school principals on the progress in increasing the overall school enrolment"
+    //                             },
+    //                             {
+    //                                 "value": "R5",
+    //                                 "label": "Focus on identified key gaps in community and review the progress towards filling it."
+    //                             }
+    //                         ],
+    //                         "sliderOptions": [],
+    //                         "children": [],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": false,
+    //                         "allowAudioRecording": false,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true
+    //                         },
+    //                         "externalId": "Q4_1669631123159-1669631127661",
+    //                         "tip": "Here is the tip",
+    //                         "hint": "",
+    //                         "responseType": "radio",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p1",
+    //                         "questionNumber": "4",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.665Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3e1",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "radio",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792507989,
+    //                         "endTime": "",
+    //                         "gpsLocation": "",
+    //                         "file": ""
+    //                     }
+    //                 ]
+    //             },
+    //             {
+    //                 "_id": "",
+    //                 "question": "",
+    //                 "isCompleted": "",
+    //                 "showRemarks": "",
+    //                 "options": "",
+    //                 "sliderOptions": "",
+    //                 "children": "",
+    //                 "questionGroup": "",
+    //                 "fileName": "",
+    //                 "instanceQuestions": "",
+    //                 "isAGeneralQuestion": "",
+    //                 "autoCapture": "",
+    //                 "allowAudioRecording": "",
+    //                 "prefillFromEntityProfile": "",
+    //                 "entityFieldName": "",
+    //                 "isEditable": "",
+    //                 "showQuestionInPreview": "",
+    //                 "deleted": "",
+    //                 "remarks": "",
+    //                 "value": "",
+    //                 "usedForScoring": "",
+    //                 "questionType": "",
+    //                 "canBeNotApplicable": "",
+    //                 "visibleIf": "",
+    //                 "validation": "",
+    //                 "file": "",
+    //                 "externalId": "",
+    //                 "tip": "",
+    //                 "hint": "",
+    //                 "responseType": "pageQuestions",
+    //                 "modeOfCollection": "",
+    //                 "accessibility": "",
+    //                 "rubricLevel": "",
+    //                 "sectionHeader": "",
+    //                 "page": "p2",
+    //                 "questionNumber": "",
+    //                 "updatedAt": "",
+    //                 "createdAt": "",
+    //                 "__v": "",
+    //                 "createdFromQuestionId": "",
+    //                 "evidenceMethod": "",
+    //                 "payload": "",
+    //                 "startTime": "",
+    //                 "endTime": "",
+    //                 "gpsLocation": "",
+    //                 "pageQuestions": [
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef451",
+    //                         "question": [
+    //                             "enter date of birth",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [],
+    //                         "sliderOptions": [],
+    //                         "children": [],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": true,
+    //                         "allowAudioRecording": false,
+    //                         "weightage": 0,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true,
+    //                             "max": "",
+    //                             "min": ""
+    //                         },
+    //                         "dateFormat": "DD-MM-YYYY",
+    //                         "file": {
+    //                             "required": true,
+    //                             "type": [
+    //                                 "image/jpeg",
+    //                                 "docx",
+    //                                 "pdf",
+    //                                 "ppt"
+    //                             ],
+    //                             "minCount": 0,
+    //                             "maxCount": 10,
+    //                             "caption": "FALSE"
+    //                         },
+    //                         "externalId": "Q5_1669631123159-1669631127662",
+    //                         "tip": "",
+    //                         "hint": "",
+    //                         "responseType": "date",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p2",
+    //                         "questionNumber": "5",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.696Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3e7",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "date",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792507997,
+    //                         "endTime": "",
+    //                         "gpsLocation": ""
+    //                     },
+    //                     {
+    //                         "_id": "63848c97a1d0c60008cef452",
+    //                         "question": [
+    //                             "Who developed Yahoo?",
+    //                             ""
+    //                         ],
+    //                         "isCompleted": false,
+    //                         "showRemarks": false,
+    //                         "options": [
+    //                             {
+    //                                 "value": "R1",
+    //                                 "label": "Grade 1"
+    //                             },
+    //                             {
+    //                                 "value": "R2",
+    //                                 "label": "Call for a meeting with all principals and some teachers and attentively listen to their concerns. Share the maximum information in verbal and written format at the earliest."
+    //                             },
+    //                             {
+    //                                 "value": "R3",
+    //                                 "label": "Share all information that he has through meetings"
+    //                             },
+    //                             {
+    //                                 "value": "R4",
+    //                                 "label": "Listen attentively to all principals and seek various perspectives on how the change could be implemented smoothly."
+    //                             },
+    //                             {
+    //                                 "value": "R5",
+    //                                 "label": "Listen to the concerns of a selected group of principals through meetings."
+    //                             }
+    //                         ],
+    //                         "sliderOptions": [],
+    //                         "children": [
+    //                             "63848c97a1d0c60008cef455"
+    //                         ],
+    //                         "questionGroup": [
+    //                             "A1"
+    //                         ],
+    //                         "fileName": [],
+    //                         "instanceQuestions": [],
+    //                         "isAGeneralQuestion": false,
+    //                         "autoCapture": false,
+    //                         "allowAudioRecording": false,
+    //                         "prefillFromEntityProfile": false,
+    //                         "entityFieldName": "",
+    //                         "isEditable": true,
+    //                         "showQuestionInPreview": false,
+    //                         "deleted": false,
+    //                         "remarks": "",
+    //                         "value": "",
+    //                         "usedForScoring": "",
+    //                         "questionType": "auto",
+    //                         "canBeNotApplicable": "false",
+    //                         "visibleIf": "",
+    //                         "validation": {
+    //                             "required": true
+    //                         },
+    //                         "file": {
+    //                             "required": true,
+    //                             "type": [
+    //                                 "image/jpeg",
+    //                                 "docx",
+    //                                 "pdf",
+    //                                 "ppt"
+    //                             ],
+    //                             "minCount": 0,
+    //                             "maxCount": 10,
+    //                             "caption": "FALSE"
+    //                         },
+    //                         "externalId": "Q6_1669631123159-1669631127663",
+    //                         "tip": "",
+    //                         "hint": "",
+    //                         "responseType": "radio",
+    //                         "modeOfCollection": "onfield",
+    //                         "accessibility": "No",
+    //                         "rubricLevel": "",
+    //                         "sectionHeader": "CPU",
+    //                         "page": "p2",
+    //                         "questionNumber": "6",
+    //                         "updatedAt": "2022-11-28T10:25:27.686Z",
+    //                         "createdAt": "2022-11-28T10:25:26.709Z",
+    //                         "__v": 0,
+    //                         "createdFromQuestionId": "63848c96a1d0c60008cef3ed",
+    //                         "evidenceMethod": "D1_1669631123159",
+    //                         "payload": {
+    //                             "criteriaId": "63848c97a1d0c60008cef474",
+    //                             "responseType": "radio",
+    //                             "evidenceMethod": "D1_1669631123159",
+    //                             "rubricLevel": ""
+    //                         },
+    //                         "startTime": 1695792508005,
+    //                         "endTime": "",
+    //                         "gpsLocation": ""
+    //                     }
+    //                 ]
+    //             }
+    //         ],
+    //         "name": "observation questions"
+    //     }
+    // ]
   }
 }
