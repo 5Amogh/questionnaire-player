@@ -15,13 +15,6 @@
   color: grey;
 }
 
-/* ::ng-deep{
-    .mat-accent{
-        --mat-option-selected-state-label-text-color: rebeccapurple !important;
-      }
-} */
-
-
 .activeCard {
   background-color: white;
   border-left: solid 10px transparent;

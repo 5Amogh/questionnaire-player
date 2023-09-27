@@ -1,3 +1,9 @@
+::ng-deep{
+    div.mat-mdc-form-field-subscript-wrapper{
+        display: none !important;
+    }
+}
+
 .btn{
     background-color:rebeccapurple;
     color: white;

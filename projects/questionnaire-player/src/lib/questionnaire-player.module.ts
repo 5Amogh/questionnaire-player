@@ -1,4 +1,4 @@
-import { Injector, NgModule } from '@angular/core';
+import { Injector, LOCALE_ID, NgModule } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 import { CommonModule } from '@angular/common';
 import { createCustomElement } from '@angular/elements';
@@ -20,6 +20,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatNativeDateModule,
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateInputValidatorDirective } from './directives/date-input-validator.directive';
+import { RemarksComponent } from './components/remarks/remarks.component';
+const MAT_CUSTOM_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMM YYYY',
+    weekDayA11yLabel: 'ddd',
+  },
+};
 @NgModule({
   declarations: [
     MainComponent,
@@ -29,7 +51,9 @@ import { MatDividerModule } from '@angular/material/divider';
     NumberInputComponent,
     RadioInputComponent,
     RangeInputComponent,
-    DialogComponent
+    DialogComponent,
+    DateInputValidatorDirective,
+    RemarksComponent,
   ],
   imports: [
     CommonModule,
@@ -44,9 +68,26 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [],
+  providers: [
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MAT_CUSTOM_DATE_FORMATS,
+    },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'en-in',
+    },
+  ],
 })
 export class QuestionnairePlayerModule {
   constructor(private injector: Injector) {
