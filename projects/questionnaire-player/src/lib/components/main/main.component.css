@@ -7,14 +7,6 @@
   margin-bottom: 0;
   color: rebeccapurple !important;
 }
-.help {
-  font-size: 30px;
-  z-index: 557;
-  margin-right: 15px;
-  position: absolute;
-  color: grey;
-}
-
 .activeCard {
   background-color: white;
   border-left: solid 10px transparent;

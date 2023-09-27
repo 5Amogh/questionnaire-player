@@ -121,10 +121,6 @@
             [questionnaireForm]="questionnaireForm"
             [question]="question"
           ></sl-matrix-questions>
-          <sl-ques-remarks
-            [question]="question"
-            *ngIf="question.showRemarks"
-          ></sl-ques-remarks>
           <sl-attachment
             [data]="{
               submissionId: qService.getSubmissionId(),
