@@ -30,6 +30,9 @@ import {
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateInputValidatorDirective } from './directives/date-input-validator.directive';
 import { RemarksComponent } from './components/remarks/remarks.component';
+import { AttachmentComponent } from './components/attachment/attachment.component';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { AlertComponent } from './components/alert/alert.component';
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -54,6 +57,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     DialogComponent,
     DateInputValidatorDirective,
     RemarksComponent,
+    AttachmentComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +76,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule
   ],
   exports: [],
   providers: [

@@ -1,0 +1,49 @@
+input[type="file"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+.btn {
+  background-color: rebeccapurple;
+  color: white;
+  border: solid transparent 1px;
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.iconList {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-direction: column-reverse;
+}
+
+.btn:hover {
+  background-color: white;
+  color: rebeccapurple;
+  border: solid rebeccapurple 1px;
+}
+
+mat-icon.customizeIcon {
+  color: rebeccapurple;
+  height: unset !important;
+  width: unset !important;
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.cancelIcon {
+  position: absolute;
+  cursor: pointer;
+  top: -10px;
+  right: -15px;
+}
+
+// :ng-deep .mdc-tooltip__surface{
+//   background-color: rebeccapurple !important;
+//   color: white !important;
+// }

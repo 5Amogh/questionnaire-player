@@ -1,0 +1,184 @@
+<div style="display: flex; justify-content: center; align-items: center">
+  <span class="btn">
+    <input
+      type="file"
+      id="fileInput"
+      (change)="basicUpload($event)"
+      hidden
+    />
+    <label
+      for="fileInput"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      "
+    >
+      <mat-icon>cloud_upload</mat-icon> Upload
+    </label>
+  </span>
+</div>
+<!-- <label for="file-upload" class="custom-file-upload"></label>
+<input
+  id="file-upload"
+  type="file"
+  #file
+  (change)="basicUpload($event)"
+/>
+<div style="display: flex;">
+  <div class="bs-1 attachment" (click)="onAddApproval(file)">
+    <i class="plus icon"></i>
+    <div class="files">{{files}}</div>
+  </div>
+  <div
+    *ngFor="let item of data.files; let i = index"
+    (click)="openFile(item)"
+    class="area"
+  >
+    <a
+      class="remove-image"
+      (click)="$event.stopPropagation(); deleteAttachment(i)"
+      >&#215;</a
+    >
+    <div [ngSwitch]="extension(item.name)">
+    <div *ngSwitchCase = "'png'" class="mx-10">
+      <i class="file image outline icon"></i>
+    </div>
+    <div *ngSwitchCase = "'jpg'" class="mx-10">
+      <i class="file image outline icon"></i>
+    </div>
+    <div *ngSwitchCase = "'jpeg'" class="mx-10">
+      <i class="file image outline icon"></i>
+    </div>
+    <div *ngSwitchCase = "'pdf'" class="mx-10">
+      <i class="file pdf outline icon"></i>
+    </div>
+    <div *ngSwitchCase = "'mp4'" class="mx-10">
+      <i class="file video outline icon"></i>
+    </div>
+    <div *ngSwitchCase = "'mp3'" class="mx-10">
+      <i class="file audio outline icon"></i>
+    </div>
+    <div *ngSwitchDefault class="mx-10">
+      <i class="file alternate outline icon"></i>
+    </div>
+  </div>
+  </div>
+</div> -->
+
+<div
+  style="display: flex; flex-direction: row; gap: 20px; color: rebeccapurple"
+>
+  <ng-container *ngFor="let file of selectedFiles; let i = index">
+    <ng-container [ngSwitch]="extension(file)">
+      <div *ngSwitchCase="'png'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded image"
+          matTooltipClass="tooltip"
+          >image</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded image"
+          class="cancelIcon"
+          (click)="deleteAttachment()"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchCase="'jpg'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded image"
+          (click)="deleteAttachment()"
+          matTooltipClass="tooltip"
+          >image</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded image"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchCase="'jpeg'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded image"
+          matTooltipClass="tooltip"
+          >image</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded image"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          (click)="deleteAttachment()"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchCase="'pdf'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded image"
+          matTooltipClass="tooltip"
+          >picture_as_pdf</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded pdf"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchCase="'mp4'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded video"
+          matTooltipClass="tooltip"
+          >video_file</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded video"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchCase="'mp3'" class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View/listen to the uploaded audio"
+          matTooltipClass="tooltip"
+          >audio_file</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded audio"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          >cancel</mat-icon
+        >
+      </div>
+      <div *ngSwitchDefault class="iconList">
+        <mat-icon
+          class="customizeIcon"
+          matTooltip="View the uploaded file"
+          matTooltipClass="tooltip"
+          >description</mat-icon
+        >
+        <mat-icon
+          style="color: rgb(150, 4, 4)"
+          matTooltip="Remove the uploaded file"
+          class="cancelIcon"
+          matTooltipClass="tooltip"
+          >cancel</mat-icon
+        >
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
