@@ -15,10 +15,10 @@
     <ng-container *ngIf="question?.option && question?.option[i]?.hint">
       <button
         mat-icon-button
-        matTooltip="Primary"
         style="color: rebeccapurple"
-        aria-label="Example icon-button with a lightbulb icon"
+        aria-label="Icon-button with a lightbulb icon"
         (click)="openDialog(i)"
+        matTooltip="Hint about the option"
       >
       <mat-icon>emoji_objects_outline</mat-icon>
     </button>

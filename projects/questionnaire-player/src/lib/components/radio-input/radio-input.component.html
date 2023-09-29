@@ -13,9 +13,9 @@
       <ng-container *ngIf="question?.option && question?.option[optionIndex]?.hint">
         <button
           mat-icon-button
-          matTooltip="Primary"
           style="color: rebeccapurple"
-          aria-label="Example icon-button with a lightbulb icon"
+          aria-label="Icon-button with a lightbulb icon"
+          matTooltip="Hint about the option"
           (click)="openDialog(optionIndex)"
         >
           <mat-icon>emoji_objects_outline</mat-icon>
