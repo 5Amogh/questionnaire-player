@@ -1,30 +1,39 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Question, ResponseType } from '../../interfaces/questionnaire.type';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
+import { QuestionnaireService } from '../../services/questionnaire.service';
 
 @Component({
   selector: 'lib-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   @Input() questions: Array<Question>;
-  @Input() questionnaireForm: FormGroup;
-  @ViewChild(DialogComponent) childDialogComponent:DialogComponent;
+  questionnaireForm: FormGroup;
+  @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;
 
-  constructor(
-    // public qService: SlQuestionnaireService
-  ) {}
+  constructor(public fb: FormBuilder, public qService: QuestionnaireService) {}
 
   public get reponseType(): typeof ResponseType {
     return ResponseType;
   }
 
-  openDialog(questionIndex:number) {
+  ngOnInit(): void {
+    if (typeof this.questions === 'string') {
+      try {
+        this.questions = JSON.parse(this.questions);
+      } catch (error){
+        console.log("Invalid Question Structure",error)
+      }
+    }
+    this.questionnaireForm = this.fb.group({});
+  }
+  openDialog(questionIndex: number) {
     this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;
     this.childDialogComponent.openDialog('300ms', '150ms');
