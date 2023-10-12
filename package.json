@@ -6,9 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-web-comp":"ng build --project questionnaire-webcomponent --configuration production --output-hashing none && node ./build-wc.js"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^16.2.0",
     "@angular/common": "^16.2.0",
@@ -21,6 +22,8 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "concat": "^1.0.3",
+    "fs-extra": "^11.1.1",
     "questionnaire-player": "file:dist/questionnaire-player/questionnaire-player-0.0.1.tgz",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
