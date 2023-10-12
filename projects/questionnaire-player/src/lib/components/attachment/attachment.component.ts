@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AlertMeta } from '../../interfaces/alert.type';
 import { UtilsService } from '../../services/utils.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
 import { AlertComponent } from '../alert/alert.component';
 
 @Component({
@@ -14,7 +12,7 @@ export class AttachmentComponent {
   @Input() data;
   @Input() fileSizeLimit: number = 50;
   formData;
-  constructor(private utils: UtilsService, private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {}
 
   selectedFiles = [];
 
@@ -51,7 +49,6 @@ export class AttachmentComponent {
     });
     let userAcceptance;
     dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
       userAcceptance = res;
     });
     return userAcceptance;

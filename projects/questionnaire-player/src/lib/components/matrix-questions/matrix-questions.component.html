@@ -1,0 +1,51 @@
+<div class="d-flex flex-jc-flex-end">
+    <button class="sb-btn sb-btn-normal sb-btn-primary" (click)="addInstances()">
+        {{ addText }}
+        {{ question?.instanceIdentifier }}
+    </button>
+</div>
+<div class="ui card student-card" *ngFor="let instance of question?.value; let i = index">
+    <div class="content flex-jc-space-between">
+        <div (click)="viewInstance(i)" style="flex: 1" class="d-flex flex-dc px-10" [ngClass]="{
+          'valid-response':
+           formAsArray?.controls[i].valid
+        }">
+            <span> {{ question?.instanceIdentifier }} {{ i + 1 }}</span>
+            <span class="fs-0-785 modified" *ngIf="instanceLastUpdated[i]">Last Updated On : {{instanceLastUpdated[i]
+                |date:'short'}}</span>
+        </div>
+        <div>
+            <i class="trash large icon" (click)="deleteInstanceAlert(i)"></i>
+        </div>
+    </div>
+</div>
+
+<ng-template *ngIf="showBadgeAssingModel" #modal>
+    <div mat-dialog-title style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: rebeccapurple;
+            gap: 3px;
+            justify-content: flex-start;
+            padding: 0 10px;
+          ">
+        {{ context?.heading }}
+    </div>
+    <div mat-dialog-content>
+       <ng-container *ngTemplateOutlet="libMainTemplateRef"></ng-container>
+    </div>
+    <div mat-dialog-actions>
+        <button [disabled]="!matrixForm?.valid" type="button" (click)="matrixSubmit(context.index)" [ngClass]="{
+          'sb-btn sb-btn-normal': true,
+          'sb-btn-primary': matrixForm?.valid,
+          'sb-btn-disabled': !matrixForm?.valid
+        }">
+            {{ submitText }}
+        </button>
+        <button class="sb-btn sb-btn-normal sb-btn-outline-primary" type="button"
+            (click)="showBadgeAssingModel = false">
+            {{ cancelText }}
+        </button>
+    </div>
+</ng-template>
