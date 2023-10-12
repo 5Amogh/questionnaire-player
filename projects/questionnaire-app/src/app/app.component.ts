@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,15 +6,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  questionnaireForm!: FormGroup;
+export class AppComponent implements OnInit{
   sections!:any[]
   constructor(
     public fb: FormBuilder
   ) {}
   
   ngOnInit(){
-    this.questionnaireForm = this.fb.group({});
     this.sections =[
       {
           "code": "D1",
@@ -8948,5 +8946,1101 @@ export class AppComponent {
     //         "name": "observation questions"
     //     }
     // ]
+
+//     this.sections =[ {
+//     "code": "S1",
+//     "questions": [
+//         {
+//             "_id": "64ae98f3c60fd10008694bf5",
+//             "question": [
+//                 "Are you currently living in the vicinity of the school?",
+//                 ""
+//             ],
+//             "isCompleted": false,
+//             "showRemarks": false,
+//             "options": [
+//                 {
+//                     "value": "R1",
+//                     "label": "Yes"
+//                 },
+//                 {
+//                     "value": "R2",
+//                     "label": "No"
+//                 },
+//                 {
+//                     "value": "R3",
+//                     "label": "a"
+//                 },
+//                 {
+//                     "value": "R4",
+//                     "label": "b"
+//                 },
+//                 {
+//                     "value": "R5",
+//                     "label": "c"
+//                 }
+//             ],
+//             "sliderOptions": [],
+//             "children": [
+//                 "64ae98f3c60fd10008694bf6"
+//             ],
+//             "questionGroup": [
+//                 "A1"
+//             ],
+//             "fileName": [],
+//             "instanceQuestions": [],
+//             "isAGeneralQuestion": false,
+//             "autoCapture": false,
+//             "allowAudioRecording": false,
+//             "prefillFromEntityProfile": false,
+//             "entityFieldName": "",
+//             "isEditable": true,
+//             "showQuestionInPreview": false,
+//             "deleted": false,
+//             "remarks": "",
+//             "value": "",
+//             "usedForScoring": "",
+//             "questionType": "auto",
+//             "canBeNotApplicable": "false",
+//             "visibleIf": "",
+//             "validation": {
+//                 "required": true
+//             },
+//             "externalId": "Q3_1689164013804-1689164019991",
+//             "tip": "Use the name of the locality where the school is",
+//             "hint": "",
+//             "responseType": "radio",
+//             "modeOfCollection": "onfield",
+//             "accessibility": "No",
+//             "rubricLevel": "",
+//             "sectionHeader": "",
+//             "page": "",
+//             "questionNumber": "3",
+//             "updatedAt": "2023-07-12T12:13:40.007Z",
+//             "createdAt": "2023-07-12T12:13:39.048Z",
+//             "__v": 0,
+//             "createdFromQuestionId": "64ae98f3c60fd10008694b9e",
+//             "evidenceMethod": "OB",
+//             "payload": {
+//                 "criteriaId": "64ae98f4c60fd10008694c14",
+//                 "responseType": "radio",
+//                 "evidenceMethod": "OB",
+//                 "rubricLevel": ""
+//             },
+//             "startTime": "",
+//             "endTime": "",
+//             "gpsLocation": "",
+//             "file": ""
+//         },
+//         {
+//             "_id": "",
+//             "question": "",
+//             "isCompleted": "",
+//             "showRemarks": "",
+//             "options": "",
+//             "sliderOptions": "",
+//             "children": "",
+//             "questionGroup": "",
+//             "fileName": "",
+//             "instanceQuestions": "",
+//             "isAGeneralQuestion": "",
+//             "autoCapture": "",
+//             "allowAudioRecording": "",
+//             "prefillFromEntityProfile": "",
+//             "entityFieldName": "",
+//             "isEditable": "",
+//             "showQuestionInPreview": "",
+//             "deleted": "",
+//             "remarks": "",
+//             "value": "",
+//             "usedForScoring": "",
+//             "questionType": "",
+//             "canBeNotApplicable": "",
+//             "visibleIf": "",
+//             "validation": "",
+//             "dateFormat": "",
+//             "externalId": "",
+//             "tip": "",
+//             "hint": "",
+//             "responseType": "pageQuestions",
+//             "modeOfCollection": "",
+//             "accessibility": "",
+//             "rubricLevel": "",
+//             "sectionHeader": "",
+//             "page": "p1",
+//             "questionNumber": "",
+//             "updatedAt": "",
+//             "createdAt": "",
+//             "__v": "",
+//             "createdFromQuestionId": "",
+//             "evidenceMethod": "",
+//             "payload": "",
+//             "startTime": "",
+//             "endTime": "",
+//             "gpsLocation": "",
+//             "file": "",
+//             "pageQuestions": [
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf3",
+//                     "question": [
+//                         "Enter the date of observation",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": false,
+//                     "options": [],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true,
+//                         "max": "",
+//                         "min": ""
+//                     },
+//                     "dateFormat": "DD-MM-YYYY",
+//                     "externalId": "Q1_1689164013804-1689164019989",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "date",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "1",
+//                     "updatedAt": "2023-07-12T12:13:40.007Z",
+//                     "createdAt": "2023-07-12T12:13:39.022Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694b92",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "date",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf4",
+//                     "question": [
+//                         "",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": false,
+//                     "options": [],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true,
+//                         "IsNumber": "true"
+//                     },
+//                     "externalId": "Q2_1689164013804-1689164019990",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "number",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "2",
+//                     "updatedAt": "2023-07-12T12:13:40.007Z",
+//                     "createdAt": "2023-07-12T12:13:39.037Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694b98",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "number",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf6",
+//                     "question": [
+//                         "Are you planning to come back?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": false,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Yes"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "No"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": [
+//                         {
+//                             "operator": "===",
+//                             "value": [
+//                                 "R2"
+//                             ],
+//                             "_id": "64ae98f3c60fd10008694bf5"
+//                         }
+//                     ],
+//                     "validation": {
+//                         "required": false
+//                     },
+//                     "externalId": "Q4_1689164013804-1689164019992",
+//                     "tip": "",
+//                     "hint": "This becomes a risk if the answer is no",
+//                     "responseType": "radio",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "4",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.059Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694ba4",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "radio",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf7",
+//                     "question": [
+//                         "What type of device is available at home?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": true,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Simple mobile phone without internet/data pack"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "Smart phone with internet/data pack"
+//                         },
+//                         {
+//                             "value": "R3",
+//                             "label": "Smart phone without internet/data pack"
+//                         },
+//                         {
+//                             "value": "R4",
+//                             "label": "TV"
+//                         },
+//                         {
+//                             "value": "R5",
+//                             "label": "Radio"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "file": {
+//                         "required": true,
+//                         "type": [
+//                             "image/jpeg",
+//                             "docx",
+//                             "pdf",
+//                             "ppt"
+//                         ],
+//                         "minCount": 0,
+//                         "maxCount": 10,
+//                         "caption": "FALSE"
+//                     },
+//                     "externalId": "Q5_1689164013804-1689164019993",
+//                     "tip": "",
+//                     "hint": "The devices that are available or can be easily arranged in the household.",
+//                     "responseType": "multiselect",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "5",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.073Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bab",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "multiselect",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf8",
+//                     "question": [
+//                         "Does the child have a quiet place to study?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": true,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Yes"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "No"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "externalId": "Q6_1689164013804-1689164019993",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "radio",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "6",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.084Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bb1",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "radio",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bf9",
+//                     "question": [
+//                         "Were you able to enrol your child in courses on DIKSHA?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": false,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Yes"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "No"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [
+//                         "64ae98f3c60fd10008694bfa"
+//                     ],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "externalId": "Q7_1689164013804-1689164019994",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "radio",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "7",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.096Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bb7",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "radio",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bfa",
+//                     "question": [
+//                         "What are the challenges that you are facing in enrolment?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": true,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Not able to use the app"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "Not aware of classrooms on DIKSHA"
+//                         },
+//                         {
+//                             "value": "R3",
+//                             "label": "Not aware of the enrolment process in the classroom"
+//                         },
+//                         {
+//                             "value": "R4",
+//                             "label": "Not aware of enrolment process in the courses"
+//                         },
+//                         {
+//                             "value": "R5",
+//                             "label": "Don’t find the courses useful"
+//                         },
+//                         {
+//                             "value": "R6",
+//                             "label": "Others"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": [
+//                         {
+//                             "operator": "===",
+//                             "value": [
+//                                 "R2"
+//                             ],
+//                             "_id": "64ae98f3c60fd10008694bf9"
+//                         }
+//                     ],
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "externalId": "Q8_1689164013804-1689164019994",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "multiselect",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "8",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.108Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bbd",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "multiselect",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 },
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bfb",
+//                     "question": [
+//                         "On basis of the responses received above,  do you think this student is a potential drop out?",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": true,
+//                     "options": [
+//                         {
+//                             "value": "R1",
+//                             "label": "Yes"
+//                         },
+//                         {
+//                             "value": "R2",
+//                             "label": "No"
+//                         }
+//                     ],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "externalId": "Q9_1689164013804-1689164019995",
+//                     "tip": "Fill this based on the  parents' answers",
+//                     "hint": "",
+//                     "responseType": "radio",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p1",
+//                     "questionNumber": "9",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.123Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bc4",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c14",
+//                         "responseType": "radio",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 }
+//             ]
+//         },
+//         {
+//             "_id": "",
+//             "question": "",
+//             "isCompleted": "",
+//             "showRemarks": "",
+//             "options": "",
+//             "sliderOptions": "",
+//             "children": "",
+//             "questionGroup": "",
+//             "fileName": "",
+//             "instanceQuestions": "",
+//             "isAGeneralQuestion": "",
+//             "autoCapture": "",
+//             "allowAudioRecording": "",
+//             "prefillFromEntityProfile": "",
+//             "entityFieldName": "",
+//             "isEditable": "",
+//             "showQuestionInPreview": "",
+//             "deleted": "",
+//             "remarks": "",
+//             "value": "",
+//             "usedForScoring": "",
+//             "questionType": "",
+//             "canBeNotApplicable": "",
+//             "visibleIf": "",
+//             "validation": "",
+//             "dateFormat": "",
+//             "externalId": "",
+//             "tip": "",
+//             "hint": "",
+//             "responseType": "pageQuestions",
+//             "modeOfCollection": "",
+//             "accessibility": "",
+//             "rubricLevel": "",
+//             "sectionHeader": "",
+//             "page": "p2",
+//             "questionNumber": "",
+//             "updatedAt": "",
+//             "createdAt": "",
+//             "__v": "",
+//             "createdFromQuestionId": "",
+//             "evidenceMethod": "",
+//             "payload": "",
+//             "startTime": "",
+//             "endTime": "",
+//             "gpsLocation": "",
+//             "file": "",
+//             "pageQuestions": [
+//                 {
+//                     "_id": "64ae98f3c60fd10008694bfc",
+//                     "question": [
+//                         "Add the student interview responses",
+//                         ""
+//                     ],
+//                     "isCompleted": false,
+//                     "showRemarks": false,
+//                     "options": [],
+//                     "sliderOptions": [],
+//                     "children": [],
+//                     "questionGroup": [
+//                         "A1"
+//                     ],
+//                     "fileName": [],
+//                     "instanceQuestions": [
+//                         {
+//                             "_id": "64ae98f3c60fd10008694bfd",
+//                             "question": [
+//                                 "When did you last take a course on Diksha?",
+//                                 ""
+//                             ],
+//                             "isCompleted": false,
+//                             "showRemarks": false,
+//                             "options": [],
+//                             "sliderOptions": [],
+//                             "children": [],
+//                             "questionGroup": [
+//                                 "A1"
+//                             ],
+//                             "fileName": [],
+//                             "instanceQuestions": [],
+//                             "isAGeneralQuestion": false,
+//                             "autoCapture": true,
+//                             "allowAudioRecording": false,
+//                             "prefillFromEntityProfile": false,
+//                             "entityFieldName": "",
+//                             "isEditable": true,
+//                             "showQuestionInPreview": false,
+//                             "deleted": false,
+//                             "remarks": "",
+//                             "value": "",
+//                             "usedForScoring": "",
+//                             "questionType": "auto",
+//                             "canBeNotApplicable": "false",
+//                             "visibleIf": "",
+//                             "validation": {
+//                                 "required": true,
+//                                 "max": "",
+//                                 "min": ""
+//                             },
+//                             "dateFormat": "DD-MM-YYYY",
+//                             "externalId": "Q11_1689164013804-1689164019996",
+//                             "tip": "",
+//                             "hint": "",
+//                             "responseType": "date",
+//                             "modeOfCollection": "onfield",
+//                             "accessibility": "No",
+//                             "rubricLevel": "",
+//                             "sectionHeader": "",
+//                             "page": "p2",
+//                             "questionNumber": "10a",
+//                             "updatedAt": "2023-07-12T12:13:40.008Z",
+//                             "createdAt": "2023-07-12T12:13:39.146Z",
+//                             "__v": 0,
+//                             "createdFromQuestionId": "64ae98f3c60fd10008694bd0",
+//                             "evidenceMethod": "OB",
+//                             "payload": {
+//                                 "criteriaId": "64ae98f4c60fd10008694c15",
+//                                 "responseType": "date",
+//                                 "evidenceMethod": "OB",
+//                                 "rubricLevel": ""
+//                             },
+//                             "startTime": "",
+//                             "endTime": "",
+//                             "gpsLocation": "",
+//                             "file": ""
+//                         },
+//                         {
+//                             "_id": "64ae98f3c60fd10008694bfe",
+//                             "question": [
+//                                 "How would you rate the course taken?",
+//                                 ""
+//                             ],
+//                             "isCompleted": false,
+//                             "showRemarks": false,
+//                             "options": [],
+//                             "sliderOptions": [],
+//                             "children": [],
+//                             "questionGroup": [
+//                                 "A1"
+//                             ],
+//                             "fileName": [],
+//                             "instanceQuestions": [],
+//                             "isAGeneralQuestion": false,
+//                             "autoCapture": false,
+//                             "allowAudioRecording": false,
+//                             "prefillFromEntityProfile": false,
+//                             "entityFieldName": "",
+//                             "isEditable": true,
+//                             "showQuestionInPreview": false,
+//                             "deleted": false,
+//                             "remarks": "",
+//                             "value": "",
+//                             "usedForScoring": "",
+//                             "questionType": "auto",
+//                             "canBeNotApplicable": "false",
+//                             "visibleIf": "",
+//                             "validation": {
+//                                 "required": true,
+//                                 "max": "5",
+//                                 "min": "1"
+//                             },
+//                             "externalId": "Q12_1689164013804-1689164019997",
+//                             "tip": "",
+//                             "hint": "",
+//                             "responseType": "slider",
+//                             "modeOfCollection": "onfield",
+//                             "accessibility": "No",
+//                             "rubricLevel": "",
+//                             "sectionHeader": "",
+//                             "page": "p2",
+//                             "questionNumber": "10b",
+//                             "updatedAt": "2023-07-12T12:13:40.008Z",
+//                             "createdAt": "2023-07-12T12:13:39.158Z",
+//                             "__v": 0,
+//                             "createdFromQuestionId": "64ae98f3c60fd10008694bd7",
+//                             "evidenceMethod": "OB",
+//                             "payload": {
+//                                 "criteriaId": "64ae98f4c60fd10008694c15",
+//                                 "responseType": "slider",
+//                                 "evidenceMethod": "OB",
+//                                 "rubricLevel": ""
+//                             },
+//                             "startTime": "",
+//                             "endTime": "",
+//                             "gpsLocation": "",
+//                             "file": ""
+//                         },
+//                         {
+//                             "_id": "64ae98f4c60fd10008694bff",
+//                             "question": [
+//                                 "How many courses have you taken?",
+//                                 ""
+//                             ],
+//                             "isCompleted": false,
+//                             "showRemarks": false,
+//                             "options": [],
+//                             "sliderOptions": [],
+//                             "children": [],
+//                             "questionGroup": [
+//                                 "A1"
+//                             ],
+//                             "fileName": [],
+//                             "instanceQuestions": [],
+//                             "isAGeneralQuestion": false,
+//                             "autoCapture": false,
+//                             "allowAudioRecording": false,
+//                             "prefillFromEntityProfile": false,
+//                             "entityFieldName": "",
+//                             "isEditable": true,
+//                             "showQuestionInPreview": false,
+//                             "deleted": false,
+//                             "remarks": "",
+//                             "value": "",
+//                             "usedForScoring": "",
+//                             "questionType": "auto",
+//                             "canBeNotApplicable": "false",
+//                             "visibleIf": "",
+//                             "validation": {
+//                                 "required": true,
+//                                 "IsNumber": "true"
+//                             },
+//                             "externalId": "Q13_1689164013804-1689164020000",
+//                             "tip": "",
+//                             "hint": "",
+//                             "responseType": "number",
+//                             "modeOfCollection": "onfield",
+//                             "accessibility": "No",
+//                             "rubricLevel": "",
+//                             "sectionHeader": "",
+//                             "page": "p2",
+//                             "questionNumber": "10c",
+//                             "updatedAt": "2023-07-12T12:13:40.008Z",
+//                             "createdAt": "2023-07-12T12:13:39.172Z",
+//                             "__v": 0,
+//                             "createdFromQuestionId": "64ae98f3c60fd10008694bde",
+//                             "evidenceMethod": "OB",
+//                             "payload": {
+//                                 "criteriaId": "64ae98f4c60fd10008694c15",
+//                                 "responseType": "number",
+//                                 "evidenceMethod": "OB",
+//                                 "rubricLevel": ""
+//                             },
+//                             "startTime": "",
+//                             "endTime": "",
+//                             "gpsLocation": "",
+//                             "file": ""
+//                         },
+//                         {
+//                             "_id": "64ae98f4c60fd10008694c00",
+//                             "question": [
+//                                 "Which courses did you go through?",
+//                                 ""
+//                             ],
+//                             "isCompleted": false,
+//                             "showRemarks": false,
+//                             "options": [],
+//                             "sliderOptions": [],
+//                             "children": [],
+//                             "questionGroup": [
+//                                 "A1"
+//                             ],
+//                             "fileName": [],
+//                             "instanceQuestions": [],
+//                             "isAGeneralQuestion": false,
+//                             "autoCapture": false,
+//                             "allowAudioRecording": false,
+//                             "prefillFromEntityProfile": false,
+//                             "entityFieldName": "",
+//                             "isEditable": true,
+//                             "showQuestionInPreview": false,
+//                             "deleted": false,
+//                             "remarks": "",
+//                             "value": "",
+//                             "usedForScoring": "",
+//                             "questionType": "auto",
+//                             "canBeNotApplicable": "false",
+//                             "visibleIf": "",
+//                             "validation": {
+//                                 "required": false
+//                             },
+//                             "file": {
+//                                 "required": true,
+//                                 "type": [
+//                                     "image/jpeg",
+//                                     "docx",
+//                                     "pdf",
+//                                     "ppt"
+//                                 ],
+//                                 "minCount": 0,
+//                                 "maxCount": 10,
+//                                 "caption": "FALSE"
+//                             },
+//                             "externalId": "Q14_1689164013804-1689164020001",
+//                             "tip": "",
+//                             "hint": "",
+//                             "responseType": "text",
+//                             "modeOfCollection": "onfield",
+//                             "accessibility": "No",
+//                             "rubricLevel": "",
+//                             "sectionHeader": "",
+//                             "page": "p2",
+//                             "questionNumber": "10d",
+//                             "updatedAt": "2023-07-12T12:13:40.008Z",
+//                             "createdAt": "2023-07-12T12:13:39.185Z",
+//                             "__v": 0,
+//                             "createdFromQuestionId": "64ae98f3c60fd10008694be5",
+//                             "evidenceMethod": "OB",
+//                             "payload": {
+//                                 "criteriaId": "64ae98f4c60fd10008694c15",
+//                                 "responseType": "text",
+//                                 "evidenceMethod": "OB",
+//                                 "rubricLevel": ""
+//                             },
+//                             "startTime": "",
+//                             "endTime": "",
+//                             "gpsLocation": ""
+//                         }
+//                     ],
+//                     "isAGeneralQuestion": false,
+//                     "autoCapture": false,
+//                     "allowAudioRecording": false,
+//                     "prefillFromEntityProfile": false,
+//                     "entityFieldName": "",
+//                     "isEditable": true,
+//                     "showQuestionInPreview": false,
+//                     "deleted": false,
+//                     "remarks": "",
+//                     "value": "",
+//                     "usedForScoring": "",
+//                     "questionType": "auto",
+//                     "canBeNotApplicable": "false",
+//                     "visibleIf": "",
+//                     "validation": {
+//                         "required": true
+//                     },
+//                     "instanceIdentifier": "Student",
+//                     "externalId": "Q10_1689164013804-1689164019996",
+//                     "tip": "",
+//                     "hint": "",
+//                     "responseType": "matrix",
+//                     "modeOfCollection": "onfield",
+//                     "accessibility": "No",
+//                     "rubricLevel": "",
+//                     "sectionHeader": "",
+//                     "page": "p2",
+//                     "questionNumber": "10",
+//                     "updatedAt": "2023-07-12T12:13:40.008Z",
+//                     "createdAt": "2023-07-12T12:13:39.136Z",
+//                     "__v": 0,
+//                     "createdFromQuestionId": "64ae98f3c60fd10008694bca",
+//                     "evidenceMethod": "OB",
+//                     "payload": {
+//                         "criteriaId": "64ae98f4c60fd10008694c15",
+//                         "responseType": "matrix",
+//                         "evidenceMethod": "OB",
+//                         "rubricLevel": ""
+//                     },
+//                     "startTime": "",
+//                     "endTime": "",
+//                     "gpsLocation": "",
+//                     "file": ""
+//                 }
+//             ]
+//         }
+//     ],
+//     "name": "Observation Question"
+// }]
   }
+
+//   ngAfterViewInit() {
+//     const container = document.getElementById('web-component-container');
+//     const myWebComponent = new MyWebComponent();
+//     container.appendChild(myWebComponent);
+//   }
 }
