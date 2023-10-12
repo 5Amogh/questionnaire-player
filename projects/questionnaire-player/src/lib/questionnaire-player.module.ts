@@ -1,4 +1,7 @@
-import { Injector, LOCALE_ID, NgModule } from '@angular/core';
+import {
+  LOCALE_ID,
+  NgModule,
+} from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 import { CommonModule } from '@angular/common';
 import { createCustomElement } from '@angular/elements';
@@ -76,7 +79,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   exports: [],
   providers: [
@@ -93,13 +96,6 @@ const MAT_CUSTOM_DATE_FORMATS = {
       provide: LOCALE_ID,
       useValue: 'en-in',
     },
-  ],
+  ]
 })
-export class QuestionnairePlayerModule {
-  constructor(private injector: Injector) {
-    const customMainElement = createCustomElement(MainComponent, {
-      injector: this.injector,
-    });
-    customElements.define('questionnaire-player-main', customMainElement);
-  }
-}
+export class QuestionnairePlayerModule {}
