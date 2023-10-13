@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-web-comp":"ng build --project questionnaire-webcomponent --configuration production --output-hashing none && node ./build-wc.js"
+    "build-web-comp":"ng build --project questionnaire-player --configuration production && ng build --project questionnaire-webcomponent --configuration production --output-hashing none && node ./build-wc.js"
   },
   "private": false,
   "dependencies": {
