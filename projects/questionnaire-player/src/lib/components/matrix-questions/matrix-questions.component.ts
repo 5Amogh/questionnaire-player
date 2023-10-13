@@ -1,4 +1,12 @@
-import { Component, ContentChild, HostListener, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  HostListener,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -26,8 +34,8 @@ export class MatrixQuestionsComponent implements OnInit {
   onPopState(event) {
     this.showBadgeAssingModel = false;
   }
-  @ContentChild('libMainTemplateRef',{static:false}) libMainTemplateRef:TemplateRef<any>;
-  // mainComponent = MainComponent;
+  @ContentChild('libMainTemplateRef', { static: false })
+  libMainTemplateRef: TemplateRef<any>;
   addText: string;
   submitText: string;
   cancelText: string;
@@ -37,11 +45,11 @@ export class MatrixQuestionsComponent implements OnInit {
   @ViewChild('modal') public modalTemplate: TemplateRef<any>;
   context: IContext;
   showBadgeAssingModel: boolean;
-  instanceLastUpdated:any[]=[]
+  instanceLastUpdated: any[] = [];
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
-    private utilService:UtilsService
+    private utilService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +57,7 @@ export class MatrixQuestionsComponent implements OnInit {
     this.submitText = 'Submit';
     this.cancelText = 'Cancel';
     setTimeout(() => {
-      this.matrixForm = this.fb.group({}, Validators.required);
+      this.matrixForm = this.fb.group({},Validators.requiredTrue);
       this.questionnaireForm.addControl(
         this.question._id,
         new FormArray([], [Validators.required])
@@ -58,40 +66,31 @@ export class MatrixQuestionsComponent implements OnInit {
     });
   }
   initializeMatrix() {
-    // let valid = true;
     if (this.question.value.length) {
       this.question.value.map((v) => {
         let obj = {};
-        let endTime = []
+        let endTime = [];
         v.forEach((ques) => {
-          endTime.push(ques.endTime)
+          endTime.push(ques.endTime);
           if (!ques.value) return;
           obj[ques._id] = ques.value;
         });
         (this.questionnaireForm.controls[this.question._id] as FormArray).push(
-          new FormControl(obj,[this.instanceValidation])
+          new FormControl(obj, [this.instanceValidation])
         );
-       let instanceupdatedAt= endTime.reduce(function (x, y) {
+        let instanceupdatedAt = endTime.reduce(function (x, y) {
           return x > y ? x : y;
-       });
-        this.instanceLastUpdated.push(instanceupdatedAt)
-        // if (_.isEmpty(obj)) {
-        //   valid = false;
-        // }
+        });
+        this.instanceLastUpdated.push(instanceupdatedAt);
       });
     }
-
-    // if (!valid)
-    //   this.questionnaireForm.controls[this.question._id].setErrors({
-    //     err: 'Matrix reposne not valid',
-    //   });
   }
 
   instanceValidation(control: FormControl) {
-  let value = control.value;
+    let value = control.value;
     if (this.utilService.isEmpty(value)) {
-    return { err: 'Instance not filled' }
-  }
+      return { err: 'Instance not filled' };
+    }
     return null;
   }
 
@@ -109,12 +108,12 @@ export class MatrixQuestionsComponent implements OnInit {
     if (this.formAsArray.controls[i].value) {
       this.matrixForm.patchValue(this.formAsArray.controls[i].value);
     }
-    this.dialog.open(this.modalTemplate,{
+    this.dialog.open(this.modalTemplate, {
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
+      disableClose: true,
     });
-    // config.closeResult = 'closed!';
     let deepClonedQuestion = structuredClone(this.question.value[i]);
     this.context = {
       questions: deepClonedQuestion,
@@ -133,60 +132,43 @@ export class MatrixQuestionsComponent implements OnInit {
     this.question.value[index] = this.context.questions;
     this.formAsArray.at(index).patchValue(this.matrixForm.value);
     if (this.matrixForm.invalid) {
-      this.formAsArray.at(index).setErrors({ err: 'Matrix reposne not valid' });
+      this.formAsArray
+        .at(index)
+        .setErrors({ err: 'Matrix response is invalid' });
     }
-    this.instanceLastUpdated[index]=Date.now()
+    this.instanceLastUpdated[index] = Date.now();
+    console.log(this.matrixForm.value);
+    console.log(this.questionnaireForm.value)
+    this.closeModal();
   }
 
   async deleteInstanceAlert(index) {
-    // let metaData = await this.observationUtilService.getAlertMetaData();
-    // metaData.content.body.data =
-    //   this.resourceService.frmelmnts.lbl.deleteSubmission;
-    // metaData.content.body.type = 'text';
-    // metaData.content.title = this.resourceService.frmelmnts.btn.delete;
-    // metaData.size = 'mini';
-    // metaData.footer.buttons.push({
-    //   type: 'cancel',
-    //   returnValue: false,
-    //   buttonText: this.resourceService.frmelmnts.btn.no,
-    // });
-    // metaData.footer.buttons.push({
-    //   type: 'accept',
-    //   returnValue: true,
-    //   buttonText: this.resourceService.frmelmnts.btn.yes,
-    // });
-    // metaData.footer.className = 'double-btn';
-    // const accepted = await this.observationUtilService.showPopupAlert(metaData);
     const alertConfig = {
-      header: 'Delete',
-      data: 'Delete Submission',
-      buttonClass: 'double-btn',
+      title: 'Delete',
+      message: 'Delete Submission',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };
-    const accepted = await this.openAlert(alertConfig);
-    if (!accepted) {
-      return;
-    }
-
-    this.question.value.splice(index, 1);
-    (this.questionnaireForm.controls[this.question._id] as FormArray).removeAt(
-      index
-    );
-    this.instanceLastUpdated.splice(index,1)
-  }
-
-  openAlert(alertDialogConfig) {
     const dialogRef = this.dialog.open(AlertComponent, {
-      data: alertDialogConfig,
+      data: alertConfig,
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
     });
-    let userAcceptance;
+
     dialogRef.afterClosed().subscribe((res) => {
-      userAcceptance = res;
+      if (!res) {
+        return;
+      }
+      this.question.value.splice(index, 1);
+      (
+        this.questionnaireForm.controls[this.question._id] as FormArray
+      ).removeAt(index);
+      this.instanceLastUpdated.splice(index, 1);
     });
-    return userAcceptance;
+  }
+
+  closeModal() {
+    this.dialog.closeAll();
   }
 }

@@ -1,12 +1,12 @@
-<div class="d-flex flex-jc-flex-end">
-    <button class="sb-btn sb-btn-normal sb-btn-primary" (click)="addInstances()">
+<div style="display: flex;justify-content: flex-end;">
+    <button class="btn-primary" (click)="addInstances()">
         {{ addText }}
         {{ question?.instanceIdentifier }}
     </button>
 </div>
-<div class="ui card student-card" *ngFor="let instance of question?.value; let i = index">
-    <div class="content flex-jc-space-between">
-        <div (click)="viewInstance(i)" style="flex: 1" class="d-flex flex-dc px-10" [ngClass]="{
+<mat-card *ngFor="let instance of question?.value; let i = index" style="padding: 10px;margin-top: 10px;border-radius: 10px;">
+    <div style="display: flex;flex-direction: row;align-items: center;">
+        <div (click)="viewInstance(i)" style="flex: 1;display: flex;justify-content: center;align-items: center;color: rebeccapurple;margin: 0 5px;" [ngClass]="{
           'valid-response':
            formAsArray?.controls[i].valid
         }">
@@ -14,13 +14,19 @@
             <span class="fs-0-785 modified" *ngIf="instanceLastUpdated[i]">Last Updated On : {{instanceLastUpdated[i]
                 |date:'short'}}</span>
         </div>
-        <div>
-            <i class="trash large icon" (click)="deleteInstanceAlert(i)"></i>
-        </div>
+        <button
+        mat-icon-button
+        matTooltip="Delete instance"
+        style="color: rebeccapurple"
+        aria-label="icon-button with a delete icon"
+        (click)="deleteInstanceAlert(i)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
-</div>
+</mat-card>
 
-<ng-template *ngIf="showBadgeAssingModel" #modal>
+<ng-template #modal>
     <div mat-dialog-title style="
             display: flex;
             flex-direction: row;
@@ -28,23 +34,23 @@
             color: rebeccapurple;
             gap: 3px;
             justify-content: flex-start;
-            padding: 0 10px;
+            padding: 10px;
           ">
         {{ context?.heading }}
     </div>
+    <mat-divider></mat-divider>
     <div mat-dialog-content>
        <ng-container *ngTemplateOutlet="libMainTemplateRef"></ng-container>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions style="display: flex;justify-content: space-around;">
         <button [disabled]="!matrixForm?.valid" type="button" (click)="matrixSubmit(context.index)" [ngClass]="{
-          'sb-btn sb-btn-normal': true,
-          'sb-btn-primary': matrixForm?.valid,
-          'sb-btn-disabled': !matrixForm?.valid
+          'btn-primary': matrixForm?.valid,
+          'btn-disabled': !matrixForm?.valid
         }">
             {{ submitText }}
         </button>
-        <button class="sb-btn sb-btn-normal sb-btn-outline-primary" type="button"
-            (click)="showBadgeAssingModel = false">
+        <button class="btn-outline-primary" type="button"
+            (click)="showBadgeAssingModel = false; closeModal()">
             {{ cancelText }}
         </button>
     </div>
