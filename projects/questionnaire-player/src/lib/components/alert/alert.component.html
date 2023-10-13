@@ -17,7 +17,7 @@
     <h2 mat-dialog-content style="align-items: self-start">
         {{ data?.message }}
     </h2>
-    <div mat-dialog-actions style="display: flex; justify-content: center">
+    <div mat-dialog-actions style="display: flex; justify-content: space-around">
         <button *ngIf="data?.acceptLabel" mat-dialog-close class="btn" (click)="acceptDialog()">
             {{ data.acceptLabel }}
         </button>
