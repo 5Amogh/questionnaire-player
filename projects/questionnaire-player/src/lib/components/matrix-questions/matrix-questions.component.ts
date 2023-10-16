@@ -18,7 +18,6 @@ import { MatrixQuestion, Question } from '../../interfaces/questionnaire.type';
 import { UtilsService } from '../../services/utils.service';
 import { AlertComponent } from '../alert/alert.component';
 import { MatDialog } from '@angular/material/dialog';
-// import { MainComponent } from '../main/main.component';
 export interface IContext {
   questions: Question[];
   heading: string;
@@ -50,14 +49,14 @@ export class MatrixQuestionsComponent implements OnInit {
     public fb: FormBuilder,
     private dialog: MatDialog,
     private utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addText = 'Add';
     this.submitText = 'Submit';
     this.cancelText = 'Cancel';
     setTimeout(() => {
-      this.matrixForm = this.fb.group({},Validators.requiredTrue);
+      this.matrixForm = this.fb.group({},Validators.required);
       this.questionnaireForm.addControl(
         this.question._id,
         new FormArray([], [Validators.required])
@@ -105,9 +104,12 @@ export class MatrixQuestionsComponent implements OnInit {
 
   viewInstance(i): void {
     this.matrixForm.reset();
+    console.log('view instance before patching',this.matrixForm)
+    console.log('forms array',this.formAsArray.controls[i])
     if (this.formAsArray.controls[i].value) {
       this.matrixForm.patchValue(this.formAsArray.controls[i].value);
     }
+    console.log('view instance after patching',this.matrixForm)
     this.dialog.open(this.modalTemplate, {
       width: 'auto',
       enterAnimationDuration: 300,
@@ -137,15 +139,15 @@ export class MatrixQuestionsComponent implements OnInit {
         .setErrors({ err: 'Matrix response is invalid' });
     }
     this.instanceLastUpdated[index] = Date.now();
-    console.log(this.matrixForm.value);
-    console.log(this.questionnaireForm.value)
+    console.log('Matrix value',this.matrixForm.value);
+    console.log('Questionnaire value',this.questionnaireForm.value);
     this.closeModal();
   }
 
   async deleteInstanceAlert(index) {
     const alertConfig = {
       title: 'Delete',
-      message: 'Delete Submission',
+      message: 'Delete Submission?',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };

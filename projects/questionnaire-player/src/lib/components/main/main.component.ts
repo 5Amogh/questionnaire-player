@@ -1,6 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  booleanAttribute,
+} from '@angular/core';
 import { Question, ResponseType } from '../../interfaces/questionnaire.type';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 
@@ -10,8 +16,9 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  @Input() questions: Array<Question>;
-  questionnaireForm: FormGroup;
+  @Input({ required: true }) questions: Array<Question>;
+  @Input({ required: false }) questionnaireForm: FormGroup;
+  @Input({ transform: booleanAttribute }) isMatrix = false;
   @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   selectedIndex: number;
   dimmerIndex;
@@ -27,11 +34,14 @@ export class MainComponent implements OnInit {
     if (typeof this.questions === 'string') {
       try {
         this.questions = JSON.parse(this.questions);
-      } catch (error){
-        console.log("Invalid Question Structure",error)
+      } catch (error) {
+        console.log('Invalid Question Structure', error);
       }
     }
-    this.questionnaireForm = this.fb.group({});
+
+    if (!this.isMatrix) {
+      this.questionnaireForm = this.fb.group({});
+    }
   }
   openDialog(questionIndex: number) {
     this.dimmerIndex = questionIndex;

@@ -74,7 +74,7 @@
           <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"
             [questionnaireForm]="questionnaireForm" [question]="question" #libMatrix>
             <ng-template #libMainTemplateRef>
-              <lib-main [questions]="libMatrix.context.questions"></lib-main>
+              <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm" isMatrix></lib-main>
             </ng-template>
           </lib-matrix-questions>
           <lib-dialog *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint"

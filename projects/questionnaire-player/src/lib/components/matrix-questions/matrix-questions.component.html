@@ -6,11 +6,11 @@
 </div>
 <mat-card *ngFor="let instance of question?.value; let i = index" style="padding: 10px;margin-top: 10px;border-radius: 10px;">
     <div style="display: flex;flex-direction: row;align-items: center;">
-        <div (click)="viewInstance(i)" style="flex: 1;display: flex;justify-content: center;align-items: center;color: rebeccapurple;margin: 0 5px;" [ngClass]="{
+        <div (click)="viewInstance(i)" style="flex: 1;display: flex;color: rebeccapurple;margin: 0 5px;" [ngClass]="{
           'valid-response':
            formAsArray?.controls[i].valid
         }">
-            <span> {{ question?.instanceIdentifier }} {{ i + 1 }}</span>
+            <span style="display: flex;flex: 0.5;"> {{ question?.instanceIdentifier }} {{ i + 1 }}</span>
             <span class="fs-0-785 modified" *ngIf="instanceLastUpdated[i]">Last Updated On : {{instanceLastUpdated[i]
                 |date:'short'}}</span>
         </div>
