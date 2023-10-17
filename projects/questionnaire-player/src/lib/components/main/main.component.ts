@@ -34,6 +34,9 @@ export class MainComponent implements OnInit {
     if (typeof this.questions === 'string') {
       try {
         this.questions = JSON.parse(this.questions);
+        if(!Array.isArray(this.questions)){
+          throw new Error('Invalid Question Structure, Please configure questions to be an iterable');
+        }
       } catch (error) {
         console.log('Invalid Question Structure', error);
       }
