@@ -4,6 +4,7 @@
     border: solid transparent 1px;
     border-radius: 10px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .btn:hover{
