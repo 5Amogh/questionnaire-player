@@ -1,0 +1,31 @@
+<form [formGroup]="questionnaireForm">
+  <lib-main
+    [questions]="questions"
+    [questionnaireForm]="questionnaireForm"
+  ></lib-main>
+</form>
+<div
+  style="
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 30px;
+  "
+>
+  <button class="btn btn-outline-primary" (click)="submission('draft')">
+    Save
+  </button>
+  <button
+    class="btn"
+    [ngClass]="{
+      'btn-primary': questionnaireForm?.valid,
+      'btn-disabled': !questionnaireForm?.valid
+    }"
+    (click)="submission('submit')"
+    [disabled]="!questionnaireForm?.valid"
+  >
+    Submit
+  </button>
+</div>

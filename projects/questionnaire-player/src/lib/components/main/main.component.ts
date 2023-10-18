@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   ViewChild,
   booleanAttribute,
 } from '@angular/core';
@@ -15,10 +14,9 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent{
   @Input({ required: true }) questions: Array<Question>;
-  @Input({ required: false }) questionnaireForm: FormGroup;
-  @Input({ transform: booleanAttribute }) isMatrix = false;
+  @Input({ required: true }) questionnaireForm: FormGroup;
   @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   selectedIndex: number;
   dimmerIndex;
@@ -30,22 +28,6 @@ export class MainComponent implements OnInit {
     return ResponseType;
   }
 
-  ngOnInit(): void {
-    if (typeof this.questions === 'string') {
-      try {
-        this.questions = JSON.parse(this.questions);
-        if(!Array.isArray(this.questions)){
-          throw new Error('Invalid Question Structure, Please configure questions to be an iterable');
-        }
-      } catch (error) {
-        console.log('Invalid Question Structure', error);
-      }
-    }
-
-    if (!this.isMatrix) {
-      this.questionnaireForm = this.fb.group({});
-    }
-  }
   openDialog(questionIndex: number) {
     this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;

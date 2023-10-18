@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import { MainComponent } from './components/main/main.component';
 import { CommonModule } from '@angular/common';
-import { createCustomElement } from '@angular/elements';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -34,9 +33,10 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateInputValidatorDirective } from './directives/date-input-validator.directive';
 import { RemarksComponent } from './components/remarks/remarks.component';
 import { AttachmentComponent } from './components/attachment/attachment.component';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AlertComponent } from './components/alert/alert.component';
 import { MatrixQuestionsComponent } from './components/matrix-questions/matrix-questions.component';
+import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -51,6 +51,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
 };
 @NgModule({
   declarations: [
+    MainWrapperComponent,
     MainComponent,
     TextInputComponent,
     CheckboxInputComponent,
