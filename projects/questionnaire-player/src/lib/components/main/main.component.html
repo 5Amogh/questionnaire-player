@@ -50,7 +50,7 @@
             question.responseType == reponseType.PAGEQUESTIONS;
             pageQuestions
           ">
-          <lib-main [questions]="question.pageQuestions" [questionnaireForm]="questionnaireForm"></lib-main>
+          <lib-main [questions]="question.pageQuestions" [questionnaireForm]="questionnaireForm" [assessmentInfo]="assessmentInfo"></lib-main>
         </ng-container>
         <lib-number-input *ngIf="question.responseType == reponseType.NUMBER" [questionnaireForm]="questionnaireForm"
           [question]="question"></lib-number-input>
@@ -73,7 +73,7 @@
         <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"
           [questionnaireForm]="questionnaireForm" [question]="question" #libMatrix>
           <ng-template #libMainTemplateRef>
-            <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm"></lib-main>
+            <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm" [assessmentInfo]="assessmentInfo"></lib-main>
           </ng-template>
         </lib-matrix-questions>
         <lib-dialog *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint"

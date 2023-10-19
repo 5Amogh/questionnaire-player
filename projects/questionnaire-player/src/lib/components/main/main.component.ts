@@ -1,10 +1,14 @@
 import {
   Component,
   Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
   ViewChild,
   booleanAttribute,
 } from '@angular/core';
-import { Question, ResponseType } from '../../interfaces/questionnaire.type';
+import { AssessmentInfo, Evidence, Question, ResponseType, Section } from '../../interfaces/questionnaire.type';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { QuestionnaireService } from '../../services/questionnaire.service';
@@ -14,8 +18,11 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent{
+export class MainComponent implements OnChanges{
   @Input({ required: true }) questions: Array<Question>;
+  @Input() assessmentInfo: AssessmentInfo;
+  evidence: Evidence;
+  sections: Section[];
   @Input({ required: true }) questionnaireForm: FormGroup;
   @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
   selectedIndex: number;
@@ -26,6 +33,18 @@ export class MainComponent{
 
   public get reponseType(): typeof ResponseType {
     return ResponseType;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    console.log('on change',this.assessmentInfo)
+    if(changes['assessmentInfo'] && changes['assessmentInfo'].previousValue == undefined && changes['assessmentInfo'].currentValue){
+      this.assessmentInfo = this.qService.mapSubmissionToAssessment(this.assessmentInfo)
+      console.log('assessmentInfo', this.assessmentInfo);
+      this.evidence = this.assessmentInfo.assessment.evidences[0];
+      this.evidence.startTime = Date.now();
+      this.sections = this.evidence.sections;
+    }
   }
 
   openDialog(questionIndex: number) {

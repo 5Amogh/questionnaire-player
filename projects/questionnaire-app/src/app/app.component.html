@@ -1,3 +1,6 @@
 <!-- <form [formGroup]="questionnaireForm" class="adjust"> -->
-    <questionnaire-player-main [questions]="sections[0].questions" (submitOrSaveEvent)="submitOrSaveEvent($event)"></questionnaire-player-main>
+<questionnaire-player-main
+  [assessmentInfo]="assessmentInfo"
+  (submitOrSaveEvent)="submitOrSaveEvent($event)"
+></questionnaire-player-main>
 <!-- </form> -->

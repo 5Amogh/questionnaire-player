@@ -48,13 +48,14 @@ export class MatrixQuestionsComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
-    private utilService: UtilsService
+    public utilService: UtilsService
   ) { }
 
   ngOnInit(): void {
     this.addText = 'Add';
     this.submitText = 'Submit';
     this.cancelText = 'Cancel';
+    console.log('question from matrix',this.question)
     setTimeout(() => {
       this.matrixForm = this.fb.group({},Validators.required);
       this.questionnaireForm.addControl(
@@ -87,10 +88,28 @@ export class MatrixQuestionsComponent implements OnInit {
 
   instanceValidation(control: FormControl) {
     let value = control.value;
-    if (this.utilService.isEmpty(value)) {
-      return { err: 'Instance not filled' };
-    }
+    // TODO:ERROR TypeError: Cannot read properties of undefined (reading 'isEmpty') getting this that's why this code has been commented out, figure this issue out
+    // if (this.isEmpty(value)) {
+    //   return { err: 'Instance not filled' };
+    // }
     return null;
+  }
+
+  isEmpty(value: any): boolean {
+    if (value == null) {
+      return true;
+    }
+    if (typeof value === 'string' && value.trim() === '') {
+      return true;
+    }
+
+    if (Array.isArray(value) && value.length === 0) {
+      return true;
+    }
+    if (typeof value === 'object' && Object.keys(value).length === 0) {
+      return true;
+    }
+    return false;
   }
 
   addInstances(): void {
