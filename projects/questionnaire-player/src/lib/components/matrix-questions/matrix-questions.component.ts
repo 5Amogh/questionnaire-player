@@ -130,10 +130,11 @@ export class MatrixQuestionsComponent implements OnInit {
     }
     console.log('view instance after patching',this.matrixForm)
     this.dialog.open(this.modalTemplate, {
-      width: 'auto',
+      width: '100%',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
       disableClose: true,
+      hasBackdrop:true
     });
     let deepClonedQuestion = structuredClone(this.question.value[i]);
     this.context = {

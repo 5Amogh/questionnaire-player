@@ -37,6 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AlertComponent } from './components/alert/alert.component';
 import { MatrixQuestionsComponent } from './components/matrix-questions/matrix-questions.component';
 import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
+import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -65,6 +66,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     AttachmentComponent,
     AlertComponent,
     MatrixQuestionsComponent,
+    SanitizeUrlPipe,
   ],
   imports: [
     CommonModule,

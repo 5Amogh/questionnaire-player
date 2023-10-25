@@ -1,6 +1,10 @@
 <!-- <form [formGroup]="questionnaireForm" class="adjust"> -->
-<questionnaire-player-main
-  [assessmentInfo]="assessmentInfo"
-  (submitOrSaveEvent)="submitOrSaveEvent($event)"
-></questionnaire-player-main>
+  <!-- <ng-container *ngIf="assessment !== undefined && assessment !== null"> -->
+    <questionnaire-player-main
+    angular
+    [assessment]="assessment"
+    (submitOrSaveEvent)="submitOrSaveEvent($event)"
+  ></questionnaire-player-main>
+  <!-- </ng-container> -->
+
 <!-- </form> -->
