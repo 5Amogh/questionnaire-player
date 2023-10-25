@@ -1,26 +1,31 @@
 <div
   [formGroup]="questionnaireForm"
   *ngIf="questionnaireForm?.contains(question._id)"
-  style="display: flex; align-items: center; flex-direction: row; gap: 15px"
 >
-  <mat-form-field appearance="outline" style="width: 100%">
-    <input
-      libDateInputValidator
-      style="width: 100%"
-      matInput
-      [min]="min"
-      [max]="max"
-      [formControlName]="question?._id"
-      [matDatepicker]="picker"
-      (dateChange)="onChange($event)"
-    />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <span style="display: flex; align-items: center; flex-direction: row; gap: 15px">
+    <mat-form-field appearance="outline" style="width: 100%">
+      <input
+        libDateInputValidator
+        style="width: 100%"
+        matInput
+        [min]="min"
+        [max]="max"
+        [formControlName]="question?._id"
+        [matDatepicker]="picker"
+        (dateChange)="onChange($event)"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="picker" #panel></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <ng-container *ngIf="question?.autoCapture && !question?.value">
+      <button class="btn" (click)="autoCapture()">
+        {{ autoCaptureText }}
+      </button>
+    </ng-container>
+  </span>
 
-  <ng-container *ngIf="question?.autoCapture && !question?.value">
-    <button class="btn" (click)="autoCapture()">
-      {{ autoCaptureText }}
-    </button>
-  </ng-container>
+  <!-- <ng-container *ngIf="questionnaireForm.controls[question._id].hasError">
+      Please select a valid date
+  </ng-container> -->
 </div>
