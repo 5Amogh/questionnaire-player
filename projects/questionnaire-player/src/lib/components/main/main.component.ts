@@ -18,7 +18,7 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent implements OnChanges{
+export class MainComponent{
   @Input({ required: true }) questions: Array<Question>;
   @Input() assessmentInfo: AssessmentInfo;
   evidence: Evidence;
@@ -35,18 +35,7 @@ export class MainComponent implements OnChanges{
     return ResponseType;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    console.log('on change',this.assessmentInfo)
-    if(changes['assessmentInfo'] && changes['assessmentInfo'].previousValue == undefined && changes['assessmentInfo'].currentValue){
-      this.assessmentInfo = this.qService.mapSubmissionToAssessment(this.assessmentInfo)
-      console.log('assessmentInfo', this.assessmentInfo);
-      this.evidence = this.assessmentInfo.assessment.evidences[0];
-      this.evidence.startTime = Date.now();
-      this.sections = this.evidence.sections;
-    }
-  }
-
+  
   openDialog(questionIndex: number) {
     this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;
