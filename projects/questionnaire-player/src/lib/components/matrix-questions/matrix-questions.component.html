@@ -13,7 +13,7 @@
       (click)="viewInstance(i)"
       style="flex: 1; display: flex; color: rebeccapurple; margin: 0 5px"
       [ngClass]="{
-        'valid-response': formAsArray?.controls[i].valid
+        'valid-response': formAsArray?.controls[i]?.valid
       }"
     >
       <span style="display: flex; flex: 0.5">

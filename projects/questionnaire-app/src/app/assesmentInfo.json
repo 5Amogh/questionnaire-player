@@ -1,0 +1,1914 @@
+{
+    "entityProfile": {
+        "_id": "8df55ad6-7b21-41d0-a93a-efda45d34857",
+        "entityType": "block"
+    },
+    "solution": {
+        "_id": "65253242d985ec0008b289db",
+        "externalId": "479d00c4-675e-11ee-a57a-ac12038f3f22-OBSERVATION-TEMPLATE_CHILD",
+        "name": "OCI-Observation without Rubrics-block",
+        "description": "obs Form to understand the challenges that the parents are facing in getting their children enrolled in DIKSHA courses",
+        "registry": [],
+        "captureGpsLocationAtQuestionLevel": false,
+        "enableQuestionReadOut": false,
+        "scoringSystem": null,
+        "isRubricDriven": false,
+        "pageHeading": "Domains",
+        "criteriaLevelReport": false
+    },
+    "program": {
+        "_id": "65251d764d04060007348af0",
+        "isAPrivateProgram": false,
+        "externalId": "OCI_Regration_6.0_allresurce",
+        "name": "OCI 6.0 Regression - ten years later, the international community met again at the World Education Forum in Dakar, Senegal, an event which drew the international community met again at the World Education ",
+        "description": "A computer program is a sequence or set of instructions in a programming language for a computer to execute. Computer programs are one component of software, which also includes documentation and other intangible components. A computer program in its human-readable form is called source code. A computer program is a sequence or set of instructions in a programming language for a computer to execute. Computer programs are one component of software, which also includes documentation and other intangible components. A computer program in its human-readable form is called source code.",
+        "imageCompression": {
+            "quality": 10
+        },
+        "requestForPIIConsent": true
+    },
+    "assessment": {
+        "name": "OCI-Observation without Rubrics-block",
+        "description": "obs Form to understand the challenges that the parents are facing in getting their children enrolled in DIKSHA courses",
+        "externalId": "479d00c4-675e-11ee-a57a-ac12038f3f22-OBSERVATION-TEMPLATE_CHILD",
+        "pageHeading": "Domains",
+        "submissionId": "652f5fd45ccf01000873c9e1",
+        "evidences": [
+            {
+                "code": "OB",
+                "sections": [
+                    {
+                        "code": "S1",
+                        "questions": [
+                            {
+                                "_id": "",
+                                "question": "",
+                                "isCompleted": "",
+                                "showRemarks": "",
+                                "options": "",
+                                "sliderOptions": "",
+                                "children": "",
+                                "questionGroup": "",
+                                "fileName": "",
+                                "instanceQuestions": "",
+                                "isAGeneralQuestion": "",
+                                "autoCapture": "",
+                                "allowAudioRecording": "",
+                                "prefillFromEntityProfile": "",
+                                "entityFieldName": "",
+                                "isEditable": "",
+                                "showQuestionInPreview": "",
+                                "deleted": "",
+                                "remarks": "",
+                                "value": "",
+                                "usedForScoring": "",
+                                "questionType": "",
+                                "canBeNotApplicable": "",
+                                "visibleIf": "",
+                                "validation": "",
+                                "dateFormat": "",
+                                "file": "",
+                                "externalId": "",
+                                "tip": "",
+                                "hint": "",
+                                "responseType": "pageQuestions",
+                                "modeOfCollection": "",
+                                "accessibility": "",
+                                "rubricLevel": "",
+                                "sectionHeader": "",
+                                "page": "p1",
+                                "questionNumber": "",
+                                "updatedAt": "",
+                                "createdAt": "",
+                                "__v": "",
+                                "createdFromQuestionId": "",
+                                "evidenceMethod": "",
+                                "payload": "",
+                                "startTime": "",
+                                "endTime": "",
+                                "gpsLocation": "",
+                                "pageQuestions": [
+                                    {
+                                        "_id": "65253241d985ec0008b2899a",
+                                        "question": [
+                                            "Enter the date of observation",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true,
+                                            "max": "",
+                                            "min": ""
+                                        },
+                                        "dateFormat": "DD-MM-YYYY",
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q1_1696936508884-1696936513970",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "date",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "1",
+                                        "updatedAt": "2023-10-10T11:15:13.979Z",
+                                        "createdAt": "2023-10-10T11:15:12.984Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253240d985ec0008b28939",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "date",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b2899b",
+                                        "question": [
+                                            "Which class does your child study in?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true,
+                                            "IsNumber": "true"
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q2_1696936508884-1696936513971",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "number",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "2",
+                                        "updatedAt": "2023-10-10T11:15:13.979Z",
+                                        "createdAt": "2023-10-10T11:15:12.995Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253240d985ec0008b2893f",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "number",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b2899c",
+                                        "question": [
+                                            "Are you currently living in the vicinity of the school?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Yes"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "No"
+                                            },
+                                            {
+                                                "value": "R3",
+                                                "label": "a"
+                                            },
+                                            {
+                                                "value": "R4",
+                                                "label": "b"
+                                            },
+                                            {
+                                                "value": "R5",
+                                                "label": "c"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [
+                                            "65253241d985ec0008b2899d"
+                                        ],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q3_1696936508884-1696936513971",
+                                        "tip": "Use the name of the locality where the school is",
+                                        "hint": "",
+                                        "responseType": "radio",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "3",
+                                        "updatedAt": "2023-10-10T11:15:13.979Z",
+                                        "createdAt": "2023-10-10T11:15:13.008Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28945",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "radio",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b2899d",
+                                        "question": [
+                                            "Are you planning to come back?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Yes"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "No"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": [
+                                            {
+                                                "operator": "===",
+                                                "value": [
+                                                    "R2"
+                                                ],
+                                                "_id": "65253241d985ec0008b2899c"
+                                            }
+                                        ],
+                                        "validation": {
+                                            "required": false
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q4_1696936508884-1696936513971",
+                                        "tip": "",
+                                        "hint": "This becomes a risk if the answer is no",
+                                        "responseType": "radio",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "4",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.019Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b2894b",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "radio",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b2899e",
+                                        "question": [
+                                            "What type of device is available at home?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Simple mobile phone without internet/data pack"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "Smart phone with internet/data pack"
+                                            },
+                                            {
+                                                "value": "R3",
+                                                "label": "Smart phone without internet/data pack"
+                                            },
+                                            {
+                                                "value": "R4",
+                                                "label": "TV"
+                                            },
+                                            {
+                                                "value": "R5",
+                                                "label": "Radio"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q5_1696936508884-1696936513972",
+                                        "tip": "",
+                                        "hint": "The devices that are available or can be easily arranged in the household.",
+                                        "responseType": "multiselect",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "5",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.142Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28952",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "multiselect",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b2899f",
+                                        "question": [
+                                            "Does the child have a quiet place to study?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Yes"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "No"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q6_1696936508884-1696936513973",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "radio",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "6",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.155Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28958",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "radio",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a0",
+                                        "question": [
+                                            "Were you able to enrol your child in courses on DIKSHA?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Yes"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "No"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [
+                                            "65253241d985ec0008b289a1"
+                                        ],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q7_1696936508884-1696936513973",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "radio",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "7",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.166Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b2895e",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "radio",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a1",
+                                        "question": [
+                                            "What are the challenges that you are facing in enrolment?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Not able to use the app"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "Not aware of classrooms on DIKSHA"
+                                            },
+                                            {
+                                                "value": "R3",
+                                                "label": "Not aware of the enrolment process in the classroom"
+                                            },
+                                            {
+                                                "value": "R4",
+                                                "label": "Not aware of enrolment process in the courses"
+                                            },
+                                            {
+                                                "value": "R5",
+                                                "label": "Don’t find the courses useful"
+                                            },
+                                            {
+                                                "value": "R6",
+                                                "label": "Others"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": [
+                                            {
+                                                "operator": "===",
+                                                "value": [
+                                                    "R2"
+                                                ],
+                                                "_id": "65253241d985ec0008b289a0"
+                                            }
+                                        ],
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q8_1696936508884-1696936513974",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "multiselect",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "8",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.177Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28964",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "multiselect",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a2",
+                                        "question": [
+                                            "On basis of the responses received above,  do you think this student is a potential drop out?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": true,
+                                        "options": [
+                                            {
+                                                "value": "R1",
+                                                "label": "Yes"
+                                            },
+                                            {
+                                                "value": "R2",
+                                                "label": "No"
+                                            }
+                                        ],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q9_1696936508884-1696936513974",
+                                        "tip": "Fill this based on the  parents' answers",
+                                        "hint": "",
+                                        "responseType": "radio",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p1",
+                                        "questionNumber": "9",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.190Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b2896b",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253241d985ec0008b289c3",
+                                            "responseType": "radio",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "_id": "",
+                                "question": "",
+                                "isCompleted": "",
+                                "showRemarks": "",
+                                "options": "",
+                                "sliderOptions": "",
+                                "children": "",
+                                "questionGroup": "",
+                                "fileName": "",
+                                "instanceQuestions": "",
+                                "isAGeneralQuestion": "",
+                                "autoCapture": "",
+                                "allowAudioRecording": "",
+                                "prefillFromEntityProfile": "",
+                                "entityFieldName": "",
+                                "isEditable": "",
+                                "showQuestionInPreview": "",
+                                "deleted": "",
+                                "remarks": "",
+                                "value": "",
+                                "usedForScoring": "",
+                                "questionType": "",
+                                "canBeNotApplicable": "",
+                                "visibleIf": "",
+                                "validation": "",
+                                "dateFormat": "",
+                                "file": "",
+                                "externalId": "",
+                                "tip": "",
+                                "hint": "",
+                                "responseType": "pageQuestions",
+                                "modeOfCollection": "",
+                                "accessibility": "",
+                                "rubricLevel": "",
+                                "sectionHeader": "",
+                                "page": "p2",
+                                "questionNumber": "",
+                                "updatedAt": "",
+                                "createdAt": "",
+                                "__v": "",
+                                "createdFromQuestionId": "",
+                                "evidenceMethod": "",
+                                "payload": "",
+                                "startTime": "",
+                                "endTime": "",
+                                "gpsLocation": "",
+                                "pageQuestions": [
+                                    {
+                                        "_id": "65253241d985ec0008b289a3",
+                                        "question": [
+                                            "Add the student interview responses",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [
+                                            {
+                                                "_id": "65253241d985ec0008b289a4",
+                                                "question": [
+                                                    "When did you last take a course on Diksha?",
+                                                    ""
+                                                ],
+                                                "isCompleted": false,
+                                                "showRemarks": false,
+                                                "options": [],
+                                                "sliderOptions": [],
+                                                "children": [],
+                                                "questionGroup": [
+                                                    "A1"
+                                                ],
+                                                "fileName": [],
+                                                "instanceQuestions": [],
+                                                "isAGeneralQuestion": false,
+                                                "autoCapture": true,
+                                                "allowAudioRecording": false,
+                                                "prefillFromEntityProfile": false,
+                                                "entityFieldName": "",
+                                                "isEditable": true,
+                                                "showQuestionInPreview": false,
+                                                "deleted": false,
+                                                "remarks": "",
+                                                "value": "",
+                                                "usedForScoring": "",
+                                                "questionType": "auto",
+                                                "canBeNotApplicable": "false",
+                                                "visibleIf": "",
+                                                "validation": {
+                                                    "required": true,
+                                                    "max": "",
+                                                    "min": ""
+                                                },
+                                                "dateFormat": "DD-MM-YYYY",
+                                                "file": {
+                                                    "required": true,
+                                                    "type": [
+                                                        "image/jpeg",
+                                                        "docx",
+                                                        "pdf",
+                                                        "ppt"
+                                                    ],
+                                                    "minCount": 0,
+                                                    "maxCount": 10,
+                                                    "caption": "FALSE"
+                                                },
+                                                "externalId": "Q11_1696936508884-1696936513975",
+                                                "tip": "",
+                                                "hint": "",
+                                                "responseType": "date",
+                                                "modeOfCollection": "onfield",
+                                                "accessibility": "No",
+                                                "rubricLevel": "",
+                                                "sectionHeader": "",
+                                                "page": "p2",
+                                                "questionNumber": "10a",
+                                                "updatedAt": "2023-10-10T11:15:13.980Z",
+                                                "createdAt": "2023-10-10T11:15:13.211Z",
+                                                "__v": 0,
+                                                "createdFromQuestionId": "65253241d985ec0008b28977",
+                                                "evidenceMethod": "OB",
+                                                "payload": {
+                                                    "criteriaId": "65253242d985ec0008b289c4",
+                                                    "responseType": "date",
+                                                    "evidenceMethod": "OB",
+                                                    "rubricLevel": ""
+                                                },
+                                                "startTime": "",
+                                                "endTime": "",
+                                                "gpsLocation": ""
+                                            },
+                                            {
+                                                "_id": "65253241d985ec0008b289a5",
+                                                "question": [
+                                                    "How would you rate the course taken?",
+                                                    ""
+                                                ],
+                                                "isCompleted": false,
+                                                "showRemarks": false,
+                                                "options": [],
+                                                "sliderOptions": [],
+                                                "children": [],
+                                                "questionGroup": [
+                                                    "A1"
+                                                ],
+                                                "fileName": [],
+                                                "instanceQuestions": [],
+                                                "isAGeneralQuestion": false,
+                                                "autoCapture": false,
+                                                "allowAudioRecording": false,
+                                                "prefillFromEntityProfile": false,
+                                                "entityFieldName": "",
+                                                "isEditable": true,
+                                                "showQuestionInPreview": false,
+                                                "deleted": false,
+                                                "remarks": "",
+                                                "value": "",
+                                                "usedForScoring": "",
+                                                "questionType": "auto",
+                                                "canBeNotApplicable": "false",
+                                                "visibleIf": "",
+                                                "validation": {
+                                                    "required": true,
+                                                    "max": "5",
+                                                    "min": "1"
+                                                },
+                                                "file": {
+                                                    "required": true,
+                                                    "type": [
+                                                        "image/jpeg",
+                                                        "docx",
+                                                        "pdf",
+                                                        "ppt"
+                                                    ],
+                                                    "minCount": 0,
+                                                    "maxCount": 10,
+                                                    "caption": "FALSE"
+                                                },
+                                                "externalId": "Q12_1696936508884-1696936513975",
+                                                "tip": "",
+                                                "hint": "",
+                                                "responseType": "slider",
+                                                "modeOfCollection": "onfield",
+                                                "accessibility": "No",
+                                                "rubricLevel": "",
+                                                "sectionHeader": "",
+                                                "page": "p2",
+                                                "questionNumber": "10b",
+                                                "updatedAt": "2023-10-10T11:15:13.980Z",
+                                                "createdAt": "2023-10-10T11:15:13.223Z",
+                                                "__v": 0,
+                                                "createdFromQuestionId": "65253241d985ec0008b2897e",
+                                                "evidenceMethod": "OB",
+                                                "payload": {
+                                                    "criteriaId": "65253242d985ec0008b289c4",
+                                                    "responseType": "slider",
+                                                    "evidenceMethod": "OB",
+                                                    "rubricLevel": ""
+                                                },
+                                                "startTime": "",
+                                                "endTime": "",
+                                                "gpsLocation": ""
+                                            },
+                                            {
+                                                "_id": "65253241d985ec0008b289a6",
+                                                "question": [
+                                                    "How many courses have you taken?",
+                                                    ""
+                                                ],
+                                                "isCompleted": false,
+                                                "showRemarks": false,
+                                                "options": [],
+                                                "sliderOptions": [],
+                                                "children": [],
+                                                "questionGroup": [
+                                                    "A1"
+                                                ],
+                                                "fileName": [],
+                                                "instanceQuestions": [],
+                                                "isAGeneralQuestion": false,
+                                                "autoCapture": false,
+                                                "allowAudioRecording": false,
+                                                "prefillFromEntityProfile": false,
+                                                "entityFieldName": "",
+                                                "isEditable": true,
+                                                "showQuestionInPreview": false,
+                                                "deleted": false,
+                                                "remarks": "",
+                                                "value": "",
+                                                "usedForScoring": "",
+                                                "questionType": "auto",
+                                                "canBeNotApplicable": "false",
+                                                "visibleIf": "",
+                                                "validation": {
+                                                    "required": true,
+                                                    "IsNumber": "true"
+                                                },
+                                                "file": {
+                                                    "required": true,
+                                                    "type": [
+                                                        "image/jpeg",
+                                                        "docx",
+                                                        "pdf",
+                                                        "ppt"
+                                                    ],
+                                                    "minCount": 0,
+                                                    "maxCount": 10,
+                                                    "caption": "FALSE"
+                                                },
+                                                "externalId": "Q13_1696936508884-1696936513976",
+                                                "tip": "",
+                                                "hint": "",
+                                                "responseType": "number",
+                                                "modeOfCollection": "onfield",
+                                                "accessibility": "No",
+                                                "rubricLevel": "",
+                                                "sectionHeader": "",
+                                                "page": "p2",
+                                                "questionNumber": "10c",
+                                                "updatedAt": "2023-10-10T11:15:13.980Z",
+                                                "createdAt": "2023-10-10T11:15:13.248Z",
+                                                "__v": 0,
+                                                "createdFromQuestionId": "65253241d985ec0008b28985",
+                                                "evidenceMethod": "OB",
+                                                "payload": {
+                                                    "criteriaId": "65253242d985ec0008b289c4",
+                                                    "responseType": "number",
+                                                    "evidenceMethod": "OB",
+                                                    "rubricLevel": ""
+                                                },
+                                                "startTime": "",
+                                                "endTime": "",
+                                                "gpsLocation": ""
+                                            },
+                                            {
+                                                "_id": "65253241d985ec0008b289a7",
+                                                "question": [
+                                                    "Which courses did you go through?",
+                                                    ""
+                                                ],
+                                                "isCompleted": false,
+                                                "showRemarks": false,
+                                                "options": [],
+                                                "sliderOptions": [],
+                                                "children": [],
+                                                "questionGroup": [
+                                                    "A1"
+                                                ],
+                                                "fileName": [],
+                                                "instanceQuestions": [],
+                                                "isAGeneralQuestion": false,
+                                                "autoCapture": false,
+                                                "allowAudioRecording": false,
+                                                "prefillFromEntityProfile": false,
+                                                "entityFieldName": "",
+                                                "isEditable": true,
+                                                "showQuestionInPreview": false,
+                                                "deleted": false,
+                                                "remarks": "",
+                                                "value": "",
+                                                "usedForScoring": "",
+                                                "questionType": "auto",
+                                                "canBeNotApplicable": "false",
+                                                "visibleIf": "",
+                                                "validation": {
+                                                    "required": false
+                                                },
+                                                "file": {
+                                                    "required": true,
+                                                    "type": [
+                                                        "image/jpeg",
+                                                        "docx",
+                                                        "pdf",
+                                                        "ppt"
+                                                    ],
+                                                    "minCount": 0,
+                                                    "maxCount": 10,
+                                                    "caption": "FALSE"
+                                                },
+                                                "externalId": "Q14_1696936508884-1696936513976",
+                                                "tip": "",
+                                                "hint": "",
+                                                "responseType": "text",
+                                                "modeOfCollection": "onfield",
+                                                "accessibility": "No",
+                                                "rubricLevel": "",
+                                                "sectionHeader": "",
+                                                "page": "p2",
+                                                "questionNumber": "10d",
+                                                "updatedAt": "2023-10-10T11:15:13.980Z",
+                                                "createdAt": "2023-10-10T11:15:13.259Z",
+                                                "__v": 0,
+                                                "createdFromQuestionId": "65253241d985ec0008b2898c",
+                                                "evidenceMethod": "OB",
+                                                "payload": {
+                                                    "criteriaId": "65253242d985ec0008b289c4",
+                                                    "responseType": "text",
+                                                    "evidenceMethod": "OB",
+                                                    "rubricLevel": ""
+                                                },
+                                                "startTime": "",
+                                                "endTime": "",
+                                                "gpsLocation": ""
+                                            }
+                                        ],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true
+                                        },
+                                        "instanceIdentifier": "Student",
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q10_1696936508884-1696936513974",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "matrix",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p2",
+                                        "questionNumber": "10",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.202Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28971",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253242d985ec0008b289c4",
+                                            "responseType": "matrix",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": "",
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "name": "Observation Question"
+                    }
+                ],
+                "externalId": "OB",
+                "tip": null,
+                "name": "Observation",
+                "description": null,
+                "modeOfCollection": "onfield",
+                "canBeNotApplicable": false,
+                "notApplicable": false,
+                "canBeNotAllowed": false,
+                "remarks": null,
+                "startTime": 1697692667798,
+                "endTime": 1697692749265,
+                "isSubmitted": false,
+                "submissions": []
+            }
+        ],
+        "submissions": {
+            "OB": {
+                "externalId": "OB",
+                "answers": {
+                    "65253241d985ec0008b2899a": {
+                        "qid": "65253241d985ec0008b2899a",
+                        "value": "2023-10-03T05:17:00.000Z",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Enter the date of observation",
+                                ""
+                            ],
+                            "labels": [
+                                "2023-10-03T04:34:00.000Z"
+                            ],
+                            "responseType": "date",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667859,
+                        "endTime": 1697692667871,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "date",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b2899b": {
+                        "qid": "65253241d985ec0008b2899b",
+                        "value": "4",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Which class does your child study in?",
+                                ""
+                            ],
+                            "labels": [
+                                4
+                            ],
+                            "responseType": "number",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667873,
+                        "endTime": 1697692746654,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "number",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b2899c": {
+                        "qid": "65253241d985ec0008b2899c",
+                        "value": "",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Are you currently living in the vicinity of the school?",
+                                ""
+                            ],
+                            "labels": null,
+                            "responseType": "radio",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667878,
+                        "endTime": "",
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "radio",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b2899d": {
+                        "qid": "65253241d985ec0008b2899d",
+                        "value": "",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Are you planning to come back?",
+                                ""
+                            ],
+                            "responseType": "radio",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": "",
+                        "endTime": "",
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "radio",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b2899e": {
+                        "qid": "65253241d985ec0008b2899e",
+                        "value": [
+                            "R1",
+                            "R2"
+                        ],
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "What type of device is available at home?",
+                                ""
+                            ],
+                            "labels": [
+                                "Simple mobile phone without internet/data pack",
+                                "Smart phone with internet/data pack"
+                            ],
+                            "responseType": "multiselect",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667887,
+                        "endTime": 1697692737248,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "multiselect",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b2899f": {
+                        "qid": "65253241d985ec0008b2899f",
+                        "value": "R1",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Does the child have a quiet place to study?",
+                                ""
+                            ],
+                            "labels": [
+                                "Yes"
+                            ],
+                            "responseType": "radio",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667902,
+                        "endTime": 1697692707028,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "radio",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b289a0": {
+                        "qid": "65253241d985ec0008b289a0",
+                        "value": "R1",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Were you able to enrol your child in courses on DIKSHA?",
+                                ""
+                            ],
+                            "labels": [
+                                "Yes"
+                            ],
+                            "responseType": "radio",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667907,
+                        "endTime": 1697692710819,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "radio",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b289a1": {
+                        "qid": "65253241d985ec0008b289a1",
+                        "value": "",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "What are the challenges that you are facing in enrolment?",
+                                ""
+                            ],
+                            "responseType": "multiselect",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": "",
+                        "endTime": "",
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "multiselect",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b289a2": {
+                        "qid": "65253241d985ec0008b289a2",
+                        "value": "R1",
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "On basis of the responses received above,  do you think this student is a potential drop out?",
+                                ""
+                            ],
+                            "labels": [
+                                "Yes"
+                            ],
+                            "responseType": "radio",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": 1697692667925,
+                        "endTime": 1697692731720,
+                        "criteriaId": "65253241d985ec0008b289c3",
+                        "responseType": "radio",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": ""
+                    },
+                    "65253241d985ec0008b289a3": {
+                        "qid": "65253241d985ec0008b289a3",
+                        "value": [
+                            {
+                                "65253241d985ec0008b289a4": {
+                                    "qid": "65253241d985ec0008b289a4",
+                                    "value": "2023-10-19T05:18:36.974Z",
+                                    "remarks": "",
+                                    "fileName": [],
+                                    "gpsLocation": "",
+                                    "payload": {
+                                        "question": [
+                                            "When did you last take a course on Diksha?",
+                                            ""
+                                        ],
+                                        "labels": [
+                                            "2023-10-19T05:18:36.974Z"
+                                        ],
+                                        "responseType": "date",
+                                        "filesNotUploaded": []
+                                    },
+                                    "startTime": 1697692715451,
+                                    "endTime": 1697692716976,
+                                    "criteriaId": "65253242d985ec0008b289c4",
+                                    "responseType": "date",
+                                    "evidenceMethod": "OB",
+                                    "rubricLevel": ""
+                                },
+                                "65253241d985ec0008b289a5": {
+                                    "qid": "65253241d985ec0008b289a5",
+                                    "value": 5,
+                                    "remarks": "",
+                                    "fileName": [],
+                                    "gpsLocation": "",
+                                    "payload": {
+                                        "question": [
+                                            "How would you rate the course taken?",
+                                            ""
+                                        ],
+                                        "labels": [
+                                            5
+                                        ],
+                                        "responseType": "slider",
+                                        "filesNotUploaded": []
+                                    },
+                                    "startTime": 1697692715463,
+                                    "endTime": 1697692720586,
+                                    "criteriaId": "65253242d985ec0008b289c4",
+                                    "responseType": "slider",
+                                    "evidenceMethod": "OB",
+                                    "rubricLevel": ""
+                                },
+                                "65253241d985ec0008b289a6": {
+                                    "qid": "65253241d985ec0008b289a6",
+                                    "value": "5",
+                                    "remarks": "",
+                                    "fileName": [],
+                                    "gpsLocation": "",
+                                    "payload": {
+                                        "question": [
+                                            "How many courses have you taken?",
+                                            ""
+                                        ],
+                                        "labels": [
+                                            5
+                                        ],
+                                        "responseType": "number",
+                                        "filesNotUploaded": []
+                                    },
+                                    "startTime": 1697692715526,
+                                    "endTime": 1697692727056,
+                                    "criteriaId": "65253242d985ec0008b289c4",
+                                    "responseType": "number",
+                                    "evidenceMethod": "OB",
+                                    "rubricLevel": ""
+                                },
+                                "65253241d985ec0008b289a7": {
+                                    "qid": "65253241d985ec0008b289a7",
+                                    "value": "",
+                                    "remarks": "",
+                                    "fileName": [],
+                                    "gpsLocation": "",
+                                    "payload": {
+                                        "question": [
+                                            "Which courses did you go through?",
+                                            ""
+                                        ],
+                                        "labels": null,
+                                        "responseType": "text",
+                                        "filesNotUploaded": []
+                                    },
+                                    "startTime": 1697692715531,
+                                    "endTime": "",
+                                    "criteriaId": "65253242d985ec0008b289c4",
+                                    "responseType": "text",
+                                    "evidenceMethod": "OB",
+                                    "rubricLevel": ""
+                                }
+                            }
+                        ],
+                        "remarks": "",
+                        "fileName": [],
+                        "gpsLocation": "",
+                        "payload": {
+                            "question": [
+                                "Add the student interview responses",
+                                ""
+                            ],
+                            "labels": [
+                                [
+                                    {
+                                        "_id": "65253241d985ec0008b289a4",
+                                        "question": [
+                                            "When did you last take a course on Diksha?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": true,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "2023-10-19T05:18:36.974Z",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true,
+                                            "max": "",
+                                            "min": ""
+                                        },
+                                        "dateFormat": "DD-MM-YYYY",
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q11_1696936508884-1696936513975",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "date",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p2",
+                                        "questionNumber": "10a",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.211Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28977",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253242d985ec0008b289c4",
+                                            "responseType": "date",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": 1697692715451,
+                                        "endTime": 1697692716976,
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a5",
+                                        "question": [
+                                            "How would you rate the course taken?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": 5,
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true,
+                                            "max": "5",
+                                            "min": "1"
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q12_1696936508884-1696936513975",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "slider",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p2",
+                                        "questionNumber": "10b",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.223Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b2897e",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253242d985ec0008b289c4",
+                                            "responseType": "slider",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": 1697692715463,
+                                        "endTime": 1697692720586,
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a6",
+                                        "question": [
+                                            "How many courses have you taken?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "5",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": true,
+                                            "IsNumber": "true"
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q13_1696936508884-1696936513976",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "number",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p2",
+                                        "questionNumber": "10c",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.248Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b28985",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253242d985ec0008b289c4",
+                                            "responseType": "number",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": 1697692715526,
+                                        "endTime": 1697692727056,
+                                        "gpsLocation": ""
+                                    },
+                                    {
+                                        "_id": "65253241d985ec0008b289a7",
+                                        "question": [
+                                            "Which courses did you go through?",
+                                            ""
+                                        ],
+                                        "isCompleted": false,
+                                        "showRemarks": false,
+                                        "options": [],
+                                        "sliderOptions": [],
+                                        "children": [],
+                                        "questionGroup": [
+                                            "A1"
+                                        ],
+                                        "fileName": [],
+                                        "instanceQuestions": [],
+                                        "isAGeneralQuestion": false,
+                                        "autoCapture": false,
+                                        "allowAudioRecording": false,
+                                        "prefillFromEntityProfile": false,
+                                        "entityFieldName": "",
+                                        "isEditable": true,
+                                        "showQuestionInPreview": false,
+                                        "deleted": false,
+                                        "remarks": "",
+                                        "value": "",
+                                        "usedForScoring": "",
+                                        "questionType": "auto",
+                                        "canBeNotApplicable": "false",
+                                        "visibleIf": "",
+                                        "validation": {
+                                            "required": false
+                                        },
+                                        "file": {
+                                            "required": true,
+                                            "type": [
+                                                "image/jpeg",
+                                                "docx",
+                                                "pdf",
+                                                "ppt"
+                                            ],
+                                            "minCount": 0,
+                                            "maxCount": 10,
+                                            "caption": "FALSE"
+                                        },
+                                        "externalId": "Q14_1696936508884-1696936513976",
+                                        "tip": "",
+                                        "hint": "",
+                                        "responseType": "text",
+                                        "modeOfCollection": "onfield",
+                                        "accessibility": "No",
+                                        "rubricLevel": "",
+                                        "sectionHeader": "",
+                                        "page": "p2",
+                                        "questionNumber": "10d",
+                                        "updatedAt": "2023-10-10T11:15:13.980Z",
+                                        "createdAt": "2023-10-10T11:15:13.259Z",
+                                        "__v": 0,
+                                        "createdFromQuestionId": "65253241d985ec0008b2898c",
+                                        "evidenceMethod": "OB",
+                                        "payload": {
+                                            "criteriaId": "65253242d985ec0008b289c4",
+                                            "responseType": "text",
+                                            "evidenceMethod": "OB",
+                                            "rubricLevel": ""
+                                        },
+                                        "startTime": 1697692715531,
+                                        "endTime": "",
+                                        "gpsLocation": ""
+                                    }
+                                ]
+                            ],
+                            "responseType": "matrix",
+                            "filesNotUploaded": []
+                        },
+                        "startTime": "",
+                        "endTime": "",
+                        "criteriaId": "65253242d985ec0008b289c4",
+                        "responseType": "matrix",
+                        "evidenceMethod": "OB",
+                        "rubricLevel": "",
+                        "countOfInstances": 1
+                    }
+                },
+                "startTime": 1697692667798,
+                "endTime": 1697692749265,
+                "gpsLocation": null,
+                "submittedBy": "7b351af1-bb36-4363-bdb9-b7bb7758cae6",
+                "submittedByName": "abc undefined",
+                "submittedByEmail": null,
+                "submissionDate": "2023-10-19T05:19:09.397Z",
+                "isValid": true
+            }
+        }
+    }
+}

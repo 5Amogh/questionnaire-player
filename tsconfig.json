@@ -16,6 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "resolveJsonModule": true,
     "paths": {
       "questionnaire-player": [
         "dist/questionnaire-player"

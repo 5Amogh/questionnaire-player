@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 import { Question, Validation } from '../../interfaces/questionnaire.type';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInputEvent, MatDatepickerPanel } from '@angular/material/datepicker';
 
 @Component({
   selector: 'lib-date-input',
@@ -17,9 +17,12 @@ export class DateInputComponent implements OnInit {
   @Input() questionnaireForm: FormGroup;
   @Input() question: Question;
   @Input() autoCaptureText: String;
+  @ViewChild('picker') datePicker:MatDatepicker<any>;
+  @ViewChild('panel') panel:MatDatepickerPanel<any,any>;
 
   constructor(
     private qService: QuestionnaireService,
+    public cd:ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -45,14 +48,27 @@ export class DateInputComponent implements OnInit {
       : null;
   }
 
-  onChange(event:MatDatepickerInputEvent<Date>) {
-    if(!event.value) return
-    const selectedDate = new Date((event.value));
+  onChange(event) {
+    if(!event.value || !event.value._isValid) return
+    const selectedDate = new Date(event.value._d);
     const tempDate = new Date();
     selectedDate.setHours(tempDate.getHours());
     selectedDate.setMinutes(tempDate.getMinutes());
     this.question.value = selectedDate.toISOString();
+    this.questionnaireForm.controls[this.question._id].patchValue(
+      this.question.value 
+    )
     this.question.endTime = Date.now();
+    console.log(this.questionnaireForm.value)
+    // this.datePicker.open();
+    // console.log(this.datePicker.opened)
+    // if(this.datePicker.opened){
+      // this.datePicker.close();
+      // this.panel.opened = false;
+    // }
+    // this.datePicker.opened = false;
+
+    // console.log(event.target._dateAdapter);
   }
 
   autoCapture() {
