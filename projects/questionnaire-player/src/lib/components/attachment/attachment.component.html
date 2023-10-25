@@ -23,52 +23,21 @@
 <div
   style="display: flex; flex-direction: row; gap: 20px; color: rebeccapurple"
 >
-  <ng-container *ngFor="let file of selectedFiles; let i = index">
-    <ng-container [ngSwitch]="extension(file)">
-      <div *ngSwitchCase="'png'" class="iconList">
+  <ng-container *ngFor="let file of data?.files; let i = index">
+    <ng-container [ngSwitch]="file.type">
+      <div *ngSwitchCase="'image'" class="iconList">
         <mat-icon
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
+          (click)="showFilePreview(file.file,'image')"
           >image</mat-icon
         >
         <mat-icon
           style="color: rgb(150, 4, 4)"
           matTooltip="Remove the uploaded image"
           class="cancelIcon"
-          (click)="deleteAttachment()"
-          >cancel</mat-icon
-        >
-      </div>
-      <div *ngSwitchCase="'jpg'" class="iconList">
-        <mat-icon
-          class="customizeIcon"
-          matTooltip="View the uploaded image"
-          (click)="deleteAttachment()"
-          matTooltipClass="tooltip"
-          >image</mat-icon
-        >
-        <mat-icon
-          style="color: rgb(150, 4, 4)"
-          matTooltip="Remove the uploaded image"
-          class="cancelIcon"
-          matTooltipClass="tooltip"
-          >cancel</mat-icon
-        >
-      </div>
-      <div *ngSwitchCase="'jpeg'" class="iconList">
-        <mat-icon
-          class="customizeIcon"
-          matTooltip="View the uploaded image"
-          matTooltipClass="tooltip"
-          >image</mat-icon
-        >
-        <mat-icon
-          style="color: rgb(150, 4, 4)"
-          matTooltip="Remove the uploaded image"
-          class="cancelIcon"
-          matTooltipClass="tooltip"
-          (click)="deleteAttachment()"
+          (click)="deleteAttachment(i)"
           >cancel</mat-icon
         >
       </div>
@@ -77,6 +46,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
+          (click)="showFilePreview(file.file,'doc')"
           >picture_as_pdf</mat-icon
         >
         <mat-icon
@@ -84,14 +54,16 @@
           matTooltip="Remove the uploaded pdf"
           class="cancelIcon"
           matTooltipClass="tooltip"
+          (click)="deleteAttachment(i)"
           >cancel</mat-icon
         >
       </div>
-      <div *ngSwitchCase="'mp4'" class="iconList">
+      <div *ngSwitchCase="'video'" class="iconList">
         <mat-icon
           class="customizeIcon"
           matTooltip="View the uploaded video"
           matTooltipClass="tooltip"
+          (click)="showFilePreview(file.file,'video')"
           >video_file</mat-icon
         >
         <mat-icon
@@ -99,21 +71,23 @@
           matTooltip="Remove the uploaded video"
           class="cancelIcon"
           matTooltipClass="tooltip"
+          (click)="deleteAttachment(i)"
           >cancel</mat-icon
         >
       </div>
-      <div *ngSwitchCase="'mp3'" class="iconList">
+      <div *ngSwitchCase="'audio'" class="iconList">
         <mat-icon
           class="customizeIcon"
           matTooltip="View/listen to the uploaded audio"
           matTooltipClass="tooltip"
-          >audio_file</mat-icon
-        >
+          (click)="showFilePreview(file.file,'audio')"
+          >audio_file</mat-icon>
         <mat-icon
           style="color: rgb(150, 4, 4)"
           matTooltip="Remove the uploaded audio"
           class="cancelIcon"
           matTooltipClass="tooltip"
+          (click)="deleteAttachment(i)"
           >cancel</mat-icon
         >
       </div>
@@ -122,6 +96,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded file"
           matTooltipClass="tooltip"
+          (click)="showFilePreview(file.file,'doc')"
           >description</mat-icon
         >
         <mat-icon
@@ -129,9 +104,19 @@
           matTooltip="Remove the uploaded file"
           class="cancelIcon"
           matTooltipClass="tooltip"
+          (click)="deleteAttachment(i)"
           >cancel</mat-icon
         >
       </div>
     </ng-container>
   </ng-container>
 </div>
+
+<ng-template #previewModal>
+  <div mat-dialog-content>
+    <img *ngIf="objectType == 'image'" [src]="objectURL" alt="Preview" style="width: 100%; height: 55vh;">
+    <iframe *ngIf="objectType == 'doc'"  [src]="objectURL | sanitizeUrl" height="500" width="700"></iframe>
+    <video *ngIf="objectType == 'video'" [src]="objectURL" controls style="width: 100%; height: 55vh;"></video>
+    <audio *ngIf="objectType == 'audio'" [src]="objectURL" controls style="max-width: 100%; max-height: 100%;"></audio>
+  </div>
+</ng-template>

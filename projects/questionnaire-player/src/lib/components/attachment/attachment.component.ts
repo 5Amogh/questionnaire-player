@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { UtilsService } from '../../services/utils.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'lib-attachment',
@@ -12,12 +13,14 @@ export class AttachmentComponent {
   @Input() data;
   @Input() fileSizeLimit: number = 50;
   formData;
-  constructor(private dialog: MatDialog) {}
-
-  selectedFiles = [];
+  objectURL: string;
+  @ViewChild('previewModal') previewModal: TemplateRef<any>;
+  objectType: string;
+  constructor(private dialog: MatDialog) { }
 
   basicUpload(event) {
     const files: FileList = event.target.files;
+    console.log(files)
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
     if (sizeMB > this.fileSizeLimit) {
       this.fileLimitCross();
@@ -25,9 +28,50 @@ export class AttachmentComponent {
     }
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
-    event.target.value = null;
-    this.selectedFiles.push(this.getFileNames(this.formData)[0]);
+    const fileNames = this.getFileNames(this.formData);
+    console.log('fileNames', fileNames)
+    fileNames.map((fileName, index) => {
+      console.log('fileName', fileName)
+      const fileType = this.getFileType(fileName); // Get file type based on extension
+      const fileDetails = {
+        name: fileName,
+        type: fileType,
+        file: files[index] // Store the File object for later use
+      }
+      this.data.files.push(fileDetails);
+    });
+    console.log(this.data)
   }
+  getFileType(fileName) {
+    const type = fileName.split('.').pop();
+    if (['png', 'image/png', 'jpg', 'jpeg', 'image/jpg', 'image/jpeg'].includes(type)) {
+      return 'image';
+    } else if (['mp4', 'video/mp4', 'webm', 'mkv', 'video/webm', 'video/mkv', 'avi', 'video/avi'].includes(type)) {
+      return 'video';
+    } else if (['audio/mp3', 'audio/wav', 'audio/mpeg', 'mpeg', 'wav', 'mp3'].includes(type)) {
+      return 'audio';
+    } else if (['application/pdf', 'pdf']) {
+      return 'pdf';
+    } else {
+      return 'doc';
+    }
+  }
+
+  showFilePreview(file: File, type: string) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.objectURL = URL.createObjectURL(file);
+      this.objectType = type;
+    };
+    reader.readAsDataURL(file);
+    this.dialog.open(this.previewModal, {
+      width: 'auto',
+      height: 'auto',
+      enterAnimationDuration: 300,
+      exitAnimationDuration: 150
+    });
+  }
+
 
   fileLimitCross() {
     const alertDialogConfig = {
@@ -40,18 +84,19 @@ export class AttachmentComponent {
     this.openAlert(alertDialogConfig);
   }
 
-  openAlert(alertDialogConfig) {
-    const dialogRef = this.dialog.open(AlertComponent, {
+  async openAlert(alertDialogConfig) {
+    const dialogRef = await this.dialog.open(AlertComponent, {
       data: alertDialogConfig,
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
     });
-    let userAcceptance;
-    dialogRef.afterClosed().subscribe((res) => {
-      userAcceptance = res;
-    });
-    return userAcceptance;
+    return new Observable<boolean>((observer) => {
+      dialogRef.afterClosed().subscribe((res) => {
+        observer.next(res);
+        observer.complete();
+      });
+    }).toPromise();
   }
 
   getFileNames(formData) {
@@ -108,9 +153,6 @@ export class AttachmentComponent {
     // );
   }
 
-  extension(name) {
-    return name.split('.').pop();
-  }
   openFile(file) {
     window.open(file.url, '_blank');
   }
@@ -123,7 +165,7 @@ export class AttachmentComponent {
     };
     const accepted = await this.openAlert(alertDialogConfig);
     if (!accepted) {
-      return;
+      return
     }
     this.data.files.splice(fileIndex, 1);
   }
