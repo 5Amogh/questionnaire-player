@@ -8,7 +8,7 @@ Angular 16, Nodejs 16.19.0
 
 ## Setup
 
-Run `npm install` after cloning the repo in local to install the necessary depencies
+Run `npm install` after cloning the repo in local to install the necessary dependencies
 
 ## Build QuestionnairePlayer and generate the webcomponent 
 
