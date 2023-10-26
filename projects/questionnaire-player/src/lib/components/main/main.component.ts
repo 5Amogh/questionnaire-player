@@ -35,7 +35,10 @@ export class MainComponent{
     return ResponseType;
   }
 
-  
+  questionTrackBy(index, question) {
+    return question._id;
+  }
+
   openDialog(questionIndex: number) {
     this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;

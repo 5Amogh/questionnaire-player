@@ -7,10 +7,10 @@ label {
 }
 
 .btn {
-  background-color: rebeccapurple;
-  color: white;
-  border: solid transparent 1px;
-  border-radius: 20px;
+  background-color: white;
+  color: rebeccapurple;
+  border: solid rebeccapurple 1px;
+  border-radius: 8px;
   padding: 5px 15px;
   cursor: pointer;
 }
@@ -24,9 +24,7 @@ label {
 }
 
 .btn:hover {
-  background-color: white;
-  color: rebeccapurple;
-  border: solid rebeccapurple 1px;
+  background-color: whitesmoke;
 }
 
 mat-icon.customizeIcon {
@@ -44,7 +42,15 @@ mat-icon.customizeIcon {
   right: -15px;
 }
 
-// :ng-deep .mdc-tooltip__surface{
-//   background-color: rebeccapurple !important;
-//   color: white !important;
-// }
+.close-btn{
+  color: rgb(150, 4, 4);
+  font-size: large;
+}
+::ng-deep {
+  @media screen and (max-width:768px) {
+
+    .mdc-dialog .mdc-dialog__content {
+      padding: 0 !important;
+    }
+  }
+}

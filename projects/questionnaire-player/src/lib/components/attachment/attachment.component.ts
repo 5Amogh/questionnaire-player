@@ -1,4 +1,11 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { UtilsService } from '../../services/utils.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
@@ -9,18 +16,22 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss'],
 })
-export class AttachmentComponent {
+export class AttachmentComponent implements OnDestroy, OnInit {
   @Input() data;
   @Input() fileSizeLimit: number = 50;
   formData;
   objectURL: string;
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   objectType: string;
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
+
+  ngOnInit() {
+    console.log('Component initialized with data:', this.data);
+  }
 
   basicUpload(event) {
     const files: FileList = event.target.files;
-    console.log(files)
+    console.log(files);
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
     if (sizeMB > this.fileSizeLimit) {
       this.fileLimitCross();
@@ -29,32 +40,36 @@ export class AttachmentComponent {
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
-    console.log('fileNames', fileNames)
+    console.log('fileNames', fileNames);
     fileNames.map((fileName, index) => {
-      console.log('fileName', fileName)
+      console.log('fileName', fileName);
       const fileType = this.getFileType(fileName); // Get file type based on extension
       const fileDetails = {
         name: fileName,
         type: fileType,
-        file: files[index] // Store the File object for later use
-      }
+        file: files[index], // Store the File object for later use
+      };
       this.data.files.push(fileDetails);
     });
-    console.log(this.data)
+    console.log(this.data);
   }
   getFileType(fileName) {
     const type = fileName.split('.').pop();
     if (['png', 'image/png', 'jpg', 'jpeg', 'image/jpg', 'image/jpeg'].includes(type)) {
       return 'image';
-    } else if (['mp4', 'video/mp4', 'webm', 'mkv', 'video/webm', 'video/mkv', 'avi', 'video/avi'].includes(type)) {
+    } else if (['mp4', 'video/mp4', 'webm', 'mkv', 'video/webm', 'video/mkv', 'avi', 'video/avi',].includes(type)) {
       return 'video';
     } else if (['audio/mp3', 'audio/wav', 'audio/mpeg', 'mpeg', 'wav', 'mp3'].includes(type)) {
       return 'audio';
-    } else if (['application/pdf', 'pdf']) {
+    } else if (['pdf','application/pdf'].includes(type)) {
       return 'pdf';
     } else {
       return 'doc';
     }
+  }
+
+  closeDialog(){
+    this.dialog.closeAll();
   }
 
   showFilePreview(file: File, type: string) {
@@ -63,15 +78,22 @@ export class AttachmentComponent {
       this.objectURL = URL.createObjectURL(file);
       this.objectType = type;
     };
+
     reader.readAsDataURL(file);
-    this.dialog.open(this.previewModal, {
+    const dialogRef = this.dialog.open(this.previewModal, {
       width: 'auto',
       height: 'auto',
       enterAnimationDuration: 300,
-      exitAnimationDuration: 150
+      exitAnimationDuration: 150,
+    });
+
+    dialogRef.afterClosed().subscribe((_res) => {
+      if (this.objectURL) {
+        URL.revokeObjectURL(this.objectURL);
+        this.objectURL = null;
+      }
     });
   }
-
 
   fileLimitCross() {
     const alertDialogConfig = {
@@ -153,10 +175,6 @@ export class AttachmentComponent {
     // );
   }
 
-  openFile(file) {
-    window.open(file.url, '_blank');
-  }
-
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
       message: 'Do you want to delete the evidence?',
@@ -165,7 +183,7 @@ export class AttachmentComponent {
     };
     const accepted = await this.openAlert(alertDialogConfig);
     if (!accepted) {
-      return
+      return;
     }
     this.data.files.splice(fileIndex, 1);
   }
@@ -195,5 +213,12 @@ export class AttachmentComponent {
       cancelLabel: null,
     };
     this.openAlert(alertConfig);
+  }
+
+  ngOnDestroy() {
+    if (this.objectURL) {
+      URL.revokeObjectURL(this.objectURL);
+      this.objectURL = null;
+    }
   }
 }

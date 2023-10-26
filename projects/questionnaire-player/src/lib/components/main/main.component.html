@@ -1,4 +1,4 @@
-<div class="custom-font" *ngFor="let question of questions; let qi = index">
+<div class="custom-font" *ngFor="let question of questions; let qi = index; TrackBy:questionTrackBy">
   <ng-container *ngIf="
       question?.sectionHeader &&
       (!question.visibleIf?.length || question.canDisplay == true)
@@ -38,7 +38,7 @@
       <ng-container *ngIf="question?.tip">
         <p style="font-size: smaller; color: gray">{{ question?.tip }}</p>
       </ng-container>
-      <div style="margin-bottom: 10px">
+      <div style="margin-bottom: 10px;display: flex;flex-direction: column;gap: 10px;">
         <lib-text-input *ngIf="question.responseType == reponseType.TEXT" [questionnaireForm]="questionnaireForm"
           [question]="question"></lib-text-input>
         <ng-container *ngIf="
@@ -68,7 +68,8 @@
         <lib-remarks [question]="question" *ngIf="question.showRemarks"></lib-remarks>
         <lib-attachment *ngIf="question.file" [data]="{
           submissionId: qService.getSubmissionId(),
-          files: question.fileName
+          files: question.fileName,
+          index:question._id+qi
         }">
         </lib-attachment>
         <lib-dialog *ngIf="dimmerIndex == qi && question?.hint" [isDimmed]="isDimmed" [hint]="question?.hint"

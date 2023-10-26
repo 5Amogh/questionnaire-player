@@ -1,13 +1,14 @@
-<div style="display: flex; justify-content: center; align-items: center">
+
+<div style="display: flex; justify-content: left; align-items: center;margin-bottom:1rem;">
   <span class="btn">
     <input
       type="file"
-      id="fileInput"
+      id="{{data?.index}}"
       (change)="basicUpload($event)"
       hidden
     />
     <label
-      for="fileInput"
+      for="{{data?.index}}"
       style="
         display: flex;
         justify-content: center;
@@ -15,7 +16,7 @@
         gap: 10px;
       "
     >
-      <mat-icon>cloud_upload</mat-icon> Upload
+      <mat-icon style="height: auto;width: auto;">upload</mat-icon> Add file
     </label>
   </span>
 </div>
@@ -113,10 +114,15 @@
 </div>
 
 <ng-template #previewModal>
-  <div mat-dialog-content>
-    <img *ngIf="objectType == 'image'" [src]="objectURL" alt="Preview" style="width: 100%; height: 55vh;">
+  <div style="position: relative;">
+    <div style="position: absolute; top: 10px; right: 8px; cursor: pointer;">
+      <mat-icon (click)="closeDialog()" class="close-btn"  matTooltip="Close">cancel</mat-icon>
+    </div>
+  </div>
+  <div mat-dialog-content >
+    <img *ngIf="objectType == 'image'"  [src]="objectURL" alt="Preview" style="width: 100%;">
     <iframe *ngIf="objectType == 'doc'"  [src]="objectURL | sanitizeUrl" height="500" width="700"></iframe>
-    <video *ngIf="objectType == 'video'" [src]="objectURL" controls style="width: 100%; height: 55vh;"></video>
+    <video *ngIf="objectType == 'video'" [src]="objectURL" controls style="width: 100%;"></video>
     <audio *ngIf="objectType == 'audio'" [src]="objectURL" controls style="max-width: 100%; max-height: 100%;"></audio>
   </div>
 </ng-template>

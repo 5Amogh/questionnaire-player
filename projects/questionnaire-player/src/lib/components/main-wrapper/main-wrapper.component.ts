@@ -51,10 +51,18 @@ export class MainWrapperComponent implements OnInit{
   }
 
   submission(status) {
+    const evidenceData = this.questionnaireService.getEvidenceData(
+      this.evidence,
+      this.questionnaireForm.value
+    );
+
+    status == 'save' ? (evidenceData['status'] = 'draft') : null;
     const dataToEmit = {
       status: status,
-      data: this.questionnaireForm.value,
+      data: evidenceData
     };
+    
+    console.log(dataToEmit);
     this.submitOrSaveEvent.emit(dataToEmit);
   }
 }
