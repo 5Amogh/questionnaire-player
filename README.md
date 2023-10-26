@@ -1,26 +1,35 @@
 # QuestionnairePlayer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+The Questionnaire Player is a webcomponent built with the help of angular version 16.2.1
 
-## Development server
+## Prerequisites for setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Angular 16, Nodejs 16.19.0
+
+## Setup
+
+Run `npm install` after cloning the repo in local to install the necessary depencies
+
+## Build QuestionnairePlayer and generate the webcomponent 
+
+Run `npm run build-web-comp` To build the player with the latest changes and to reflect the changes in webcomponent 
+
+## Demo Application
+
+Navigate to `projects/questionnaire-app` and Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Webcomponent
+
+In our angular.json file, we have included the web component script under the "scripts" section (projects -> questionnaire-app -> architect -> build). This script is responsible for adding the questionnaire player web component functionality to our demo application.
+
+To include the styles of the webcomponent in the demo app, import '../../../web-component/styles.css' in styles.css file of the app.
+
+For usage of the webcomponent in a react app, visit : [https://github.com/5Amogh/react-usingwebcomponent-app]
 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 ## Further help
 
