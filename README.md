@@ -18,7 +18,7 @@ Run `npm run build-web-comp` To build the player with the latest changes and to 
 
 Navigate to `projects/questionnaire-app` and Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-In-case the changes have been done in the library, after successful build by `npm run build-web-comp` the changes would automatically reflect in the app as well.
+In-case the changes have been done in the library, after successful build by `npm run build-web-comp` the changes would automatically reflect in the app as well. ( only applicable to this app and not the react demo app).
 
 ## Webcomponent
 
