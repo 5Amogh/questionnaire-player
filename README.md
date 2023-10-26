@@ -18,6 +18,8 @@ Run `npm run build-web-comp` To build the player with the latest changes and to 
 
 Navigate to `projects/questionnaire-app` and Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+In-case the changes have been done in the library, after successful build by `npm run build-web-comp` the changes would automatically reflect in the app as well.
+
 ## Webcomponent
 
 In our angular.json file, we have included the web component script under the "scripts" section (projects -> questionnaire-app -> architect -> build). This script is responsible for adding the questionnaire player web component functionality to our demo application.
