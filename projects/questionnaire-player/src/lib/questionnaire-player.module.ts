@@ -38,6 +38,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { MatrixQuestionsComponent } from './components/matrix-questions/matrix-questions.component';
 import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -70,6 +71,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
