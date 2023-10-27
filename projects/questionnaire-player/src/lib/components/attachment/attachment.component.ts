@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss'],
 })
-export class AttachmentComponent implements OnDestroy, OnInit {
+export class AttachmentComponent implements OnDestroy {
   @Input() data;
   @Input() fileSizeLimit: number = 50;
   formData;
@@ -25,13 +25,9 @@ export class AttachmentComponent implements OnDestroy, OnInit {
   objectType: string;
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit() {
-    console.log('Component initialized with data:', this.data);
-  }
 
   basicUpload(event) {
     const files: FileList = event.target.files;
-    console.log(files);
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
     if (sizeMB > this.fileSizeLimit) {
       this.fileLimitCross();
@@ -40,9 +36,7 @@ export class AttachmentComponent implements OnDestroy, OnInit {
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
-    console.log('fileNames', fileNames);
     fileNames.map((fileName, index) => {
-      console.log('fileName', fileName);
       const fileType = this.getFileType(fileName); // Get file type based on extension
       const fileDetails = {
         name: fileName,
@@ -51,7 +45,6 @@ export class AttachmentComponent implements OnDestroy, OnInit {
       };
       this.data.files.push(fileDetails);
     });
-    console.log(this.data);
   }
   getFileType(fileName) {
     const type = fileName.split('.').pop();

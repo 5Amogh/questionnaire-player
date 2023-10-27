@@ -62,7 +62,6 @@ export class MainWrapperComponent implements OnInit{
       data: evidenceData
     };
     
-    console.log(dataToEmit);
     this.submitOrSaveEvent.emit(dataToEmit);
   }
 }
