@@ -55,7 +55,6 @@ export class MatrixQuestionsComponent implements OnInit {
     this.addText = 'Add';
     this.submitText = 'Submit';
     this.cancelText = 'Cancel';
-    console.log('question from matrix',this.question)
     setTimeout(() => {
       this.matrixForm = this.fb.group({},Validators.required);
       this.questionnaireForm.addControl(
@@ -66,6 +65,9 @@ export class MatrixQuestionsComponent implements OnInit {
     });
   }
   initializeMatrix() {
+  /* Binding the instanceValidation function to the current context ('this') 
+    to ensure correct 'this' reference within the validator function.*/
+    const instanceValidationBound = this.instanceValidation.bind(this)
     if (this.question.value.length) {
       this.question.value.map((v) => {
         let obj = {};
@@ -76,7 +78,7 @@ export class MatrixQuestionsComponent implements OnInit {
           obj[ques._id] = ques.value;
         });
         (this.questionnaireForm.controls[this.question._id] as FormArray).push(
-          new FormControl(obj, [this.instanceValidation])
+          new FormControl(obj, [instanceValidationBound])
         );
         let instanceupdatedAt = endTime.reduce(function (x, y) {
           return x > y ? x : y;
@@ -88,29 +90,12 @@ export class MatrixQuestionsComponent implements OnInit {
 
   instanceValidation(control: FormControl) {
     let value = control.value;
-    // TODO:ERROR TypeError: Cannot read properties of undefined (reading 'isEmpty') getting this that's why this code has been commented out, figure this issue out
-    // if (this.isEmpty(value)) {
-    //   return { err: 'Instance not filled' };
-    // }
+    if (this.utilService.isEmpty(value)) {
+      return { err: 'Instance not filled' };
+    }
     return null;
   }
 
-  isEmpty(value: any): boolean {
-    if (value == null) {
-      return true;
-    }
-    if (typeof value === 'string' && value.trim() === '') {
-      return true;
-    }
-
-    if (Array.isArray(value) && value.length === 0) {
-      return true;
-    }
-    if (typeof value === 'object' && Object.keys(value).length === 0) {
-      return true;
-    }
-    return false;
-  }
 
   addInstances(): void {
     this.question.value = this.question.value ? this.question.value : [];
@@ -123,12 +108,9 @@ export class MatrixQuestionsComponent implements OnInit {
 
   viewInstance(i): void {
     this.matrixForm.reset();
-    console.log('view instance before patching',this.matrixForm)
-    console.log('forms array',this.formAsArray.controls[i])
     if (this.formAsArray.controls[i].value) {
       this.matrixForm.patchValue(this.formAsArray.controls[i].value);
     }
-    console.log('view instance after patching',this.matrixForm)
     this.dialog.open(this.modalTemplate, {
       width: '100%',
       enterAnimationDuration: 300,
@@ -159,8 +141,6 @@ export class MatrixQuestionsComponent implements OnInit {
         .setErrors({ err: 'Matrix response is invalid' });
     }
     this.instanceLastUpdated[index] = Date.now();
-    console.log('Matrix value',this.matrixForm.value);
-    console.log('Questionnaire value',this.questionnaireForm.value);
     this.closeModal();
   }
 
