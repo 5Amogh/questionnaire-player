@@ -58,17 +58,7 @@ export class DateInputComponent implements OnInit {
     this.questionnaireForm.controls[this.question._id].patchValue(
       this.question.value 
     )
-    this.question.endTime = Date.now();
-    console.log(this.questionnaireForm.value)
-    // this.datePicker.open();
-    // console.log(this.datePicker.opened)
-    // if(this.datePicker.opened){
-      // this.datePicker.close();
-      // this.panel.opened = false;
-    // }
-    // this.datePicker.opened = false;
-
-    // console.log(event.target._dateAdapter);
+    this.question.endTime = Date.now();;
   }
 
   autoCapture() {
