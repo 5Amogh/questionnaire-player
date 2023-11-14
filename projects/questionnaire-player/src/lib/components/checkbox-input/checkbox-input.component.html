@@ -15,7 +15,7 @@
     <ng-container *ngIf="question?.option && question?.option[i]?.hint">
       <button
         mat-icon-button
-        style="color: rebeccapurple"
+        style="color: var(--primary-color)"
         aria-label="Icon-button with a lightbulb icon"
         (click)="openDialog(i)"
         matTooltip="Hint about the option"
