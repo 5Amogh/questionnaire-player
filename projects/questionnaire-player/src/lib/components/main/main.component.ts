@@ -1,15 +1,10 @@
 import {
   Component,
   Input,
-  OnChanges,
-  OnInit,
-  SimpleChange,
-  SimpleChanges,
   ViewChild,
-  booleanAttribute,
 } from '@angular/core';
-import { AssessmentInfo, Evidence, Question, ResponseType, Section } from '../../interfaces/questionnaire.type';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Evidence, Question, ResponseType, Section } from '../../interfaces/questionnaire.type';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 
@@ -20,11 +15,11 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
 })
 export class MainComponent{
   @Input({ required: true }) questions: Array<Question>;
-  @Input() assessmentInfo: AssessmentInfo;
   evidence: Evidence;
   sections: Section[];
   @Input({ required: true }) questionnaireForm: FormGroup;
   @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
+  @Input() fileUploadResponse;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;

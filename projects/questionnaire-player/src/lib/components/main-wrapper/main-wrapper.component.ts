@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input,OnInit, Output, SimpleChanges, booleanAttribute} from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
 import {
   Evidence,
   Question,
@@ -12,20 +12,27 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.css'],
 })
-export class MainWrapperComponent implements OnInit{
+export class MainWrapperComponent{
   questions: Array<Question>;
   @Input({required:true}) assessment;
   @Input({transform:booleanAttribute}) angular = false;
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;
+  @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
   constructor(
     public fb: FormBuilder,
-    public questionnaireService: QuestionnaireService
+    public questionnaireService: QuestionnaireService,
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(changes['fileuploadresponse']){
+        if(typeof this.fileuploadresponse === 'string'){
+          this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
+        }
+      console.log('change detected',this.fileuploadresponse);
+    }
     if(this.angular && changes['assessment'] && changes['assessment'].previousValue == undefined && changes['assessment'].currentValue){
       this.assessment = this.questionnaireService.mapSubmissionToAssessment(this.assessment)
       this.evidence = this.assessment.assessment.evidences[0];

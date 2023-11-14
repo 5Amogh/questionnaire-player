@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class UtilsService {
-  abstract error?(msg);
+export class UtilsService {
+ error?(msg);
 
-  abstract getPreSingedUrls?(payload): Observable<any>;
+ getPreSingedUrls?(payload): Observable<any>;
 
-  abstract cloudStorageUpload?(payload): Observable<any>;
+ cloudStorageUpload?(payload): Observable<any>;
 
   constructor() {}
 
