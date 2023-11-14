@@ -1,6 +1,6 @@
 .btn-primary{
-    background-color:rebeccapurple;
-    color: white;
+    background-color:var(--primary-color);
+    color: var(--general-btn-text-color);
     cursor: pointer;
     border: solid transparent 1px;
     border-radius: 20px;
@@ -8,24 +8,24 @@
 }
 
 .btn-primary:hover{
-    background-color: white;
-    color: rebeccapurple;
-    border: solid rebeccapurple 1px;
+    background-color: var(--general-btn-hover-bg);
+    color: var(--primary-color);
+    border: solid var(--primary-color) 1px;
 }
 
 .btn-disabled{
-    background-color:gainsboro;
-    color: gray;
+    background-color:var(--disabled-btn-bg);
+    color: var(--disabled-btn-text);
     border: solid transparent 1px;
     border-radius: 20px;
     padding: 10px;
     cursor: not-allowed;
 }
 
-.btn-outline-primary{
-    background-color:white;
-    color:purple;
-    border: solid purple 1px;
+.btn-outline-secondary{
+    background-color:var(--secondary-btn-bg);
+    color: var(--primary-color);
+    border: solid  var(--primary-color) 1px;
     border-radius: 20px;
     padding: 10px;
     cursor: pointer;

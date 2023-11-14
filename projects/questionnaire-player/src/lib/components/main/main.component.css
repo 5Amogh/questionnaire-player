@@ -5,15 +5,15 @@
   font-size: large;
   font-weight: bold;
   margin-bottom: 0;
-  color: rebeccapurple !important;
+  color: var(--primary-color) !important;
 }
 .activeCard {
-  background-color: white;
+  background-color: var(--card-bg);
   border-left: solid 10px transparent;
   transition: border-left 0.5s ease;
 }
 .activeCard:hover {
-  border-left: solid 10px rebeccapurple;
+  border-left: solid 10px var(--primary-color);
 }
 
 .responsive-margin{
