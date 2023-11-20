@@ -30,10 +30,12 @@
               "projects/questionnaire-app/src/assets"
             ],
             "styles": [
-              "projects/questionnaire-app/src/styles.scss"
+              "projects/questionnaire-app/src/styles.scss",
+              "node_modules/questionnaire-webcomponent/styles.scss"
+
             ],
             "scripts": [
-              "web-component/questionnaire-player-webcomponent.js"
+              "node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"
             ]
           },
           "configurations": {

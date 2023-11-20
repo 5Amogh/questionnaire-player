@@ -1,11 +1,16 @@
 <form [formGroup]="questionnaireForm">
+  <div
+  class="custom-font"
+  *ngFor="let section of sections; let sectionIndex = index;"
+>
   <lib-main
-    [questions]="questions"
+    [questions]="section.questions"
     [questionnaireForm]="questionnaireForm"
     [fileUploadResponse]="fileuploadresponse"
   ></lib-main>
+  </div>
 </form>
-<div
+<div *ngIf="!evidence?.isSubmitted"
   style="
     margin: 1rem;
     display: flex;

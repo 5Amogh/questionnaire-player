@@ -38,7 +38,6 @@ export class MainWrapperComponent{
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
       this.sections = this.evidence.sections;
-      this.questions = this.sections[0].questions;
     }
   }
   ngOnInit() {
@@ -49,7 +48,6 @@ export class MainWrapperComponent{
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
       this.sections = this.evidence.sections;
-      this.questions = this.sections[0].questions
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
