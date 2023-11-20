@@ -7,9 +7,9 @@ label {
 }
 
 .btn {
-  background-color: white;
-  color: rebeccapurple;
-  border: solid rebeccapurple 1px;
+  background-color: var(--secondary-btn-bg);
+  color:var(--primary-color);
+  border: solid var(--primary-color) 1px;
   border-radius: 8px;
   padding: 5px 15px;
   cursor: pointer;
@@ -24,11 +24,11 @@ label {
 }
 
 .btn:hover {
-  background-color: whitesmoke;
+  background-color: var(--secondary-btn-hover-bg);
 }
 
 mat-icon.customizeIcon {
-  color: rebeccapurple;
+  color: var(--primary-color);
   height: unset !important;
   width: unset !important;
   font-size: 36px;

@@ -1,12 +1,13 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
+  OnChanges,
   OnDestroy,
-  OnInit,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { UtilsService } from '../../services/utils.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs/internal/Observable';
@@ -16,16 +17,38 @@ import { Observable } from 'rxjs/internal/Observable';
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss'],
 })
-export class AttachmentComponent implements OnDestroy {
+export class AttachmentComponent implements OnChanges, OnDestroy {
   @Input() data;
   @Input() fileSizeLimit: number = 50;
+  @Input() questionId;
   formData;
   objectURL: string;
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
+  @Input() fileUploadResponse = null;
   objectType: string;
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['fileUploadResponse'] && this.fileUploadResponse?.status) {
+      console.log(
+        'Inside the attachment, the file upload response',
+        this.fileUploadResponse
+      );
+      const status = this.fileUploadResponse?.status;
+      const successMessage = 'Evidence upload successfully!';
+      const failureMessage = 'Unable to upload the file. Please try again.';
+      const alertDialogConfig = {
+        message: status === 200 ? successMessage : failureMessage,
+        acceptLabel: 'Ok',
+        cancelLabel: null,
+      };
+  
+      if (status == 200) {
+        this.data.files.push(this.fileUploadResponse.data);
+      }
+        this.openAlert(alertDialogConfig);
+    }
+  }
   basicUpload(event) {
     const files: FileList = event.target.files;
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
@@ -36,43 +59,67 @@ export class AttachmentComponent implements OnDestroy {
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
+    console.log(this.formData);
     fileNames.map((fileName, index) => {
       const fileType = this.getFileType(fileName); // Get file type based on extension
       const fileDetails = {
         name: fileName,
         type: fileType,
+        question_id: this.questionId,
+        submissionId: this.data.submissionId,
         file: files[index], // Store the File object for later use
       };
-      this.data.files.push(fileDetails);
+      parent.postMessage(fileDetails);
     });
   }
   getFileType(fileName) {
     const type = fileName.split('.').pop();
-    if (['png', 'image/png', 'jpg', 'jpeg', 'image/jpg', 'image/jpeg'].includes(type)) {
+    if (
+      ['png', 'image/png', 'jpg', 'jpeg', 'image/jpg', 'image/jpeg'].includes(
+        type
+      )
+    ) {
       return 'image';
-    } else if (['mp4', 'video/mp4', 'webm', 'mkv', 'video/webm', 'video/mkv', 'avi', 'video/avi',].includes(type)) {
+    } else if (
+      [
+        'mp4',
+        'video/mp4',
+        'webm',
+        'mkv',
+        'video/webm',
+        'video/mkv',
+        'avi',
+        'video/avi',
+      ].includes(type)
+    ) {
       return 'video';
-    } else if (['audio/mp3', 'audio/wav', 'audio/mpeg', 'mpeg', 'wav', 'mp3'].includes(type)) {
+    } else if (
+      ['audio/mp3', 'audio/wav', 'audio/mpeg', 'mpeg', 'wav', 'mp3'].includes(
+        type
+      )
+    ) {
       return 'audio';
-    } else if (['pdf','application/pdf'].includes(type)) {
+    } else if (['pdf', 'application/pdf'].includes(type)) {
       return 'pdf';
     } else {
       return 'doc';
     }
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialog.closeAll();
   }
 
-  showFilePreview(file: File, type: string) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.objectURL = URL.createObjectURL(file);
-      this.objectType = type;
-    };
+  showFilePreview(url: any, type: string) {
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.objectURL = URL.createObjectURL(file);
+    //   this.objectType = type;
+    // };
 
-    reader.readAsDataURL(file);
+    // reader.readAsDataURL(file);
+    this.objectURL = url;
+    this.objectType = type;
     const dialogRef = this.dialog.open(this.previewModal, {
       width: 'auto',
       height: 'auto',
@@ -129,43 +176,6 @@ export class AttachmentComponent implements OnDestroy {
     payload['request'][this.data.submissionId] = {
       files: files,
     };
-    // this.utils.getPreSingedUrls(payload).subscribe(
-    //   (imageData) => {
-    //     const presignedUrlData =
-    //       imageData['result'][this.data.submissionId].files[0];
-    //     this.formData.append('url', presignedUrlData.url);
-    //     this.utils.cloudStorageUpload(this.formData).subscribe(
-    //       (success: any) => {
-    //         if (success.status === 200) {
-    //           const obj = {
-    //             name: this.getFileNames(this.formData)[0],
-    //             url: presignedUrlData.url.split('?')[0],
-    //           };
-    //           for (const key of Object.keys(presignedUrlData.payload)) {
-    //             obj[key] = presignedUrlData['payload'][key];
-    //           }
-    //           this.data.files.push(obj);
-    //           const alertDialogConfig = {
-    //             title: null,
-    //             message: 'Evidence upload successfully!',
-    //             acceptLabel: 'Ok',
-    //             cancelLabel: null,
-    //           };
-
-    //           this.openAlert(alertDialogConfig);
-    //         } else {
-    //           this.utils.error('Unable to upload the file. Please try again.');
-    //         }
-    //       },
-    //       (error) => {
-    //         this.utils.error('Unable to upload the file. Please try again.');
-    //       }
-    //     );
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
   }
 
   async deleteAttachment(fileIndex?) {

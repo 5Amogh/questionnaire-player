@@ -15,7 +15,7 @@ export class AppModule implements DoBootstrap {
 
   ngDoBootstrap(): void {
     const customMainElement = createCustomElement(MainWrapperComponent, {
-      injector: this.injector,
+      injector: this.injector
     });
     customElements.define('questionnaire-player-main', customMainElement);
   }

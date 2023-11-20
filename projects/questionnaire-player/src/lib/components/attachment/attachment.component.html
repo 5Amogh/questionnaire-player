@@ -3,12 +3,12 @@
   <span class="btn">
     <input
       type="file"
-      id="{{data?.index}}"
+      id="{{questionId}}"
       (change)="basicUpload($event)"
       hidden
     />
     <label
-      for="{{data?.index}}"
+      for="{{questionId}}"
       style="
         display: flex;
         justify-content: center;
@@ -22,20 +22,20 @@
 </div>
 
 <div
-  style="display: flex; flex-direction: row; gap: 20px; color: rebeccapurple"
+  style="display: flex; flex-direction: row; gap: 20px; color: var(--primary-color)"
 >
   <ng-container *ngFor="let file of data?.files; let i = index">
-    <ng-container [ngSwitch]="file.type">
+    <ng-container [ngSwitch]="getFileType(file.name)">
       <div *ngSwitchCase="'image'" class="iconList">
         <mat-icon
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.file,'image')"
+          (click)="showFilePreview(file.url,'image')"
           >image</mat-icon
         >
         <mat-icon
-          style="color: rgb(150, 4, 4)"
+          style="color: var(--error-color)"
           matTooltip="Remove the uploaded image"
           class="cancelIcon"
           (click)="deleteAttachment(i)"
@@ -47,11 +47,11 @@
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.file,'doc')"
+          (click)="showFilePreview(file.url,'doc')"
           >picture_as_pdf</mat-icon
         >
         <mat-icon
-          style="color: rgb(150, 4, 4)"
+          style="color: var(--error-color)"
           matTooltip="Remove the uploaded pdf"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -64,11 +64,11 @@
           class="customizeIcon"
           matTooltip="View the uploaded video"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.file,'video')"
+          (click)="showFilePreview(file.url,'video')"
           >video_file</mat-icon
         >
         <mat-icon
-          style="color: rgb(150, 4, 4)"
+          style="color: var(--error-color)"
           matTooltip="Remove the uploaded video"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -81,10 +81,10 @@
           class="customizeIcon"
           matTooltip="View/listen to the uploaded audio"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.file,'audio')"
+          (click)="showFilePreview(file.url,'audio')"
           >audio_file</mat-icon>
         <mat-icon
-          style="color: rgb(150, 4, 4)"
+          style="color: var(--error-color)"
           matTooltip="Remove the uploaded audio"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -97,11 +97,11 @@
           class="customizeIcon"
           matTooltip="View the uploaded file"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.file,'doc')"
+          (click)="showFilePreview(file.url,'doc')"
           >description</mat-icon
         >
         <mat-icon
-          style="color: rgb(150, 4, 4)"
+          style="color: var(--error-color)"
           matTooltip="Remove the uploaded file"
           class="cancelIcon"
           matTooltipClass="tooltip"

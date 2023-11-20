@@ -42,7 +42,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -157,7 +157,7 @@
               "projects/questionnaire-webcomponent/src/assets"
             ],
             "styles": [
-              "projects/questionnaire-webcomponent/src/styles.css"
+              "projects/questionnaire-webcomponent/src/styles.scss"
             ],
             "scripts": []
           },
@@ -219,7 +219,7 @@
               "projects/questionnaire-webcomponent/src/assets"
             ],
             "styles": [
-              "projects/questionnaire-webcomponent/src/styles.css"
+              "projects/questionnaire-webcomponent/src/styles.scss"
             ],
             "scripts": [
               "/home/navadhiti/questionnaire-player/web-component/questionnaire-player-webcomponent.js"

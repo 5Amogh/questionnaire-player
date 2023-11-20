@@ -13,7 +13,7 @@
       <ng-container *ngIf="question?.option && question?.option[optionIndex]?.hint">
         <button
           mat-icon-button
-          style="color: rebeccapurple"
+          style="color: var(--primary-color)"
           aria-label="Icon-button with a lightbulb icon"
           matTooltip="Hint about the option"
           (click)="openDialog(optionIndex)"

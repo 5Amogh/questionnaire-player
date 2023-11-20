@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+// @use 'sass:map';
+@use '@angular/material' as mat;
+
+
+// @include mat.core();
+
+// $my-theme: mat.define-light-theme((
+//  color: (
+//    primary: var(--primary-color),
+//    accent: var(--accent-color),
+//    warn: var(--error-color),
+//  )
+// ));
+
+// @include mat.core-theme($my-theme);
+// @include mat.button-theme($my-theme);
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette);
+$my-accent: mat.define-palette(mat.$indigo-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent:$my-accent
+ ),
+));
+
+@include mat.all-component-themes($my-theme);
+// @use '@angular/material' as mat;
+
+// $my-palette: mat.$indigo-palette;
