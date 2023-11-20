@@ -45,7 +45,7 @@
               style="color: var(--primary-color)"
               aria-label="Icon-button with a lightbulb icon"
               matTooltip="Hint about the question"
-              (click)="openDialog(qi)"
+              (click)="openDialog(question.hint)"
             >
               <mat-icon style="vertical-align: middle"
                 >emoji_objects_outline</mat-icon
@@ -154,8 +154,7 @@
           "
         >
         </lib-attachment>
-        <lib-dialog
-          *ngIf="dimmerIndex == qi && question?.hint"
+        <lib-dialog #dialogCmp
           [isDimmed]="isDimmed"
           [hint]="question?.hint"
           (closeHintEmitter)="closeHint()"

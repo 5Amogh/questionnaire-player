@@ -16,9 +16,8 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
 export class MainComponent{
   @Input({ required: true }) questions: Array<Question>;
   evidence: Evidence;
-  sections: Section[];
   @Input({ required: true }) questionnaireForm: FormGroup;
-  @ViewChild(DialogComponent) childDialogComponent: DialogComponent;
+  @ViewChild('dialogCmp') childDialogComponent: DialogComponent;
   @Input() fileUploadResponse;
   selectedIndex: number;
   dimmerIndex;
@@ -34,10 +33,11 @@ export class MainComponent{
     return question._id;
   }
 
-  openDialog(questionIndex: number) {
-    this.dimmerIndex = questionIndex;
+  openDialog(hint) {
+    // this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;
-    this.childDialogComponent.openDialog('300ms', '150ms');
+    this.childDialogComponent.hint = hint;
+    this.childDialogComponent?.openDialog('300ms', '150ms');
   }
 
   toggleQuestion(parent) {
