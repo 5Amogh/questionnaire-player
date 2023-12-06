@@ -11,7 +11,7 @@ const build = async () => {
   await fs.ensureDir("dist/questionnaire-webcomponent");
   await fs.ensureDir("web-component");
   await concat(files, "web-component/questionnaire-player-webcomponent.js");
-  await fs.copy('./dist/questionnaire-webcomponent/styles.css','web-component/styles.scss');
+  await fs.copy('./dist/questionnaire-webcomponent/styles.css','web-component/styles.css');
   console.log('Files concatenated successfully');
   
 };

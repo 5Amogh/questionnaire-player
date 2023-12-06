@@ -31,11 +31,11 @@
             ],
             "styles": [
               "projects/questionnaire-app/src/styles.scss",
-              "node_modules/questionnaire-webcomponent/styles.scss"
+              "web-component/styles.css"
 
             ],
             "scripts": [
-              "node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"
+              "web-component/questionnaire-player-webcomponent.js"
             ]
           },
           "configurations": {
@@ -224,7 +224,6 @@
               "projects/questionnaire-webcomponent/src/styles.scss"
             ],
             "scripts": [
-              "/home/navadhiti/questionnaire-player/web-component/questionnaire-player-webcomponent.js"
             ]
           }
         }
