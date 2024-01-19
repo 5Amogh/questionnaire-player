@@ -1,24 +1,17 @@
 <ng-template #modal>
-  <div style="padding: 10px 0">
+  <div class="py-10 px-0">
     <div
       mat-dialog-title
-      style="
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        color: var(--primary-color);
-        gap: 3px;
-        justify-content: flex-start;
-        padding: 0 10px;
-      "
+      class="d-flex flex-ai-center flex-jc-flex-start flex-dr flex-gap-3 py-0 px-10"
+      style="color: var(--primary-color);"
     >
       <mat-icon>info</mat-icon>{{ hintModalNote }}
     </div>
     <mat-divider></mat-divider>
-    <h2 mat-dialog-content style="align-items: self-start">
+    <h2 mat-dialog-content class="flex-ai-self-start">
       {{ hint }}
     </h2>
-    <div mat-dialog-actions style="display: flex; justify-content: center">
+    <div mat-dialog-actions class="d-flex flex-jc-center">
       <button mat-dialog-close (click)="(closeHint)" class="btn">
         {{ hintCloseText }}
       </button>

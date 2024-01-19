@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+@import './assets/styles/_styles.scss';
 
 @include mat.core();
 
@@ -14,3 +15,25 @@ $my-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
+
+:root{
+  --mdc-filled-text-field-caret-color: var(--primary-color);
+  --mdc-filled-text-field-focus-active-indicator-color: var(--primary-color);
+  --mdc-filled-text-field-focus-label-text-color: var(--primary-color);
+  --mdc-outlined-text-field-caret-color: var(--primary-color);
+  --mdc-outlined-text-field-focus-outline-color: var(--primary-color);
+  --mdc-outlined-text-field-focus-label-text-color: var(--primary-color);
+  --mat-select-focused-arrow-color: var(--primary-color);
+  --mdc-checkbox-selected-focus-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-hover-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-pressed-icon-color: var(--primary-color);
+  --mdc-checkbox-selected-focus-state-layer-color: var(--primary-color);
+  --mdc-checkbox-selected-hover-state-layer-color: var(--primary-color);
+  --mdc-checkbox-selected-pressed-state-layer-color: var(--primary-color);
+  --mat-datepicker-toggle-active-state-icon-color: var(--primary-color);
+  --mat-datepicker-calendar-date-selected-state-background-color: var(--primary-color);
+  --mat-stepper-header-selected-state-icon-background-color: var(--primary-color);
+  --mat-stepper-header-done-state-icon-background-color: var(--primary-color);
+  --mat-stepper-header-edit-state-icon-background-color: var(--primary-color);
+}

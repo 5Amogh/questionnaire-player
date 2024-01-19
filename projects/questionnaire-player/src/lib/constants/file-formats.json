@@ -1,0 +1,35 @@
+{
+    "types": {
+        "image": [
+            "png",
+            "image/png",
+            "jpg",
+            "jpeg",
+            "image/jpg",
+            "image/jpeg"
+        ],
+        "video": [
+            "mp4",
+            "video/mp4",
+            "webm",
+            "mkv",
+            "video/webm",
+            "video/mkv",
+            "avi",
+            "video/avi"
+        ],
+        "audio": [
+            "audio/mp3",
+            "audio/wav",
+            "audio/mpeg",
+            "mpeg",
+            "wav",
+            "mp3"
+        ],
+        "pdf": [
+            "pdf",
+            "application/pdf"
+        ]
+    },
+    "limit":50
+}

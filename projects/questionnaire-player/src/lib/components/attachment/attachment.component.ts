@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnDestroy,
   SimpleChanges,
   TemplateRef,
   ViewChild,
@@ -11,29 +10,27 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs/internal/Observable';
+import {types , limit} from '../../constants/file-formats.json';
 
 @Component({
   selector: 'lib-attachment',
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss'],
 })
-export class AttachmentComponent implements OnChanges, OnDestroy {
+export class AttachmentComponent implements OnChanges {
   @Input() data;
-  @Input() fileSizeLimit: number = 50;
+  @Input() fileSizeLimit: number = limit;
   @Input() questionId;
   formData;
   objectURL: string;
+  formats = types;
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   @Input() fileUploadResponse = null;
   objectType: string;
   constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['fileUploadResponse'] && this.fileUploadResponse?.status) {
-      console.log(
-        'Inside the attachment, the file upload response',
-        this.fileUploadResponse
-      );
+    if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
       const successMessage = 'Evidence upload successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
@@ -59,7 +56,6 @@ export class AttachmentComponent implements OnChanges, OnDestroy {
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
-    console.log(this.formData);
     fileNames.map((fileName, index) => {
       const fileType = this.getFileType(fileName); // Get file type based on extension
       const fileDetails = {
@@ -72,37 +68,16 @@ export class AttachmentComponent implements OnChanges, OnDestroy {
       parent.postMessage(fileDetails);
     });
   }
+
+  filesTrackBy(index,file){
+    return file.url;
+  }
   getFileType(fileName) {
     const type = fileName.split('.').pop();
-    if (
-      ['png', 'image/png', 'jpg', 'jpeg', 'image/jpg', 'image/jpeg'].includes(
-        type
-      )
-    ) {
-      return 'image';
-    } else if (
-      [
-        'mp4',
-        'video/mp4',
-        'webm',
-        'mkv',
-        'video/webm',
-        'video/mkv',
-        'avi',
-        'video/avi',
-      ].includes(type)
-    ) {
-      return 'video';
-    } else if (
-      ['audio/mp3', 'audio/wav', 'audio/mpeg', 'mpeg', 'wav', 'mp3'].includes(
-        type
-      )
-    ) {
-      return 'audio';
-    } else if (['pdf', 'application/pdf'].includes(type)) {
-      return 'pdf';
-    } else {
-      return 'doc';
+    for(const key of Object.keys(this.formats)){
+      if(this.formats[key].includes(type)){
+        return key;
+      }
     }
   }
 
@@ -111,28 +86,15 @@ export class AttachmentComponent implements OnChanges, OnDestroy {
   }
 
   showFilePreview(url: any, type: string) {
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.objectURL = URL.createObjectURL(file);
-    //   this.objectType = type;
-    // };
-
-    // reader.readAsDataURL(file);
     this.objectURL = url;
     this.objectType = type;
-    const dialogRef = this.dialog.open(this.previewModal, {
+    this.dialog.open(this.previewModal, {
       width: 'auto',
       height: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
     });
 
-    dialogRef.afterClosed().subscribe((_res) => {
-      if (this.objectURL) {
-        URL.revokeObjectURL(this.objectURL);
-        this.objectURL = null;
-      }
-    });
   }
 
   fileLimitCross() {
@@ -218,10 +180,4 @@ export class AttachmentComponent implements OnChanges, OnDestroy {
     this.openAlert(alertConfig);
   }
 
-  ngOnDestroy() {
-    if (this.objectURL) {
-      URL.revokeObjectURL(this.objectURL);
-      this.objectURL = null;
-    }
-  }
 }

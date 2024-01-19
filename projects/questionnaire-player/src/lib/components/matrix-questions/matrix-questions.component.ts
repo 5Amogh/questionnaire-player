@@ -26,7 +26,7 @@ export interface IContext {
 @Component({
   selector: 'lib-matrix-questions',
   templateUrl: './matrix-questions.component.html',
-  styleUrls: ['./matrix-questions.component.css'],
+  styleUrls: ['./matrix-questions.component.scss'],
 })
 export class MatrixQuestionsComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])

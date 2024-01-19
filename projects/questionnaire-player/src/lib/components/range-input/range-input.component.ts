@@ -6,7 +6,7 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
 @Component({
   selector: 'lib-range-input',
   templateUrl: './range-input.component.html',
-  styleUrls: ['./range-input.component.css'],
+  styleUrls: ['./range-input.component.scss'],
 })
 export class RangeInputComponent implements OnInit {
   @Input() questionnaireForm: FormGroup;

@@ -1,11 +1,11 @@
 <mat-form-field
-  style="width: 100%"
+  style="width: 100%;"
   [formGroup]="questionnaireForm"
   *ngIf="questionnaireForm?.contains(question._id)"
   appearance="outline"
 >
   <textarea
-    style="width: 100%; padding: 5px; border-radius: 5px;"
+    class="text-area-sizing"
     matInput
     [formControlName]="question._id"
     [placeholder]="placeholder"

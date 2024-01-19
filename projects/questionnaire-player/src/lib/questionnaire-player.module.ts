@@ -2,8 +2,8 @@ import {
   LOCALE_ID,
   NgModule,
 } from '@angular/core';
-import { MainComponent } from './components/main/main.component';
 import { CommonModule } from '@angular/common';
+import { MainComponent } from './components/main/main.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -39,6 +39,9 @@ import { MatrixQuestionsComponent } from './components/matrix-questions/matrix-q
 import { MainWrapperComponent } from './components/main-wrapper/main-wrapper.component';
 import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -68,7 +71,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     AlertComponent,
     MatrixQuestionsComponent,
     SanitizeUrlPipe,
-  ],
+    PaginatorComponent
+    ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -87,6 +91,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatPaginatorModule
   ],
   exports: [],
   providers: [

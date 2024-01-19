@@ -1,0 +1,7 @@
+::ng-deep{
+    @media screen and (max-width:768px) {
+        mat-checkbox{
+            margin-bottom: 1rem !important;
+        }
+    }
+}

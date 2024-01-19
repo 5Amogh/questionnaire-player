@@ -31,11 +31,11 @@
             ],
             "styles": [
               "projects/questionnaire-app/src/styles.scss",
-              "web-component/styles.css"
+              "./web-component/styles.css"
 
             ],
             "scripts": [
-              "web-component/questionnaire-player-webcomponent.js"
+              "./web-component/questionnaire-player-webcomponent.js"
             ]
           },
           "configurations": {

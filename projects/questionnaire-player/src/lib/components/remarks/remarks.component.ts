@@ -4,7 +4,7 @@ import { Question } from '../../interfaces/questionnaire.type';
 @Component({
   selector: 'lib-remarks',
   templateUrl: './remarks.component.html',
-  styleUrls: ['./remarks.component.css']
+  styleUrls: ['./remarks.component.scss']
 })
 export class RemarksComponent implements OnInit{
   remark = '';

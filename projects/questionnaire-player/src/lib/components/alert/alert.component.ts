@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'lib-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef:MatDialogRef<AlertComponent> ) {}

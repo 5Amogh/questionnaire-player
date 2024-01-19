@@ -1,16 +1,10 @@
-<div
-  style="display: flex; align-items: center; justify-content: center;flex-direction: column;gap: 1rem;"
+<div class="d-flex flex-ai-center flex-jc-center flex-dc flex-gap-16"
   [formGroup]="questionnaireForm"
   *ngIf="questionnaireForm?.contains(question._id)"
 >
   <div class="range-value">{{ this.question.value }}</div>
-  <mat-slider
-    style="
-      width: 90%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    "
+  <mat-slider class="d-flex flex-jc-center flex-ai-center"
+  style="width: 90%;"
     [max]="options.max"
     [min]="options.min"
     [step]="options.step"
