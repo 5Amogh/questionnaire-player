@@ -4,12 +4,12 @@
   [formGroup]="questionnaireForm"
   *ngIf="questionnaireForm?.contains(question._id)"
 >
-  <input matInput
+  <input
+    matInput
     style="width: 100%;"
     type="number"
     [formControlName]="question?._id"
     min="0"
-    class="sb-form-control"
     [placeholder]="placeholder"
     (change)="onChange($event)"
     [value]="question.value"

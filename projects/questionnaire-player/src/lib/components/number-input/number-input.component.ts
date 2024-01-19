@@ -6,7 +6,7 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
 @Component({
   selector: 'lib-number-input',
   templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.css'],
+  styleUrls: ['./number-input.component.scss'],
 })
 export class NumberInputComponent implements OnInit {
   placeholder;

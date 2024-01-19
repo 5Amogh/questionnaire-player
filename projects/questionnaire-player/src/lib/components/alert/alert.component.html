@@ -1,28 +1,34 @@
-<div style="padding: 10px 0">
-    <ng-container *ngIf="data?.title">
-        <div mat-dialog-title style="
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            color: var(--primary-color);
-            gap: 3px;
-            justify-content: flex-start;
-            padding: 0 10px;
-          ">
-            <mat-icon>info</mat-icon>{{ data?.title }}
-        </div>
-        <mat-divider></mat-divider>
-    </ng-container>
-
-    <h2 mat-dialog-content style="align-items: self-start">
-        {{ data?.message }}
-    </h2>
-    <div mat-dialog-actions style="display: flex; justify-content: space-around">
-        <button *ngIf="data?.acceptLabel" mat-dialog-close class="btn" (click)="acceptDialog()">
-            {{ data.acceptLabel }}
-        </button>
-        <button *ngIf="data?.cancelLabel" mat-dialog-close class="btn" (click)="rejectDialog()">
-            {{ data.cancelLabel }}
-        </button>
+<div class="py-10 px-0">
+  <ng-container *ngIf="data?.title">
+    <div
+      mat-dialog-title
+      class="d-flex flex-dr flex-ai-center flex-jc-flex-start flex-gap-3 py-0 px-10"
+      style="color: var(--primary-color);"
+    >
+      <mat-icon>info</mat-icon>{{ data?.title }}
     </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+
+  <h2 mat-dialog-content class="flex-ai-self-start">
+    {{ data?.message }}
+  </h2>
+  <div mat-dialog-actions class="d-flex flex-jc-space-around">
+    <button
+      *ngIf="data?.acceptLabel"
+      mat-dialog-close
+      class="btn"
+      (click)="acceptDialog()"
+    >
+      {{ data.acceptLabel }}
+    </button>
+    <button
+      *ngIf="data?.cancelLabel"
+      mat-dialog-close
+      class="btn"
+      (click)="rejectDialog()"
+    >
+      {{ data.cancelLabel }}
+    </button>
+  </div>
 </div>

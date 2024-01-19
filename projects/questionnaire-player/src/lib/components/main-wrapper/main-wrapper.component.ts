@@ -10,7 +10,7 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
-  styleUrls: ['./main-wrapper.component.css'],
+  styleUrls: ['./main-wrapper.component.scss'],
 })
 export class MainWrapperComponent{
   questions: Array<Question>;
@@ -31,7 +31,6 @@ export class MainWrapperComponent{
         if(typeof this.fileuploadresponse === 'string'){
           this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
         }
-      console.log('change detected',this.fileuploadresponse);
     }
     if(this.angular && changes['assessment'] && changes['assessment'].previousValue == undefined && changes['assessment'].currentValue){
       this.assessment = this.questionnaireService.mapSubmissionToAssessment(this.assessment)

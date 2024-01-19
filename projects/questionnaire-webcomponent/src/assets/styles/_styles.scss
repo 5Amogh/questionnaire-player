@@ -1,0 +1,14 @@
+@import './display';
+@import './flexbox';
+@import './margins';
+@import './padding';
+@import './positions';
+@import './sizing';
+
+.pointer {
+    cursor: pointer;
+}
+
+.wc-primary-color{
+    color: var(--primary-color)
+}

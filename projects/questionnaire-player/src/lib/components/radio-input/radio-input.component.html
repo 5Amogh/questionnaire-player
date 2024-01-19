@@ -10,10 +10,12 @@
       [value]="o.value"
       id="{{ question._id + o.value }}"
       >{{ o.label }}
-      <ng-container *ngIf="question?.option && question?.option[optionIndex]?.hint">
+      <ng-container
+        *ngIf="question?.option && question?.option[optionIndex]?.hint"
+      >
         <button
           mat-icon-button
-          style="color: var(--primary-color)"
+          style="color: var(--primary-color);"
           aria-label="Icon-button with a lightbulb icon"
           matTooltip="Hint about the option"
           (click)="openDialog(optionIndex)"

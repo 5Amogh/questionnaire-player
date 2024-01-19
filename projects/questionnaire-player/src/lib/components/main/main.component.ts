@@ -1,27 +1,41 @@
 import {
   Component,
   Input,
+  OnInit,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { Evidence, Question, ResponseType, Section } from '../../interfaces/questionnaire.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { QuestionnaireService } from '../../services/questionnaire.service';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'lib-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
+  styleUrls: ['./main.component.scss'],
 })
-export class MainComponent{
+export class MainComponent implements OnInit {
   @Input({ required: true }) questions: Array<Question>;
   evidence: Evidence;
   @Input({ required: true }) questionnaireForm: FormGroup;
   @ViewChild('dialogCmp') childDialogComponent: DialogComponent;
+  @Input() questionnaireInstance = false;
   @Input() fileUploadResponse;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;
+
+  pageSize = 1; //Each Question object from Question representing each page irrespective of number of questions it includes
+  pageIndex = 0;
+  hidePageSize = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  pageEvent: PageEvent;
+  paginatorMap = new Map();
+  paginatorLength: number;
 
   constructor(public fb: FormBuilder, public qService: QuestionnaireService) {}
 
@@ -29,12 +43,38 @@ export class MainComponent{
     return ResponseType;
   }
 
+  ngOnInit(): void {
+    this.paginatorLength = this.questions.length;
+  }
+
+  handlePageEvent(e) {
+    if (this.questions[e.pageIndex] && !this.findNextVisibleQuestion(e.pageIndex, this.pageIndex)) {
+      this.paginatorLength = this.pageIndex +1;
+    }
+  }
+
+  private findNextVisibleQuestion(eventPageIndex: number, currentPageIndex: number): boolean {
+    let step = 1;
+    let endIndex = this.questions.length;
+    if (currentPageIndex > eventPageIndex) {
+      endIndex = 0;
+      step = -1;
+    }
+    for (let i = eventPageIndex; this.questions[i]; i += step) {
+      if (Array.isArray(this.questions[i].visibleIf) && this.questions[i].canDisplay
+        || !Array.isArray(this.questions[i].visibleIf)) {
+        this.pageIndex = i;
+        return true;
+      }
+    }
+    return false;
+  }
+
   questionTrackBy(index, question) {
     return question._id;
   }
 
   openDialog(hint) {
-    // this.dimmerIndex = questionIndex;
     this.isDimmed = !this.isDimmed;
     this.childDialogComponent.hint = hint;
     this.childDialogComponent?.openDialog('300ms', '150ms');
@@ -42,7 +82,6 @@ export class MainComponent{
 
   toggleQuestion(parent) {
     const { children } = parent;
-
     this.questions.map((q, i) => {
       if (children.includes(q._id)) {
         let child = this.questions[i];
@@ -53,6 +92,14 @@ export class MainComponent{
         }
       }
     });
+    if(!this.questionnaireInstance){
+      if(!this.findNextVisibleQuestion(this.pageIndex,this.questions.length)){
+        this.paginatorLength = this.pageIndex + 1;
+      }else{
+        this.paginatorLength = this.questions.length;
+      }
+    }
+   
   }
 
   canDisplayChildQ(currentQuestion: Question, currentQuestionIndex: number) {

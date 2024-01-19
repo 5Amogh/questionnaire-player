@@ -5,7 +5,7 @@ import { MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'lib-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent {
   @ViewChild('modal') modal: TemplateRef<any>;

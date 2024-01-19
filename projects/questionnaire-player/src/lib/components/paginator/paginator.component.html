@@ -1,0 +1,74 @@
+<div style="display: flex; justify-content: center">
+  <div
+    class="paginator-container"
+    style="
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+    "
+  >
+    <button
+      [disabled]="currentPage == 0"
+      mat-icon-button
+      matTooltip="Previous"
+      [ngStyle]="{ color: currentPage !== 0 ? 'var(--primary-color)' :  'var(--mdc-icon-button-disabled-icon-color)' }"
+      aria-label="icon-button with a arrow_back icon"
+      (click)="pageChange(currentPage - 1)"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <ng-container *ngFor="let page of displayedPages; let pageIndex = index">
+      <ng-container *ngIf="page !== -1; else ellipses">
+        <button
+          mat-button
+          (click)="pageChange(pageIndex)"
+          [disabled]="
+            questions[pageIndex]?.visibleIf !== '' &&
+            !questions[pageIndex]?.canDisplay
+          "
+          [ngStyle]="{
+            color:
+              currentPage == pageIndex
+                ? 'var(--primary-color)'
+                : 'var(--mdc-text-button-label-text-color, inherit)',
+            border:
+              currentPage == pageIndex ? 'solid 1px var(--primary-color)' : 0,
+            cursor:
+              questions[pageIndex]?.visibleIf !== '' &&
+              !questions[pageIndex]?.canDisplay
+                ? 'not-allowed'
+                : 'pointer'
+          }"
+          style="border-radius: 8px"
+        >
+          {{ pageIndex + 1 }}
+        </button>
+      </ng-container>
+      <ng-template #ellipses
+        ><ng-container *ngIf="displayedPages[pageIndex - 1] !== -1">
+          <div
+            matTooltip="More Pages Available"
+            matTooltipClass="tooltip"
+            style="cursor: help"
+          >
+            ...
+          </div>
+        </ng-container></ng-template
+      >
+    </ng-container>
+    <button
+      [disabled]="currentPage == questions.length - 1"
+      mat-icon-button
+      matTooltip="Forward"
+      [ngStyle]="{
+        color:
+          currentPage !== questions.length - 1 ? 'var(--primary-color)' : 'var(--mdc-icon-button-disabled-icon-color)'
+      }"
+      aria-label="icon-button with a arrow_forward icon"
+      (click)="pageChange(currentPage + 1)"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>

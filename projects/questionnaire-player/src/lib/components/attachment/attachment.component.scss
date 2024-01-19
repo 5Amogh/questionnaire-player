@@ -6,13 +6,17 @@ label {
   cursor: pointer;
 }
 
-.btn {
+.attachment-btn {
   background-color: var(--secondary-btn-bg);
   color:var(--primary-color);
   border: solid var(--primary-color) 1px;
   border-radius: 8px;
   padding: 5px 15px;
   cursor: pointer;
+}
+
+.upload-label{
+  color: var(--primary-color);
 }
 
 .iconList {
@@ -40,6 +44,7 @@ mat-icon.customizeIcon {
   cursor: pointer;
   top: -10px;
   right: -15px;
+  color: var(--error-color);
 }
 
 .close-btn{

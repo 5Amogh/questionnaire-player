@@ -1,6 +1,6 @@
 {
   "name": "questionnaire-player",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,7 +24,6 @@
     "@angular/router": "^16.2.0",
     "concat": "^1.0.3",
     "fs-extra": "^11.1.1",
-    "questionnaire-player": "file:dist/questionnaire-player/questionnaire-player-0.0.1.tgz",
     "questionnaire-webcomponent": "^1.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

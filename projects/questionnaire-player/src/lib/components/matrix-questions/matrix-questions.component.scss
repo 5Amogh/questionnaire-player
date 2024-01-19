@@ -1,32 +1,38 @@
 .btn-primary{
     background-color:var(--primary-color);
-    color: var(--general-btn-text-color);
-    cursor: pointer;
+    color: white;
     border: solid transparent 1px;
     border-radius: 20px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .btn-primary:hover{
-    background-color: var(--general-btn-hover-bg);
+    background-color: white;
     color: var(--primary-color);
     border: solid var(--primary-color) 1px;
 }
 
 .btn-disabled{
-    background-color:var(--disabled-btn-bg);
-    color: var(--disabled-btn-text);
+    background-color:gainsboro;
+    color: gray;
     border: solid transparent 1px;
     border-radius: 20px;
     padding: 10px;
     cursor: not-allowed;
 }
 
-.btn-outline-secondary{
-    background-color:var(--secondary-btn-bg);
-    color: var(--primary-color);
-    border: solid  var(--primary-color) 1px;
+.btn-outline-primary{
+    background-color:white;
+    color:maroon;
+    border: solid maroon 1px;
     border-radius: 20px;
     padding: 10px;
     cursor: pointer;
+}
+
+.instance-card{
+    padding: 10px; 
+    margin-top: 10px;
+    border-radius: 10px
 }

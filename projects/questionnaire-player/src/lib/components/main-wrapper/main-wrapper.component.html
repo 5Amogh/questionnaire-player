@@ -1,37 +1,35 @@
-<form [formGroup]="questionnaireForm">
+<div class="wrapper">
+  <form [formGroup]="questionnaireForm" class="main">
+    <div
+      class="custom-font"
+      *ngFor="let section of sections; let sectionIndex = index"
+    >
+      <lib-main
+        [questions]="section.questions"
+        [questionnaireForm]="questionnaireForm"
+        [fileUploadResponse]="fileuploadresponse"
+      ></lib-main>
+    </div>
+  </form>
+  <hr class="partition" />
   <div
-  class="custom-font"
-  *ngFor="let section of sections; let sectionIndex = index;"
->
-  <lib-main
-    [questions]="section.questions"
-    [questionnaireForm]="questionnaireForm"
-    [fileUploadResponse]="fileuploadresponse"
-  ></lib-main>
-  </div>
-</form>
-<div *ngIf="!evidence?.isSubmitted"
-  style="
-    margin: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-    gap: 30px;
-  "
->
-  <button class="btn btn-outline-secondary" (click)="submission('draft')">
-    Save
-  </button>
-  <button
-    class="btn"
-    [ngClass]="{
-      'btn-primary': questionnaireForm?.valid,
-      'btn-disabled': !questionnaireForm?.valid
-    }"
-    (click)="submission('submit')"
-    [disabled]="!questionnaireForm?.valid"
+    *ngIf="!evidence?.isSubmitted"
+    class="m-16 d-flex flex-ai-center flex-jc-space-around flex-dr flex-gap-30 footer"
   >
-    Submit
-  </button>
+    <button class="btn btn-outline-secondary" (click)="submission('draft')">
+      Save
+    </button>
+    <button
+      class="btn"
+      [ngClass]="{
+        'btn-primary': questionnaireForm?.valid,
+        'btn-disabled': !questionnaireForm?.valid
+      }"
+      (click)="submission('submit')"
+      [disabled]="!questionnaireForm?.valid"
+    >
+      Submit
+    </button>
+  </div>
+  
 </div>

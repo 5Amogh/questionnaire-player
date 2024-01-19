@@ -1,41 +1,34 @@
-
-<div style="display: flex; justify-content: left; align-items: center;margin-bottom:1rem;">
-  <span class="btn">
+<div class="d-flex flex-jc-left flex-ai-center mb-16">
+  <span class="attachment-btn">
     <input
       type="file"
-      id="{{questionId}}"
+      id="{{ questionId }}"
       (change)="basicUpload($event)"
       hidden
     />
     <label
-      for="{{questionId}}"
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-      "
+      for="{{ questionId }}"
+      class="d-flex flex-jc-center flex-ai-center flex-gap-10 upload-label"
     >
-      <mat-icon style="height: auto;width: auto;">upload</mat-icon> Add file
+      <mat-icon class="w-auto h-auto">upload</mat-icon> Add file
     </label>
   </span>
 </div>
 
-<div
-  style="display: flex; flex-direction: row; gap: 20px; color: var(--primary-color)"
->
-  <ng-container *ngFor="let file of data?.files; let i = index">
+<div class="d-flex flex-dr flex-gap-20 wc-primary-color">
+  <ng-container
+    *ngFor="let file of data?.files; let i = index; trackBy: filesTrackBy"
+  >
     <ng-container [ngSwitch]="getFileType(file.name)">
       <div *ngSwitchCase="'image'" class="iconList">
         <mat-icon
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url,'image')"
+          (click)="showFilePreview(file.url, 'image')"
           >image</mat-icon
         >
         <mat-icon
-          style="color: var(--error-color)"
           matTooltip="Remove the uploaded image"
           class="cancelIcon"
           (click)="deleteAttachment(i)"
@@ -47,11 +40,10 @@
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url,'doc')"
+          (click)="showFilePreview(file.url, 'doc')"
           >picture_as_pdf</mat-icon
         >
         <mat-icon
-          style="color: var(--error-color)"
           matTooltip="Remove the uploaded pdf"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -64,11 +56,10 @@
           class="customizeIcon"
           matTooltip="View the uploaded video"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url,'video')"
+          (click)="showFilePreview(file.url, 'video')"
           >video_file</mat-icon
         >
         <mat-icon
-          style="color: var(--error-color)"
           matTooltip="Remove the uploaded video"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -81,10 +72,10 @@
           class="customizeIcon"
           matTooltip="View/listen to the uploaded audio"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url,'audio')"
-          >audio_file</mat-icon>
+          (click)="showFilePreview(file.url, 'audio')"
+          >audio_file</mat-icon
+        >
         <mat-icon
-          style="color: var(--error-color)"
           matTooltip="Remove the uploaded audio"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -97,11 +88,10 @@
           class="customizeIcon"
           matTooltip="View the uploaded file"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url,'doc')"
+          (click)="showFilePreview(file.url, 'doc')"
           >description</mat-icon
         >
         <mat-icon
-          style="color: var(--error-color)"
           matTooltip="Remove the uploaded file"
           class="cancelIcon"
           matTooltipClass="tooltip"
@@ -114,15 +104,37 @@
 </div>
 
 <ng-template #previewModal>
-  <div style="position: relative;">
-    <div style="position: absolute; top: 10px; right: 8px; cursor: pointer;">
-      <mat-icon (click)="closeDialog()" class="close-btn"  matTooltip="Close">cancel</mat-icon>
+  <div class="relative">
+    <div class="absolute top-10 right-8 pointer">
+      <mat-icon (click)="closeDialog()" class="close-btn" matTooltip="Close"
+        >cancel</mat-icon
+      >
     </div>
   </div>
-  <div mat-dialog-content >
-    <img *ngIf="objectType == 'image'"  [src]="objectURL" alt="Preview" style="width: 100%;">
-    <iframe *ngIf="objectType == 'doc'"  [src]="objectURL | sanitizeUrl" height="500" width="700"></iframe>
-    <video *ngIf="objectType == 'video'" [src]="objectURL" controls style="width: 100%;"></video>
-    <audio *ngIf="objectType == 'audio'" [src]="objectURL" controls style="max-width: 100%; max-height: 100%;"></audio>
+  <div mat-dialog-content>
+    <img
+      *ngIf="objectType == 'image'"
+      [src]="objectURL"
+      alt="Preview"
+      class="w-100"
+    />
+    <iframe
+      *ngIf="objectType == 'doc'"
+      [src]="objectURL | sanitizeUrl"
+      height="500"
+      width="700"
+    ></iframe>
+    <video
+      *ngIf="objectType == 'video'"
+      [src]="objectURL"
+      controls
+      class="w-100"
+    ></video>
+    <audio
+      *ngIf="objectType == 'audio'"
+      [src]="objectURL"
+      controls
+      class="mw-100 mh-100"
+    ></audio>
   </div>
 </ng-template>

@@ -1,165 +1,111 @@
-<div
-  class="custom-font"
-  *ngFor="let question of questions; let qi = index; trackBy: questionTrackBy"
->
-  <ng-container
-    *ngIf="
+<div class="custom-font">
+  <ng-container *ngIf="!questionnaireInstance else paginationNonApplicableInstance">
+    <ng-container *ngFor="
+        let question of questions.slice(pageIndex, pageIndex + 1);
+        let qi = index;
+        trackBy: questionTrackBy
+      ">
+      <ng-container [ngTemplateOutlet]="questionnaire"
+        [ngTemplateOutletContext]="{ question: question, qi: qi }"></ng-container>
+    </ng-container>
+    <lib-paginator [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
+  </ng-container>
+</div>
+<ng-template #paginationNonApplicableInstance>
+  <ng-container *ngFor="
+        let question of questions
+        let qi = index;
+        trackBy: questionTrackBy
+      ">
+    <ng-container [ngTemplateOutlet]="questionnaire"
+      [ngTemplateOutletContext]="{ question: question, qi: qi }"></ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #questionnaire let-question="question" let-qi="qi">
+  <ng-container *ngIf="
       question?.sectionHeader &&
       (!question.visibleIf?.length || question.canDisplay == true)
-    "
-  >
+    ">
     <h4 class="section-header-style">{{ question?.sectionHeader }}</h4>
-    <hr
-      [ngStyle]="{
+    <hr [ngStyle]="{
         'background-color':
           question.responseType != 'pageQuestions'
             ? 'var(--primary-color)'
             : null,
         height: question.responseType != 'pageQuestions' ? '3px' : 0
-      }"
-    />
+      }" />
   </ng-container>
-  <div
-    [ngStyle]="{
-      padding: question.responseType != 'pageQuestions' ? '30px' : 0
-    }"
-    [ngClass]="{
+  <div [ngStyle]="{
+      padding: question.responseType != 'pageQuestions' ? '30px' : 0,
+      margin: question.responseType != 'pageQuestions' ? '20px' : 0
+    }" [ngClass]="{
       'mat-elevation-z8': question.responseType != 'pageQuestions',
       activeCard: question.responseType != 'pageQuestions'
-    }"
-    class="responsive-margin"
-    style="border-radius: 10px"
-    *ngIf="!question.visibleIf?.length || question.canDisplay == true"
-  >
+    }" class="responsive-margin" *ngIf="!question.visibleIf?.length || question.canDisplay == true">
     <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
       <div>
-        <div
-          *ngFor="let q of question.question; let qai = index"
-          style="margin-bottom: 20px"
-        >
-          <div *ngIf="q != ''" style="color: var(--primary-color)">
+        <div *ngFor="let q of question.question; let qai = index" class="mb-20">
+          <div *ngIf="q != ''" class="wc-primary-color">
             {{ question.questionNumber + " . " }}&nbsp;{{ q }}
-            <button
-              *ngIf="question?.hint"
-              mat-icon-button
-              style="color: var(--primary-color)"
-              aria-label="Icon-button with a lightbulb icon"
-              matTooltip="Hint about the question"
-              (click)="openDialog(question.hint)"
-            >
-              <mat-icon style="vertical-align: middle"
-                >emoji_objects_outline</mat-icon
-              >
+            <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
+              aria-label="Icon-button with a lightbulb icon" matTooltip="Hint about the question"
+              (click)="openDialog(question.hint)">
+              <mat-icon style="vertical-align: middle">emoji_objects_outline</mat-icon>
             </button>
-            <mat-divider
-              style="margin-top: 10px"
-              [ngStyle]="{
+            <mat-divider class="mt-10" [ngStyle]="{
                 'background-color':
                   question.responseType != 'pageQuestions'
                     ? 'var(--primary-color)'
                     : null
-              }"
-            >
+              }">
             </mat-divider>
           </div>
         </div>
       </div>
       <ng-container *ngIf="question?.tip">
-        <p style="font-size: smaller; color: var(--question-tip)">
+        <p class="question-tip">
           {{ question?.tip }}
         </p>
       </ng-container>
-      <div
-        style="
-          margin-bottom: 10px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        "
-      >
-        <lib-text-input
-          *ngIf="question.responseType == reponseType.TEXT"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-        ></lib-text-input>
-        <ng-container
-          *ngIf="
-            question.responseType == reponseType.PAGEQUESTIONS;
-            pageQuestions
-          "
-        >
-          <lib-main
-            [questions]="question.pageQuestions"
-            [questionnaireForm]="questionnaireForm"
-            [fileUploadResponse]="fileUploadResponse"
-          ></lib-main>
+      <div class="mb-10 d-flex flex-dc flex-gap-10">
+        <lib-text-input *ngIf="question.responseType == reponseType.TEXT" [questionnaireForm]="questionnaireForm"
+          [question]="question"></lib-text-input>
+        <ng-container *ngIf="question.responseType == reponseType.PAGEQUESTIONS">
+          <lib-main [questions]="question.pageQuestions" [questionnaireForm]="questionnaireForm"
+            [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true"></lib-main>
         </ng-container>
-        <lib-number-input
-          *ngIf="question.responseType == reponseType.NUMBER"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-        ></lib-number-input>
-        <lib-radio-input
-          *ngIf="question.responseType == reponseType.RADIO"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-          [options]="question.options"
-          (dependentParent)="toggleQuestion($event)"
-        ></lib-radio-input>
-        <lib-checkbox-input
-          *ngIf="question.responseType == reponseType.MULTISELECT"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-          [options]="question.options"
-          (dependentParent)="toggleQuestion($event)"
-        ></lib-checkbox-input>
-        <lib-range-input
-          *ngIf="question.responseType == reponseType.SLIDER"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-        ></lib-range-input>
-        <lib-date-input
-          *ngIf="question.responseType == reponseType.DATE"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-        ></lib-date-input>
-        <lib-matrix-questions
-          *ngIf="question.responseType == reponseType.MATRIX"
-          [questionnaireForm]="questionnaireForm"
-          [question]="question"
-          #libMatrix
-        >
+        <lib-number-input *ngIf="question.responseType == reponseType.NUMBER" [questionnaireForm]="questionnaireForm"
+          [question]="question"></lib-number-input>
+        <lib-radio-input *ngIf="question.responseType == reponseType.RADIO" [questionnaireForm]="questionnaireForm"
+          [question]="question" [options]="question.options"
+          (dependentParent)="toggleQuestion($event)"></lib-radio-input>
+        <lib-checkbox-input *ngIf="question.responseType == reponseType.MULTISELECT"
+          [questionnaireForm]="questionnaireForm" [question]="question" [options]="question.options"
+          (dependentParent)="toggleQuestion($event)"></lib-checkbox-input>
+        <lib-range-input *ngIf="question.responseType == reponseType.SLIDER" [questionnaireForm]="questionnaireForm"
+          [question]="question"></lib-range-input>
+        <lib-date-input *ngIf="question.responseType == reponseType.DATE" [questionnaireForm]="questionnaireForm"
+          [question]="question"></lib-date-input>
+        <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"
+          [questionnaireForm]="questionnaireForm" [question]="question" #libMatrix>
           <ng-template #libMainTemplateRef>
-            <lib-main
-              [questions]="libMatrix.context.questions"
-              [questionnaireForm]="libMatrix.matrixForm"
-              [fileUploadResponse]="fileUploadResponse"
-            ></lib-main>
+            <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm"
+              [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true"></lib-main>
           </ng-template>
         </lib-matrix-questions>
-        <lib-remarks
-          [question]="question"
-          *ngIf="question.showRemarks"
-        ></lib-remarks>
-        <lib-attachment
-          *ngIf="question.file"
-          [data]="{
+        <lib-remarks [question]="question" *ngIf="question.showRemarks"></lib-remarks>
+        <lib-attachment *ngIf="question.file" [data]="{
             submissionId: qService.getSubmissionId(),
             files: question.fileName
-          }"
-          [questionId]="question._id + qi"
-          [fileUploadResponse]="
-            fileUploadResponse?.question_id == (question._id + qi) &&
+          }" [questionId]="question._id + qi" [fileUploadResponse]="
+            fileUploadResponse?.question_id == question._id + qi &&
             fileUploadResponse
-          "
-        >
+          ">
         </lib-attachment>
-        <lib-dialog #dialogCmp
-          [isDimmed]="isDimmed"
-          [hint]="question?.hint"
-          (closeHintEmitter)="closeHint()"
-        ></lib-dialog>
+        <lib-dialog #dialogCmp [isDimmed]="isDimmed" [hint]="question?.hint"
+          (closeHintEmitter)="closeHint()"></lib-dialog>
       </div>
     </div>
   </div>
-</div>
+</ng-template>

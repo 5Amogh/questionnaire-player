@@ -1,4 +1,4 @@
-<div style="display: flex; justify-content: flex-end">
+<div class="d-flex flex-jc-flex-end">
   <button class="btn-primary" (click)="addInstances()">
     {{ addText }}
     {{ question?.instanceIdentifier }}
@@ -6,28 +6,28 @@
 </div>
 <mat-card
   *ngFor="let instance of question?.value; let i = index"
-  style="padding: 10px; margin-top: 10px; border-radius: 10px"
+  class="instance-card"
 >
-  <div style="display: flex; flex-direction: row; align-items: center">
+  <div class="d-flex flex-dr flex-ai-center">
     <div
       (click)="viewInstance(i)"
-      style="flex: 1; display: flex; color: var(--primary-color); margin: 0 5px"
+      class="flex-basis-1 d-flex wc-primary-color my-0 mx-5"
       [ngClass]="{
         'valid-response': formAsArray?.controls[i]?.valid
       }"
     >
-      <span style="display: flex; flex: 0.5">
+      <span class="d-flex flex-basis-half">
         {{ question?.instanceIdentifier }} {{ i + 1 }}</span
       >
-      <span class="fs-0-785 modified" *ngIf="instanceLastUpdated[i]"
+      <span *ngIf="instanceLastUpdated[i]"
         >Last Updated On : {{ instanceLastUpdated[i] | date : "short" }}</span
       >
     </div>
     <button
       mat-icon-button
       matTooltip="Delete instance"
-      style="color: var(--primary-color)"
       aria-label="icon-button with a delete icon"
+      style="color: var(--primary-color);"
       (click)="deleteInstanceAlert(i)"
     >
       <mat-icon>delete</mat-icon>
@@ -38,15 +38,8 @@
 <ng-template #modal>
   <div
     mat-dialog-title
-    style="
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      color: var(--primary-color);
-      gap: 3px;
-      justify-content: flex-start;
-      padding: 10px;
-    "
+    class="d-flex flex-dr flex-ai-center flex-gap-3 flex-jc-flex-start p-10"
+    style="color: var(--primary-color);"
   >
     {{ context?.heading }}
   </div>
@@ -54,7 +47,7 @@
   <div mat-dialog-content>
     <ng-container *ngTemplateOutlet="libMainTemplateRef"></ng-container>
   </div>
-  <div mat-dialog-actions style="display: flex; justify-content: space-around">
+  <div mat-dialog-actions class="d-flex flex-jc-space-around">
     <button
       [disabled]="!matrixForm?.valid"
       type="button"
