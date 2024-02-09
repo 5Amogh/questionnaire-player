@@ -231,7 +231,7 @@ export class QuestionnaireService {
   formatToPayload(currentQuestion, formValues) {
     let value, labels;
     if (currentQuestion.responseType == 'matrix') {
-      value = formValues[currentQuestion._id];
+      value = !currentQuestion.value.length ? [] : formValues[currentQuestion._id];
       labels = currentQuestion.value;
     } else {
       value = currentQuestion.value;
