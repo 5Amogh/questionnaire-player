@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
 import {
   Evidence,
   Question,
@@ -25,6 +25,22 @@ export class MainWrapperComponent{
     public fb: FormBuilder,
     public questionnaireService: QuestionnaireService,
   ) {}
+  @HostListener('window:beforeunload')
+  unloadNotification(){
+    return this.confirmBeforeLeave();
+  }
+
+  @HostListener('window:popstate')
+  popStateListener(){
+   return this.confirmBeforeLeave();
+  }
+
+  confirmBeforeLeave():boolean{
+    if(this.questionnaireForm.dirty){
+      return confirm('Are you sure you want to leave?');
+    }
+    return true;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['fileuploadresponse']){
