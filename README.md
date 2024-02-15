@@ -1,7 +1,6 @@
 # QuestionnairePlayer
 
-The Questionnaire Player is a webcomponent built with the help of angular version 16.2.1
-
+The Questionnaire Player is a flexible Angular-based Web component for text, multi-select, radio, file upload, and matrix inputs. Easily adaptable for various frameworks or vanilla JS apps. Enhance user experiences seamlessly built with the help of angular version 16.2.1.
 ## Prerequisites for setup
 
 Angular 16, Nodejs 16.19.0
