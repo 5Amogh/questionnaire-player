@@ -25,7 +25,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url, 'image')"
+          (click)="showFilePreview(file.previewUrl, 'image')"
           >image</mat-icon
         >
         <mat-icon
@@ -40,7 +40,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded image"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url, 'doc')"
+          (click)="showFilePreview(file.previewUrl, 'doc')"
           >picture_as_pdf</mat-icon
         >
         <mat-icon
@@ -56,7 +56,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded video"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url, 'video')"
+          (click)="showFilePreview(file.previewUrl, 'video')"
           >video_file</mat-icon
         >
         <mat-icon
@@ -72,7 +72,7 @@
           class="customizeIcon"
           matTooltip="View/listen to the uploaded audio"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url, 'audio')"
+          (click)="showFilePreview(file.previewUrl, 'audio')"
           >audio_file</mat-icon
         >
         <mat-icon
@@ -88,7 +88,7 @@
           class="customizeIcon"
           matTooltip="View the uploaded file"
           matTooltipClass="tooltip"
-          (click)="showFilePreview(file.url, 'doc')"
+          (click)="showFilePreview(file.previewUrl, 'doc')"
           >description</mat-icon
         >
         <mat-icon
@@ -118,12 +118,13 @@
       alt="Preview"
       class="w-100"
     />
-    <iframe
+    <object
       *ngIf="objectType == 'doc'"
-      [src]="objectURL | sanitizeUrl"
+      type="application/pdf"
+      [data]="objectURL | sanitizeUrl"
       height="500"
       width="700"
-    ></iframe>
+    ></object>
     <video
       *ngIf="objectType == 'video'"
       [src]="objectURL"
