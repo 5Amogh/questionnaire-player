@@ -100,7 +100,7 @@ export class AttachmentComponent implements OnChanges {
   fileLimitCross() {
     const alertDialogConfig = {
       title: null,
-      message: 'File limit cannot exceed 50 MB',
+      message: `File limit cannot exceed ${this.fileSizeLimit} MB`,
       acceptLabel: 'Ok',
       cancelLabel: null,
     };

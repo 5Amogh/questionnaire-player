@@ -50,7 +50,7 @@ export class QuestionnaireService {
           let max = data.validation.max;
           return min <= control.value && control.value <= max
             ? null
-            : { err: 'Selected value  not within range' };
+            : { err: 'Selected value not within range' };
         }
       }
     };

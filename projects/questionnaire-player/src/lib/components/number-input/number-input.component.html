@@ -15,3 +15,5 @@
     [value]="question.value"
   />
 </mat-form-field>
+<mat-error *ngIf="isTouched && !isValid">{{ getValidationMessage(question._id) }}</mat-error>
+

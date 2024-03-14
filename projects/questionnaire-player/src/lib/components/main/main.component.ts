@@ -23,6 +23,7 @@ export class MainComponent implements OnInit {
   @ViewChild('dialogCmp') childDialogComponent: DialogComponent;
   @Input() questionnaireInstance = false;
   @Input() fileUploadResponse;
+  @Input() fileSizeLimit;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;

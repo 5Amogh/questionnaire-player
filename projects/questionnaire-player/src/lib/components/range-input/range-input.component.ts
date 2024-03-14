@@ -73,4 +73,15 @@ export class RangeInputComponent implements OnInit {
     }
     return this.question.validation.max;
   }
+
+  getValidationMessage(controlName: string): string {
+    const control = this.questionnaireForm.get(controlName);
+    if (control.errors) {
+      const validationErrors = control.errors;
+      if (validationErrors['err']) {
+        return validationErrors['err'];
+      }
+    }
+    return '';
+  }
 }

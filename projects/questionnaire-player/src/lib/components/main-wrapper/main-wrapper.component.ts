@@ -16,6 +16,7 @@ export class MainWrapperComponent{
   questions: Array<Question>;
   @Input({required:true}) assessment;
   @Input({transform:booleanAttribute}) angular = false;
+  @Input() fileSizeLimit;
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;

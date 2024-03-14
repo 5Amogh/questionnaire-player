@@ -21,6 +21,8 @@
     </ng-container>
   </div>
 </div>
+<mat-error *ngIf="isTouched && !isValid">{{ getValidationMessage(question._id) }}</mat-error>
+
 
 <lib-dialog
   [isDimmed]="isDimmed"

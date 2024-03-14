@@ -95,7 +95,7 @@
           </ng-template>
         </lib-matrix-questions>
         <lib-remarks [question]="question" *ngIf="question.showRemarks"></lib-remarks>
-        <lib-attachment *ngIf="question.file" [data]="{
+        <lib-attachment *ngIf="question.file" [fileSizeLimit]="fileSizeLimit" [data]="{
             submissionId: qService.getSubmissionId(),
             files: question.fileName
           }" [questionId]="question._id + qi" [fileUploadResponse]="

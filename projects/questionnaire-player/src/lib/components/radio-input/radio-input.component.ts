@@ -61,6 +61,17 @@ export class RadioInputComponent implements OnInit {
     return this.questionnaireForm.controls[this.question._id].touched;
   }
 
+  getValidationMessage(controlName: string): string {
+    const control = this.questionnaireForm.get(controlName);
+    if (control.errors) {
+      const validationErrors = control.errors;
+      if (validationErrors['err']) {
+        return validationErrors['err'];
+      }
+    }
+    return '';
+  }
+
   onChange(value) {
     this.questionnaireForm.controls[this.question._id].setValue(value);
     this.question.value = value;
