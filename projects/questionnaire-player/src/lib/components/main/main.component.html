@@ -27,7 +27,7 @@
       question?.sectionHeader &&
       (!question.visibleIf?.length || question.canDisplay == true)
     ">
-    <h4 class="section-header-style">{{ question?.sectionHeader }}</h4>
+    <h4 class="section-header-style headerMargin">{{ question?.sectionHeader }}</h4>
     <hr [ngStyle]="{
         'background-color':
           question.responseType != 'pageQuestions'
@@ -37,8 +37,8 @@
       }" />
   </ng-container>
   <div [ngStyle]="{
-      padding: question.responseType != 'pageQuestions' ? '30px' : 0,
-      margin: question.responseType != 'pageQuestions' ? '20px' : 0
+      padding: question.responseType != 'pageQuestions' ? '1.5rem' : 0,
+      margin: question.responseType != 'pageQuestions' ? '1.5rem' : 0
     }" [ngClass]="{
       'mat-elevation-z8': question.responseType != 'pageQuestions',
       activeCard: question.responseType != 'pageQuestions'
@@ -68,7 +68,7 @@
           {{ question?.tip }}
         </p>
       </ng-container>
-      <div class="mb-10 d-flex flex-dc flex-gap-10">
+      <div class="d-flex flex-dc flex-gap-10">
         <lib-text-input *ngIf="question.responseType == reponseType.TEXT" [questionnaireForm]="questionnaireForm"
           [question]="question"></lib-text-input>
         <ng-container *ngIf="question.responseType == reponseType.PAGEQUESTIONS">

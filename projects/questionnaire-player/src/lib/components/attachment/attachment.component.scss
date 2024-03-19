@@ -10,9 +10,14 @@ label {
   background-color: var(--secondary-btn-bg);
   color:var(--primary-color);
   border: solid var(--primary-color) 1px;
-  border-radius: 8px;
-  padding: 5px 15px;
+  border-radius: 4px;
+  padding: 0px 16px;
   cursor: pointer;
+  min-width: 5.6rem;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: flex;
 }
 
 .upload-label{

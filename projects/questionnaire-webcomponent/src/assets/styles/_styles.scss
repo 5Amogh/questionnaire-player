@@ -10,5 +10,10 @@
 }
 
 .wc-primary-color{
-    color: var(--primary-color)
+    color: var(--primary-color);
+    font-size: 20px;
+    letter-spacing: 0.12;
+    line-height: 28px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
 }

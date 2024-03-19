@@ -2,12 +2,20 @@
     background-color:var(--primary-color);
     color: var(--general-btn-text-color);
     border: solid transparent 1px;
-    border-radius: 20px;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 0.75rem;
+    min-width: 5.6rem;
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
 }
 
 .btn:hover{
     background-color: var(--general-btn-hover-bg);
     color: var(--primary-color);
     border: solid var(--primary-color) 1px;
+}
+
+.paddingAllSide{
+    padding: 1.25rem;
 }
