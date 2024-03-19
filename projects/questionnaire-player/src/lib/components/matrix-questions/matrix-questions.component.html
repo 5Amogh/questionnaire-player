@@ -8,21 +8,22 @@
   *ngFor="let instance of question?.value; let i = index"
   class="instance-card"
 >
-  <div class="d-flex flex-dr flex-ai-center">
+  <div class="flex-dr flex-ai-center display">
     <div
       (click)="viewInstance(i)"
-      class="flex-basis-1 d-flex wc-primary-color my-0 mx-5"
+      class="flex-basis-1 display wc-primary-color my-0 mx-5"
       [ngClass]="{
         'valid-response': formAsArray?.controls[i]?.valid
       }"
     >
-      <span class="d-flex flex-basis-half">
+      <span class="d-flex flex-basis-half secondaryColor">
         {{ question?.instanceIdentifier }} {{ i + 1 }}</span
       >
       <span *ngIf="instanceLastUpdated[i]"
         >Last Updated On : {{ instanceLastUpdated[i] | date : "short" }}</span
       >
     </div>
+
     <button
       mat-icon-button
       matTooltip="Delete instance"

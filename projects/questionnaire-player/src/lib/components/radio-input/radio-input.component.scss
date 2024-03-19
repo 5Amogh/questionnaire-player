@@ -1,6 +1,11 @@
 mat-radio-button {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.12;
+    line-height: 20px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
 }
 
 ::ng-deep {

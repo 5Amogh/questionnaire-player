@@ -2,9 +2,13 @@
     background-color:var(--primary-color);
     color: white;
     border: solid transparent 1px;
-    border-radius: 20px;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 0.75rem;
     cursor: pointer;
+    min-width: 5.6rem;
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 700; 
 }
 
 .btn:hover{

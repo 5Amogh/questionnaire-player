@@ -1,4 +1,4 @@
-<div class="py-10 px-0">
+<div class="paddingAllSide">
   <ng-container *ngIf="data?.title">
     <div
       mat-dialog-title
@@ -17,7 +17,7 @@
     <button
       *ngIf="data?.acceptLabel"
       mat-dialog-close
-      class="btn"
+      class="btn btnMargin"
       (click)="acceptDialog()"
     >
       {{ data.acceptLabel }}
@@ -25,7 +25,7 @@
     <button
       *ngIf="data?.cancelLabel"
       mat-dialog-close
-      class="btn"
+      class="btn btnMargin" 
       (click)="rejectDialog()"
     >
       {{ data.cancelLabel }}

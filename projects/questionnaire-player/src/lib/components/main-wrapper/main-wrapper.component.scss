@@ -3,8 +3,12 @@
   color: var(--general-btn-text-color);
   cursor: pointer;
   border: solid transparent 1px;
-  border-radius: 20px;
-  padding: 10px;
+  border-radius: 4px;
+  padding: 0.75rem;
+  min-width: 5.6rem;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .btn-primary:hover {
@@ -17,18 +21,26 @@
   background-color: var(--disabled-btn-bg);
   color: var(--disabled-btn-text);
   border: solid transparent 1px;
-  border-radius: 20px;
-  padding: 10px;
+  border-radius: 4px;
+  padding: 0.75rem;
   cursor: not-allowed;
+  min-width: 5.6rem;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .btn-outline-secondary {
   background-color: var(--secondary-btn-bg);
   color: var(--primary-color);
   border: solid var(--primary-color) 1px;
-  border-radius: 20px;
-  padding: 10px;
+  border-radius: 4px;
+  padding: 0.75rem;
   cursor: pointer;
+  min-width: 5.6rem;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .custom-font {
