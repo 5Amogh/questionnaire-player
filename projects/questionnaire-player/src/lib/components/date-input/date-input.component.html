@@ -29,5 +29,5 @@
     </ng-container>
   </span>
 </div>
-<mat-error *ngIf="isTouched && !isValid">{{ getValidationMessage(question._id) }}</mat-error>
+<mat-error *ngIf="questionnaireForm?.contains(question._id) && isTouched && !isValid">{{ getValidationMessage(question._id) }}</mat-error>
 
