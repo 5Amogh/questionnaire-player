@@ -44,3 +44,13 @@
   font-weight: 600;
   font-family: 'Lato', sans-serif;
 }
+
+::ng-deep{
+  .submitted{
+    pointer-events: none;
+    .mat-datepicker-toggle{
+      pointer-events: none !important;
+    }
+  }
+}
+

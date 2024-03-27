@@ -8,6 +8,7 @@
         [questions]="section.questions"
         [questionnaireForm]="questionnaireForm"
         [fileUploadResponse]="fileuploadresponse"
+        [isSubmitted]="evidence?.isSubmitted"
       ></lib-main>
     </div>
   </form>
@@ -16,7 +17,11 @@
     *ngIf="!evidence?.isSubmitted"
     class="m-16 d-flex flex-ai-center flex-jc-space-around flex-dr flex-gap-30 footer"
   >
-    <button class="btn btn-outline-secondary" (click)="submission('draft')">
+    <button class="btn" (click)="submission('draft')" 
+    [ngClass]="{
+      'btn-outline-secondary': questionnaireForm?.valid,
+      'btn-disabled': !questionnaireForm?.valid
+    }" [disabled]="!questionnaireForm?.valid">
       Save
     </button>
     <button
