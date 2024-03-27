@@ -18,7 +18,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class MainComponent implements OnInit {
   @Input({ required: true }) questions: Array<Question>;
-  evidence: Evidence;
+  @Input() isSubmitted: boolean;
   @Input({ required: true }) questionnaireForm: FormGroup;
   @ViewChild('dialogCmp') childDialogComponent: DialogComponent;
   @Input() questionnaireInstance = false;
