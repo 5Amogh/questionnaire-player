@@ -26,9 +26,17 @@
   border-radius: 10px;
 }
 
+.spaceBetweenContent{
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 768px) {
   .responsive-margin {
     margin: 0.75rem !important;
+  }
+  .spaceBetweenContent{
+    display: block;
   }
 }
 
@@ -53,4 +61,3 @@
     }
   }
 }
-
