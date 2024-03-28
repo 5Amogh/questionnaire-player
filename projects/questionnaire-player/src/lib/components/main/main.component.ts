@@ -1,15 +1,15 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
-  TemplateRef,
+  Output,
   ViewChild,
 } from '@angular/core';
-import { Evidence, Question, ResponseType, Section } from '../../interfaces/questionnaire.type';
+import { Question, ResponseType } from '../../interfaces/questionnaire.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { QuestionnaireService } from '../../services/questionnaire.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'lib-main',
@@ -33,10 +33,8 @@ export class MainComponent implements OnInit {
   hidePageSize = true;
   showFirstLastButtons = true;
   disabled = false;
-
-  pageEvent: PageEvent;
-  paginatorMap = new Map();
   paginatorLength: number;
+  @Output() sendPageIndex = new EventEmitter();
 
   constructor(public fb: FormBuilder, public qService: QuestionnaireService) {}
 
@@ -52,6 +50,7 @@ export class MainComponent implements OnInit {
     if (this.questions[e.pageIndex] && !this.findNextVisibleQuestion(e.pageIndex, this.pageIndex)) {
       this.paginatorLength = this.pageIndex +1;
     }
+      this.sendPageIndex.emit(this.pageIndex);
   }
 
   private findNextVisibleQuestion(eventPageIndex: number, currentPageIndex: number): boolean {

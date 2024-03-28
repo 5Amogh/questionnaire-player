@@ -22,6 +22,8 @@ export class MainWrapperComponent{
   questionnaireForm: FormGroup;
   @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
+  pageHistory = [];
+  allPagesInitialized: boolean = false;
   constructor(
     public fb: FormBuilder,
     public questionnaireService: QuestionnaireService,
@@ -54,6 +56,8 @@ export class MainWrapperComponent{
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
       this.sections = this.evidence.sections;
+      this.pageHistory = Array(this.sections[0].questions.length).fill(false);
+      this.catchPageIndex(0)
     }
   }
   ngOnInit() {
@@ -64,6 +68,8 @@ export class MainWrapperComponent{
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
       this.sections = this.evidence.sections;
+      this.pageHistory = Array(this.sections[0].questions.length).fill(false);
+      this.catchPageIndex(0)
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
@@ -85,4 +91,10 @@ export class MainWrapperComponent{
     
     this.submitOrSaveEvent.emit(dataToEmit);
   }
+
+  catchPageIndex(event:any){
+    this.pageHistory[event] = true;
+    this.allPagesInitialized = this.pageHistory.every(page => page === true) ? true: false
+  }
+
 }
