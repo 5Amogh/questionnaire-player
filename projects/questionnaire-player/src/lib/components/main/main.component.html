@@ -45,7 +45,7 @@
     }" class="responsive-margin" *ngIf="!question.visibleIf?.length || question.canDisplay == true">
     <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
       <div>
-        <div *ngFor="let q of question.question; let qai = index" class="mb-20">
+        <div *ngFor="let q of question.question; let qai = index" class="mb-20 spaceBetweenContent">
           <div *ngIf="q != ''" class="wc-primary-color">
             {{ question.questionNumber + " . " }}&nbsp;{{ q }}
             <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
@@ -53,13 +53,13 @@
               (click)="openDialog(question.hint)">
               <mat-icon style="vertical-align: middle">emoji_objects_outline</mat-icon>
             </button>
-            <mat-divider class="mt-10" [ngStyle]="{
+            <!-- <mat-divider class="mt-10" [ngStyle]="{
                 'background-color':
                   question.responseType != 'pageQuestions'
                     ? 'var(--primary-color)'
                     : null
               }">
-            </mat-divider>
+            </mat-divider> -->
           </div>
         </div>
       </div>

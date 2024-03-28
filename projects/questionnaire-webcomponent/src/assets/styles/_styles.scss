@@ -9,11 +9,18 @@
     cursor: pointer;
 }
 
-.wc-primary-color{
+.wc-primary-color {
     color: var(--primary-color);
     font-size: 20px;
     letter-spacing: 0.12;
     line-height: 28px;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
+    padding: 0rem 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .wc-primary-color {
+        padding-top: 0.25rem;
+    }
 }
