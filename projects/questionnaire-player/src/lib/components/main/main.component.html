@@ -44,8 +44,8 @@
       activeCard: question.responseType != 'pageQuestions' , 'submitted' : isSubmitted
     }" class="responsive-margin" *ngIf="!question.visibleIf?.length || question.canDisplay == true">
     <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
-      <div>
-        <div *ngFor="let q of question.question; let qai = index" class="mb-20 spaceBetweenContent">
+      <div class="spaceBetweenContent">
+        <div *ngFor="let q of question.question; let qai = index" class="mb-20">
           <div *ngIf="q != ''" class="wc-primary-color">
             {{ question.questionNumber + " . " }}&nbsp;{{ q }}
             <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
