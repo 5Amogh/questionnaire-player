@@ -11,7 +11,7 @@
       id="{{ question._id + o.value }}"
       >{{ o.label }}
       <ng-container
-        *ngIf="question?.option && question?.option[optionIndex]?.hint"
+        *ngIf="question?.options && question?.options[optionIndex]?.hint"
       >
         <button
           mat-icon-button

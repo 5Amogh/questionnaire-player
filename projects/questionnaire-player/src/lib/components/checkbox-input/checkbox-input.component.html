@@ -8,7 +8,7 @@
         {{ o.label }}
       </mat-checkbox>
     </div>
-    <ng-container *ngIf="question?.option && question?.option[i]?.hint">
+    <ng-container *ngIf="question?.options && question?.options[i]?.hint">
       <button
         mat-icon-button
         style="color: var(--primary-color);"
