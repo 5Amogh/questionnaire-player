@@ -82,7 +82,7 @@ export interface Question {
   question: string;
   isCompleted: boolean;
   showRemarks: string;
-  options: string;
+  options: any;
   option?:{hint:"",tip:""}[]
   sliderOptions: string;
   children: string[];

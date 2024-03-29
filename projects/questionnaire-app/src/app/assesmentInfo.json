@@ -690,15 +690,18 @@
                                             },
                                             {
                                                 "value": "R3",
-                                                "label": "Smart phone without internet/data pack"
+                                                "label": "Smart phone without internet/data pack",
+                                                "hint" : "test1"
                                             },
                                             {
                                                 "value": "R4",
-                                                "label": "TV"
+                                                "label": "TV",
+                                                "hint" : "test2"
                                             },
                                             {
                                                 "value": "R5",
-                                                "label": "Radio"
+                                                "label": "Radio",
+                                                "hint" : "test3"
                                             }
                                         ],
                                         "sliderOptions": [],
@@ -773,7 +776,8 @@
                                         "options": [
                                             {
                                                 "value": "R1",
-                                                "label": "Yes"
+                                                "label": "Yes",
+                                                "hint": "radio hint"
                                             },
                                             {
                                                 "value": "R2",
