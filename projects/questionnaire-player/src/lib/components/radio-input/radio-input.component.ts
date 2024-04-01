@@ -26,7 +26,6 @@ export class RadioInputComponent implements OnInit {
 
   ngOnInit() {
     this.hintCloseText = 'Close';
-    this.hintModalNote = 'Note of the modal hint';
     setTimeout(() => {
       this.questionnaireForm.addControl(
         this.question._id,
@@ -49,7 +48,8 @@ export class RadioInputComponent implements OnInit {
 
   openDialog(optionIndex: number) {
     this.isDimmed = !this.isDimmed;
-    this.hint = this.options[optionIndex]?.hint
+    this.hint = this.options[optionIndex]?.hint;
+    this.hintModalNote = "Note: This is the hint for the following option";
     this.childDialogComponent.openDialog('300ms', '150ms');
   }
 

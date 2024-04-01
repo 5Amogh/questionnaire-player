@@ -88,7 +88,6 @@ export class MainWrapperComponent{
       status: status,
       data: evidenceData
     };
-    
     this.submitOrSaveEvent.emit(dataToEmit);
   }
 

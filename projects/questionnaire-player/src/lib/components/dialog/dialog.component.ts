@@ -13,7 +13,7 @@ export class DialogComponent {
   @Input() hint;
   @Output() closeHintEmitter = new EventEmitter();
   hintCloseText: string;
-  hintModalNote:string
+  @Input() hintModalNote;
   constructor(
     public location:LocationStrategy,
     public dialog: MatDialog
@@ -26,7 +26,6 @@ export class DialogComponent {
 
   ngOnInit(){
     this.hintCloseText = 'Close';
-    this.hintModalNote = 'Hint of the modal note hint';
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
