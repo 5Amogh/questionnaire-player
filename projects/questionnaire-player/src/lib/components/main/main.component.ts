@@ -27,6 +27,7 @@ export class MainComponent implements OnInit {
   selectedIndex: number;
   dimmerIndex;
   isDimmed;
+  hintModalNote:string
 
   pageSize = 1; //Each Question object from Question representing each page irrespective of number of questions it includes
   pageIndex = 0;
@@ -77,6 +78,7 @@ export class MainComponent implements OnInit {
   openDialog(hint) {
     this.isDimmed = !this.isDimmed;
     this.childDialogComponent.hint = hint;
+    this.childDialogComponent.hintModalNote = "Note: This is the hint for the following question";
     this.childDialogComponent?.openDialog('300ms', '150ms');
   }
 
