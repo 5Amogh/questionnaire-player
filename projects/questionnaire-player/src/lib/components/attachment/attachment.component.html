@@ -56,10 +56,6 @@
       style="width:100%;height:50vh;" (loaded)="docLoader()" [googleCheckContentLoaded]="true" 
       [googleCheckInterval]="3000" [googleMaxChecks]="5"> 
     </ngx-doc-viewer>
-    <!-- <iframe *ngIf="objectType == 'doc'" [src]="objectURL | sanitizeUrl" frameborder="0" seamless></iframe> -->
-    <!-- <object *ngIf="objectType == 'doc'" type="application/pdf" [data]="objectURL | sanitizeUrl" width="100%" height="600">
-      <p>Alternative text - include a link to download the PDF instead.</p>
-    </object> -->
     <video *ngIf="objectType == 'video'" [src]="objectURL" controls class="w-100"></video>
     <audio *ngIf="objectType == 'audio'" [src]="objectURL" controls class="mw-100 mh-100"></audio>
   </div>

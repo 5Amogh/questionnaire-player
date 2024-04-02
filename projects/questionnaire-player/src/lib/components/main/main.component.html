@@ -101,7 +101,7 @@
           }" [questionId]="question._id + qi" [fileSizeLimit]="fileSizeLimit" [fileUploadResponse]="
             fileUploadResponse?.question_id == question._id + qi &&
             fileUploadResponse
-          ">
+          " [questionFile]="question.file">
         </lib-attachment>
         <lib-dialog #dialogCmp [isDimmed]="isDimmed" [hint]="question?.hint"
           (closeHintEmitter)="closeHint()"></lib-dialog>

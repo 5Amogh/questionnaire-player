@@ -28,6 +28,7 @@ export class AttachmentComponent implements OnChanges {
   @Input() fileUploadResponse = null;
   objectType: string;
   dialogRef:any;
+  @Input() questionFile;
   constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -55,27 +56,43 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
-    const alertDialogConfig = {
-      title: null,
-      message: `File Uploading Please Wait...`,
-      acceptLabel: null,
-      cancelLabel: null,
-    };
-    this.openAlert(alertDialogConfig);
-    this.formData = new FormData();
-    Array.from(files).forEach((f) => this.formData.append('file', f));
-    const fileNames = this.getFileNames(this.formData);
-    fileNames.map((fileName, index) => {
-      const fileType = this.getFileType(fileName); // Get file type based on extension
-      const fileDetails = {
-        name: fileName,
-        type: fileType,
-        question_id: this.questionId,
-        submissionId: this.data.submissionId,
-        file: files[index], // Store the File object for later use
+    let uploadedType = files[0].type;
+    console.log(uploadedType)
+    let splitUploadType = uploadedType.split('/')
+    let typeRequired = this.questionFile.type;
+    console.log(typeRequired);
+    typeRequired.includes(splitUploadType[1]);
+    if(typeRequired.includes(splitUploadType[1]) || typeRequired.includes(uploadedType)){
+      const alertDialogConfig = {
+        title: null,
+        message: `File Uploading Please Wait...`,
+        acceptLabel: null,
+        cancelLabel: null,
       };
-      parent.postMessage(fileDetails);
-    });
+      this.openAlert(alertDialogConfig);
+      this.formData = new FormData();
+      Array.from(files).forEach((f) => this.formData.append('file', f));
+      const fileNames = this.getFileNames(this.formData);
+      fileNames.map((fileName, index) => {
+        const fileType = this.getFileType(fileName); // Get file type based on extension
+        const fileDetails = {
+          name: fileName,
+          type: fileType,
+          question_id: this.questionId,
+          submissionId: this.data.submissionId,
+          file: files[index], // Store the File object for later use
+        };
+        parent.postMessage(fileDetails);
+      });
+    }else{
+      const alertDialogConfig = {
+        title: null,
+        message: `Only ${typeRequired} formates are allowed`,
+        acceptLabel: "OK",
+        cancelLabel: null,
+      };
+      this.openAlert(alertDialogConfig);
+    }
   }
 
   filesTrackBy(index,file){
