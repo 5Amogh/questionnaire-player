@@ -57,10 +57,8 @@ export class AttachmentComponent implements OnChanges {
       return;
     }
     let uploadedType = files[0].type;
-    console.log(uploadedType)
     let splitUploadType = uploadedType.split('/')
     let typeRequired = this.questionFile.type;
-    console.log(typeRequired);
     typeRequired.includes(splitUploadType[1]);
     if(typeRequired.includes(splitUploadType[1]) || typeRequired.includes(uploadedType)){
       const alertDialogConfig = {
