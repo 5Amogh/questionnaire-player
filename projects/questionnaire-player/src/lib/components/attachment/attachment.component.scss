@@ -55,7 +55,9 @@ mat-icon.customizeIcon {
 .close-btn{
   color: rgb(150, 4, 4);
   font-size: large;
+  z-index: -1;
 }
+
 ::ng-deep {
   @media screen and (max-width:768px) {
 
@@ -63,4 +65,16 @@ mat-icon.customizeIcon {
       padding: 0 !important;
     }
   }
+}
+
+.close-canle-btn{
+  position: absolute;
+  top: 0.625rem;
+  right: 0.5rem;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.row-wrap{
+  flex-wrap: wrap !important;
 }
