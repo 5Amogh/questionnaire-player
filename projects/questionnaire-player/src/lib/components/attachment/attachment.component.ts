@@ -27,11 +27,13 @@ export class AttachmentComponent implements OnChanges {
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   @Input() fileUploadResponse = null;
   objectType: string;
+  dialogRef:any;
   constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
+      this.closeDialog()
       const successMessage = 'Evidence uploaded successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
       const alertDialogConfig = {
@@ -53,6 +55,13 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
+    const alertDialogConfig = {
+      title: null,
+      message: `File Uploading Please Wait...`,
+      acceptLabel: null,
+      cancelLabel: null,
+    };
+    this.openAlert(alertDialogConfig);
     this.formData = new FormData();
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
@@ -85,7 +94,7 @@ export class AttachmentComponent implements OnChanges {
     this.dialog.closeAll();
   }
 
-  showFilePreview(url: any, type: string) {
+showFilePreview(url: any, type: string) {
     this.objectURL = url;
     this.objectType = type;
     this.dialog.open(this.previewModal, {
@@ -95,12 +104,19 @@ export class AttachmentComponent implements OnChanges {
       exitAnimationDuration: 150,
     });
 
+    const alertDialogConfig = {
+      title: null,
+      message: `Please wait it may take up to a minute to load`,
+      acceptLabel: null,
+      cancelLabel: null,
+    };
+    this.openAlert(alertDialogConfig);
   }
 
   fileLimitCross() {
     const alertDialogConfig = {
       title: null,
-      message: `File limit cannot exceed ${this.fileSizeLimit} MB`,
+      message: `The file is too large and cannot be uploaded. The file you are trying to upload has exceeded the maximum file size ${this.fileSizeLimit} MB`,
       acceptLabel: 'Ok',
       cancelLabel: null,
     };
@@ -109,14 +125,15 @@ export class AttachmentComponent implements OnChanges {
   }
 
   async openAlert(alertDialogConfig) {
-    const dialogRef = await this.dialog.open(AlertComponent, {
+    this.dialogRef = await this.dialog.open(AlertComponent, {
       data: alertDialogConfig,
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
+      disableClose: true
     });
     return new Observable<boolean>((observer) => {
-      dialogRef.afterClosed().subscribe((res) => {
+      this.dialogRef.afterClosed().subscribe((res) => {
         observer.next(res);
         observer.complete();
       });
@@ -180,4 +197,7 @@ export class AttachmentComponent implements OnChanges {
     this.openAlert(alertConfig);
   }
 
+  docLoader(){
+    this.dialogRef.close();
+  } 
 }

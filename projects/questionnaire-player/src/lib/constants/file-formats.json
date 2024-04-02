@@ -2,11 +2,19 @@
     "types": {
         "image": [
             "png",
-            "image/png",
             "jpg",
+            "heic",
+            "heif",
+            "hevc",
             "jpeg",
+            "webp",
+            "image/png",
             "image/jpg",
-            "image/jpeg"
+            "image/jpeg",
+            "image/webp",
+            "image/heic",
+            "image/heif",
+            "image/hevc"
         ],
         "video": [
             "mp4",
@@ -16,7 +24,19 @@
             "video/webm",
             "video/mkv",
             "avi",
-            "video/avi"
+            "video/avi",
+            "wmv",
+            "video/wmv",
+            "flv",
+            "video/flv",
+            "3GP",
+            "video/3GP",
+            "ogg",
+            "video/ogg",
+            "m4v",
+            "video/m4v",
+            "mov",
+            "video/mov"
         ],
         "audio": [
             "audio/mp3",

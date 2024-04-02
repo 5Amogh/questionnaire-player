@@ -41,6 +41,7 @@ import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -91,7 +92,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxDocViewerModule
   ],
   exports: [],
   providers: [
