@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Question } from '../../interfaces/questionnaire.type';
+import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+import { Question, Validation } from '../../interfaces/questionnaire.type';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 
 @Component({
@@ -22,10 +22,9 @@ export class TextInputComponent implements OnInit {
       this.questionnaireForm.addControl(
         this.question._id,
         new FormControl(this.question.value || null, [
-          this.qService.validate(this.question),
+          this.qService.validate(this.question),(this.question.validation as Validation).required && Validators.required
         ])
       );
-
       this.question.startTime = this.question.startTime
         ? this.question.startTime
         : Date.now();
