@@ -57,10 +57,8 @@ export class AttachmentComponent implements OnChanges {
       return;
     }
     let uploadedType = files[0].type;
-    console.log(uploadedType)
     let splitUploadType = uploadedType.split('/')
     let typeRequired = this.questionFile.type;
-    console.log(typeRequired);
     typeRequired.includes(splitUploadType[1]);
     if(typeRequired.includes(splitUploadType[1]) || typeRequired.includes(uploadedType)){
       const alertDialogConfig = {
@@ -121,13 +119,15 @@ showFilePreview(url: any, type: string) {
       exitAnimationDuration: 150,
     });
 
-    const alertDialogConfig = {
-      title: null,
-      message: `Please wait it may take up to a minute to load`,
-      acceptLabel: null,
-      cancelLabel: null,
-    };
-    this.openAlert(alertDialogConfig);
+    if(this.objectType == 'doc'){
+      const alertDialogConfig = {
+        title: null,
+        message: `Please wait it may take up to a minute to load`,
+        acceptLabel: null,
+        cancelLabel: null,
+      };
+      this.openAlert(alertDialogConfig);
+    }
   }
 
   fileLimitCross() {
