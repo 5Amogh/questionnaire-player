@@ -48,7 +48,19 @@
         ],
         "pdf": [
             "pdf",
-            "application/pdf"
+            "xlsx",
+            "txt",
+            "doc",
+            "docx",
+            "xls",
+            "csv",
+            "application/pdf",
+            "application/xlsx",
+            "application/txt",
+            "application/doc",
+            "application/docx",
+            "application/xls",
+            "application/csv"
         ]
     },
     "limit":50
