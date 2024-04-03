@@ -47,7 +47,7 @@
       <div class="spaceBetweenContent">
         <div *ngFor="let q of question.question; let qai = index" class="mb-20">
           <div *ngIf="q != ''" class="wc-primary-color">
-            {{ question.questionNumber + " . " }}&nbsp;{{ q }}
+            {{ question.questionNumber + " . " }}&nbsp;{{ q }} <span *ngIf="question.validation.required" class="colorRed">*</span>
             <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
               aria-label="Icon-button with a lightbulb icon" matTooltip="Hint about the question"
               (click)="openDialog(question.hint)">

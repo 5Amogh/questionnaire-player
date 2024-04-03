@@ -57,10 +57,12 @@ export class AttachmentComponent implements OnChanges {
       return;
     }
     let uploadedType = files[0].type;
-    let splitUploadType = uploadedType.split('/')
+    let splitUploadType = uploadedType.split('/');
     let typeRequired = this.questionFile.type;
-    typeRequired.includes(splitUploadType[1]);
-    if(typeRequired.includes(splitUploadType[1]) || typeRequired.includes(uploadedType)){
+    let alternateTypeRequired = ['msword'];
+    let allTypeRequired = typeRequired.concat(alternateTypeRequired);
+    // typeRequired.includes(splitUploadType[1]);
+    if(allTypeRequired.includes(splitUploadType[1]) || allTypeRequired.includes(uploadedType)){
       const alertDialogConfig = {
         title: null,
         message: `File Uploading Please Wait...`,
@@ -123,7 +125,7 @@ showFilePreview(url: any, type: string) {
       const alertDialogConfig = {
         title: null,
         message: `Please wait it may take up to a minute to load`,
-        acceptLabel: null,
+        acceptLabel: "Close Preview",
         cancelLabel: null,
       };
       this.openAlert(alertDialogConfig);
@@ -151,6 +153,9 @@ showFilePreview(url: any, type: string) {
     });
     return new Observable<boolean>((observer) => {
       this.dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+       this.closeDialog();
+        }
         observer.next(res);
         observer.complete();
       });
