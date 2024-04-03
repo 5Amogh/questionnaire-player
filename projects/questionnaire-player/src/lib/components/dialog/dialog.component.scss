@@ -19,3 +19,9 @@
 .paddingAllSide{
     padding: 1.25rem;
 }
+
+@media screen and (max-width:768px) {
+    .spacing{
+        padding-right: 0.938rem;
+    }
+  }
