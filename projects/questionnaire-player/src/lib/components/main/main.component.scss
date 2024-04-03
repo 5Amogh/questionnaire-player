@@ -59,6 +59,12 @@
     .mat-datepicker-toggle{
       pointer-events: none !important;
     }
+    .mat-mdc-slider .mdc-slider__input{
+      pointer-events: none !important;
+    }
+    .mat-mdc-form-field-icon-suffix, .mat-mdc-form-field-icon-prefix{
+      pointer-events: none !important;
+    }
   }
 }
 
