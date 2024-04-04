@@ -1,12 +1,12 @@
 <div class="custom-font">
   <ng-container *ngIf="!questionnaireInstance else paginationNonApplicableInstance">
     <ng-container *ngFor="
-        let question of questions.slice(pageIndex, pageIndex + 1);
+        let question of questions;
         let qi = index;
         trackBy: questionTrackBy
       ">
       <ng-container [ngTemplateOutlet]="questionnaire"
-        [ngTemplateOutletContext]="{ question: question, qi: qi }"></ng-container>
+        [ngTemplateOutletContext]="{ question: question, qi: qi, pageId:qi }"></ng-container>
     </ng-container>
     <lib-paginator [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
   </ng-container>
@@ -22,7 +22,8 @@
   </ng-container>
 </ng-template>
 
-<ng-template #questionnaire let-question="question" let-qi="qi">
+<ng-template #questionnaire let-question="question" let-qi="qi" let-pageId="pageId">
+  <span [id]="pageId">
   <ng-container *ngIf="
       question?.sectionHeader &&
       (!question.visibleIf?.length || question.canDisplay == true)
@@ -108,4 +109,5 @@
       </div>
     </div>
   </div>
+</span>
 </ng-template>

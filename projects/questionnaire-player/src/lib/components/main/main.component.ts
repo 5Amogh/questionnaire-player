@@ -1,9 +1,9 @@
 import {
+  AfterViewInit,
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { Question, ResponseType } from '../../interfaces/questionnaire.type';
@@ -16,7 +16,7 @@ import { QuestionnaireService } from '../../services/questionnaire.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
   @Input({ required: true }) questions: Array<Question>;
   @Input() isSubmitted: boolean;
   @Input({ required: true }) questionnaireForm: FormGroup;
@@ -24,6 +24,7 @@ export class MainComponent implements OnInit {
   @Input() questionnaireInstance = false;
   @Input() fileUploadResponse;
   @Input() fileSizeLimit;
+  @ViewChild('questionnaire') questionnaire:TemplateRef<any>;
   selectedIndex: number;
   dimmerIndex;
   isDimmed;
@@ -35,7 +36,6 @@ export class MainComponent implements OnInit {
   showFirstLastButtons = true;
   disabled = false;
   paginatorLength: number;
-  @Output() sendPageIndex = new EventEmitter();
 
   constructor(public fb: FormBuilder, public qService: QuestionnaireService) {}
 
@@ -47,11 +47,32 @@ export class MainComponent implements OnInit {
     this.paginatorLength = this.questions.length;
   }
 
+  ngAfterViewInit(): void {
+   this.enableRelevantPage();
+  }
+  
+  enableRelevantPage(){
+    if(!this.questionnaireInstance){
+      for(let i = 0; i < this.questions.length; i++){
+        if(i !== this.pageIndex){
+          this.domQuery(i,'none');
+        }
+      }
+      this.domQuery(this.pageIndex,'block');
+    }
+  }
+
+  domQuery(elemendId:number,action:string){
+    if(document.getElementById(`${elemendId}`)){
+      document.getElementById(`${elemendId}`).style.display = action;
+    }
+  }
+
   handlePageEvent(e) {
     if (this.questions[e.pageIndex] && !this.findNextVisibleQuestion(e.pageIndex, this.pageIndex)) {
       this.paginatorLength = this.pageIndex +1;
     }
-      this.sendPageIndex.emit(this.pageIndex);
+      this.enableRelevantPage();
   }
 
   private findNextVisibleQuestion(eventPageIndex: number, currentPageIndex: number): boolean {

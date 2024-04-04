@@ -9,7 +9,6 @@
         [questionnaireForm]="questionnaireForm"
         [fileUploadResponse]="fileuploadresponse"
         [isSubmitted]="evidence?.isSubmitted"
-        (sendPageIndex)="catchPageIndex($event)"
         [fileSizeLimit]="fileSizeLimit"
       ></lib-main>
     </div>
@@ -25,11 +24,11 @@
     <button
       class="btn"
       [ngClass]="{
-        'btn-primary': questionnaireForm?.valid && allPagesInitialized,
-        'btn-disabled': !questionnaireForm?.valid || !allPagesInitialized
+        'btn-primary': questionnaireForm?.valid,
+        'btn-disabled': !questionnaireForm?.valid
       }"
       (click)="submission('submit')"
-      [disabled]="!questionnaireForm?.valid || !allPagesInitialized"
+      [disabled]="!questionnaireForm?.valid"
     >
       Submit
     </button>

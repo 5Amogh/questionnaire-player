@@ -57,7 +57,7 @@ export class MatrixQuestionsComponent implements OnInit {
     this.cancelText = 'Cancel';
     setTimeout(() => {
       this.matrixForm = this.fb.group({},Validators.required);
-      this.questionnaireForm.addControl(
+      this.questionnaireForm.setControl(
         this.question._id,
         new FormArray([], [Validators.required])
       );
