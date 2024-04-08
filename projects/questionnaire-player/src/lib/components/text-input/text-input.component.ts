@@ -22,7 +22,7 @@ export class TextInputComponent implements OnInit {
       this.questionnaireForm.addControl(
         this.question._id,
         new FormControl(this.question.value || null, [
-          this.qService.validate(this.question),(this.question.validation as Validation).required && Validators.required
+          this.qService.validate(this.question)
         ])
       );
       this.question.startTime = this.question.startTime
