@@ -10,7 +10,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs/internal/Observable';
-import {types , limit} from '../../constants/file-formats.json';
+import { types, limit } from '../../constants/file-formats.json';
 
 @Component({
   selector: 'lib-attachment',
@@ -27,9 +27,9 @@ export class AttachmentComponent implements OnChanges {
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   @Input() fileUploadResponse = null;
   objectType: string;
-  dialogRef:any;
+  dialogRef: any;
   @Input() questionFile;
-  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
+  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
@@ -42,11 +42,11 @@ export class AttachmentComponent implements OnChanges {
         acceptLabel: 'Ok',
         cancelLabel: null,
       };
-  
+
       if (status == 200) {
         this.data.files.push(this.fileUploadResponse.data);
       }
-        this.openAlert(alertDialogConfig);
+      this.openAlert(alertDialogConfig);
     }
   }
   basicUpload(event) {
@@ -56,14 +56,7 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
-    let uploadedType = files[0].type;
-    let splitUploadType = uploadedType.split('/');
-    let typeRequired = this.questionFile.type;
-    let alternateTypeRequired = ['msword'];
-    let allTypeRequired = typeRequired.concat(alternateTypeRequired);
-    // typeRequired.includes(splitUploadType[1]);
-    if(allTypeRequired.includes(splitUploadType[1]) || allTypeRequired.includes(uploadedType)){
-      const alertDialogConfig = {
+  const alertDialogConfig = {
         title: null,
         message: `File Uploading Please Wait...`,
         acceptLabel: null,
@@ -84,24 +77,16 @@ export class AttachmentComponent implements OnChanges {
         };
         window.postMessage(fileDetails);
       });
-    }else{
-      const alertDialogConfig = {
-        title: null,
-        message: `Only ${typeRequired} formates are allowed`,
-        acceptLabel: "OK",
-        cancelLabel: null,
-      };
-      this.openAlert(alertDialogConfig);
-    }
+      event.target.value = '';
   }
 
-  filesTrackBy(index,file){
+  filesTrackBy(index, file) {
     return file.url;
   }
   getFileType(fileName) {
     const type = fileName.split('.').pop();
-    for(const key of Object.keys(this.formats)){
-      if(this.formats[key].includes(type)){
+    for (const key of Object.keys(this.formats)) {
+      if (this.formats[key].includes(type)) {
         return key;
       }
     }
@@ -111,7 +96,7 @@ export class AttachmentComponent implements OnChanges {
     this.dialog.closeAll();
   }
 
-showFilePreview(url: any, type: string) {
+  showFilePreview(url: any, type: string) {
     this.objectURL = url;
     this.objectType = type;
     this.dialog.open(this.previewModal, {
@@ -121,7 +106,7 @@ showFilePreview(url: any, type: string) {
       exitAnimationDuration: 150,
     });
 
-    if(this.objectType == 'doc'){
+    if (this.objectType == 'doc') {
       const alertDialogConfig = {
         title: null,
         message: `Please wait it may take up to a minute to load`,
@@ -154,7 +139,7 @@ showFilePreview(url: any, type: string) {
     return new Observable<boolean>((observer) => {
       this.dialogRef.afterClosed().subscribe((res) => {
         if (res) {
-       this.closeDialog();
+          this.closeDialog();
         }
         observer.next(res);
         observer.complete();
@@ -219,7 +204,7 @@ showFilePreview(url: any, type: string) {
     this.openAlert(alertConfig);
   }
 
-  docLoader(){
+  docLoader() {
     this.dialogRef.close();
-  } 
+  }
 }
