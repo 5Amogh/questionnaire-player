@@ -56,6 +56,8 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
+
+
   const alertDialogConfig = {
         title: null,
         message: `File Uploading Please Wait...`,
@@ -86,7 +88,7 @@ export class AttachmentComponent implements OnChanges {
   getFileType(fileName) {
     const type = fileName.split('.').pop();
     for (const key of Object.keys(this.formats)) {
-      if (this.formats[key].includes(type)) {
+      if (this.formats[key].includes(type.toLowerCase())) {
         return key;
       }
     }
