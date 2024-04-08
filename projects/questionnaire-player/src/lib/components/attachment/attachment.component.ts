@@ -82,7 +82,7 @@ export class AttachmentComponent implements OnChanges {
           submissionId: this.data.submissionId,
           file: files[index], // Store the File object for later use
         };
-        parent.postMessage(fileDetails);
+        window.postMessage(fileDetails);
       });
     }else{
       const alertDialogConfig = {
