@@ -56,28 +56,28 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
-    const alertDialogConfig = {
-      title: null,
-      message: `File Uploading Please Wait...`,
-      acceptLabel: null,
-      cancelLabel: null,
-    };
-    this.openAlert(alertDialogConfig);
-    this.formData = new FormData();
-    Array.from(files).forEach((f) => this.formData.append('file', f));
-    const fileNames = this.getFileNames(this.formData);
-    fileNames.map((fileName, index) => {
-      const fileType = this.getFileType(fileName); // Get file type based on extension
-      const fileDetails = {
-        name: fileName,
-        type: fileType,
-        question_id: this.questionId,
-        submissionId: this.data.submissionId,
-        file: files[index], // Store the File object for later use
+  const alertDialogConfig = {
+        title: null,
+        message: `File Uploading Please Wait...`,
+        acceptLabel: null,
+        cancelLabel: null,
       };
-      parent.postMessage(fileDetails);
-    });
-    event.target.value = '';
+      this.openAlert(alertDialogConfig);
+      this.formData = new FormData();
+      Array.from(files).forEach((f) => this.formData.append('file', f));
+      const fileNames = this.getFileNames(this.formData);
+      fileNames.map((fileName, index) => {
+        const fileType = this.getFileType(fileName); // Get file type based on extension
+        const fileDetails = {
+          name: fileName,
+          type: fileType,
+          question_id: this.questionId,
+          submissionId: this.data.submissionId,
+          file: files[index], // Store the File object for later use
+        };
+        window.postMessage(fileDetails);
+      });
+      event.target.value = '';
   }
 
   filesTrackBy(index, file) {
