@@ -96,25 +96,58 @@ export class AttachmentComponent implements OnChanges {
     this.dialog.closeAll();
   }
 
-  showFilePreview(url: any, type: string) {
-    this.objectURL = url;
-    this.objectType = type;
-    this.dialog.open(this.previewModal, {
-      width: 'auto',
-      height: 'auto',
-      enterAnimationDuration: 300,
-      exitAnimationDuration: 150,
-    });
-
-    if (this.objectType == 'doc') {
+  async showFilePreview(url: any, type: string, name:string) {
+    const unsupportedMedia = ["avi","wmv","flv","3GP","ogg","mpeg","heic","heif","image/heic","image/heif","image/hevc"];
+    const fileType = name.split('.').pop()
+    if(unsupportedMedia.includes(fileType)){
+      window.location.href = url
       const alertDialogConfig = {
         title: null,
-        message: `Please wait it may take up to a minute to load`,
-        acceptLabel: "Close Preview",
+        message: `Please check your downloads as this media type is not supported for preview`,
+        acceptLabel: "Ok",
         cancelLabel: null,
       };
       this.openAlert(alertDialogConfig);
+    }else{
+  //     fetch(url)
+  // .then(res => res.blob())
+  // .then(blob => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.objectURL = window.URL.createObjectURL(blob);
+  //   };
+  //   reader.readAsDataURL(blob);
+  // })
+  // .catch(error => {
+  //   console.error('Error fetching file:', error);
+  // });
+  this.objectURL = url;
+  this.objectType = type;
+      this.dialog.open(this.previewModal, {
+        width: 'auto',
+        height: 'auto',
+        enterAnimationDuration: 300,
+        exitAnimationDuration: 150,
+      });
+      if (this.objectType == 'doc') {
+        const alertDialogConfig = {
+          title: null,
+          message: `Please wait it may take up to a minute to load`,
+          acceptLabel: "Close Preview",
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig);
+        // const docP = document.getElementById('docPreview')
+        // if(docP){
+          // document.getElementById('docPreview').style.display = type == 'doc' ? 'block' : 'none'
+        // }
+        // docP.onload = () => {
+        //   this.docLoader();
+        // }
+  
+      }
     }
+
   }
 
   fileLimitCross() {
