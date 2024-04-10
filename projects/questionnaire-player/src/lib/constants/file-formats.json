@@ -3,53 +3,43 @@
         "image": [
             "png",
             "jpg",
-            "heic",
-            "heif",
-            "hevc",
             "jpeg",
             "webp",
             "image/png",
             "image/jpg",
             "image/jpeg",
-            "image/webp",
-            "image/heic",
-            "image/heif",
-            "image/hevc"
+            "image/webp"
         ],
         "video": [
             "mp4",
             "video/mp4",
             "webm",
-            "mkv",
-            "video/webm",
-            "video/mkv",
-            "avi",
-            "video/avi",
-            "wmv",
-            "video/wmv",
-            "flv",
-            "video/flv",
-            "3GP",
-            "video/3GP",
-            "ogg",
-            "video/ogg",
-            "m4v",
-            "video/m4v",
-            "mov",
-            "video/mov"
+            "video/webm"
         ],
         "audio": [
             "audio/mp3",
             "audio/wav",
-            "audio/mpeg",
-            "mpeg",
             "wav",
             "mp3"
         ],
         "pdf": [
             "pdf",
             "application/pdf"
+        ],
+        "unsupportedMedia": [
+            "m4v",
+            "avi",
+            "wmv",
+            "flv",
+            "3gp",
+            "ogg",
+            "mpeg",
+            "heic",
+            "heif",
+            "image/heic",
+            "image/heif",
+            "image/hevc"
         ]
     },
-    "limit":50
+    "limit": 50
 }

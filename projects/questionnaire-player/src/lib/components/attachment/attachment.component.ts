@@ -56,26 +56,40 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
-  const alertDialogConfig = {
-        title: null,
-        message: `File Uploading Please Wait...`,
-        acceptLabel: null,
-        cancelLabel: null,
-      };
-      this.openAlert(alertDialogConfig);
-      this.formData = new FormData();
-      Array.from(files).forEach((f) => this.formData.append('file', f));
-      const fileNames = this.getFileNames(this.formData);
-      fileNames.map((fileName, index) => {
-        const fileType = this.getFileType(fileName); // Get file type based on extension
+    this.formData = new FormData();
+    let fileType;
+    Array.from(files).forEach((f) => this.formData.append('file', f));
+    const fileNames = this.getFileNames(this.formData);
+    fileNames.map((fileName, index) => {
+      const fileType = this.getFileType(fileName); 
+      console.log(fileType)
+      if(fileType == "unsupportedMedia"){
+        const alertDialogConfig = {
+          title: null,
+          message: `Unsupported media type.`,
+          acceptLabel: 'ok',
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig);
+        return;
+      }else{
         const fileDetails = {
           name: fileName,
           type: fileType,
           question_id: this.questionId,
           submissionId: this.data.submissionId,
-          file: files[index], // Store the File object for later use
+          file: files[index]
         };
+        const alertDialogConfig = {
+          title: null,
+          message: `File Uploading Please Wait...`,
+          acceptLabel: null,
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig);
         window.postMessage(fileDetails);
+      }
+
       });
       event.target.value = '';
   }
@@ -96,31 +110,7 @@ export class AttachmentComponent implements OnChanges {
     this.dialog.closeAll();
   }
 
-  async showFilePreview(url: any, type: string, name:string) {
-    const unsupportedMedia = ["avi","wmv","flv","3GP","ogg","mpeg","heic","heif","image/heic","image/heif","image/hevc"];
-    const fileType = name.split('.').pop()
-    if(unsupportedMedia.includes(fileType)){
-      window.location.href = url
-      const alertDialogConfig = {
-        title: null,
-        message: `Please check your downloads as this media type is not supported for preview`,
-        acceptLabel: "Ok",
-        cancelLabel: null,
-      };
-      this.openAlert(alertDialogConfig);
-    }else{
-  //     fetch(url)
-  // .then(res => res.blob())
-  // .then(blob => {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.objectURL = window.URL.createObjectURL(blob);
-  //   };
-  //   reader.readAsDataURL(blob);
-  // })
-  // .catch(error => {
-  //   console.error('Error fetching file:', error);
-  // });
+  async showFilePreview(url: any, type: string) {
   this.objectURL = url;
   this.objectType = type;
       this.dialog.open(this.previewModal, {
@@ -136,16 +126,8 @@ export class AttachmentComponent implements OnChanges {
           acceptLabel: "Close Preview",
           cancelLabel: null,
         };
-        this.openAlert(alertDialogConfig);
-        // const docP = document.getElementById('docPreview')
-        // if(docP){
-          // document.getElementById('docPreview').style.display = type == 'doc' ? 'block' : 'none'
-        // }
-        // docP.onload = () => {
-        //   this.docLoader();
-        // }
+        this.openAlert(alertDialogConfig)
   
-      }
     }
 
   }

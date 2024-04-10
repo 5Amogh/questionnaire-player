@@ -12,31 +12,31 @@
     <ng-container [ngSwitch]="getFileType(file.name)">
       <div *ngSwitchCase="'image'" class="iconList">
         <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
-          (click)="showFilePreview(file.previewUrl, 'image',file.name)">image</mat-icon>
+          (click)="showFilePreview(file.previewUrl, 'image')">image</mat-icon>
         <mat-icon matTooltip="Remove the uploaded image" class="cancelIcon"
           (click)="deleteAttachment(i)">cancel</mat-icon>
       </div>
       <div *ngSwitchCase="'pdf'" class="iconList">
         <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
-          (click)="showFilePreview(file.previewUrl, 'doc',file.name)">picture_as_pdf</mat-icon>
+          (click)="showFilePreview(file.previewUrl, 'doc')">picture_as_pdf</mat-icon>
         <mat-icon matTooltip="Remove the uploaded pdf" class="cancelIcon" matTooltipClass="tooltip"
           (click)="deleteAttachment(i)">cancel</mat-icon>
       </div>
       <div *ngSwitchCase="'video'" class="iconList">
         <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
-          (click)="showFilePreview(file.previewUrl, 'video',file.name)">video_file</mat-icon>
+          (click)="showFilePreview(file.previewUrl, 'video')">video_file</mat-icon>
         <mat-icon matTooltip="Remove the uploaded video" class="cancelIcon" matTooltipClass="tooltip"
           (click)="deleteAttachment(i)">cancel</mat-icon>
       </div>
       <div *ngSwitchCase="'audio'" class="iconList">
         <mat-icon class="customizeIcon" matTooltip="View/listen to the uploaded audio" matTooltipClass="tooltip"
-          (click)="showFilePreview(file.previewUrl, 'audio',file.name)">audio_file</mat-icon>
+          (click)="showFilePreview(file.previewUrl, 'audio')">audio_file</mat-icon>
         <mat-icon matTooltip="Remove the uploaded audio" class="cancelIcon" matTooltipClass="tooltip"
           (click)="deleteAttachment(i)">cancel</mat-icon>
       </div>
       <div *ngSwitchDefault class="iconList">
         <mat-icon class="customizeIcon" matTooltip="View the uploaded file" matTooltipClass="tooltip"
-          (click)="showFilePreview(file.previewUrl, 'doc',file.name)">description</mat-icon>
+          (click)="showFilePreview(file.previewUrl, 'doc')">description</mat-icon>
         <mat-icon matTooltip="Remove the uploaded file" class="cancelIcon" matTooltipClass="tooltip"
           (click)="deleteAttachment(i)">cancel</mat-icon>
       </div>
