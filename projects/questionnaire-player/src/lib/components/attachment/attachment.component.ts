@@ -66,7 +66,7 @@ export class AttachmentComponent implements OnChanges {
       if(fileType == "unsupportedMedia"){
         const alertDialogConfig = {
           title: null,
-          message: `Unsupported media type.`,
+          message: `Invalid file format.`,
           acceptLabel: 'ok',
           cancelLabel: null,
         };
