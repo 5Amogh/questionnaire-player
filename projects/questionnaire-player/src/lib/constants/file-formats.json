@@ -36,9 +36,13 @@
             "mpeg",
             "heic",
             "heif",
+            "hevc",
+            "video/mkv",
+            "mkv",
             "image/heic",
             "image/heif",
-            "image/hevc"
+            "image/hevc",
+            "video/hevc"
         ]
     },
     "limit": 50
