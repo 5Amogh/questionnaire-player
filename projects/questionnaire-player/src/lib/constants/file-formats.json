@@ -42,7 +42,9 @@
             "image/heic",
             "image/heif",
             "image/hevc",
-            "video/hevc"
+            "video/hevc",
+            "HEVC/H.265",
+            "video/x-matroska"
         ]
     },
     "limit": 50
