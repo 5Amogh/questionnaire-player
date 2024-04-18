@@ -35,7 +35,7 @@ export class AttachmentComponent implements OnChanges {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
       this.closeDialog()
-      const successMessage = 'Evidence uploaded successfully!';
+      const successMessage = 'File uploaded successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
       const alertDialogConfig = {
         message: status === 200 ? successMessage : failureMessage,
@@ -100,7 +100,7 @@ export class AttachmentComponent implements OnChanges {
   getFileType(fileName) {
     const type = fileName.split('.').pop();
     for (const key of Object.keys(this.formats)) {
-      if (this.formats[key].includes(type)) {
+      if (this.formats[key].includes(type.toLowerCase())) {
         return key;
       }
     }
@@ -181,7 +181,7 @@ export class AttachmentComponent implements OnChanges {
 
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
-      message: 'Do you want to delete the evidence?',
+      message: 'Do you want to delete the file ?',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };

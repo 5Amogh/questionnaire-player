@@ -8,7 +8,7 @@
       <ng-container [ngTemplateOutlet]="questionnaire"
         [ngTemplateOutletContext]="{ question: question, qi: qi, pageId:qi }"></ng-container>
     </ng-container>
-    <lib-paginator [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
+    <lib-paginator *ngIf="paginatorLength > 1" [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
   </ng-container>
 </div>
 <ng-template #paginationNonApplicableInstance>

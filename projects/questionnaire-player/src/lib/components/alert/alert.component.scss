@@ -1,9 +1,9 @@
 .btn{
     background-color:var(--primary-color);
     color: var(--general-btn-text-color);
-    border: solid transparent 1px;
-    border-radius: 4px;
-    padding: 4px;
+    border: solid transparent 0.063rem;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
     cursor: pointer;
     min-width: 5.6rem;
     min-height: 2.5rem;
@@ -14,7 +14,7 @@
 .btn:hover{
     background-color: var(--general-btn-hover-bg);
     color: var(--primary-color);
-    border: solid var(--primary-color) 1px;
+    border: solid var(--primary-color) 0.063rem;
 }
 
 .paddingAllSide{
