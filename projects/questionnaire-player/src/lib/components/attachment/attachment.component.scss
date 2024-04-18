@@ -9,9 +9,9 @@ label {
 .attachment-btn {
   background-color: var(--secondary-btn-bg);
   color:var(--primary-color);
-  border: solid var(--primary-color) 1px;
-  border-radius: 4px;
-  padding: 0px 16px;
+  border: solid var(--primary-color) 0.063rem;
+  border-radius: 0.25rem;
+  padding: 0px 1rem;
   cursor: pointer;
   min-width: 5.6rem;
   min-height: 2.5rem;

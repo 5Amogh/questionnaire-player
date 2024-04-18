@@ -5,9 +5,9 @@
 .section-header-style {
   margin-bottom: 0;
   color: var(--primary-color) !important;
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 0;
-  line-height: 36px;
+  line-height: 2.25rem;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
 }
@@ -19,11 +19,11 @@
 }
 
 .activeCard:hover {
-  border-left: solid 10px var(--primary-color);
+  border-left: solid 0.625rem var(--primary-color);
 }
 
 .responsive-margin {
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .spaceBetweenContent{
@@ -46,9 +46,9 @@
 
 .question-tip {
   color: var(--question-tip);
-  font-size: 16px;
+  font-size: 1rem;
   letter-spacing: 0.12;
-  line-height: 36px;
+  line-height: 2.25rem;
   font-weight: 600;
   font-family: 'Lato', sans-serif;
 }
