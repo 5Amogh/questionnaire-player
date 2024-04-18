@@ -8,7 +8,7 @@
       <ng-container [ngTemplateOutlet]="questionnaire"
         [ngTemplateOutletContext]="{ question: question, qi: qi, pageId:qi }"></ng-container>
     </ng-container>
-    <lib-paginator [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
+    <lib-paginator *ngIf="paginatorLength > 1" [questions]="questions" [currentPage]="pageIndex" (page)="handlePageEvent($event)"></lib-paginator>
   </ng-container>
 </div>
 <ng-template #paginationNonApplicableInstance>
@@ -24,90 +24,93 @@
 
 <ng-template #questionnaire let-question="question" let-qi="qi" let-pageId="pageId">
   <span [id]="pageId">
-  <ng-container *ngIf="
+    <ng-container *ngIf="
       question?.sectionHeader &&
       (!question.visibleIf?.length || question.canDisplay == true)
     ">
-    <h4 class="section-header-style headerMargin">{{ question?.sectionHeader }}</h4>
-    <hr [ngStyle]="{
+      <h4 class="section-header-style headerMargin">{{ question?.sectionHeader }}</h4>
+      <hr [ngStyle]="{
         'background-color':
           question.responseType != 'pageQuestions'
             ? 'var(--primary-color)'
             : null,
         height: question.responseType != 'pageQuestions' ? '3px' : 0
       }" />
-  </ng-container>
-  <div [ngStyle]="{
+    </ng-container>
+    <div [ngStyle]="{
       padding: question.responseType != 'pageQuestions' ? '1.5rem' : 0,
       margin: question.responseType != 'pageQuestions' ? '1.5rem' : 0
     }" [ngClass]="{
       'mat-elevation-z8': question.responseType != 'pageQuestions',
       activeCard: question.responseType != 'pageQuestions' , 'submitted' : isSubmitted
     }" class="responsive-margin" *ngIf="!question.visibleIf?.length || question.canDisplay == true">
-    <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
-      <div class="spaceBetweenContent">
-        <div *ngFor="let q of question.question; let qai = index" class="mb-20">
-          <div *ngIf="q != ''" class="wc-primary-color">
-            {{ question.questionNumber + " . " }}&nbsp;{{ q }} <span *ngIf="question.validation.required" class="colorRed">*</span>
-            <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
-              aria-label="Icon-button with a lightbulb icon" matTooltip="Hint about the question"
-              (click)="openDialog(question.hint)">
-              <mat-icon style="vertical-align: middle">emoji_objects_outline</mat-icon>
-            </button>
-            <!-- <mat-divider class="mt-10" [ngStyle]="{
+      <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
+        <div class="spaceBetweenContent">
+          <div *ngFor="let q of question.question; let qai = index" class="mb-20">
+            <div *ngIf="q != ''" class="wc-primary-color">
+              {{ question.questionNumber + " . " }}&nbsp;{{ q }} <span *ngIf="question.validation.required"
+                class="colorRed">*</span>
+              <button *ngIf="question?.hint" mat-icon-button class="wc-primary-color"
+                aria-label="Icon-button with a lightbulb icon" matTooltip="Hint about the question"
+                (click)="openDialog(question.hint)">
+                <mat-icon style="vertical-align: middle">emoji_objects_outline</mat-icon>
+              </button>
+              <!-- <mat-divider class="mt-10" [ngStyle]="{
                 'background-color':
                   question.responseType != 'pageQuestions'
                     ? 'var(--primary-color)'
                     : null
               }">
             </mat-divider> -->
+            </div>
           </div>
         </div>
-      </div>
-      <ng-container *ngIf="question?.tip">
-        <p class="question-tip">
-          {{ question?.tip }}
-        </p>
-      </ng-container>
-      <div class="d-flex flex-dc flex-gap-10">
-        <lib-text-input *ngIf="question.responseType == reponseType.TEXT" [questionnaireForm]="questionnaireForm"
-          [question]="question"></lib-text-input>
-        <ng-container *ngIf="question.responseType == reponseType.PAGEQUESTIONS">
-          <lib-main [questions]="question.pageQuestions" [questionnaireForm]="questionnaireForm"
-            [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true" [fileSizeLimit]="fileSizeLimit"></lib-main>
+        <ng-container *ngIf="question?.tip">
+          <p class="question-tip">
+            {{ question?.tip }}
+          </p>
         </ng-container>
-        <lib-number-input *ngIf="question.responseType == reponseType.NUMBER" [questionnaireForm]="questionnaireForm"
-          [question]="question"></lib-number-input>
-        <lib-radio-input *ngIf="question.responseType == reponseType.RADIO" [questionnaireForm]="questionnaireForm"
-          [question]="question" [options]="question.options"
-          (dependentParent)="toggleQuestion($event)"></lib-radio-input>
-        <lib-checkbox-input *ngIf="question.responseType == reponseType.MULTISELECT"
-          [questionnaireForm]="questionnaireForm" [question]="question" [options]="question.options"
-          (dependentParent)="toggleQuestion($event)"></lib-checkbox-input>
-        <lib-range-input *ngIf="question.responseType == reponseType.SLIDER" [questionnaireForm]="questionnaireForm"
-          [question]="question"></lib-range-input>
-        <lib-date-input *ngIf="question.responseType == reponseType.DATE" [questionnaireForm]="questionnaireForm"
-          [question]="question"></lib-date-input>
-        <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"
-          [questionnaireForm]="questionnaireForm" [question]="question" #libMatrix>
-          <ng-template #libMainTemplateRef>
-            <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm"
-              [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true" [fileSizeLimit]="fileSizeLimit"></lib-main>
-          </ng-template>
-        </lib-matrix-questions>
-        <lib-remarks [question]="question" *ngIf="question.showRemarks"></lib-remarks>
-        <lib-attachment *ngIf="question.file" [fileSizeLimit]="fileSizeLimit" [data]="{
+        <div class="d-flex flex-dc flex-gap-10">
+          <lib-text-input *ngIf="question.responseType == reponseType.TEXT" [questionnaireForm]="questionnaireForm"
+            [question]="question"></lib-text-input>
+          <ng-container *ngIf="question.responseType == reponseType.PAGEQUESTIONS">
+            <lib-main [questions]="question.pageQuestions" [questionnaireForm]="questionnaireForm"
+              [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true"
+              [fileSizeLimit]="fileSizeLimit"></lib-main>
+          </ng-container>
+          <lib-number-input *ngIf="question.responseType == reponseType.NUMBER" [questionnaireForm]="questionnaireForm"
+            [question]="question"></lib-number-input>
+          <lib-radio-input *ngIf="question.responseType == reponseType.RADIO" [questionnaireForm]="questionnaireForm"
+            [question]="question" [options]="question.options"
+            (dependentParent)="toggleQuestion($event)"></lib-radio-input>
+          <lib-checkbox-input *ngIf="question.responseType == reponseType.MULTISELECT"
+            [questionnaireForm]="questionnaireForm" [question]="question" [options]="question.options"
+            (dependentParent)="toggleQuestion($event)"></lib-checkbox-input>
+          <lib-range-input *ngIf="question.responseType == reponseType.SLIDER" [questionnaireForm]="questionnaireForm"
+            [question]="question"></lib-range-input>
+          <lib-date-input *ngIf="question.responseType == reponseType.DATE" [questionnaireForm]="questionnaireForm"
+            [question]="question"></lib-date-input>
+          <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"
+            [questionnaireForm]="questionnaireForm" [question]="question" #libMatrix>
+            <ng-template #libMainTemplateRef>
+              <lib-main [questions]="libMatrix.context.questions" [questionnaireForm]="libMatrix.matrixForm"
+                [fileUploadResponse]="fileUploadResponse" [questionnaireInstance]="true"
+                [fileSizeLimit]="fileSizeLimit"></lib-main>
+            </ng-template>
+          </lib-matrix-questions>
+          <lib-remarks [question]="question" *ngIf="question.showRemarks"></lib-remarks>
+          <lib-attachment *ngIf="question.file" [fileSizeLimit]="fileSizeLimit" [data]="{
             submissionId: qService.getSubmissionId(),
             files: question.fileName
           }" [questionId]="question._id + qi" [fileSizeLimit]="fileSizeLimit" [fileUploadResponse]="
             fileUploadResponse?.question_id == question._id + qi &&
             fileUploadResponse
           " [questionFile]="question.file">
-        </lib-attachment>
-        <lib-dialog #dialogCmp [isDimmed]="isDimmed" [hint]="question?.hint"
-          (closeHintEmitter)="closeHint()"></lib-dialog>
+          </lib-attachment>
+          <lib-dialog #dialogCmp [isDimmed]="isDimmed" [hint]="question?.hint"
+            (closeHintEmitter)="closeHint()"></lib-dialog>
+        </div>
       </div>
     </div>
-  </div>
-</span>
+  </span>
 </ng-template>

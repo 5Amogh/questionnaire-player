@@ -1,4 +1,8 @@
 <div class="wrapper">
+  <mat-toolbar class="secondToolbar" *ngIf="evidence?.isSubmitted"
+  [ngClass]="{'mat-elevation-z5' : true, 'sticky' : true}">
+<h4>Your response has already been submitted</h4>
+</mat-toolbar>
   <form [formGroup]="questionnaireForm" class="main">
     <div
       class="custom-font"

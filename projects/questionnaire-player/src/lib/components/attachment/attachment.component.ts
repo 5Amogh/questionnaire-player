@@ -35,7 +35,7 @@ export class AttachmentComponent implements OnChanges {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
       this.closeDialog()
-      const successMessage = 'Evidence uploaded successfully!';
+      const successMessage = 'File uploaded successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
       const alertDialogConfig = {
         message: status === 200 ? successMessage : failureMessage,
@@ -56,28 +56,40 @@ export class AttachmentComponent implements OnChanges {
       this.fileLimitCross();
       return;
     }
-
-
-  const alertDialogConfig = {
-        title: null,
-        message: `File Uploading Please Wait...`,
-        acceptLabel: null,
-        cancelLabel: null,
-      };
-      this.openAlert(alertDialogConfig);
-      this.formData = new FormData();
-      Array.from(files).forEach((f) => this.formData.append('file', f));
-      const fileNames = this.getFileNames(this.formData);
-      fileNames.map((fileName, index) => {
-        const fileType = this.getFileType(fileName); // Get file type based on extension
+    this.formData = new FormData();
+    let fileType;
+    Array.from(files).forEach((f) => this.formData.append('file', f));
+    const fileNames = this.getFileNames(this.formData);
+    fileNames.map((fileName, index) => {
+      const fileType = this.getFileType(fileName); 
+      console.log(fileType)
+      if(fileType == "unsupportedMedia"){
+        const alertDialogConfig = {
+          title: null,
+          message: `Invalid file format.`,
+          acceptLabel: 'ok',
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig);
+        return;
+      }else{
         const fileDetails = {
           name: fileName,
           type: fileType,
           question_id: this.questionId,
           submissionId: this.data.submissionId,
-          file: files[index], // Store the File object for later use
+          file: files[index]
         };
+        const alertDialogConfig = {
+          title: null,
+          message: `File Uploading Please Wait...`,
+          acceptLabel: null,
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig);
         window.postMessage(fileDetails);
+      }
+
       });
       event.target.value = '';
   }
@@ -98,25 +110,26 @@ export class AttachmentComponent implements OnChanges {
     this.dialog.closeAll();
   }
 
-  showFilePreview(url: any, type: string) {
-    this.objectURL = url;
-    this.objectType = type;
-    this.dialog.open(this.previewModal, {
-      width: 'auto',
-      height: 'auto',
-      enterAnimationDuration: 300,
-      exitAnimationDuration: 150,
-    });
-
-    if (this.objectType == 'doc') {
-      const alertDialogConfig = {
-        title: null,
-        message: `Please wait it may take up to a minute to load`,
-        acceptLabel: "Close Preview",
-        cancelLabel: null,
-      };
-      this.openAlert(alertDialogConfig);
+  async showFilePreview(url: any, type: string) {
+  this.objectURL = url;
+  this.objectType = type;
+      this.dialog.open(this.previewModal, {
+        width: 'auto',
+        height: 'auto',
+        enterAnimationDuration: 300,
+        exitAnimationDuration: 150,
+      });
+      if (this.objectType == 'doc') {
+        const alertDialogConfig = {
+          title: null,
+          message: `Please wait it may take up to a minute to load`,
+          acceptLabel: "Close Preview",
+          cancelLabel: null,
+        };
+        this.openAlert(alertDialogConfig)
+  
     }
+
   }
 
   fileLimitCross() {
@@ -168,7 +181,7 @@ export class AttachmentComponent implements OnChanges {
 
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
-      message: 'Do you want to delete the evidence?',
+      message: 'Do you want to delete the file ?',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };
