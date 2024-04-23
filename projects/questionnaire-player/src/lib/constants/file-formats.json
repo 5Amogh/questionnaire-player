@@ -26,25 +26,21 @@
             "pdf",
             "application/pdf"
         ],
-        "unsupportedMedia": [
-            "m4v",
-            "avi",
-            "wmv",
-            "flv",
-            "3gp",
-            "ogg",
-            "mpeg",
-            "heic",
-            "heif",
-            "hevc",
-            "video/mkv",
-            "mkv",
-            "image/heic",
-            "image/heif",
-            "image/hevc",
-            "video/hevc",
-            "HEVC/H.265",
-            "video/x-matroska"
+        "doc":[
+            "doc",
+            "xlsx",
+            "txt",
+            "docx",
+            "xls",
+            "csv",
+            "ppt",
+            "application/doc",
+            "application/xlsx",
+            "application/txt",
+            "application/docx",
+            "application/xls",
+            "application/csv",
+            "application/ppt"
         ]
     },
     "limit": 50

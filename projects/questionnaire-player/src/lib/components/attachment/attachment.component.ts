@@ -63,7 +63,7 @@ export class AttachmentComponent implements OnChanges {
     fileNames.map((fileName, index) => {
       const fileType = this.getFileType(fileName); 
       console.log(fileType)
-      if(fileType == "unsupportedMedia"){
+      if(!fileType || fileType == undefined){
         const alertDialogConfig = {
           title: null,
           message: `Invalid file format.`,
