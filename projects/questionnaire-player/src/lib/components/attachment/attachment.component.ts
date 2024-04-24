@@ -67,7 +67,7 @@ export class AttachmentComponent implements OnChanges {
         const alertDialogConfig = {
           title: null,
           message: `Invalid file format.`,
-          acceptLabel: 'ok',
+          acceptLabel: 'Ok',
           cancelLabel: null,
         };
         this.openAlert(alertDialogConfig);
