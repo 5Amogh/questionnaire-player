@@ -4,17 +4,10 @@
 <h4>Your response has already been submitted</h4>
 </mat-toolbar>
   <form [formGroup]="questionnaireForm" class="main">
-    <div
-      class="custom-font"
-      *ngFor="let section of sections; let sectionIndex = index"
-    >
-      <lib-main
-        [questions]="section.questions"
-        [questionnaireForm]="questionnaireForm"
-        [fileUploadResponse]="fileuploadresponse"
-        [isSubmitted]="evidence?.isSubmitted"
-        [fileSizeLimit]="fileSizeLimit"
-      ></lib-main>
+    <div class="custom-font" *ngFor="let section of sections; let sectionIndex = index">
+      <lib-main #mainComponent [questions]="section.questions" [questionnaireForm]="questionnaireForm"
+        [fileUploadResponse]="fileuploadresponse" [isSubmitted]="evidence?.isSubmitted"
+        [fileSizeLimit]="fileSizeLimit"></lib-main>
     </div>
   </form>
   <hr class="partition" />
@@ -25,17 +18,55 @@
     <button class="btn btn-outline-secondary" (click)="submission('draft')" >
       Save
     </button>
-    <button
-      class="btn"
-      [ngClass]="{
+
+    <button class="btn btn-outline-secondary" (click)="getQuestionMap()">
+      Question Map
+    </button>
+
+    <button class="btn" [ngClass]="{
         'btn-primary': questionnaireForm?.valid,
         'btn-disabled': !questionnaireForm?.valid
-      }"
-      (click)="submission('submit')"
-      [disabled]="!questionnaireForm?.valid"
-    >
+      }" (click)="submission('submit')" [disabled]="!questionnaireForm?.valid">
       Submit
     </button>
   </div>
-  
 </div>
+
+<ng-template #questionMapModal>
+  <div style="padding: 0 4px;">
+    <div mat-dialog-title class="d-flex flex-dr flex-ai-center flex-gap-3 flex-jc-flex-start p-10"
+      style="color: var(--primary-color)">
+      Question Map
+    </div>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content>
+      <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin-bottom: 8px;">
+        <span><span style="color: red;">&#x2022;</span> Mandatory unanswered question</span>
+        <span><span style="color:green;">&#x2022;</span> Answered question</span>
+        <span><span style="color: gray;">&#x2022;</span> Optional unanswered question</span>
+      </div>
+      <div *ngFor="let page of questionMap | keyvalue" style="padding: 4px;">
+        <div style="display: flex;flex-direction: row;" [ngStyle]="{'color':pageValidity.get(page.key)}">
+          <mat-icon style="margin-top: 4px;">arrow_right</mat-icon>
+          <div>{{page.key }}
+            <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin: 12px 0;">
+              <ng-container *ngFor="let question of page.value">
+                <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{
+                'background-color':question.validity
+              }">
+                  {{ question.questionNumber }}
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <div mat-dialog-actions class="d-flex flex-jc-space-around">
+      <button class="btn btn-primary" type="button" (click)="closeModal()">
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>

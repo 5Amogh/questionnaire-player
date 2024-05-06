@@ -51,20 +51,26 @@ export class MainComponent implements OnInit, AfterViewInit {
    this.enableRelevantPage();
   }
   
-  enableRelevantPage(){
+  enableRelevantPage(questionId?){
     if(!this.questionnaireInstance){
       for(let i = 0; i < this.questions.length; i++){
         if(i !== this.pageIndex){
           this.domQuery(i,'none');
         }
       }
-      this.domQuery(this.pageIndex,'block');
+      this.domQuery(this.pageIndex,'block',questionId);
     }
   }
 
-  domQuery(elemendId:number,action:string){
+  domQuery(elemendId:number,action:string,questionId?:string){
     if(document.getElementById(`${elemendId}`)){
       document.getElementById(`${elemendId}`).style.display = action;
+    }
+    if(questionId && document.getElementById(`${questionId}`)){
+      console.log(document.getElementById(`${questionId}`))
+      window.setTimeout(() => {
+        document.getElementById(`${questionId}`).focus();
+      },1000)
     }
   }
 

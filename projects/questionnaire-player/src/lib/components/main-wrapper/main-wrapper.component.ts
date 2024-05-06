@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, SimpleChanges, TemplateRef, ViewChild, booleanAttribute} from '@angular/core';
 import {
   Evidence,
   Question,
@@ -6,6 +6,8 @@ import {
 } from '../../interfaces/questionnaire.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionnaireService } from '../../services/questionnaire.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'lib-main-wrapper',
@@ -22,8 +24,13 @@ export class MainWrapperComponent{
   questionnaireForm: FormGroup;
   @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
+  @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
+  @ViewChild('mainComponent') public mainComponent:MainComponent
+  questionMap = {};
+  pageValidity = new Map();
   constructor(
     public fb: FormBuilder,
+    private dialog: MatDialog,
     public questionnaireService: QuestionnaireService,
   ) {}
   @HostListener('window:beforeunload')
@@ -71,6 +78,44 @@ export class MainWrapperComponent{
     this.questionnaireForm = this.fb.group({});
   }
 
+  getQuestionMap(){
+    for(let questionIndex=0; questionIndex < this.sections[0].questions.length;questionIndex++){
+      this.questionMap[`Page ${questionIndex+1}`] = [];
+      if(this.sections[0].questions[questionIndex].responseType == "pageQuestions"){
+        for(let pqIndex=0; pqIndex < this.sections[0].questions[questionIndex].pageQuestions.length;pqIndex++){
+          const validation = this.sections[0].questions[questionIndex].pageQuestions[pqIndex].validation;
+          const value = this.sections[0].questions[questionIndex].pageQuestions[pqIndex].value
+          const question = {
+            _id:this.sections[0].questions[questionIndex].pageQuestions[pqIndex]._id,
+            validity: (value && value.length > 0) || Number.isInteger(value) ? 'green' : typeof validation !== 'string' && validation.required ? 'red':'red',
+            pageIndex:questionIndex,
+            questionNumber:this.sections[0].questions[questionIndex].pageQuestions[pqIndex].questionNumber
+          }
+          this.questionMap[`Page ${questionIndex+1}`].push(question);
+          this.pageValidity.set(`Page ${questionIndex+1}`,question.validity)
+        }
+      }else{
+        const question = {
+          _id:this.sections[0].questions[questionIndex]._id,
+          validation:this.sections[0].questions[questionIndex].validation,
+          value:this.sections[0].questions[questionIndex].value,
+          pageIndex:questionIndex,
+          questionNumber:this.sections[0].questions[questionIndex].questionNumber
+        }
+        this.questionMap[`Page ${questionIndex+1}`].push(question)
+      }
+    }
+   console.log(this.sections[0].questions);
+   console.log(this.questionMap);
+   this.dialog.open(this.questionMapModal, {
+    width: '100%',
+    enterAnimationDuration: 300,
+    exitAnimationDuration: 150,
+    disableClose: true,
+    hasBackdrop:true
+  });
+  }
+
   submission(status) {
     const evidenceData = this.questionnaireService.getEvidenceData(
       this.evidence,
@@ -83,6 +128,16 @@ export class MainWrapperComponent{
       data: evidenceData
     };
     this.submitOrSaveEvent.emit(dataToEmit);
+  }
+
+  closeModal() {
+    this.dialog.closeAll();
+  }
+
+  goToQuestion(id,pageIndex){
+    this.mainComponent.pageIndex = pageIndex;
+    this.mainComponent.enableRelevantPage(id);
+    this.closeModal();
   }
 
 }
