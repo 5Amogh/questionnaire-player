@@ -70,7 +70,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       console.log(document.getElementById(`${questionId}`))
       window.setTimeout(() => {
         document.getElementById(`${questionId}`).focus();
-      },1000)
+      },500)
     }
   }
 

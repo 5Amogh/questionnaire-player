@@ -80,3 +80,8 @@
     font-family: Montserrat, sans-serif;
 }
 
+::ng-deep{
+  .mat-mdc-mini-fab{
+    box-shadow: none !important;
+  }
+}

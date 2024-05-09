@@ -1,8 +1,8 @@
 <div class="wrapper">
-  <mat-toolbar class="secondToolbar" *ngIf="evidence?.isSubmitted"
+  <!-- <mat-toolbar class="secondToolbar" *ngIf="evidence?.isSubmitted"
   [ngClass]="{'mat-elevation-z5' : true, 'sticky' : true}">
 <h4>Your response has already been submitted</h4>
-</mat-toolbar>
+</mat-toolbar> -->
   <form [formGroup]="questionnaireForm" class="main">
     <div class="custom-font" *ngFor="let section of sections; let sectionIndex = index">
       <lib-main #mainComponent [questions]="section.questions" [questionnaireForm]="questionnaireForm"
@@ -12,21 +12,16 @@
   </form>
   <hr class="partition" />
   <div
-    *ngIf="!evidence?.isSubmitted"
+    
     class="m-16 d-flex flex-ai-center flex-jc-space-around flex-dr flex-gap-30"
   >
     <button class="btn btn-outline-secondary" (click)="submission('draft')" >
       Save
     </button>
 
-    <button class="btn btn-outline-secondary" (click)="getQuestionMap()">
-      Question Map
-    </button>
+      <mat-icon (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px;">map</mat-icon>
 
-    <button class="btn" [ngClass]="{
-        'btn-primary': questionnaireForm?.valid,
-        'btn-disabled': !questionnaireForm?.valid
-      }" (click)="submission('submit')" [disabled]="!questionnaireForm?.valid">
+    <button class="btn btn-primary" (click)="!questionnaireForm?.valid ? getQuestionMap() : submission('submit')">
       Submit
     </button>
   </div>
@@ -41,14 +36,15 @@
     <mat-divider></mat-divider>
     <div mat-dialog-content>
       <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin-bottom: 8px;">
-        <span><span style="color: red;">&#x2022;</span> Mandatory unanswered question</span>
-        <span><span style="color:green;">&#x2022;</span> Answered question</span>
-        <span><span style="color: gray;">&#x2022;</span> Optional unanswered question</span>
+        <span style="color: #080808;"><span style="color: #A30000;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Required & unanswered</span>
+        <span style="color: #080808;"><span style="color:#006600;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Answered</span>
+        <span style="color: #080808;"><span style="color: #595959;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Optional & unanswered</span>
       </div>
       <div *ngFor="let page of questionMap | keyvalue" style="padding: 4px;">
-        <div style="display: flex;flex-direction: row;" [ngStyle]="{'color':pageValidity.get(page.key)}">
-          <mat-icon style="margin-top: 4px;">arrow_right</mat-icon>
-          <div>{{page.key }}
+        <div style="display: flex;color: #080808;">
+          <div><mat-icon style="vertical-align: middle;">arrow_right</mat-icon></div>
+          <div style="display: flex;flex-direction: column;">
+            {{page.key}}
             <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin: 12px 0;">
               <ng-container *ngFor="let question of page.value">
                 <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{
