@@ -42,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { SortKeysPipe } from './pipes/sort-keys.pipe';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -72,7 +73,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     AlertComponent,
     MatrixQuestionsComponent,
     SanitizeUrlPipe,
-    PaginatorComponent
+    PaginatorComponent,
+    SortKeysPipe
     ],
   imports: [
     CommonModule,

@@ -114,19 +114,26 @@ export class MainWrapperComponent {
           this.sections[0].questions[questionIndex].pageQuestions.length;
           pqIndex++
         ) {
-          this.setQuestionMap(
-            questionIndex,
-            this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
-              .validation,
-            this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
-              .value,
-            this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
-              ._id,
-            this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
-              .questionNumber
-          );
+          if((Array.isArray(this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+            .visibleIf) && this.sections[0].questions[questionIndex].pageQuestions[pqIndex].canDisplay)
+            || !Array.isArray(this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+              .visibleIf)){
+              this.setQuestionMap(
+                questionIndex,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  .validation,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  .value,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  ._id,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  .questionNumber
+              );
+            }
         }
       } else {
+        if((Array.isArray(this.sections[0].questions[questionIndex].visibleIf) && this.sections[0].questions[questionIndex].canDisplay)
+        || !Array.isArray(this.sections[0].questions[questionIndex].visibleIf)){
         this.setQuestionMap(
           questionIndex,
           this.sections[0].questions[questionIndex].validation,
@@ -134,6 +141,7 @@ export class MainWrapperComponent {
           this.sections[0].questions[questionIndex]._id,
           this.sections[0].questions[questionIndex].questionNumber
         );
+        }
       }
     }
     this.dialog.open(this.questionMapModal, {
@@ -161,7 +169,6 @@ export class MainWrapperComponent {
     };
     this.questionMap[`Page ${qIndex + 1}`].push(question);
     // this.pageValidity.set(`Page ${qIndex + 1}`, question.validity);
-    // console.log(this.pageValidity)
   }
 
   submission(status) {

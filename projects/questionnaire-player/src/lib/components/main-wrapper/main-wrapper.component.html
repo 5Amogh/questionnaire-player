@@ -34,29 +34,30 @@
       Question Map
     </div>
     <mat-divider></mat-divider>
-    <div mat-dialog-content>
-      <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin-bottom: 8px;">
+    <div mat-dialog-content class="qmap">
+      <div class="d-flex flex-dr flex-w-wrap flex-gap-8" style="margin-bottom: 8px;">
         <span style="color: #080808;"><span style="color: #A30000;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Required & unanswered</span>
         <span style="color: #080808;"><span style="color:#006600;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Answered</span>
         <span style="color: #080808;"><span style="color: #595959;font-size: 48px;vertical-align: bottom;">&#x2022;</span> Optional & unanswered</span>
       </div>
-      <div *ngFor="let page of questionMap | keyvalue" style="padding: 4px;">
-        <div style="display: flex;color: #080808;">
-          <div><mat-icon style="vertical-align: middle;">arrow_right</mat-icon></div>
-          <div style="display: flex;flex-direction: column;">
-            {{page.key}}
-            <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px;margin: 12px 0;">
-              <ng-container *ngFor="let question of page.value">
-                <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{
-                'background-color':question.validity
-              }">
-                  {{ question.questionNumber }}
-                </button>
-              </ng-container>
+      <div *ngFor="let page of questionMap | sortKeys" style="padding: 4px;">
+        <ng-container *ngIf="questionMap[page].length">
+          <div class="d-flex" style="color: #080808;">
+            <div><mat-icon style="vertical-align: middle;">arrow_right</mat-icon></div>
+            <div class="d-flex flex-dc">
+              {{page}}
+              <div class="d-flex flex-dr flex-gap-8 flex-w-wrap" style="margin: 12px 0;">
+                <ng-container *ngFor="let question of questionMap[page]">
+                  <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{
+                  'background-color':question.validity
+                }">
+                    {{ question.questionNumber }}
+                  </button>
+                </ng-container>
+              </div>
             </div>
           </div>
-        </div>
-  
+        </ng-container>
       </div>
     </div>
     <div mat-dialog-actions class="d-flex flex-jc-space-around">

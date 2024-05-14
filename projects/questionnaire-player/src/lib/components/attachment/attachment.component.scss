@@ -58,14 +58,6 @@ mat-icon.customizeIcon {
   z-index: -1;
 }
 
-::ng-deep {
-  @media screen and (max-width:768px) {
-
-    .mdc-dialog .mdc-dialog__content {
-      padding: 0 !important;
-    }
-  }
-}
 
 .close-canle-btn{
   position: absolute;
