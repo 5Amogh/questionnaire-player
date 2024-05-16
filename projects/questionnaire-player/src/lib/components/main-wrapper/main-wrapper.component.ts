@@ -38,6 +38,7 @@ export class MainWrapperComponent {
   @ViewChild('mainComponent') public mainComponent: MainComponent;
   questionMap = {};
   pageValidity = new Map();
+  endTime: Date;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -77,6 +78,7 @@ export class MainWrapperComponent {
       );
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
+      this.endTime = new Date(this.evidence.endTime)
       this.sections = this.evidence.sections;
     }
   }
@@ -89,6 +91,7 @@ export class MainWrapperComponent {
         );
         this.evidence = this.assessment.assessment.evidences[0];
         this.evidence.startTime = Date.now();
+        this.endTime = new Date(this.evidence.endTime)
         this.sections = this.evidence.sections;
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
@@ -118,12 +121,15 @@ export class MainWrapperComponent {
             .visibleIf) && this.sections[0].questions[questionIndex].pageQuestions[pqIndex].canDisplay)
             || !Array.isArray(this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
               .visibleIf)){
+                let value = this.sections[0].questions[questionIndex].pageQuestions[pqIndex].value
+               if(!this.questionnaireForm.controls[this.sections[0].questions[questionIndex].pageQuestions[pqIndex]._id].valid){
+                value = []
+               }
               this.setQuestionMap(
                 questionIndex,
                 this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
                   .validation,
-                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
-                  .value,
+               value,
                 this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
                   ._id,
                 this.sections[0].questions[questionIndex].pageQuestions[pqIndex]

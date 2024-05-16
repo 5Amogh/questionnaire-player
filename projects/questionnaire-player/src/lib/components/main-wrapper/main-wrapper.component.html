@@ -1,8 +1,11 @@
 <div class="wrapper">
-  <!-- <mat-toolbar class="secondToolbar" *ngIf="evidence?.isSubmitted"
-  [ngClass]="{'mat-elevation-z5' : true, 'sticky' : true}">
-<h4>Your response has already been submitted</h4>
-</mat-toolbar> -->
+  <div class="d-flex flex-dr flex-gap-8 p-12 top-note custom-font" [ngClass]="{'submit-note':evidence?.isSubmitted}">
+    <mat-icon >
+      info
+    </mat-icon>
+    <div>{{ !evidence?.isSubmitted ? "Survey ends on "+ (endTime | date): "Your response has already been submitted." }}</div>
+  </div>
+
   <form [formGroup]="questionnaireForm" class="main">
     <div class="custom-font" *ngFor="let section of sections; let sectionIndex = index">
       <lib-main #mainComponent [questions]="section.questions" [questionnaireForm]="questionnaireForm"

@@ -79,9 +79,28 @@
   font-weight: 600;
     font-family: Montserrat, sans-serif;
 }
+  
+  .top-note{
+    color: var(--primary-color);
+    align-self: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px lightgray;
+  }
+
+  .submit-note{
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    color:var(--error-color)
+  }
 
 ::ng-deep{
   .mat-mdc-mini-fab{
     box-shadow: none !important;
+  }
+
+  .ngx-slider .ngx-slider-pointer {
+    background-color: var(--primary-color) !important;
   }
 }

@@ -43,6 +43,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SortKeysPipe } from './pipes/sort-keys.pipe';
+import { TextAreaComponent } from './components/text-area/text-area.component';
+import { SliderInputComponent } from './components/slider-input/slider-input.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -74,7 +77,9 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatrixQuestionsComponent,
     SanitizeUrlPipe,
     PaginatorComponent,
-    SortKeysPipe
+    SortKeysPipe,
+    TextAreaComponent,
+    SliderInputComponent
     ],
   imports: [
     CommonModule,
@@ -95,7 +100,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatNativeDateModule,
     MatTooltipModule,
     MatPaginatorModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    NgxSliderModule
   ],
   exports: [],
   providers: [

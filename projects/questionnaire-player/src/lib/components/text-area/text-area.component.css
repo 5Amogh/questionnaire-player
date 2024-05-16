@@ -1,0 +1,9 @@
+textarea:active{
+    border-color: var(--primary-color);
+}
+
+.text-area-sizing{
+    width: 100%; 
+    padding: 5px;
+    border-radius: 5px;
+}
