@@ -48,7 +48,7 @@
           <div class="d-flex" style="color: #080808;">
             <div><mat-icon style="vertical-align: middle;">arrow_right</mat-icon></div>
             <div class="d-flex flex-dc">
-              {{page}}
+              {{page + pageMsg.has(page) && ' (' + pageMsg.get(page) + ')'}}
               <div class="d-flex flex-dr flex-gap-8 flex-w-wrap" style="margin: 12px 0;">
                 <ng-container *ngFor="let question of questionMap[page]">
                   <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{

@@ -37,7 +37,7 @@ export class MainWrapperComponent {
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
   questionMap = {};
-  pageValidity = new Map();
+  pageMsg = new Map();
   endTime: Date;
   constructor(
     public fb: FormBuilder,
@@ -125,6 +125,10 @@ export class MainWrapperComponent {
                if(!this.questionnaireForm.controls[this.sections[0].questions[questionIndex].pageQuestions[pqIndex]._id].valid){
                 value = []
                }
+               if(this.sections[0].questions[questionIndex].pageQuestions[pqIndex].responseType == 'slider'){
+                  this.pageMsg.set(`Page ${questionIndex+ 1}`, 'Please review your response to the slider question in this page');
+               }
+
               this.setQuestionMap(
                 questionIndex,
                 this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
@@ -140,10 +144,17 @@ export class MainWrapperComponent {
       } else {
         if((Array.isArray(this.sections[0].questions[questionIndex].visibleIf) && this.sections[0].questions[questionIndex].canDisplay)
         || !Array.isArray(this.sections[0].questions[questionIndex].visibleIf)){
+          let value = this.sections[0].questions[questionIndex].value
+          if(!this.questionnaireForm.controls[this.sections[0].questions[questionIndex]._id].valid){
+           value = []
+          }
+          if(this.sections[0].questions[questionIndex].responseType == 'slider'){
+             this.pageMsg.set(`Page ${questionIndex+ 1}`, 'Please review your response to the slider question in this page');
+          }
         this.setQuestionMap(
           questionIndex,
           this.sections[0].questions[questionIndex].validation,
-          this.sections[0].questions[questionIndex].value,
+          value,
           this.sections[0].questions[questionIndex]._id,
           this.sections[0].questions[questionIndex].questionNumber
         );
@@ -174,7 +185,6 @@ export class MainWrapperComponent {
       questionNumber: qNum,
     };
     this.questionMap[`Page ${qIndex + 1}`].push(question);
-    // this.pageValidity.set(`Page ${qIndex + 1}`, question.validity);
   }
 
   submission(status) {
