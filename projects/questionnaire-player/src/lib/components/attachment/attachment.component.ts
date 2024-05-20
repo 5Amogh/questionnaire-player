@@ -29,12 +29,12 @@ export class AttachmentComponent implements OnChanges {
   objectType: string;
   dialogRef: any;
   @Input() questionFile;
-  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
-      this.closeDialog()
+      this.closeDialog();
       const successMessage = 'File uploaded successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
       const alertDialogConfig = {
@@ -107,7 +107,7 @@ export class AttachmentComponent implements OnChanges {
   }
 
   closeDialog() {
-    this.dialog.closeAll();
+    this.dialogRef.close();
   }
 
   async showFilePreview(url: any, type: string) {

@@ -38,7 +38,7 @@ export class MainWrapperComponent {
   @ViewChild('mainComponent') public mainComponent: MainComponent;
   questionMap = {};
   pageMsg = new Map();
-  endTime: Date;
+  endDate: Date;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -78,7 +78,7 @@ export class MainWrapperComponent {
       );
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
-      this.endTime = new Date(this.evidence.endTime)
+      this.endDate = new Date(this.assessment.assessment.endDate)
       this.sections = this.evidence.sections;
     }
   }
@@ -91,7 +91,7 @@ export class MainWrapperComponent {
         );
         this.evidence = this.assessment.assessment.evidences[0];
         this.evidence.startTime = Date.now();
-        this.endTime = new Date(this.evidence.endTime)
+        this.endDate = new Date(this.assessment.assessment.endDate)
         this.sections = this.evidence.sections;
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
