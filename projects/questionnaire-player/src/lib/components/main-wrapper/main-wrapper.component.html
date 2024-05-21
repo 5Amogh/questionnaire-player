@@ -3,7 +3,7 @@
     <mat-icon >
       info
     </mat-icon>
-    <div>{{ !evidence?.isSubmitted ? "Survey ends on "+ (endDate | date): "Your response has already been submitted." }}</div>
+    <div *ngIf="evidence">{{ !evidence?.isSubmitted ? "Survey valid till "+ (endDate | date): "Your response has already been submitted." }}</div>
   </div>
 
   <form [formGroup]="questionnaireForm" class="main">
@@ -22,7 +22,7 @@
       Save
     </button>
 
-      <mat-icon (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px;">map</mat-icon>
+      <mat-icon tabindex="0" (keydown)="($event.key == 'Enter' || $event.key == ' ') && getQuestionMap()" (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px;">map</mat-icon>
 
     <button class="btn btn-primary" (click)="!questionnaireForm?.valid ? getQuestionMap() : submission('submit')">
       Submit

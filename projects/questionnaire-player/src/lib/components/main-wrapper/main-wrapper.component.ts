@@ -78,7 +78,7 @@ export class MainWrapperComponent {
       );
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
-      this.endDate = new Date(this.assessment.assessment.endDate)
+      this.endDate = new Date (new Date(this.assessment.assessment.endDate).getTime() + (new Date(this.assessment.assessment.endDate).getTimezoneOffset() * 60000));
       this.sections = this.evidence.sections;
     }
   }
@@ -91,7 +91,7 @@ export class MainWrapperComponent {
         );
         this.evidence = this.assessment.assessment.evidences[0];
         this.evidence.startTime = Date.now();
-        this.endDate = new Date(this.assessment.assessment.endDate)
+        this.endDate = new Date (new Date(this.assessment.assessment.endDate).getTime() + (new Date(this.assessment.assessment.endDate).getTimezoneOffset() * 60000));
         this.sections = this.evidence.sections;
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);

@@ -49,6 +49,15 @@ export class AttachmentComponent implements OnChanges {
       this.openAlert(alertDialogConfig);
     }
   }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      const inputElement = document.getElementById(`${this.questionId}`) as HTMLElement;
+      inputElement.click();
+    }
+  }
+
   basicUpload(event) {
     const files: FileList = event.target.files;
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
@@ -113,7 +122,7 @@ export class AttachmentComponent implements OnChanges {
   async showFilePreview(url: any, type: string) {
   this.objectURL = url;
   this.objectType = type;
-      this.dialog.open(this.previewModal, {
+  this.dialogRef = this.dialog.open(this.previewModal, {
         width: 'auto',
         height: 'auto',
         enterAnimationDuration: 300,
