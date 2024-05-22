@@ -27,6 +27,7 @@ export class AttachmentComponent implements OnChanges {
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   @Input() fileUploadResponse = null;
   objectType: string;
+  docPreviewAlertRef:any;
   dialogRef: any;
   @Input() questionFile;
   constructor(private dialog: MatDialog) { }
@@ -71,7 +72,6 @@ export class AttachmentComponent implements OnChanges {
     const fileNames = this.getFileNames(this.formData);
     fileNames.map((fileName, index) => {
       const fileType = this.getFileType(fileName); 
-      console.log(fileType)
       if(!fileType || fileType == undefined){
         const alertDialogConfig = {
           title: null,
@@ -120,23 +120,22 @@ export class AttachmentComponent implements OnChanges {
   }
 
   async showFilePreview(url: any, type: string) {
-  this.objectURL = url;
-  this.objectType = type;
-  this.dialogRef = this.dialog.open(this.previewModal, {
-        width: 'auto',
-        height: 'auto',
-        enterAnimationDuration: 300,
-        exitAnimationDuration: 150,
-      });
-      if (this.objectType == 'doc') {
-        const alertDialogConfig = {
-          title: null,
-          message: `Please wait it may take up to a minute to load`,
-          acceptLabel: "Close Preview",
-          cancelLabel: null,
-        };
-        this.openAlert(alertDialogConfig)
-  
+    this.objectURL = url;
+    this.objectType = type;
+    this.dialogRef = this.dialog.open(this.previewModal, {
+      width: 'auto',
+      height: 'auto',
+      enterAnimationDuration: 300,
+      exitAnimationDuration: 150,
+    });
+    if (this.objectType == 'doc') {
+      const alertDialogConfig = {
+        title: null,
+        message: `Please wait it may take up to a minute to load`,
+        acceptLabel: 'Close Preview',
+        cancelLabel: null,
+      };
+      this.openAlert(alertDialogConfig,true);
     }
 
   }
@@ -152,16 +151,23 @@ export class AttachmentComponent implements OnChanges {
     this.openAlert(alertDialogConfig);
   }
 
-  async openAlert(alertDialogConfig) {
-    this.dialogRef = await this.dialog.open(AlertComponent, {
+  async openAlert(alertDialogConfig, msgAlertForDoc?) {
+    const dialogRef = await this.dialog.open(AlertComponent, {
       data: alertDialogConfig,
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
       disableClose: true
     });
+
+    if(msgAlertForDoc){
+      this.docPreviewAlertRef = dialogRef
+    }else{
+      this.dialogRef = dialogRef
+    }
+
     return new Observable<boolean>((observer) => {
-      this.dialogRef.afterClosed().subscribe((res) => {
+      dialogRef.afterClosed().subscribe((res) => {
         if (res) {
           this.closeDialog();
         }
@@ -190,7 +196,7 @@ export class AttachmentComponent implements OnChanges {
 
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
-      message: 'Do you want to delete the file ?',
+      message: 'Do you want to delete the file?',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };
@@ -229,6 +235,6 @@ export class AttachmentComponent implements OnChanges {
   }
 
   docLoader() {
-    this.dialogRef.close();
+    this.docPreviewAlertRef.close();
   }
 }

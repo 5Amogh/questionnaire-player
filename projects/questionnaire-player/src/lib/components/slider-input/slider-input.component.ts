@@ -34,7 +34,6 @@ export class SliderInputComponent implements OnInit {
     });
     this.max && (this.options['ceil'] = +this.max)
     this.min && (this.options['floor'] = +this.min)
-    console.log(this.max,this.min)
     setTimeout(()=>{
       if(this.question.value){
         this.questionnaireForm.controls[this.question._id].reset(this.question.value);
