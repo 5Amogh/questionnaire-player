@@ -198,3 +198,9 @@ export interface Submissions {}
 export interface ImageCompression {
   quality: number;
 }
+
+export interface ApiConfiguration{
+  baseURL:string;
+  bearerToken:string;
+  userAuthToken:string;
+}

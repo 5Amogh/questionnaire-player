@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
 import {
+  ApiConfiguration,
   Evidence,
   Question,
   Section,
@@ -22,6 +23,7 @@ export class MainWrapperComponent{
   questionnaireForm: FormGroup;
   @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
+  @Input() apiConfig:ApiConfiguration;
   constructor(
     public fb: FormBuilder,
     public questionnaireService: QuestionnaireService,
