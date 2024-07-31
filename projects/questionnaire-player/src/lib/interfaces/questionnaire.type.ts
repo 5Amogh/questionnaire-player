@@ -153,6 +153,7 @@ export enum ResponseType {
   SLIDER = 'slider',
   PAGEQUESTIONS = 'pageQuestions',
   MATRIX = 'matrix',
+  TEXTAREA='textDescription'
 }
 
 export type FileUnion = FileClass | string;

@@ -1,8 +1,8 @@
 <div class="d-flex flex-jc-left flex-ai-center">
-  <span class="attachment-btn">
+  <span class="attachment-btn" tabindex="0" (keydown)="onKeydown($event)">
     <input type="file" id="{{ questionId }}" (change)="basicUpload($event)" hidden />
     <label for="{{ questionId }}" class="d-flex flex-jc-center flex-ai-center flex-gap-10 upload-label">
-      <mat-icon class="w-auto h-auto">upload</mat-icon> Add file
+        <mat-icon class="w-auto h-auto">upload</mat-icon> Add file
     </label>
   </span>
 </div>

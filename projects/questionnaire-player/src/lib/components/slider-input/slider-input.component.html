@@ -1,0 +1,9 @@
+<div class="d-flex flex-ai-center flex-jc-center flex-dc flex-gap-16"
+  [formGroup]="questionnaireForm"
+  *ngIf="questionnaireForm?.contains(question._id)"
+>
+  <ngx-slider (valueChange)="onChange($event)"
+  [formControlName]="question?._id" [options]="options"></ngx-slider>
+</div>
+<mat-error *ngIf="questionnaireForm?.contains(question._id) && isTouched && !isValid">{{ getValidationMessage(question._id) }}</mat-error>
+

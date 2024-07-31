@@ -27,14 +27,15 @@ export class AttachmentComponent implements OnChanges {
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
   @Input() fileUploadResponse = null;
   objectType: string;
+  docPreviewAlertRef:any;
   dialogRef: any;
   @Input() questionFile;
-  constructor(private dialog: MatDialog, private cdr: ChangeDetectorRef) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
       const status = this.fileUploadResponse?.status;
-      this.closeDialog()
+      this.closeDialog();
       const successMessage = 'File uploaded successfully!';
       const failureMessage = 'Unable to upload the file. Please try again.';
       const alertDialogConfig = {
@@ -49,6 +50,15 @@ export class AttachmentComponent implements OnChanges {
       this.openAlert(alertDialogConfig);
     }
   }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      const inputElement = document.getElementById(`${this.questionId}`) as HTMLElement;
+      inputElement.click();
+    }
+  }
+
   basicUpload(event) {
     const files: FileList = event.target.files;
     let sizeMB = +(files[0].size / 1000 / 1000).toFixed(4);
@@ -62,7 +72,6 @@ export class AttachmentComponent implements OnChanges {
     const fileNames = this.getFileNames(this.formData);
     fileNames.map((fileName, index) => {
       const fileType = this.getFileType(fileName); 
-      console.log(fileType)
       if(!fileType || fileType == undefined){
         const alertDialogConfig = {
           title: null,
@@ -107,27 +116,26 @@ export class AttachmentComponent implements OnChanges {
   }
 
   closeDialog() {
-    this.dialog.closeAll();
+    this.dialogRef.close();
   }
 
   async showFilePreview(url: any, type: string) {
-  this.objectURL = url;
-  this.objectType = type;
-      this.dialog.open(this.previewModal, {
-        width: 'auto',
-        height: 'auto',
-        enterAnimationDuration: 300,
-        exitAnimationDuration: 150,
-      });
-      if (this.objectType == 'doc') {
-        const alertDialogConfig = {
-          title: null,
-          message: `Please wait it may take up to a minute to load`,
-          acceptLabel: "Close Preview",
-          cancelLabel: null,
-        };
-        this.openAlert(alertDialogConfig)
-  
+    this.objectURL = url;
+    this.objectType = type;
+    this.dialogRef = this.dialog.open(this.previewModal, {
+      width: 'auto',
+      height: 'auto',
+      enterAnimationDuration: 300,
+      exitAnimationDuration: 150,
+    });
+    if (this.objectType == 'doc') {
+      const alertDialogConfig = {
+        title: null,
+        message: `Please wait it may take up to a minute to load`,
+        acceptLabel: 'Close Preview',
+        cancelLabel: null,
+      };
+      this.openAlert(alertDialogConfig,true);
     }
 
   }
@@ -143,16 +151,23 @@ export class AttachmentComponent implements OnChanges {
     this.openAlert(alertDialogConfig);
   }
 
-  async openAlert(alertDialogConfig) {
-    this.dialogRef = await this.dialog.open(AlertComponent, {
+  async openAlert(alertDialogConfig, msgAlertForDoc?) {
+    const dialogRef = await this.dialog.open(AlertComponent, {
       data: alertDialogConfig,
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
       disableClose: true
     });
+
+    if(msgAlertForDoc){
+      this.docPreviewAlertRef = dialogRef
+    }else{
+      this.dialogRef = dialogRef
+    }
+
     return new Observable<boolean>((observer) => {
-      this.dialogRef.afterClosed().subscribe((res) => {
+      dialogRef.afterClosed().subscribe((res) => {
         if (res) {
           this.closeDialog();
         }
@@ -181,7 +196,7 @@ export class AttachmentComponent implements OnChanges {
 
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
-      message: 'Do you want to delete the file ?',
+      message: 'Do you want to delete the file?',
       acceptLabel: 'Yes',
       cancelLabel: 'No',
     };
@@ -220,6 +235,6 @@ export class AttachmentComponent implements OnChanges {
   }
 
   docLoader() {
-    this.dialogRef.close();
+    this.docPreviewAlertRef.close();
   }
 }

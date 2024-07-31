@@ -1,4 +1,14 @@
-import { Component, EventEmitter, HostListener, Input, Output, SimpleChanges, booleanAttribute} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  booleanAttribute,
+} from '@angular/core';
 import {
   ApiConfiguration,
   Evidence,
@@ -7,16 +17,18 @@ import {
 } from '../../interfaces/questionnaire.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionnaireService } from '../../services/questionnaire.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.scss'],
 })
-export class MainWrapperComponent{
+export class MainWrapperComponent {
   questions: Array<Question>;
-  @Input({required:true}) assessment;
-  @Input({transform:booleanAttribute}) angular = false;
+  @Input({ required: true }) assessment;
+  @Input({ transform: booleanAttribute }) angular = false;
   @Input() fileSizeLimit;
   evidence: Evidence;
   sections: Section[];
@@ -24,53 +36,157 @@ export class MainWrapperComponent{
   @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
   @Input() apiConfig:ApiConfiguration;
+  @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
+  @ViewChild('mainComponent') public mainComponent: MainComponent;
+  questionMap = {};
+  pageMsg = new Map();
+  endDate: Date;
   constructor(
     public fb: FormBuilder,
-    public questionnaireService: QuestionnaireService,
-  ) {}
+    private dialog: MatDialog,
+    public questionnaireService: QuestionnaireService
+  ) { }
   @HostListener('window:beforeunload')
-  unloadNotification(){
+  unloadNotification() {
     return this.confirmBeforeLeave();
   }
 
   @HostListener('window:popstate')
-  popStateListener(){
-   return this.confirmBeforeLeave();
+  popStateListener() {
+    return this.confirmBeforeLeave();
   }
 
-  confirmBeforeLeave():boolean{
-    if(this.questionnaireForm.dirty){
+  confirmBeforeLeave(): boolean {
+    if (this.questionnaireForm.dirty) {
       return confirm('Are you sure you want to leave?');
     }
     return true;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['fileuploadresponse']){
-        if(typeof this.fileuploadresponse === 'string'){
-          this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
-        }
+    if (changes['fileuploadresponse']) {
+      if (typeof this.fileuploadresponse === 'string') {
+        this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
+      }
     }
-    if(this.angular && changes['assessment'] && changes['assessment'].previousValue == undefined && changes['assessment'].currentValue){
-      this.assessment = this.questionnaireService.mapSubmissionToAssessment(this.assessment)
+    if (
+      this.angular &&
+      changes['assessment'] &&
+      changes['assessment'].previousValue == undefined &&
+      changes['assessment'].currentValue
+    ) {
+      this.assessment = this.questionnaireService.mapSubmissionToAssessment(
+        this.assessment
+      );
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
+      this.endDate = new Date (new Date(this.assessment.assessment.endDate).getTime() + (new Date(this.assessment.assessment.endDate).getTimezoneOffset() * 60000));
       this.sections = this.evidence.sections;
     }
   }
   ngOnInit() {
     if (typeof this.assessment === 'string') {
       try {
-      this.assessment = JSON.parse(this.assessment);
-      this.assessment = this.questionnaireService.mapSubmissionToAssessment(this.assessment)
-      this.evidence = this.assessment.assessment.evidences[0];
-      this.evidence.startTime = Date.now();
-      this.sections = this.evidence.sections;
+        this.assessment = JSON.parse(this.assessment);
+        this.assessment = this.questionnaireService.mapSubmissionToAssessment(
+          this.assessment
+        );
+        this.evidence = this.assessment.assessment.evidences[0];
+        this.evidence.startTime = Date.now();
+        this.endDate = new Date (new Date(this.assessment.assessment.endDate).getTime() + (new Date(this.assessment.assessment.endDate).getTimezoneOffset() * 60000));
+        this.sections = this.evidence.sections;
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
     }
     this.questionnaireForm = this.fb.group({});
+  }
+
+  getQuestionMap() {
+    for (
+      let questionIndex = 0;
+      questionIndex < this.sections[0].questions.length;
+      questionIndex++
+    ) {
+      this.questionMap[`Page ${questionIndex + 1}`] = [];
+      if (
+        this.sections[0].questions[questionIndex].responseType ==
+        'pageQuestions'
+      ) {
+        for (
+          let pqIndex = 0;
+          pqIndex <
+          this.sections[0].questions[questionIndex].pageQuestions.length;
+          pqIndex++
+        ) {
+          if((Array.isArray(this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+            .visibleIf) && this.sections[0].questions[questionIndex].pageQuestions[pqIndex].canDisplay)
+            || !Array.isArray(this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+              .visibleIf)){
+                let value = this.sections[0].questions[questionIndex].pageQuestions[pqIndex].value
+               if(!this.questionnaireForm.controls[this.sections[0].questions[questionIndex].pageQuestions[pqIndex]._id].valid){
+                value = []
+               }
+               if(this.sections[0].questions[questionIndex].pageQuestions[pqIndex].responseType == 'slider'){
+                  this.pageMsg.set(`Page ${questionIndex+ 1}`, 'Please review your response to the slider question in this page');
+               }
+
+              this.setQuestionMap(
+                questionIndex,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  .validation,
+               value,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  ._id,
+                this.sections[0].questions[questionIndex].pageQuestions[pqIndex]
+                  .questionNumber
+              );
+            }
+        }
+      } else {
+        if((Array.isArray(this.sections[0].questions[questionIndex].visibleIf) && this.sections[0].questions[questionIndex].canDisplay)
+        || !Array.isArray(this.sections[0].questions[questionIndex].visibleIf)){
+          let value = this.sections[0].questions[questionIndex].value
+          if(!this.questionnaireForm.controls[this.sections[0].questions[questionIndex]._id].valid){
+           value = []
+          }
+          if(this.sections[0].questions[questionIndex].responseType == 'slider'){
+             this.pageMsg.set(`Page ${questionIndex+ 1}`, 'Please review your response to the slider question in this page');
+          }
+        this.setQuestionMap(
+          questionIndex,
+          this.sections[0].questions[questionIndex].validation,
+          value,
+          this.sections[0].questions[questionIndex]._id,
+          this.sections[0].questions[questionIndex].questionNumber
+        );
+        }
+      }
+    }
+    this.dialog.open(this.questionMapModal, {
+      width: 'auto',
+      enterAnimationDuration: 300,
+      exitAnimationDuration: 150,
+      disableClose: true,
+      hasBackdrop: true,
+    });
+  }
+
+  setQuestionMap(qIndex, qValidation, qValue, questionId, qNum) {
+    const validation = qValidation;
+    const value = qValue;
+    const question = {
+      _id: questionId,
+      validity:
+        (value && value.length > 0) || Number.isInteger(value)
+          ? '#006600'
+          : typeof validation !== 'string' && validation.required
+            ? '#A30000'
+            : '#595959',
+      pageIndex: qIndex,
+      questionNumber: qNum,
+    };
+    this.questionMap[`Page ${qIndex + 1}`].push(question);
   }
 
   submission(status) {
@@ -82,9 +198,18 @@ export class MainWrapperComponent{
     status == 'save' ? (evidenceData['status'] = 'draft') : null;
     const dataToEmit = {
       status: status,
-      data: evidenceData
+      data: evidenceData,
     };
     this.submitOrSaveEvent.emit(dataToEmit);
   }
 
+  closeModal() {
+    this.dialog.closeAll();
+  }
+
+  goToQuestion(id, pageIndex) {
+    this.mainComponent.pageIndex = pageIndex;
+    this.mainComponent.enableRelevantPage(id);
+    this.closeModal();
+  }
 }
