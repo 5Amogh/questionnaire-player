@@ -42,6 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorService } from './services/interceptors/auth.service';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -93,7 +95,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatNativeDateModule,
     MatTooltipModule,
     MatPaginatorModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    HttpClientModule
   ],
   exports: [],
   providers: [
@@ -110,6 +113,11 @@ const MAT_CUSTOM_DATE_FORMATS = {
       provide: LOCALE_ID,
       useValue: 'en-in',
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ]
 })
 export class QuestionnairePlayerModule {}
