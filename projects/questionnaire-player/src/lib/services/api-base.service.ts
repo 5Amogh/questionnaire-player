@@ -5,27 +5,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiBaseService {
-  // baseURL = window['env' as any]['baseURL' as any];
-  baseURL = "https://portal.karmayogi.nic.in";
   constructor(public http: HttpClient) { }
-
-  get<T>(url: string, params?: HttpParams): Observable<T> {
-    return this.http.get<T>(this.baseURL+url, { params });
+  get<T>(baseURL:string, url: string, params?: HttpParams): Observable<T> {
+    return this.http.get<T>(baseURL+url, { params });
   }
 
-  post<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
-    return this.http.post<T>(this.baseURL+url, body, { headers });
+  post<T>(baseURL:string, url: string, body: any, headers?: HttpHeaders): Observable<T> {
+    return this.http.post<T>(baseURL+url, body, { headers });
   }
 
-  put<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
-    return this.http.put<T>(this.baseURL+url, body, { headers });
+  put<T>(baseURL:string, url: string, body: any, headers?: HttpHeaders): Observable<T> {
+    return this.http.put<T>(baseURL+url, body, { headers });
   }
 
-  postWithFullURL<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
+  postWithFullURL<T>(baseURL:string, url: string, body: any, headers?: HttpHeaders): Observable<T> {
     return this.http.post<T>(url, body, { headers });
   }
 
-  delete<T>(url: string): Observable<T> {
-    return this.http.delete<T>(this.baseURL+url);
+  delete<T>(baseURL:string, url: string): Observable<T> {
+    return this.http.delete<T>(baseURL+url);
   }
 }
