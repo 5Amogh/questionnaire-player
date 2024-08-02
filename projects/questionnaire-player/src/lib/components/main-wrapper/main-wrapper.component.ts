@@ -8,6 +8,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 import { SurveyService } from '../../services/survey.service';
+import { ToastService } from '../../services/toast/toast.service';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -29,6 +30,7 @@ export class MainWrapperComponent {
     public fb: FormBuilder,
     public questionnaireService: QuestionnaireService,
     public surveyService: SurveyService,
+    public toastService: ToastService
   ) { }
   @HostListener('window:beforeunload')
   unloadNotification() {
@@ -55,7 +57,7 @@ export class MainWrapperComponent {
     }
 
     if (changes['apiConfig']) {
-    this.surveyService?.setAuthToken(this.apiConfig);
+      this.surveyService?.setAuthToken(this.apiConfig);
 
     }
 
@@ -83,25 +85,20 @@ export class MainWrapperComponent {
     this.surveyService.fetchDetails(solutionId).subscribe(
       {
         next: (res: any) => {
-          console.log('fetchSurveyDetails', res);
           if (res) {
             this.assessment = this.questionnaireService.mapSubmissionToAssessment(res)
             this.evidence = this.assessment.assessment.evidences[0];
             this.evidence.startTime = Date.now();
             this.sections = this.evidence.sections;
           } else {
-            this.handleError('No result found in response');
+            this.toastService.showToast('No result found in response', 'error', 3000, 'top', 'end');
           }
         },
         error: (error: any) => {
-          this.handleError('Error fetching survey details');
+          this.toastService.showToast('Error fetching survey details', 'error', 3000, 'top', 'end');
         }
       }
     );
-  }
-
-  private handleError(message: string): void {
-    console.error(message);
   }
 
   submission(status) {

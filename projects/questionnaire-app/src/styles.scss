@@ -14,3 +14,15 @@
     --disabled-btn-text: gray;
 }
 
+.mat-mdc-snack-bar-container.success {
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-container-color: #28a745;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+  
+  .mat-mdc-snack-bar-container.error {
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-container-color: #ff0000;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+
