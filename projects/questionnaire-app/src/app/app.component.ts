@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder} from '@angular/forms';
-import { catchError } from 'rxjs/operators';
-import * as mockData from './assesmentInfo.json'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,13 +8,19 @@ import * as mockData from './assesmentInfo.json'
 })
 export class AppComponent implements OnInit, OnDestroy {
   sections!: any[];
-  assessment!: any;
+  solutionId!:any;
   fileUploadResponse: any = null;
+  apiConfig!:any;
   constructor(public fb: FormBuilder, public http: HttpClient) {}
 
   ngOnInit() {
     window.addEventListener('message', this.receiveMessage.bind(this), false);
-    this.assessment = mockData
+    this.solutionId = 'solutionId';
+    this.apiConfig={
+      baseURL:'you base url',
+      bearerToken:'bererToken',
+      userAuthToken:'userAuthToken'
+    }
   }
 
   receiveMessage(event) {

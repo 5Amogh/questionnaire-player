@@ -1,6 +1,6 @@
 {
     "survey":{
-            "detailsURL": "/api/surveys/mlsurvey/v1/details",
+            "detailsURL": "/samiksha/v1/solutions/details",
             "updateURL": "/api/surveySubmissions/mlsurvey/v1/update/",
             "presignedURL": "/api/cloud-services/mlcore/v1/files/preSignedUrls"
     },
