@@ -55,6 +55,7 @@ export class MainWrapperComponent {
         this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
       }
     }
+    console.log('fileuploadresponse',this.fileuploadresponse)
 
     if (changes['apiConfig']) {
       this.surveyService?.setAuthToken(this.apiConfig);
