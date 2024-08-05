@@ -54,8 +54,7 @@ export class MainWrapperComponent {
         this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
       }
     }
-    console.log('fileuploadresponse',this.fileuploadresponse)
-
+    
     if (changes['apiConfig']) {
       this.surveyService?.setAuthToken(this.apiConfig);
 
@@ -67,17 +66,15 @@ export class MainWrapperComponent {
   }
 
   ngOnInit() {
-    if (typeof this.assessment === 'string') {
-      try {
-        this.assessment = JSON.parse(this.assessment);
-        this.assessment = this.questionnaireService.mapSubmissionToAssessment(this.assessment)
-        this.evidence = this.assessment.assessment.evidences[0];
-        this.evidence.startTime = Date.now();
-        this.sections = this.evidence.sections;
-      } catch (error) {
-        throw new Error('Invalid Assessment Structure', error);
-      }
+    if (this.apiConfig) {
+      this.surveyService?.setAuthToken(this.apiConfig);
+
     }
+
+    if (this.solutionId) {
+      this.fetchSurveyDetails(this.solutionId);
+    }
+
     this.questionnaireForm = this.fb.group({});
   }
 
