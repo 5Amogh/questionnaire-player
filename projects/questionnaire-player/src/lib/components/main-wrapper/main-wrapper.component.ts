@@ -16,7 +16,7 @@ import { ToastService } from '../../services/toast/toast.service';
 })
 export class MainWrapperComponent {
   questions: Array<Question>;
-  @Input({ required: true }) assessment;
+  assessment:any;
   @Input({ required: true }) solutionId;
   @Input({ transform: booleanAttribute }) angular = false;
   @Input() fileSizeLimit;
