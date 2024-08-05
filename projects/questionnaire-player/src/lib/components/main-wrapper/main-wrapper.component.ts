@@ -18,7 +18,6 @@ export class MainWrapperComponent {
   questions: Array<Question>;
   assessment:any;
   @Input({ required: true }) solutionId;
-  @Input({ transform: booleanAttribute }) angular = false;
   @Input() fileSizeLimit;
   evidence: Evidence;
   sections: Section[];
@@ -62,7 +61,7 @@ export class MainWrapperComponent {
 
     }
 
-    if (this.angular && changes['solutionId'] && changes['solutionId'].previousValue == undefined && changes['solutionId'].currentValue) {
+    if (changes['solutionId'] && changes['solutionId'].previousValue == undefined && changes['solutionId'].currentValue) {
       this.fetchSurveyDetails(this.solutionId);
     }
   }
