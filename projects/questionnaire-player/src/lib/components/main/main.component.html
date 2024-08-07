@@ -54,13 +54,6 @@
               (click)="openDialog(question.hint)">
               <mat-icon style="vertical-align: middle">emoji_objects_outline</mat-icon>
             </button>
-            <!-- <mat-divider class="mt-10" [ngStyle]="{
-                'background-color':
-                  question.responseType != 'pageQuestions'
-                    ? 'var(--primary-color)'
-                    : null
-              }">
-            </mat-divider> -->
           </div>
         </div>
       </div>
@@ -86,8 +79,8 @@
         <lib-checkbox-input tabindex="-1" [id]="question._id" *ngIf="question.responseType == reponseType.MULTISELECT"
           [questionnaireForm]="questionnaireForm" [question]="question" [options]="question.options"
           (dependentParent)="toggleQuestion($event)"></lib-checkbox-input>
-        <lib-slider-input tabindex="-1" [id]="question._id" *ngIf="question.responseType == reponseType.SLIDER" [questionnaireForm]="questionnaireForm"
-          [question]="question"></lib-slider-input>
+        <lib-range-input tabindex="-1" [id]="question._id" *ngIf="question.responseType == reponseType.SLIDER" [questionnaireForm]="questionnaireForm"
+          [question]="question"></lib-range-input>
         <lib-date-input [id]="question._id" tabindex="-1" *ngIf="question.responseType == reponseType.DATE" [questionnaireForm]="questionnaireForm"
           [question]="question"></lib-date-input>
         <lib-matrix-questions *ngIf="question.responseType == reponseType.MATRIX"

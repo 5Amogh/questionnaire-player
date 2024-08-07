@@ -67,7 +67,6 @@ export class MainComponent implements OnInit, AfterViewInit {
       document.getElementById(`${elemendId}`).style.display = action;
     }
     if(questionId && document.getElementById(`${questionId}`)){
-      console.log(document.getElementById(`${questionId}`))
       window.setTimeout(() => {
         document.getElementById(`${questionId}`).focus();
       },500)

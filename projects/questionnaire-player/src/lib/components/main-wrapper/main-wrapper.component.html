@@ -1,16 +1,29 @@
 <div class="wrapper">
-  <div class="d-flex flex-dr flex-gap-8 p-12 top-note custom-font" [ngClass]="{'submit-note':evidence?.isSubmitted}">
+  <!-- <div class="d-flex flex-dr flex-gap-8 p-12 top-note custom-font" [ngClass]="{'submit-note':evidence?.isSubmitted}">
     <mat-icon >
       info
     </mat-icon>
     <div *ngIf="evidence">{{ !evidence?.isSubmitted ? "Survey valid till "+ (endDate | date): "Your response has already been submitted." }}</div>
-  </div>
+  </div> -->
 
-  <form [formGroup]="questionnaireForm" class="main">
-    <div class="custom-font" *ngFor="let section of sections; let sectionIndex = index">
-      <lib-main #mainComponent [questions]="section.questions" [questionnaireForm]="questionnaireForm"
-        [fileUploadResponse]="fileuploadresponse" [isSubmitted]="evidence?.isSubmitted"
-        [fileSizeLimit]="fileSizeLimit"></lib-main>
+  <form [formGroup]="questionnaireForm" class="main custom-font">
+
+    <div *ngIf="listing" (click)="backToSectionListing()" class="d-flex flex-ai-center m-20 flex-gap-10" style="color: var(--primary-color);">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Section Listing</span>
+      <mat-divider></mat-divider>
+    </div>
+    <div *ngFor="let section of sections; let secId = index">
+      <div class="section-listing">
+        <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
+          <mat-card-title>{{secId+1}}. {{section.name}}</mat-card-title>
+        </mat-card>
+      </div>
+        <span [id]="section.name" style="display: none;">
+          <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
+          [fileUploadResponse]="fileuploadresponse" [isSubmitted]="evidence?.isSubmitted"
+          [fileSizeLimit]="fileSizeLimit"></lib-main>
+        </span>
     </div>
   </form>
   <hr class="partition" />
@@ -52,7 +65,7 @@
               <ng-template #pageWithMsg> {{page + ' (' + pageMsg.get(page) + ')'}} </ng-template>
                 <div class="d-flex flex-dr flex-gap-8 flex-w-wrap" style="margin: 12px 0;">
                 <ng-container *ngFor="let question of questionMap[page]">
-                  <button (click)="goToQuestion(question._id,question.pageIndex)" mat-mini-fab [ngStyle]="{
+                  <button (click)="goToQuestion(question._id,question.pageIndex,question.sectionName)" mat-mini-fab [ngStyle]="{
                   'background-color':question.validity
                 }">
                     {{ question.questionNumber }}
