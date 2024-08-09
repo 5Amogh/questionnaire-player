@@ -110,6 +110,10 @@ export class MainWrapperComponent implements OnInit, OnChanges {
               60000
         );
         this.sections = this.evidence.sections;
+        if(this.sections.length == 1){
+          this.setSection(this.sections[0].name);
+          this.listing = false;
+        }
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
@@ -290,10 +294,9 @@ export class MainWrapperComponent implements OnInit, OnChanges {
 
   setSection(name: string) {
     this.sectionName = name;
-    console.log(name)
     this.enableRelevantPage();
+    this.mainComponent.enableRelevantPage();
     let sectionElements = document.getElementsByClassName('section-listing');
-    console.log(sectionElements)
     if (sectionElements.length > 0) {
       for (let i = 0; i < sectionElements.length; i++) {
         (sectionElements[i] as HTMLElement).style.display = 'none';
@@ -306,7 +309,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.listing = false;
     this.domQuery(this.sectionName, 'none');
     let sectionElements = document.getElementsByClassName('section-listing');
-    this.mainComponent.pageIndex = 1;
+    this.mainComponent.pageIndex = 0;
+    this.mainComponent.handlePageEvent({pageIndex:0})
     if (sectionElements.length > 0) {
       for (let i = 0; i < sectionElements.length; i++) {
         (sectionElements[i] as HTMLElement).style.display = 'block';
@@ -322,7 +326,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.setSection(sectionName)
     console.log('id & page index', id, pageIndex);
     this.mainComponent.pageIndex = pageIndex;
-    this.mainComponent.enableRelevantPage(id);
+    this.mainComponent.handlePageEvent({pageIndex:pageIndex})
     this.closeModal();
   }
 }

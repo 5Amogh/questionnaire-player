@@ -348,15 +348,7 @@
                                         "usedForScoring": "",
                                         "questionType": "auto",
                                         "canBeNotApplicable": "false",
-                                        "visibleIf": [
-                                            {
-                                                "operator": "===",
-                                                "value": [
-                                                    "R1"
-                                                ],
-                                                "_id": "6630bf98614b01000849e656"
-                                            }
-                                        ],
+                                        "visibleIf": "",
                                         "validation": {
                                             "required": true
                                         },
@@ -386,92 +378,6 @@
                                         "createdAt": "2024-04-30T09:53:27.113Z",
                                         "__v": 0,
                                         "createdFromQuestionId": "6630bf97614b01000849e609",
-                                        "evidenceMethod": "D1_1714470793787",
-                                        "payload": {
-                                            "criteriaId": "6630bf98614b01000849e66e",
-                                            "responseType": "multiselect",
-                                            "evidenceMethod": "D1_1714470793787",
-                                            "rubricLevel": ""
-                                        },
-                                        "startTime": "",
-                                        "endTime": "",
-                                        "gpsLocation": ""
-                                    },
-                                    {
-                                        "_id": "6630bf98614b01000849e658",
-                                        "question": [
-                                            "multi select option 2",
-                                            ""
-                                        ],
-                                        "isCompleted": false,
-                                        "showRemarks": true,
-                                        "options": [
-                                            {
-                                                "value": "R1",
-                                                "label": "civil engineer",
-                                                "hint": "Hint 1"
-                                            },
-                                            {
-                                                "value": "R2",
-                                                "label": "computer science",
-                                                "hint": "Hint 2"
-                                            },
-                                            {
-                                                "value": "R3",
-                                                "label": "mechanical engineew",
-                                                "hint": "ನಿನ್ನ ಹೆಸರೇನು"
-                                            }
-                                        ],
-                                        "sliderOptions": [],
-                                        "children": [],
-                                        "questionGroup": [
-                                            "A1"
-                                        ],
-                                        "fileName": [],
-                                        "instanceQuestions": [],
-                                        "isAGeneralQuestion": false,
-                                        "autoCapture": false,
-                                        "allowAudioRecording": false,
-                                        "prefillFromEntityProfile": false,
-                                        "entityFieldName": "",
-                                        "isEditable": true,
-                                        "showQuestionInPreview": false,
-                                        "deleted": false,
-                                        "remarks": "",
-                                        "value": "",
-                                        "usedForScoring": "",
-                                        "questionType": "auto",
-                                        "canBeNotApplicable": "false",
-                                        "visibleIf": "",
-                                        "validation": {
-                                            "required": true
-                                        },
-                                        "file": {
-                                            "required": true,
-                                            "type": [
-                                                "image/jpeg",
-                                                "docx",
-                                                "pdf",
-                                                "ppt"
-                                            ],
-                                            "minCount": 0,
-                                            "maxCount": 10,
-                                            "caption": "FALSE"
-                                        },
-                                        "externalId": "Q4_1714470793787-1714470808661",
-                                        "tip": "Please refer to the response level hints for some observable behaviour examples",
-                                        "hint": "Please refer to the response level hints for some observable behaviour examples",
-                                        "responseType": "multiselect",
-                                        "modeOfCollection": "onfield",
-                                        "accessibility": "No",
-                                        "rubricLevel": "",
-                                        "sectionHeader": "Section B",
-                                        "page": "p1",
-                                        "questionNumber": "4",
-                                        "updatedAt": "2024-04-30T09:53:28.669Z",
-                                        "createdAt": "2024-04-30T09:53:27.125Z",
-                                        "__v": 0,
-                                        "createdFromQuestionId": "6630bf97614b01000849e610",
                                         "evidenceMethod": "D1_1714470793787",
                                         "payload": {
                                             "criteriaId": "6630bf98614b01000849e66e",

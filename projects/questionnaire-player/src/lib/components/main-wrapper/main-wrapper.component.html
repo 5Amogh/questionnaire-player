@@ -7,19 +7,21 @@
   </div> -->
 
   <form [formGroup]="questionnaireForm" class="main custom-font">
-
+    <div *ngIf="!listing && sections?.length != 1" style="color: var(--primary-color);">
+      <h1 style="margin-left: 1.5rem;">List of Sections</h1>
+      <hr style="height: 1px;background:var(--primary-color);"/>
+    </div>
     <div *ngIf="listing" (click)="backToSectionListing()" class="d-flex flex-ai-center m-20 flex-gap-10" style="color: var(--primary-color);">
       <mat-icon>arrow_back</mat-icon>
       <span>Section Listing</span>
-      <mat-divider></mat-divider>
     </div>
     <div *ngFor="let section of sections; let secId = index">
-      <div class="section-listing">
+      <div class="section-listing" [ngStyle]="{display:sections.length == 1 ? 'none':'block'}">
         <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
           <mat-card-title>{{secId+1}}. {{section.name}}</mat-card-title>
         </mat-card>
       </div>
-        <span [id]="section.name" style="display: none;">
+        <span [id]="section.name" [ngStyle]="{display:sections.length == 1 ? 'block':'none'}">
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
           [fileUploadResponse]="fileuploadresponse" [isSubmitted]="evidence?.isSubmitted"
           [fileSizeLimit]="fileSizeLimit"></lib-main>
