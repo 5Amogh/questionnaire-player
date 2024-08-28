@@ -1,7 +1,4 @@
 import {
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
   Component,
   EventEmitter,
   HostListener,
@@ -24,7 +21,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { QuestionnaireService } from '../../services/questionnaire.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MainComponent } from '../main/main.component';
-
+import { ApiService } from '../../services/api.service';
+import { catchError } from 'rxjs/operators';
+import * as urlConfig from '../../constants/url-config.json';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -32,13 +31,10 @@ import { MainComponent } from '../main/main.component';
 })
 export class MainWrapperComponent implements OnInit, OnChanges {
   questions: Array<Question>;
-  @Input({ required: true }) assessment;
   @Input({ transform: booleanAttribute }) angular = false;
-  @Input() fileSizeLimit;
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;
-  @Input() fileuploadresponse = null;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
@@ -48,10 +44,12 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   endDate: Date;
   sectionName: string;
   listing = false;
+  assessment: any;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
-    public questionnaireService: QuestionnaireService
+    public questionnaireService: QuestionnaireService,
+    public apiService:ApiService
   ) {}
   @HostListener('window:beforeunload')
   unloadNotification() {
@@ -71,19 +69,35 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['fileuploadresponse']) {
-      if (typeof this.fileuploadresponse === 'string') {
-        this.fileuploadresponse = JSON.parse(this.fileuploadresponse);
-      }
-    }
     if (
       this.angular &&
-      changes['assessment'] &&
-      changes['assessment'].previousValue == undefined &&
-      changes['assessment'].currentValue
+      changes['apiConfig'] &&
+      changes['apiConfig'].previousValue == undefined &&
+      changes['apiConfig'].currentValue
     ) {
+        this.setApiService();
+        this.fetchDetails();
+      }
+
+
+  }
+
+  setApiService(){
+    this.apiService.baseUrl = this.apiConfig.baseURL;
+    this.apiService.token = this.apiConfig.userAuthToken;
+    this.apiService.solutionType = this.apiConfig.solutionType;
+  }
+  
+  fetchDetails(){
+    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+this.apiConfig.solutionId,{})
+    .pipe(
+      catchError((err) => {
+        throw new Error('Could not fetch the details');
+      })
+    )
+    .subscribe((res:any) => {
       this.assessment = this.questionnaireService.mapSubmissionToAssessment(
-        this.assessment
+        res.result
       );
       this.evidence = this.assessment.assessment.evidences[0];
       this.evidence.startTime = Date.now();
@@ -93,23 +107,14 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             60000
       );
       this.sections = this.evidence.sections;
-    }
-  }
+  });
+}
   ngOnInit() {
-    if (typeof this.assessment === 'string') {
+    if (typeof this.apiConfig === 'string') {
       try {
-        this.assessment = JSON.parse(this.assessment);
-        this.assessment = this.questionnaireService.mapSubmissionToAssessment(
-          this.assessment
-        );
-        this.evidence = this.assessment.assessment.evidences[0];
-        this.evidence.startTime = Date.now();
-        this.endDate = new Date(
-          new Date(this.assessment.assessment.endDate).getTime() +
-            new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
-              60000
-        );
-        this.sections = this.evidence.sections;
+        this.apiConfig = JSON.parse(this.apiConfig);
+        this.setApiService();
+        this.fetchDetails()
         if(this.sections.length == 1){
           this.setSection(this.sections[0].name);
           this.listing = false;
@@ -285,13 +290,29 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     );
 
     status == 'save' ? (evidenceData['status'] = 'draft') : null;
-    const dataToEmit = {
+    const submissionData = {
       status: status,
-      data: evidenceData,
+      ...evidenceData,
     };
-    this.submitOrSaveEvent.emit(dataToEmit);
+    this.submitSurvey(submissionData);
   }
 
+  submitSurvey(submissionData){
+    this.apiService
+    .post(
+      `${urlConfig[this.apiConfig.solutionType].update}${this.assessment.assessment.submissionId}`,
+      {
+        evidence: submissionData,
+      })
+    .pipe(
+      catchError((err) => {
+        throw new Error(`Update api has failed`);
+      })
+    )
+    .subscribe(async (res: any) => {
+      console.log('res',res)  
+    });
+  }
   setSection(name: string) {
     this.sectionName = name;
     this.enableRelevantPage();

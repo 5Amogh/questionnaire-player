@@ -1,9 +1,7 @@
 import {
-  ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
-  OnChanges,
-  SimpleChanges,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -11,13 +9,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { types, limit } from '../../constants/file-formats.json';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from '../../services/api.service';
+import * as urlConfig from '../../constants/url-config.json';
+import { catchError } from 'rxjs/operators';
+import { PrivacyPopupComponent } from '../privacy-popup/privacy-popup.component';
+import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'lib-attachment',
   templateUrl: './attachment.component.html',
   styleUrls: ['./attachment.component.scss'],
 })
-export class AttachmentComponent implements OnChanges {
+export class AttachmentComponent {
   @Input() data;
   @Input() fileSizeLimit: number = limit;
   @Input() questionId;
@@ -25,31 +28,14 @@ export class AttachmentComponent implements OnChanges {
   objectURL: string;
   formats = types;
   @ViewChild('previewModal') previewModal: TemplateRef<any>;
-  @Input() fileUploadResponse = null;
+  @ViewChild('fileInput') fileInput: ElementRef;
+  fileUploadResponse = null;
   objectType: string;
   docPreviewAlertRef:any;
   dialogRef: any;
   @Input() questionFile;
-  constructor(private dialog: MatDialog) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['fileUploadResponse'] && !changes['fileUploadResponse'].firstChange && this.fileUploadResponse?.status) {
-      const status = this.fileUploadResponse?.status;
-      this.closeDialog();
-      const successMessage = 'File uploaded successfully!';
-      const failureMessage = 'Unable to upload the file. Please try again.';
-      const alertDialogConfig = {
-        message: status === 200 ? successMessage : failureMessage,
-        acceptLabel: 'Ok',
-        cancelLabel: null,
-      };
-
-      if (status == 200) {
-        this.data.files.push(this.fileUploadResponse.data);
-      }
-      this.openAlert(alertDialogConfig);
-    }
-  }
+  public isConsentGiven = false;
+  constructor(private dialog: MatDialog, private http:HttpClient, private apiService:ApiService,public toastService:ToastService) { }
 
   onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -67,7 +53,6 @@ export class AttachmentComponent implements OnChanges {
       return;
     }
     this.formData = new FormData();
-    let fileType;
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
     fileNames.map((fileName, index) => {
@@ -96,11 +81,75 @@ export class AttachmentComponent implements OnChanges {
           cancelLabel: null,
         };
         this.openAlert(alertDialogConfig);
-        window.postMessage(fileDetails);
+        this.fileUpload(fileDetails);
       }
-
       });
       event.target.value = '';
+  }
+
+  fileUpload(data){
+    let payload: any = {};
+    payload['ref'] = 'survey';
+    payload['request'] = {};
+    const submissionId = data.submissionId;
+    payload['request'][submissionId] = {
+      files: [data.name],
+    };
+    this.apiService.post(urlConfig.presignedUrl,payload).pipe(
+        catchError((err:any) => {
+          console.error('Unable to upload the file. Please try again',err);
+          this.fileUploadResponse = {
+            status: 400,
+            data: null,
+            question_id: data.question_id,
+          };
+          throw Error(err)
+        })
+      )
+      .subscribe((response: any) => {
+        const presignedUrlData = response['result'][submissionId].files[0];
+        const headers = new HttpHeaders({
+          'Content-Type': 'multipart/form-data'
+        });
+        this.http
+          .put(`${presignedUrlData.url}`, data.file, {headers})
+          .pipe(
+            catchError(err => {
+              console.error('Unable to upload the file. Please try again');
+              this.fileUploadResponse = {
+                status: 400,
+                data: null,
+                question_id: data.question_id,
+              };
+              throw Error(err)
+            })
+          )
+          .subscribe((cloudResponse: any) => {            
+            const obj: any = {
+              name: data.name,
+              url: `${presignedUrlData.url}`.split('?')[0],
+              previewUrl:presignedUrlData.getDownloadableUrl[0]
+            };
+            for (const key of Object.keys(presignedUrlData.payload)) {
+              obj[key] = presignedUrlData['payload'][key];
+            }
+            this.fileUploadResponse = {
+              status: 200,
+              data: obj,
+              question_id: data.question_id,
+            };
+            this.closeDialog();
+            const alertDialogConfig = {
+              message: 'File uploaded successfully!',
+              acceptLabel: 'Ok',
+              cancelLabel: null,
+            };
+            this.data.files.push(this.fileUploadResponse.data);
+            this.openAlert(alertDialogConfig);
+  
+          });
+         
+      });
   }
 
   filesTrackBy(index, file) {
@@ -138,6 +187,10 @@ export class AttachmentComponent implements OnChanges {
       this.openAlert(alertDialogConfig,true);
     }
 
+  }
+
+  openUrl(url:string){
+    window.open(url,'_blank')
   }
 
   fileLimitCross() {
@@ -185,15 +238,6 @@ export class AttachmentComponent implements OnChanges {
     return files;
   }
 
-  preSignedUrl(files) {
-    let payload = {};
-    payload['ref'] = 'survey';
-    payload['request'] = {};
-    payload['request'][this.data.submissionId] = {
-      files: files,
-    };
-  }
-
   async deleteAttachment(fileIndex?) {
     const alertDialogConfig = {
       message: 'Do you want to delete the file?',
@@ -206,32 +250,43 @@ export class AttachmentComponent implements OnChanges {
     }
     this.data.files.splice(fileIndex, 1);
   }
-
-  async onAddApproval(file) {
-    let html = `
-    ${'Evidence content policy'}<a href='/term-of-use.html' target="_blank">${'Evidence content policy'}</a> .${'Evidence content policy'}
-    `;
-    const alertConfig = {
-      message: html,
-      acceptLable: 'Upload',
-      cancelLable: 'Do not upload',
-    };
-    let returnData = await this.openAlert(alertConfig);
-    if (returnData) {
-      file.click();
-    } else {
-      this.notAccepted();
-      return;
+  async handleFileUpload(questionId: string) {
+    try {
+      const data = await this.showPrivacyPolicyPopup().toPromise();
+      
+      if (data && data.isChecked && data.upload) {
+        this.isConsentGiven = true;
+        this.questionId = questionId;
+  
+        const fileInputElement = document.getElementById(questionId) as HTMLInputElement;
+        if (fileInputElement) {
+          fileInputElement.click();
+        }
+      } else {
+        this.toastService.showToast('Evidence not uploaded. Please click on attach and accept the content policy terms.', 'danger');
+      }
+    } catch (error) {
+      console.error('Error handling file upload:', error);
+      this.toastService.showToast('An error occurred. Please try again.', 'danger');
     }
   }
-
-  notAccepted(): void {
-    const alertConfig = {
-      message: 'Terms Rejected',
-      acceptLabel: 'Ok',
-      cancelLabel: null,
-    };
-    this.openAlert(alertConfig);
+  
+  onFileSelected(event: Event) {
+    if (this.isConsentGiven) {
+      this.basicUpload(event);
+      this.isConsentGiven = false;
+    } else {
+      this.toastService.showToast('Please accept the terms before uploading.', 'danger');
+    }
+  }
+  
+  showPrivacyPolicyPopup(): Observable<any> {
+    const dialogRef = this.dialog.open(PrivacyPopupComponent, {
+      width: '400px',
+      minHeight: '150px'
+    });
+  
+    return dialogRef.afterClosed();
   }
 
   docLoader() {

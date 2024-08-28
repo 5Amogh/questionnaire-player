@@ -41,9 +41,12 @@ import { SanitizeUrlPipe } from './pipes/sanitize-url.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { SortKeysPipe } from './pipes/sort-keys.pipe';
 import { TextAreaComponent } from './components/text-area/text-area.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ApiInterceptor } from './services/api.interceptor';
+import { PrivacyPopupComponent } from './components/privacy-popup/privacy-popup.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -76,7 +79,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     SanitizeUrlPipe,
     PaginatorComponent,
     SortKeysPipe,
-    TextAreaComponent
+    TextAreaComponent,
+    PrivacyPopupComponent
     ],
   imports: [
     CommonModule,
@@ -97,7 +101,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatNativeDateModule,
     MatTooltipModule,
     MatPaginatorModule,
-    NgxDocViewerModule
+    HttpClientModule,
+    MatSnackBarModule
     ],
   exports: [],
   providers: [
@@ -114,6 +119,11 @@ const MAT_CUSTOM_DATE_FORMATS = {
       provide: LOCALE_ID,
       useValue: 'en-in',
     },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:ApiInterceptor,
+      multi:true
+    }
   ]
 })
 export class QuestionnairePlayerModule {}

@@ -12,11 +12,18 @@ export class AppComponent implements OnInit, OnDestroy {
   sections!: any[];
   assessment!: any;
   fileUploadResponse: any = null;
+  apiConfig = {}
   constructor(public fb: FormBuilder, public http: HttpClient) {}
 
   ngOnInit() {
     window.addEventListener('message', this.receiveMessage.bind(this), false);
-    this.assessment = mockData
+    this.assessment = mockData;
+    this.apiConfig ={
+      baseURL:'https://dev.elevate-apis.shikshalokam.org',
+      userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxNjIsIm5hbWUiOiJyYWh1bCIsInNlc3Npb25faWQiOjU5MzAsIm9yZ2FuaXphdGlvbl9pZCI6MjQsInJvbGVzIjpbeyJpZCI6MSwidGl0bGUiOiJ1c2VyIiwidXNlcl90eXBlIjowLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjEsInZpc2liaWxpdHkiOiJQVUJMSUMifSx7ImlkIjozLCJ0aXRsZSI6Im1lbnRlZSIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoxLCJ2aXNpYmlsaXR5IjoiUFVCTElDIn0seyJpZCI6NCwidGl0bGUiOiJhZG1pbiIsInVzZXJfdHlwZSI6MSwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoxLCJ2aXNpYmlsaXR5IjoiUFVCTElDIn0seyJpZCI6NSwidGl0bGUiOiJvcmdfYWRtaW4iLCJ1c2VyX3R5cGUiOjEsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MSwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjYsInRpdGxlIjoic2Vzc2lvbl9tYW5hZ2VyIiwidXNlcl90eXBlIjowLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjEsInZpc2liaWxpdHkiOiJQVUJMSUMifSx7ImlkIjo4LCJ0aXRsZSI6InB1YmxpYyIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoxLCJ2aXNpYmlsaXR5IjoiUFVCTElDIn0seyJpZCI6MTAsInRpdGxlIjoicmV2aWV3ZXIiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MSwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9XX0sImlhdCI6MTcyNDY1MjU5OSwiZXhwIjoxNzI0NzM4OTk5fQ.YYdeeWepjTsv73vkdKzODFkkmpg3-8SMMOuRuUcs_tQ',
+      solutionId:'66cc1fd6933415620e0cebe9',
+      solutionType:'survey'
+    }
   }
 
   receiveMessage(event) {

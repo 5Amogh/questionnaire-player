@@ -4,43 +4,21 @@
             "png",
             "jpg",
             "jpeg",
-            "webp",
             "image/png",
             "image/jpg",
-            "image/jpeg",
-            "image/webp"
+            "image/jpeg"
         ],
         "video": [
             "mp4",
-            "video/mp4",
-            "webm",
-            "video/webm"
+            "video/mp4"
         ],
         "audio": [
-            "audio/mp3",
-            "audio/wav",
-            "wav",
-            "mp3"
         ],
         "pdf": [
             "pdf",
             "application/pdf"
         ],
         "doc":[
-            "doc",
-            "xlsx",
-            "txt",
-            "docx",
-            "xls",
-            "csv",
-            "ppt",
-            "application/doc",
-            "application/xlsx",
-            "application/txt",
-            "application/docx",
-            "application/xls",
-            "application/csv",
-            "application/ppt"
         ]
     },
     "limit": 50

@@ -1,0 +1,11 @@
+{
+    "survey":{
+        "details":"/samiksha/v1/surveys/details/?solutionId=",
+        "update":"/samiksha/v1/surveyupdates/update/"
+    },
+    "observation":{
+        "details":"/samiksha/v1/surveys/details/?solutionId=",
+        "update":"/samiksha/v1/surveySubmissions/update/"
+    },
+    "presignedUrl":"/samiksha/v1/files/preSignedUrls"
+}

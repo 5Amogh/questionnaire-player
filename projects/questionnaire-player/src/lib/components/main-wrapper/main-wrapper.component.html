@@ -23,8 +23,8 @@
       </div>
         <span [id]="section.name" [ngStyle]="{display:sections.length == 1 ? 'block':'none'}">
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
-          [fileUploadResponse]="fileuploadresponse" [isSubmitted]="evidence?.isSubmitted"
-          [fileSizeLimit]="fileSizeLimit"></lib-main>
+          [isSubmitted]="evidence?.isSubmitted"
+          ></lib-main>
         </span>
     </div>
   </form>

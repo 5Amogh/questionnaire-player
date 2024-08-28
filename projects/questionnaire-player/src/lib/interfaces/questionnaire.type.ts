@@ -202,6 +202,7 @@ export interface ImageCompression {
 
 export interface ApiConfiguration{
   baseURL:string;
-  bearerToken:string;
   userAuthToken:string;
+  solutionId:string;
+  solutionType:'survey' | 'observation';
 }

@@ -1,0 +1,22 @@
+<div style="padding: 10px;">
+    <div class="d-flex d-flex-r d-flex-jc mb-3 font-bold text-xl">Upload Evidences</div>
+    <hr>
+    <div class="d-flex d-flex-r mt-10">
+        <mat-checkbox [(ngModel)]="isChecked" class="mr-3"></mat-checkbox>
+        <div>
+            <span>I confirm that the content submitted by me comply with the terms and policies of Elevate, including Elevate's </span>
+            <a href="https://shikshalokam.org/mentoring/privacy-policy/" class="text-blue-600" target="_blank">Content Policy</a>.
+            <span> I have made sure that I do not violate other's copyright, privacy or third party rights</span>
+        </div>
+    </div>
+    <div class="d-flex d-flex-r mt-10">
+        <button  mat-flat-button (click)="closePopup(false)" class="w-full mr-3 !rounded-3xl"
+        [ngClass]="{'primary-button':!isChecked,'primary-button-outline':isChecked}">
+        Do not upload
+        </button>
+        <button  mat-flat-button (click)="closePopup(true)" [disabled]="!isChecked" color="primary" class="w-full !rounded-3xl"
+        [ngClass]="{'primary-button':isChecked,'disabled-button':!isChecked}">
+        Upload
+        </button>
+    </div>
+</div>
