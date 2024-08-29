@@ -8,3 +8,15 @@
     text-align: center;
     background: rgb(233, 232, 217);
   }
+
+  ::ng-deep{
+    .mat-mdc-slider.mat-primary, .mat-mdc-slider.mat-accent  {
+      --mdc-slider-handle-color: var(--primary-color) !important;
+      --mdc-slider-focus-handle-color: var(--primary-color) !important;
+      --mdc-slider-hover-handle-color: var(--primary-color) !important;
+      --mdc-slider-active-track-color: var(--primary-color) !important;
+      --mdc-slider-inactive-track-color: var(--primary-color) !important;
+      --mdc-slider-with-tick-marks-inactive-container-color: var(--primary-color) !important;
+      --mat-mdc-slider-ripple-color: var(--primary-color) !important;
+    }
+  }

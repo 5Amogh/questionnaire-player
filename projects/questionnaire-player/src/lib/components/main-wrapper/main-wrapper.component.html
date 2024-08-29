@@ -1,11 +1,4 @@
-<div class="wrapper">
-  <!-- <div class="d-flex flex-dr flex-gap-8 p-12 top-note custom-font" [ngClass]="{'submit-note':evidence?.isSubmitted}">
-    <mat-icon >
-      info
-    </mat-icon>
-    <div *ngIf="evidence">{{ !evidence?.isSubmitted ? "Survey valid till "+ (endDate | date): "Your response has already been submitted." }}</div>
-  </div> -->
-
+<div *ngIf="loaded" class="wrapper">
   <form [formGroup]="questionnaireForm" class="main custom-font">
     <div *ngIf="!listing && sections?.length != 1" style="color: var(--primary-color);">
       <h1 style="margin-left: 1.5rem;">List of Sections</h1>
@@ -44,7 +37,11 @@
     </button>
   </div>
 </div>
-
+<div class="spinner-overlay" *ngIf="!loaded">
+  <mat-progress-spinner class="spinner" [color]="color" [mode]="mode" 
+      [strokeWidth]="strokeWidth">
+  </mat-progress-spinner>
+</div>
 <ng-template #questionMapModal>
   <div style="padding: 0 4px;">
     <div mat-dialog-title class="d-flex flex-dr flex-ai-center flex-gap-3 flex-jc-flex-start p-10"

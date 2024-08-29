@@ -3,7 +3,7 @@
     <div
       mat-dialog-title
       class="d-flex flex-dr flex-ai-center flex-jc-flex-start flex-gap-3 py-0 px-10"
-      style="color: var(--primary-color);"
+      [ngStyle]="{'color': data.type == 'success' ? '#008000':'var(--primary-color)'}"
     >
       <mat-icon>info</mat-icon>{{ data?.title }}
     </div>

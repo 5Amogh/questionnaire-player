@@ -7,16 +7,14 @@
 $my-primary: mat.define-palette(mat.$indigo-palette);
 $my-accent: mat.define-palette(mat.$indigo-palette);
 
-$my-theme: mat.define-light-theme((
- color: (
-   primary: $my-primary,
-   accent:$my-accent
- ),
-));
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+        accent:$my-accent ),
+    ));
 
 @include mat.all-component-themes($my-theme);
 
-:root{
+:root {
+  --mdc-circular-progress-active-indicator-color: var(--primary-color);
   --mdc-filled-text-field-caret-color: var(--primary-color);
   --mdc-filled-text-field-focus-active-indicator-color: var(--primary-color);
   --mdc-filled-text-field-focus-label-text-color: var(--primary-color);
@@ -36,4 +34,5 @@ $my-theme: mat.define-light-theme((
   --mat-stepper-header-selected-state-icon-background-color: var(--primary-color);
   --mat-stepper-header-done-state-icon-background-color: var(--primary-color);
   --mat-stepper-header-edit-state-icon-background-color: var(--primary-color);
+
 }

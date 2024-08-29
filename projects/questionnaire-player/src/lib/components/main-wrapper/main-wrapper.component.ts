@@ -24,6 +24,12 @@ import { MainComponent } from '../main/main.component';
 import { ApiService } from '../../services/api.service';
 import { catchError } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
+import { ToastService } from '../../services/toast.service';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { Observable } from 'rxjs';
+import { AlertComponent } from '../alert/alert.component';
+import { Location } from '@angular/common';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -45,11 +51,18 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   sectionName: string;
   listing = false;
   assessment: any;
+  loaded = false;
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  strokeWidth = 4;
+  dialogRef: any;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
     public questionnaireService: QuestionnaireService,
-    public apiService:ApiService
+    public apiService:ApiService,
+    public toaster:ToastService,
+    public location:Location
   ) {}
   @HostListener('window:beforeunload')
   unloadNotification() {
@@ -78,8 +91,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
         this.setApiService();
         this.fetchDetails();
       }
-
-
   }
 
   setApiService(){
@@ -96,17 +107,23 @@ export class MainWrapperComponent implements OnInit, OnChanges {
       })
     )
     .subscribe((res:any) => {
-      this.assessment = this.questionnaireService.mapSubmissionToAssessment(
-        res.result
-      );
-      this.evidence = this.assessment.assessment.evidences[0];
-      this.evidence.startTime = Date.now();
-      this.endDate = new Date(
-        new Date(this.assessment.assessment.endDate).getTime() +
-          new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
-            60000
-      );
-      this.sections = this.evidence.sections;
+      if(res.result){
+        this.assessment = this.questionnaireService.mapSubmissionToAssessment(
+          res.result
+        );
+        this.evidence = this.assessment.assessment.evidences[0];
+        this.evidence.startTime = Date.now();
+        this.endDate = new Date(
+          new Date(this.assessment.assessment.endDate).getTime() +
+            new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
+              60000
+        );
+        this.sections = this.evidence.sections;
+        this.loaded = true;
+      }else{
+        this.toaster.showToast('Something went wrong, Please try again later','danger',5000)
+      }
+
   });
 }
   ngOnInit() {
@@ -297,7 +314,21 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.submitSurvey(submissionData);
   }
 
-  submitSurvey(submissionData){
+  async submitSurvey(submissionData){
+    console.log(submissionData);
+    if (submissionData.status !== 'draft') {
+      const confirmationParams = {
+        title: 'Confirmation',
+        message: `Are you sure you want to submit the ${this.apiConfig.solutionType}?`,
+        actionBtns: true,
+        cancelLabel: 'Cancel',
+        acceptLabel: 'Confirm',
+      };
+      const response = await this.openAlert(confirmationParams);
+      if (!response) {
+        return;
+      }
+    }
     this.apiService
     .post(
       `${urlConfig[this.apiConfig.solutionType].update}${this.assessment.assessment.submissionId}`,
@@ -310,9 +341,58 @@ export class MainWrapperComponent implements OnInit, OnChanges {
       })
     )
     .subscribe(async (res: any) => {
-      console.log('res',res)  
+      if(res.status){
+        if (submissionData.status == 'draft') {
+          const confirmationParams = {
+            title: 'Success',
+            message: `Successfully your ${this.apiConfig.solutionType} has been saved. Do you want to continue?`,
+            acceptLabel: 'Later',
+            cancelLabel: 'Continue',
+            type:'success'
+          };
+          const response = await this.openAlert(confirmationParams);
+          if(response){
+            this.location.back();
+          }
+        }else{
+          const confirmationParams = {
+            title: 'Success',
+            message: `Successfully your ${this.apiConfig.solutionType} has been submitte.`,
+            acceptLabel: 'ok',
+            type:'success'
+          };
+          const response = await this.openAlert(confirmationParams);
+          if(response){
+            this.location.back();
+          }
+        }
+      }
+     
     });
   }
+
+  async openAlert(alertDialogConfig) {
+    const dialogRef = await this.dialog.open(AlertComponent, {
+      data: alertDialogConfig,
+      width: 'auto',
+      enterAnimationDuration: 300,
+      exitAnimationDuration: 150,
+      disableClose: true
+    });
+
+     this.dialogRef = dialogRef
+
+    return new Observable<boolean>((observer) => {
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          this.dialogRef.close();
+        }
+        observer.next(res);
+        observer.complete();
+      });
+    }).toPromise();
+  }
+
   setSection(name: string) {
     this.sectionName = name;
     this.enableRelevantPage();

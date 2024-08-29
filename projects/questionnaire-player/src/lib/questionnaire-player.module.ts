@@ -47,6 +47,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './services/api.interceptor';
 import { PrivacyPopupComponent } from './components/privacy-popup/privacy-popup.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -102,7 +103,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatTooltipModule,
     MatPaginatorModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
     ],
   exports: [],
   providers: [

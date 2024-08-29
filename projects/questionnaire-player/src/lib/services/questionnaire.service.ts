@@ -22,7 +22,7 @@ export class QuestionnaireService {
         return null;
       }
       if (data.validation.regex) {
-        const forbidden = this.testRegex(data.validation.regex, control.value);
+        const forbidden = this.testRegex(data.validation.regex, control.value || '');
         return forbidden ? null : { err: 'Invalid character found' };
       }
 

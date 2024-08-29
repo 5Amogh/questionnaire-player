@@ -1,7 +1,7 @@
 {
     "survey":{
         "details":"/samiksha/v1/surveys/details/?solutionId=",
-        "update":"/samiksha/v1/surveyupdates/update/"
+        "update":"/samiksha/v1/surveySubmissions/update/"
     },
     "observation":{
         "details":"/samiksha/v1/surveys/details/?solutionId=",
