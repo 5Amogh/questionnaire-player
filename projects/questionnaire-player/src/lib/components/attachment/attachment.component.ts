@@ -31,16 +31,23 @@ export class AttachmentComponent {
   @ViewChild('fileInput') fileInput: ElementRef;
   fileUploadResponse = null;
   objectType: string;
-  docPreviewAlertRef:any;
+  docPreviewAlertRef: any;
   dialogRef: any;
   @Input() questionFile;
   public isConsentGiven = false;
-  constructor(private dialog: MatDialog, private http:HttpClient, private apiService:ApiService,public toastService:ToastService) { }
+  constructor(
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private apiService: ApiService,
+    public toastService: ToastService
+  ) {}
 
   onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      const inputElement = document.getElementById(`${this.questionId}`) as HTMLElement;
+      const inputElement = document.getElementById(
+        `${this.questionId}`
+      ) as HTMLElement;
       inputElement.click();
     }
   }
@@ -56,8 +63,8 @@ export class AttachmentComponent {
     Array.from(files).forEach((f) => this.formData.append('file', f));
     const fileNames = this.getFileNames(this.formData);
     fileNames.map((fileName, index) => {
-      const fileType = this.getFileType(fileName); 
-      if(!fileType || fileType == undefined){
+      const fileType = this.getFileType(fileName);
+      if (!fileType || fileType == undefined) {
         const alertDialogConfig = {
           title: null,
           message: `Invalid file format.`,
@@ -66,13 +73,13 @@ export class AttachmentComponent {
         };
         this.openAlert(alertDialogConfig);
         return;
-      }else{
+      } else {
         const fileDetails = {
           name: fileName,
           type: fileType,
           question_id: this.questionId,
           submissionId: this.data.submissionId,
-          file: files[index]
+          file: files[index],
         };
         const alertDialogConfig = {
           title: null,
@@ -83,11 +90,11 @@ export class AttachmentComponent {
         this.openAlert(alertDialogConfig);
         this.fileUpload(fileDetails);
       }
-      });
-      event.target.value = '';
+    });
+    event.target.value = '';
   }
 
-  fileUpload(data){
+  fileUpload(data) {
     let payload: any = {};
     payload['ref'] = 'survey';
     payload['request'] = {};
@@ -95,40 +102,42 @@ export class AttachmentComponent {
     payload['request'][submissionId] = {
       files: [data.name],
     };
-    this.apiService.post(urlConfig.presignedUrl,payload).pipe(
-        catchError((err:any) => {
-          console.error('Unable to upload the file. Please try again',err);
+    this.apiService
+      .post(urlConfig.presignedUrl, payload)
+      .pipe(
+        catchError((err: any) => {
+          console.error('Unable to upload the file. Please try again', err);
           this.fileUploadResponse = {
             status: 400,
             data: null,
             question_id: data.question_id,
           };
-          throw Error(err)
+          throw Error(err);
         })
       )
       .subscribe((response: any) => {
         const presignedUrlData = response['result'][submissionId].files[0];
         const headers = new HttpHeaders({
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
         });
         this.http
-          .put(`${presignedUrlData.url}`, data.file, {headers})
+          .put(`${presignedUrlData.url}`, data.file, { headers })
           .pipe(
-            catchError(err => {
+            catchError((err) => {
               console.error('Unable to upload the file. Please try again');
               this.fileUploadResponse = {
                 status: 400,
                 data: null,
                 question_id: data.question_id,
               };
-              throw Error(err)
+              throw Error(err);
             })
           )
-          .subscribe((cloudResponse: any) => {            
+          .subscribe((cloudResponse: any) => {
             const obj: any = {
               name: data.name,
               url: `${presignedUrlData.url}`.split('?')[0],
-              previewUrl:presignedUrlData.getDownloadableUrl[0]
+              previewUrl: presignedUrlData.getDownloadableUrl[0],
             };
             for (const key of Object.keys(presignedUrlData.payload)) {
               obj[key] = presignedUrlData['payload'][key];
@@ -146,9 +155,7 @@ export class AttachmentComponent {
             };
             this.data.files.push(this.fileUploadResponse.data);
             this.openAlert(alertDialogConfig);
-  
           });
-         
       });
   }
 
@@ -184,13 +191,12 @@ export class AttachmentComponent {
         acceptLabel: 'Close Preview',
         cancelLabel: null,
       };
-      this.openAlert(alertDialogConfig,true);
+      this.openAlert(alertDialogConfig, true);
     }
-
   }
 
-  openUrl(url:string){
-    window.open(url,'_blank')
+  openUrl(url: string) {
+    window.open(url, '_blank');
   }
 
   fileLimitCross() {
@@ -210,13 +216,13 @@ export class AttachmentComponent {
       width: 'auto',
       enterAnimationDuration: 300,
       exitAnimationDuration: 150,
-      disableClose: true
+      disableClose: true,
     });
 
-    if(msgAlertForDoc){
-      this.docPreviewAlertRef = dialogRef
-    }else{
-      this.dialogRef = dialogRef
+    if (msgAlertForDoc) {
+      this.docPreviewAlertRef = dialogRef;
+    } else {
+      this.dialogRef = dialogRef;
     }
 
     return new Observable<boolean>((observer) => {
@@ -253,39 +259,50 @@ export class AttachmentComponent {
   async handleFileUpload(questionId: string) {
     try {
       const data = await this.showPrivacyPolicyPopup().toPromise();
-      
+
       if (data && data.isChecked && data.upload) {
         this.isConsentGiven = true;
         this.questionId = questionId;
-  
-        const fileInputElement = document.getElementById(questionId) as HTMLInputElement;
+
+        const fileInputElement = document.getElementById(
+          questionId
+        ) as HTMLInputElement;
         if (fileInputElement) {
           fileInputElement.click();
         }
       } else {
-        this.toastService.showToast('Evidence not uploaded. Please click on attach and accept the content policy terms.', 'danger');
+        this.toastService.showToast(
+          'Evidence not uploaded. Please click on attach and accept the content policy terms.',
+          'danger'
+        );
       }
     } catch (error) {
       console.error('Error handling file upload:', error);
-      this.toastService.showToast('An error occurred. Please try again.', 'danger');
+      this.toastService.showToast(
+        'An error occurred. Please try again.',
+        'danger'
+      );
     }
   }
-  
+
   onFileSelected(event: Event) {
     if (this.isConsentGiven) {
       this.basicUpload(event);
       this.isConsentGiven = false;
     } else {
-      this.toastService.showToast('Please accept the terms before uploading.', 'danger');
+      this.toastService.showToast(
+        'Please accept the terms before uploading.',
+        'danger'
+      );
     }
   }
-  
+
   showPrivacyPolicyPopup(): Observable<any> {
     const dialogRef = this.dialog.open(PrivacyPopupComponent, {
       width: '400px',
-      minHeight: '150px'
+      minHeight: '150px',
     });
-  
+
     return dialogRef.afterClosed();
   }
 

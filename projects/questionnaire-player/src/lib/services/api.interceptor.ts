@@ -7,20 +7,25 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
+import * as urlConfig from '../constants/url-config.json'
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private apiSerive:ApiService) {}
+  constructor(private apiService:ApiService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(request.url.includes('samiksha')){
+    const allUrls = [
+      ...Object.values(urlConfig.survey),
+      ...Object.values(urlConfig.observation),
+      urlConfig.presignedUrl
+    ];
+    if (allUrls.some(url => request.url.includes(url))) {
       const clonedRequest = request.clone({
-        setHeaders:{
-          'X-auth-token':this.apiSerive.token,
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
+        setHeaders: {
+          'X-auth-token': this.apiService.token,
+        },
+      });
       return next.handle(clonedRequest);
     }
     return next.handle(request);

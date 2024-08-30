@@ -290,7 +290,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
         this.domQuery(this.sections[i].name, 'none');
       }
     }
-    console.log('in enable rel page',this.sectionName)
     this.domQuery(this.sectionName, 'block');
   }
 
@@ -315,7 +314,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   }
 
   async submitSurvey(submissionData){
-    console.log(submissionData);
     if (submissionData.status !== 'draft') {
       const confirmationParams = {
         title: 'Confirmation',
@@ -425,7 +423,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
 
   goToQuestion(id, pageIndex,sectionName) {
     this.setSection(sectionName)
-    console.log('id & page index', id, pageIndex);
     this.mainComponent.pageIndex = pageIndex;
     this.mainComponent.handlePageEvent({pageIndex:pageIndex})
     this.closeModal();
