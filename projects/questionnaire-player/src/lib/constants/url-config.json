@@ -1,6 +1,6 @@
 {
     "survey":{
-        "details":"/survey/v1/surveys/details/?solutionId=",
+        "details":"/survey/v1/surveys/details?solutionId=",
         "update":"/survey/v1/surveySubmissions/update/"
     },
     "observation":{
