@@ -30,6 +30,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
+import { limit } from '../../constants/file-formats.json'
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -45,6 +46,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
+  @Input() fileSizeLimit = limit;
   questionMap = {};
   pageMsg = new Map();
   endDate: Date;
@@ -64,21 +66,23 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     public toaster:ToastService,
     public location:Location
   ) {}
-  @HostListener('window:beforeunload')
-  unloadNotification() {
-    return this.confirmBeforeLeave();
-  }
-
-  @HostListener('window:popstate')
-  popStateListener() {
-    return this.confirmBeforeLeave();
-  }
-
-  confirmBeforeLeave(): boolean {
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification(event: BeforeUnloadEvent): void {
     if (this.questionnaireForm.dirty) {
-      return confirm('Are you sure you want to leave?');
+      event.preventDefault();
+      event.returnValue = 'Are you sure you want to leave?';
     }
-    return true;
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  popStateListener(event: PopStateEvent): void {
+    if (this.questionnaireForm.dirty) {
+      const shouldLeave = confirm('Are you sure you want to leave?');
+      if (!shouldLeave) {
+        event.preventDefault(); 
+        history.pushState(null, '', window.location.href);
+      }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

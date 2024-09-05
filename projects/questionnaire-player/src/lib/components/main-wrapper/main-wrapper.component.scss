@@ -113,6 +113,16 @@
     height: 50px;
   }
 
+  .sticky-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: whitesmoke;
+  }
+  
+
 ::ng-deep{
   .mat-mdc-mini-fab{
     box-shadow: none !important;
@@ -120,5 +130,9 @@
 
   .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
     stroke: var(--primary-color) !important;
+  }
+
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding: 16px !important;
   }
 }

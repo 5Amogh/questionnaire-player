@@ -259,23 +259,25 @@ export class AttachmentComponent {
   async handleFileUpload(questionId: string) {
     try {
       const data = await this.showPrivacyPolicyPopup().toPromise();
-
-      if (data && data.isChecked && data.upload) {
-        this.isConsentGiven = true;
-        this.questionId = questionId;
-
-        const fileInputElement = document.getElementById(
-          questionId
-        ) as HTMLInputElement;
-        if (fileInputElement) {
-          fileInputElement.click();
+      if(data){
+        if (data.isChecked && data.upload) {
+          this.isConsentGiven = true;
+          this.questionId = questionId;
+  
+          const fileInputElement = document.getElementById(
+            questionId
+          ) as HTMLInputElement;
+          if (fileInputElement) {
+            fileInputElement.click();
+          }
+        } else{
+          this.toastService.showToast(
+            'Evidence not uploaded. Please click on attach and accept the content policy terms.',
+            'danger'
+          );
         }
-      } else {
-        this.toastService.showToast(
-          'Evidence not uploaded. Please click on attach and accept the content policy terms.',
-          'danger'
-        );
       }
+   
     } catch (error) {
       console.error('Error handling file upload:', error);
       this.toastService.showToast(
