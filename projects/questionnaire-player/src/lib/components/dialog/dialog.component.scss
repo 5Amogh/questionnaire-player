@@ -16,12 +16,11 @@
     border: solid var(--primary-color) 0.063rem;
 }
 
-.paddingAllSide{
-    padding: 1.25rem;
+.info{
+    flex-shrink: 0.5;
+    margin-top: 0.25rem;
 }
 
-@media screen and (max-width:768px) {
-    .spacing{
-        padding-right: 0.938rem;
-    }
-  }
+.note{
+    flex-shrink: 3;
+}

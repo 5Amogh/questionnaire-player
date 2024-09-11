@@ -1,18 +1,19 @@
 <ng-template #modal>
-  <div class="paddingAllSide">
+  <div class="p-16">
     <div
       mat-dialog-title
-      class="d-flex flex-ai-center flex-jc-flex-start flex-dr flex-gap-3 py-0 px-10"
+      class="d-flex flex-ai-start flex-dr flex-gap-4 p-0 "
       style="color: var(--primary-color);"
     >
-      <mat-icon class="spacing">info</mat-icon>{{ hintModalNote }}
+      <mat-icon class="info">info</mat-icon>
+      <div class="note">{{ hintModalNote }}</div>
     </div>
     <mat-divider></mat-divider>
     <h2 mat-dialog-content class="flex-ai-self-start">
       {{ hint }}
     </h2>
     <div mat-dialog-actions class="d-flex flex-jc-center">
-      <button mat-dialog-close (click)="(closeHint)" class="btn">
+      <button mat-dialog-close (click)="closeHint()" class="btn">
         {{ hintCloseText }}
       </button>
     </div>
