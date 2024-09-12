@@ -43,6 +43,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   sections: Section[];
   questionnaireForm: FormGroup;
   @Output() submitOrSaveEvent = new EventEmitter<any>();
+  @Output() reloadEvent = new EventEmitter<any>();
+
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
@@ -58,6 +60,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   mode: ProgressSpinnerMode = 'indeterminate';
   strokeWidth = 4;
   dialogRef: any;
+  @Input() triggerFunction: boolean;
+
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -68,20 +72,27 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   ) {}
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification(event: BeforeUnloadEvent): void {
-    if (this.questionnaireForm.dirty) {
-      event.preventDefault();
-      event.returnValue = 'Are you sure you want to leave?';
+    if (this.questionnaireForm?.dirty) {
+     
+      // event.preventDefault();
+      // console.log("reload")
+      this.reloadEvent.emit(event);
+      // event.returnValue = false;
+      // event.preventDefault();
+
     }
   }
 
   @HostListener('window:popstate', ['$event'])
   popStateListener(event: PopStateEvent): void {
-    if (this.questionnaireForm.dirty) {
-      const shouldLeave = confirm('Are you sure you want to leave?');
-      if (!shouldLeave) {
+    if (this.questionnaireForm?.dirty) {
         event.preventDefault(); 
-        history.pushState(null, '', window.location.href);
-      }
+      this.submitOrSaveEvent.emit(true);
+      // const shouldLeave = confirm('Are you sure you want to leave?');
+      // if (!shouldLeave) {
+      //   event.preventDefault(); 
+      //   history.pushState(null, '', window.location.href);
+      // }
     }
   }
 
@@ -94,6 +105,10 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     ) {
         this.setApiService();
         this.fetchDetails();
+      }
+
+      if (changes['triggerFunction'] && this.triggerFunction) {
+        this.submission('draft');
       }
   }
 
@@ -344,6 +359,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     )
     .subscribe(async (res: any) => {
       if(res.status){
+        this.questionnaireForm.markAsPristine();
+      this.submitOrSaveEvent.emit(false);
         if (submissionData.status == 'draft') {
           const confirmationParams = {
             title: 'Success',
