@@ -58,6 +58,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   mode: ProgressSpinnerMode = 'indeterminate';
   strokeWidth = 4;
   dialogRef: any;
+  isExpired: boolean;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -122,6 +123,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
               60000
         );
+        this.isExpired = new Date() > this.endDate;
         this.sections = this.evidence.sections;
         this.loaded = true;
       }else{

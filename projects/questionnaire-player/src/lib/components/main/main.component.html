@@ -42,7 +42,7 @@
       margin: question.responseType != 'pageQuestions' ? '1.5rem' : 0
     }" [ngClass]="{
       'mat-elevation-z8': question.responseType != 'pageQuestions',
-      activeCard: question.responseType != 'pageQuestions' , 'submitted' : isSubmitted
+      activeCard: question.responseType != 'pageQuestions' , 'submitted' : (isSubmitted || isExpired)
     }" class="responsive-margin" *ngIf="!question.visibleIf?.length || question.canDisplay == true">
     <div [ngClass]="{ content: question.responseType != 'pageQuestions' }">
       <div class="spaceBetweenContent">

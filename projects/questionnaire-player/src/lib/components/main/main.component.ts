@@ -29,6 +29,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   dimmerIndex;
   isDimmed;
   hintModalNote:string
+  @Input() isExpired:boolean;
 
   pageSize = 1; //Each Question object from Question representing each page irrespective of number of questions it includes
   pageIndex = 0;
