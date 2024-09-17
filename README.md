@@ -1,40 +1,98 @@
 # QuestionnairePlayer
 
-The Questionnaire Player is a webcomponent built with the help of angular version 16.2.1
+The **Questionnaire Player** is a web component built with Angular (version 16.2.1).
 
-## Prerequisites for setup
+## Prerequisites for Setup
 
-Angular 16, Nodejs 16.19.0
+- Angular 16
+- Node.js 16.19.0
 
 ## Setup
 
-Run `npm install` after cloning the repo in local to install the necessary dependencies
+1. Run `npm install` after cloning the repo locally to install the necessary dependencies.
 
-## Build QuestionnairePlayer and generate the webcomponent 
+### Build QuestionnairePlayer and Generate the Web Component
 
-Run `npm run build-web-comp` To build the player with the latest changes and to reflect the changes in webcomponent 
+2. Run `npm run build-web-comp` to build the player with the latest changes and reflect the updates in the web component.
 
-## Demo Application
+### Demo Application
 
-Navigate to `projects/questionnaire-app` and Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+3. Navigate to `projects/questionnaire-app` and run `ng serve` for a dev server. Open [http://localhost:4200/](http://localhost:4200/) in your browser. The application will automatically reload when source files are changed.
+   - If changes are made to the library, running `npm run build-web-comp` will automatically reflect those changes in the demo app (applicable only to this Angular app, not the React demo app).
 
-In-case the changes have been done in the library, after successful build by `npm run build-web-comp` the changes would automatically reflect in the app as well. ( only applicable to this app and not the react demo app).
+### Web Component
 
-## Webcomponent
+4. The web component can be installed by running:
 
-The Webcomponent can be downloaded by running `npm i questionnaire-webcomponent`
+   ```bash
+   npm i questionnaire-webcomponent
+   ```
+5. In angular.json, include the published web component script under the "scripts" section (navigate to projects -> questionnaire-app -> architect -> build).
 
-In our angular.json file, we have included the published web component script under the "scripts" section (projects -> questionnaire-app -> architect -> build). This script is responsible for adding the questionnaire player web component functionality to our demo application `node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js`
+6. Path to the web component script: node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js
+To include the npm-published styles of the web component, add the following path to the "styles" section in angular.json:
+    ```bash
+    node_modules/questionnaire-webcomponent/styles.scss
+    ```
+For usage in a React app, visit the React demo repository - https://github.com/5Amogh/react-usingwebcomponent-app
 
-To include the npm published styles of the webcomponent in the demo app, use `node_modules/questionnaire-webcomponent/styles.scss` in the "styles" section (projects -> questionnaire-app -> architect -> build in angular.json)'.
+### Key Features
 
-For usage of the webcomponent in a react app, visit : [https://github.com/5Amogh/react-usingwebcomponent-app]
+1. **API-based Data Fetching**
+   - The component accepts a solution ID and configuration options via an `apiConfig` object.
+   - It fetches questionnaire data dynamically through API calls based on the provided solution ID.
 
-## Code scaffolding
+2. **Configurable Theming**
+   - Theming is flexible and configurable at the application level using CSS variables, allowing for seamless integration into various applications with customized designs.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. **Pagination**
+   - A built-in pagination system makes it easy to navigate through multi-page questionnaires.
+
+4. **Question Map (Navigation)**
+   - A question map provides a visual overview of progress:
+     - Filled questions are marked in green.
+     - Mandatory unfilled questions are highlighted in red.
+     - Non-mandatory unfilled questions are shown in light green.
+   - Clicking on a question in the map allows users to directly navigate to that question.
 
 
-## Further help
+## Adding the Web Component to an Angular Application
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Consumption in HTML File
+Once the configuration and theming are set up, you can use the web component in your HTML file as shown above. Ensure the correct configuration object (apiConfig) is passed, and adjust the fileSizeLimit if needed for file uploads within the component.
+To integrate the web component into your Angular application, include the following in your HTML file:
+
+```html
+<questionnaire-player-main
+  [apiConfig]="apiConfig"
+  [fileSizeLimit]="50"
+></questionnaire-player-main>
+```
+### Example Configuration (Angular)
+In your Angular component, you can configure the apiConfig object as follows:
+```typescript
+apiConfig = {
+  baseURL: '<base_url>',
+  userAuthToken: '<user_auth_token>',
+  solutionId: '<solution_id>',
+  solutionType: 'survey' | 'observation'
+}
+```
+### Theming Configuration
+To apply custom theming in your application, you can define CSS variables in your global styles (e.g., `:root`):
+```css
+:root {
+  --primary-color: 1B4CA1;
+  --btn-outline: 1B4CA1;
+  --error-color: rgb(150, 4, 4);
+  --question-tip: gray;
+  --general-btn-text-color: white;
+  --general-btn-hover-bg: white;
+  --secondary-btn-bg: white;
+  --secondary-btn-hover-bg: whitesmoke;
+  --card-bg: white;
+  --disabled-btn-bg: gainsboro;
+  --disabled-btn-text: gray;
+}
+```
+This allows you to control the visual appearance of the web component and ensure it aligns with your application's design.
