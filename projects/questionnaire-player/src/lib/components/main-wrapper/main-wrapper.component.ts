@@ -46,7 +46,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
-  @Input() fileSizeLimit = limit;
   questionMap = {};
   pageMsg = new Map();
   endDate: Date;

@@ -29,11 +29,14 @@ The **Questionnaire Player** is a web component built with Angular (version 16.2
    ```
 5. In angular.json, include the published web component script under the "scripts" section (navigate to projects -> questionnaire-app -> architect -> build).
 
-6. Path to the web component script: node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js
-To include the npm-published styles of the web component, add the following path to the "styles" section in angular.json:
+6. Path to the web component script:  
     ```bash
-    node_modules/questionnaire-webcomponent/styles.scss
+    "scripts":[... , "node_modules/questionnaire-webcomponent/questionnaire-player-webcomponent.js"]
     ```
+To include the npm-published styles of the web component, add the following path to the "styles" section in angular.json:
+
+        "styles":[... , "node_modules/questionnaire-webcomponent/styles.scss"]
+        
 For usage in a React app, visit the React demo repository - https://github.com/5Amogh/react-usingwebcomponent-app
 
 ### Key Features
@@ -59,25 +62,31 @@ For usage in a React app, visit the React demo repository - https://github.com/5
 ## Adding the Web Component to an Angular Application
 
 ### Consumption in HTML File
-Once the configuration and theming are set up, you can use the web component in your HTML file as shown above. Ensure the correct configuration object (apiConfig) is passed, and adjust the fileSizeLimit if needed for file uploads within the component.
 To integrate the web component into your Angular application, include the following in your HTML file:
 
 ```html
-<questionnaire-player-main
-  [apiConfig]="apiConfig"
-  [fileSizeLimit]="50"
-></questionnaire-player-main>
+<questionnaire-player-main angular [apiConfig]="apiConfig"></questionnaire-player-main>
 ```
-### Example Configuration (Angular)
+If you are using the webcomponent inside an angular application, use the attribute angular in questionnaire-player-main tag to help the webcomponent detect the input changes inside `ngOnChanges` 
+
 In your Angular component, you can configure the apiConfig object as follows:
 ```typescript
 apiConfig = {
   baseURL: '<base_url>',
+  fileSizeLimit:<fileSizeInNumber(MB)>,
   userAuthToken: '<user_auth_token>',
   solutionId: '<solution_id>',
   solutionType: 'survey' | 'observation'
 }
 ```
+
+## Configuration
+**baseURL**: Base url is necessary for making API requests to fetch, save, submit the questionnaire data
+**fileSizeLimit**: To limit the size of the file uploads for evidences, in MB.
+**userAuthToken**: Necessary to append during API requests for authentication.
+**solutionId**: Necessary to render and make changes to a survey or an observation via API requests.
+**solutionType**: To switch the endpoints for API requests and features as applicable to survey and observation.
+
 ### Theming Configuration
 To apply custom theming in your application, you can define CSS variables in your global styles (e.g., `:root`):
 ```css

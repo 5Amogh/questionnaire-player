@@ -16,7 +16,7 @@
       </div>
         <span [id]="section.name" [ngStyle]="{display:sections.length == 1 ? 'block':'none'}">
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
-          [isSubmitted]="evidence?.isSubmitted" [isExpired]="isExpired" [fileSizeLimit]="fileSizeLimit"
+          [isSubmitted]="evidence?.isSubmitted" [isExpired]="isExpired" [fileSizeLimit]="apiConfig.fileSizeLimit"
           ></lib-main>
         </span>
     </div>
