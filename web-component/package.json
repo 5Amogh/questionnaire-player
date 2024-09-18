@@ -1,6 +1,6 @@
 {
   "name": "questionnaire-webcomponent",
-  "version": "3.2.9",
+  "version": "3.2.10",
   "description": "The webcomponent for the questionnaire library",
   "main": "questionnaire-player-webcomponent.js",
   "scripts": {
