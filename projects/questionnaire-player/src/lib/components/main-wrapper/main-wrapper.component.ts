@@ -122,7 +122,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
               60000
         );
-        this.isExpired = new Date() > this.endDate;
+        this.isExpired = this.assessment.assessment.status == 'expired';
         this.sections = this.evidence.sections;
         this.loaded = true;
       }else{
