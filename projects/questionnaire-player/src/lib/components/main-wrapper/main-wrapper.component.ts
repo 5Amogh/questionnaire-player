@@ -48,7 +48,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
-  @Input() fileSizeLimit = limit;
   questionMap = {};
   pageMsg = new Map();
   endDate: Date;
@@ -60,6 +59,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   mode: ProgressSpinnerMode = 'indeterminate';
   strokeWidth = 4;
   dialogRef: any;
+  isExpired: boolean;
   @Input() saveQuestioner: boolean = false;
 
   constructor(
@@ -123,6 +123,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
               60000
         );
+        this.isExpired = this.assessment.assessment.status == 'expired';
         this.sections = this.evidence.sections;
         this.loaded = true;
       }else{

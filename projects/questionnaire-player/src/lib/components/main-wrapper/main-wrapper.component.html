@@ -16,14 +16,14 @@
       </div>
         <span [id]="section.name" [ngStyle]="{display:sections.length == 1 ? 'block':'none'}">
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
-          [isSubmitted]="evidence?.isSubmitted" [fileSizeLimit]="fileSizeLimit"
+          [isSubmitted]="evidence?.isSubmitted" [isExpired]="isExpired" [fileSizeLimit]="apiConfig.fileSizeLimit"
           ></lib-main>
         </span>
     </div>
   </form>
   <span class="sticky-footer">
     <hr class="partition" />
-    <div *ngIf="!evidence?.isSubmitted"
+    <div *ngIf="!evidence?.isSubmitted && !isExpired"
       
       class="m-16 d-flex flex-ai-center flex-jc-space-around flex-dr flex-gap-30"
     >
