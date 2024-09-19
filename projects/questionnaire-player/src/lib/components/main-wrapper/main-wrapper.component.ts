@@ -1,11 +1,8 @@
 import {
   Component,
-  EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
   TemplateRef,
   ViewChild,
@@ -30,7 +27,6 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
-import { limit } from '../../constants/file-formats.json'
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -42,7 +38,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;
-  @Output() reloadEvent = new EventEmitter<any>();
 
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
@@ -69,10 +64,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     public toaster:ToastService,
     public location:Location
   ) {}
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification(event: BeforeUnloadEvent): void {
-   this.checkFormValidity();
-  }
 
   checkFormValidity(){
     window.parent.postMessage({
