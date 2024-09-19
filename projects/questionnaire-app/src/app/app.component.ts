@@ -12,7 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
   sections!: any[];
   assessment!: any;
   fileUploadResponse: any = null;
-  apiConfig = {}
+  apiConfig = {};
+  saveQuestioner:boolean = false;
   constructor(public fb: FormBuilder, public http: HttpClient) {}
 
   ngOnInit() {
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.assessment = mockData;
     this.apiConfig ={
       baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
-      userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxNjIsIm5hbWUiOiJBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkFCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0FCQ0NBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkNBQkMiLCJzZXNzaW9uX2lkIjo2OTc3LCJvcmdhbml6YXRpb25faWQiOjI0LCJyb2xlcyI6W3siaWQiOjMsInRpdGxlIjoibWVudGVlIiwibGFiZWwiOiJNZW50ZWUiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MSwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjQsInRpdGxlIjoiYWRtaW4iLCJsYWJlbCI6IkFkbWluIiwidXNlcl90eXBlIjoxLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjEsInZpc2liaWxpdHkiOiJQVUJMSUMifSx7ImlkIjo4LCJ0aXRsZSI6InB1YmxpYyIsImxhYmVsIjoiUHVibGljIiwidXNlcl90eXBlIjowLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjEsInZpc2liaWxpdHkiOiJQVUJMSUMifSx7ImlkIjo1LCJ0aXRsZSI6Im9yZ19hZG1pbiIsImxhYmVsIjoiT3JnIEFkbWluIiwidXNlcl90eXBlIjoxLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjEsInZpc2liaWxpdHkiOiJQVUJMSUMifSx7ImlkIjoxMCwidGl0bGUiOiJyZXZpZXdlciIsImxhYmVsIjoiUmV2aWV3ZXIiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MSwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjE4LCJ0aXRsZSI6ImJsb2NrX2VkdWNhdGlvbl9vZmZpY2VyIiwibGFiZWwiOiJCbG9jayBFZHVjYXRpb24gT2ZmaWNlciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjE5LCJ0aXRsZSI6ImJsb2NrX2FjYWRlbWljX2Nvb3JkaW5hdG9yIiwibGFiZWwiOiJCbG9jayBBY2FkZW1pYyBDb29yZGluYXRvciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjIwLCJ0aXRsZSI6ImRpc3RyaWN0X2VkdWNhdGlvbl9vZmZpY2VyIiwibGFiZWwiOiJEaXN0cmljdCBFZHVjYXRpb24gT2ZmaWNlciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9XX0sImlhdCI6MTcyNTk0ODE3MSwiZXhwIjoxNzI2MDM0NTcxfQ.CpMybMuF6dXbn0vWBaVVOtTlNTU8v9eevZas580maF8',
+      userAuthToken:'',
       solutionId:'66cc1fd6933415620e0cebe9',
       solutionType:'survey'
     }
@@ -100,9 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitOrSaveEvent(event) {
-    console.log('Event emitted inside the app', event.detail);
-  }
+
   ngOnDestroy() {
     window.removeEventListener('message', this.receiveMessage);
   }

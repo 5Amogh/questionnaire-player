@@ -42,7 +42,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;
-  @Output() submitOrSaveEvent = new EventEmitter<any>();
   @Output() reloadEvent = new EventEmitter<any>();
 
   @Input() apiConfig: ApiConfiguration;
