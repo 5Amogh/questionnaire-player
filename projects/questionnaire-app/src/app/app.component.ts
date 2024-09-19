@@ -12,15 +12,16 @@ export class AppComponent implements OnInit, OnDestroy {
   sections!: any[];
   assessment!: any;
   fileUploadResponse: any = null;
-  apiConfig = {}
+  apiConfig = {};
+  saveQuestioner:boolean = false;
   constructor(public fb: FormBuilder, public http: HttpClient) {}
 
   ngOnInit() {
     window.addEventListener('message', this.receiveMessage.bind(this), false);
     this.assessment = mockData;
     this.apiConfig ={
-      baseURL:'https://dev.elevate-apis.shikshalokam.org',
-      userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNjEsIm5hbWUiOiJmYXJoYW5wYXNoYSIsInNlc3Npb25faWQiOjcwMTIsIm9yZ2FuaXphdGlvbl9pZCI6MSwicm9sZXMiOlt7ImlkIjoxMCwidGl0bGUiOiJyZXZpZXdlciIsImxhYmVsIjoiUmV2aWV3ZXIiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MSwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjE4LCJ0aXRsZSI6ImJsb2NrX2VkdWNhdGlvbl9vZmZpY2VyIiwibGFiZWwiOiJCbG9jayBFZHVjYXRpb24gT2ZmaWNlciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjIwLCJ0aXRsZSI6ImRpc3RyaWN0X2VkdWNhdGlvbl9vZmZpY2VyIiwibGFiZWwiOiJEaXN0cmljdCBFZHVjYXRpb24gT2ZmaWNlciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9LHsiaWQiOjIxLCJ0aXRsZSI6ImRpc3RyaWN0X3Jlc291cmNlX3BlcnNvbiIsImxhYmVsIjoiRGlzdHJpY3QgUmVzb3VyY2UgUGVyc29uIiwidXNlcl90eXBlIjowLCJzdGF0dXMiOiJBQ1RJVkUiLCJvcmdhbml6YXRpb25faWQiOjI0LCJ2aXNpYmlsaXR5IjoiUFVCTElDIn1dfSwiaWF0IjoxNzI1OTYzMTA5LCJleHAiOjE3MjYwNDk1MDl9.MWIW2ywKRznoOGDohPqsGx6QXyV2VVp71_s54m9ReU4',
+      baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
+      userAuthToken:'',
       solutionId:'66cc1fd6933415620e0cebe9',
       solutionType:'survey'
     }
@@ -100,9 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitOrSaveEvent(event) {
-    console.log('Event emitted inside the app', event.detail);
-  }
+
   ngOnDestroy() {
     window.removeEventListener('message', this.receiveMessage);
   }

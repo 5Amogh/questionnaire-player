@@ -42,7 +42,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   evidence: Evidence;
   sections: Section[];
   questionnaireForm: FormGroup;
-  @Output() submitOrSaveEvent = new EventEmitter<any>();
+  @Output() reloadEvent = new EventEmitter<any>();
+
   @Input() apiConfig: ApiConfiguration;
   @ViewChild('questionMapModal') public questionMapModal: TemplateRef<any>;
   @ViewChild('mainComponent') public mainComponent: MainComponent;
@@ -58,6 +59,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   strokeWidth = 4;
   dialogRef: any;
   isExpired: boolean;
+  @Input() saveQuestioner: boolean = false;
+
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -68,21 +71,14 @@ export class MainWrapperComponent implements OnInit, OnChanges {
   ) {}
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification(event: BeforeUnloadEvent): void {
-    if (this.questionnaireForm.dirty) {
-      event.preventDefault();
-      event.returnValue = 'Are you sure you want to leave?';
-    }
+   this.checkFormValidity();
   }
 
-  @HostListener('window:popstate', ['$event'])
-  popStateListener(event: PopStateEvent): void {
-    if (this.questionnaireForm.dirty) {
-      const shouldLeave = confirm('Are you sure you want to leave?');
-      if (!shouldLeave) {
-        event.preventDefault(); 
-        history.pushState(null, '', window.location.href);
-      }
-    }
+  checkFormValidity(){
+    window.parent.postMessage({
+      type: 'formDirty',
+      isDirty: this.questionnaireForm.dirty
+    }, '*');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -94,6 +90,10 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     ) {
         this.setApiService();
         this.fetchDetails();
+      }
+
+      if (changes['saveQuestioner'] && this.saveQuestioner) {
+        this.submission('draft');
       }
   }
 
@@ -146,6 +146,9 @@ export class MainWrapperComponent implements OnInit, OnChanges {
       }
     }
     this.questionnaireForm = this.fb.group({});
+    this.questionnaireForm.valueChanges.subscribe((data:any) =>{
+      this.checkFormValidity();
+    })
   }
 
   getQuestionMap() {
@@ -320,16 +323,18 @@ export class MainWrapperComponent implements OnInit, OnChanges {
 
   async submitSurvey(submissionData){
     if (submissionData.status !== 'draft') {
-      const confirmationParams = {
-        title: 'Confirmation',
-        message: `Are you sure you want to submit the ${this.apiConfig.solutionType}?`,
-        actionBtns: true,
-        cancelLabel: 'Cancel',
-        acceptLabel: 'Confirm',
-      };
-      const response = await this.openAlert(confirmationParams);
-      if (!response) {
-        return;
+      if(!this.saveQuestioner){
+        const confirmationParams = {
+          title: 'Confirmation',
+          message: `Are you sure you want to submit the ${this.apiConfig.solutionType}?`,
+          actionBtns: true,
+          cancelLabel: 'Cancel',
+          acceptLabel: 'Confirm',
+        };
+        const response = await this.openAlert(confirmationParams);
+        if (!response) {
+          return;
+        }
       }
     }
     this.apiService
@@ -345,30 +350,22 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     )
     .subscribe(async (res: any) => {
       if(res.status){
-        if (submissionData.status == 'draft') {
-          const confirmationParams = {
-            title: 'Success',
-            message: `Successfully your ${this.apiConfig.solutionType} has been saved. Do you want to continue?`,
-            acceptLabel: 'Later',
-            cancelLabel: 'Continue',
-            type:'success'
-          };
-          const response = await this.openAlert(confirmationParams);
-          if(response){
-            this.location.back();
-          }
-        }else{
-          const confirmationParams = {
-            title: 'Success',
-            message: `Successfully your ${this.apiConfig.solutionType} has been submitte.`,
-            acceptLabel: 'ok',
-            type:'success'
-          };
-          const response = await this.openAlert(confirmationParams);
-          if(response){
-            this.location.back();
+        if(!this.saveQuestioner){
+          if (submissionData.status == 'draft') {
+            const confirmationParams = {
+              title: 'Success',
+              message: `Successfully your ${this.apiConfig.solutionType} has been saved. Do you want to continue?`,
+              acceptLabel: 'Later',
+              cancelLabel: 'Continue',
+              type:'success'
+            };
+            const response = await this.openAlert(confirmationParams);
+            if(response){
+              this.location.back();
+            }
           }
         }
+      
       }
      
     });
