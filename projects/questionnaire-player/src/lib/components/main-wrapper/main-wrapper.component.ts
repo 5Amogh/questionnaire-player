@@ -336,6 +336,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
       })
     .pipe(
       catchError((err) => {
+        this.toaster.showToast(err?.error?.message,'danger',5000)
         throw new Error(`Update api has failed`);
       })
     )
@@ -352,8 +353,14 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             };
             const response = await this.openAlert(confirmationParams);
             if(response){
+              window.parent.postMessage({
+                type: 'formDirty',
+                isDirty: false
+              }, '*');
               this.location.back();
             }
+          }else{
+              this.toaster.showToast(`Your ${this.apiConfig.solutionType} has successfully submitted.`,'success',5000)
           }
         }
       
