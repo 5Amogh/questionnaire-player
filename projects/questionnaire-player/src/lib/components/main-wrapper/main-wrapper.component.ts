@@ -346,6 +346,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     .subscribe(async (res: any) => {
       if(res.status){
         if(!this.saveQuestioner){
+          this.formIsNotDirty();
           if (submissionData.status == 'draft') {
             const confirmationParams = {
               title: 'Success',
@@ -356,10 +357,6 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             };
             const response = await this.openAlert(confirmationParams);
             if(response){
-              window.parent.postMessage({
-                type: 'formDirty',
-                isDirty: false
-              }, '*');
               this.location.back();
             }
           }else{
@@ -368,9 +365,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
             this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000)
           }
         }
-      
       }
-     
     });
   }
 
@@ -431,5 +426,12 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.mainComponent.pageIndex = pageIndex;
     this.mainComponent.handlePageEvent({pageIndex:pageIndex})
     this.closeModal();
+  }
+
+  formIsNotDirty(){
+    window.parent.postMessage({
+      type: 'formDirty',
+      isDirty: false
+    }, '*');
   }
 }
