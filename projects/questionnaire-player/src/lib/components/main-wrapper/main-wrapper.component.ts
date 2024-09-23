@@ -1,8 +1,10 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnChanges,
   OnInit,
+  Renderer2,
   SimpleChanges,
   TemplateRef,
   ViewChild,
@@ -62,7 +64,8 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     public questionnaireService: QuestionnaireService,
     public apiService:ApiService,
     public toaster:ToastService,
-    public location:Location
+    public location:Location,
+    private renderer: Renderer2, private el: ElementRef
   ) {}
 
   checkFormValidity(){
@@ -360,7 +363,9 @@ export class MainWrapperComponent implements OnInit, OnChanges {
               this.location.back();
             }
           }else{
-              this.toaster.showToast(`Your ${this.apiConfig.solutionType} has successfully submitted.`,'success',5000)
+            const footer = this.el.nativeElement.querySelector('.footer-buttons');
+            this.renderer.setStyle(footer, 'display', 'none');
+            this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000)
           }
         }
       
