@@ -4,3 +4,4 @@
 
 export * from './lib/questionnaire-player.module';
 export * from './lib/components/main-wrapper/main-wrapper.component';
+export * from './lib/components/observation-wrapper/observation-wrapper.component';

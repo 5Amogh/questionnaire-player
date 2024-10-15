@@ -1,0 +1,34 @@
+<div class="content">
+    <div class="listTitle">
+      <div>
+        <h1>Observation</h1>
+        <p>Access and record your observations easily and plan your improvement journeys</p>
+      </div>
+  
+      <div class="srch" >
+        <mat-form-field  class="srchBar" style="background-color: white;border-radius: 16px;">
+          <mat-icon matPrefix style="color: gray;">search</mat-icon>
+          <input matInput (input)="handleInput($event)" placeholder="Search your observation here" />
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="observation-list">
+        <div class="grid-container">
+          <div class="grid-item" *ngFor="let solution of solutionList?.data" (click)="navigateTo(solution)">
+            <mat-card class="observation-card">
+              <mat-card-content>
+                <h2 class="observation-name">{{ solution?.name }}</h2>
+                <p>{{ solution?.description }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="solutionList?.count === 0">
+      <img src="assets/images/no_data.jpg" alt="No data" />
+    </div>
+    <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
+      <button mat-raised-button style="background-color: #832215;color: white;" (click)="loadData()">Load More</button>
+    </mat-toolbar>
+  </div>

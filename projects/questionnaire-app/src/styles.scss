@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-
+body{
+    margin: 0 !important;
+}
 :root {
-    --primary-color: #1B4CA1;
-    --btn-outline: #1B4CA1;
+    --primary-color: #832215;
+    --btn-outline: #832215;
     --error-color: rgb(150, 4, 4);
     --question-tip: gray;
     --general-btn-text-color: white;
