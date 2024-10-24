@@ -201,6 +201,7 @@ export interface ImageCompression {
 }
 
 export interface ApiConfiguration{
+  profileData?: any;
   baseURL:string;
   userAuthToken:string;
   solutionId:string;

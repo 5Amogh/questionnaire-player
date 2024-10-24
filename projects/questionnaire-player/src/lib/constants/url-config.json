@@ -5,8 +5,9 @@
     },
     "observation":{
         "listing":"/survey/v1/solutions/targetedSolutions",
-        "details":"//v1/surveys/details/?solutionId=",
-        "update":"/samiksha/v1/surveySubmissions/update/"
+        "details":"/v1/surveys/details/?solutionId=",
+        "update":"/samiksha/v1/surveySubmissions/update/",
+        "getSelectedEntities":"/survey/v1/observations/entities?solutionId="
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

@@ -4,6 +4,8 @@ import { ListingComponent } from '../listing/listing.component';
 import { filter } from 'rxjs';
 import { ApiConfiguration } from '../../interfaces/questionnaire.type';
 import { ApiService } from '../../services/api.service';
+import { ObservationEntityComponent } from '../entity-details/observation-entity.component';
+import { ObservationDetailsComponent } from '../observation-details/observation-details.component';
 @Component({
   selector: 'lib-observation-wrapper',
   templateUrl: './observation-wrapper.component.html',
@@ -16,15 +18,17 @@ export class ObservationWrapperComponent implements OnInit, OnChanges{
   constructor(public router:Router, public apiService:ApiService) {}
 
   private componentMapper: any = {
-    listing:ListingComponent
+    listing:ListingComponent,
+    entityList:ObservationEntityComponent,
+    details:ObservationDetailsComponent
   };
   
   ngOnChanges(changes:SimpleChanges){
     if(changes['apiConfig']){
-      console.log(this.apiConfig)
       this.apiService.baseUrl = this.apiConfig.baseURL;
       this.apiService.token = this.apiConfig.userAuthToken;
-      this.apiService.solutionType = 'observation'
+      this.apiService.solutionType = 'observation';
+      this.apiService.profileData = this.apiConfig.profileData
       if(!this.initialLoad){
         this.loadComponent('listing');
       }

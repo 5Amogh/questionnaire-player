@@ -53,6 +53,10 @@ import { RouterModule , Routes, Router } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ListingComponent } from './components/listing/listing.component';
+import { ObservationEntityComponent } from './components/entity-details/observation-entity.component';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ObservationDetailsComponent } from './components/observation-details/observation-details.component';
 
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
@@ -92,7 +96,9 @@ const MAT_CUSTOM_DATE_FORMATS = {
     TextAreaComponent,
     PrivacyPopupComponent,
     ObservationWrapperComponent,
-    ListingComponent
+    ListingComponent,
+    ObservationEntityComponent,
+    ObservationDetailsComponent
     ],
   imports: [
     CommonModule,
@@ -103,6 +109,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatCheckboxModule,
     MatSliderModule,
     MatFormFieldModule,
+    MatListModule,
     MatInputModule,
     MatRadioModule,
     MatIconModule,
@@ -118,6 +125,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatProgressSpinnerModule,
     MatGridListModule,
     MatToolbarModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
     ],
   exports: [RouterModule],
