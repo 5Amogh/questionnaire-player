@@ -9,6 +9,7 @@ export class ApiService {
   public baseUrl:string;
   public token:string;
   public solutionType:'survey'| 'observation';
+  public profileData:any;
 
   constructor(private http:HttpClient) { }
 
