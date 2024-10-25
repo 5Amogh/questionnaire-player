@@ -10,6 +10,8 @@ export class ApiService {
   public token:string;
   public solutionType:'survey'| 'observation';
   public profileData:any;
+  public solutionId :any; 
+  public entityType:any
 
   constructor(private http:HttpClient) { }
 

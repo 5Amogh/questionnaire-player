@@ -1,9 +1,16 @@
 <div class="content">
     <div class="listTitle">
+    <!-- <div class="listTitle" *ngIf="solutionList?.count > 0"> -->
+
       <div>
-        <h1>Observation</h1>
+        <h1>{{pageTitle}}</h1>
         <p>Access and record your observations easily and plan your improvement journeys</p>
       </div>
+      <button (click)="navigateTo()">Reports</button>
+      <button (click)="navigateToReports()">Reports Listing</button>
+      <button (click)="navigateToObj()">Observation Listing</button>
+
+
   
       <div class="srch" >
         <mat-form-field  class="srchBar" style="background-color: white;border-radius: 16px;">
@@ -14,6 +21,11 @@
     </div>
   
     <div class="observation-list">
+      <select name="" id="" *ngIf="reportPage">
+        <option value="" disabled selected>Select Entity Type</option>
+        <option [value]="type" *ngFor="let type of entityType">{{type}}</option>
+
+      </select>
         <div class="grid-container">
           <div class="grid-item" *ngFor="let solution of solutionList?.data" (click)="navigateTo(solution)">
             <mat-card class="observation-card">

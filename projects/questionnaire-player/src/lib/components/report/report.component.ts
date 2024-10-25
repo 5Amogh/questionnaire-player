@@ -16,6 +16,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { Location } from '@angular/common';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -48,26 +49,35 @@ export class ReportComponent implements OnInit {
     private router: Router,
     public apiService: ApiService,
     public toaster: ToastService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location : Location
   ) { }
 
   ngOnInit() {
-    if (typeof this.apiConfig === 'string') {
-      try {
-        this.apiConfig = JSON.parse(this.apiConfig);
-        this.setApiService();
-      } catch (error) {
-        throw new Error('Invalid Assessment Structure', error);
-      }
-    }
+    // if (typeof this.apiConfig === 'string') {
+    //   try {
+    //     this.apiConfig = JSON.parse(this.apiConfig);
+        // this.setApiService();
+    //   } catch (error) {
+    //     throw new Error('Invalid Assessment Structure', error);
+    //   }
+    // }
+    this.submissionId = this.apiService?.solutionId;
+    this.entityType = this.apiService?.entityType;
+
+    console.log('this.submissionId', this.submissionId )
+
+    this.loadObservationReport(this.submissionId, false, false);
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
-      this.angular &&
-      changes['apiConfig']
+      this.angular
     ) {
-      this.setApiService();
+      this.loadObservationReport(this.submissionId, false, false);
+
+      // this.setApiService();
     }
   }
 
@@ -77,6 +87,7 @@ export class ReportComponent implements OnInit {
     this.apiService.solutionType = this.apiConfig?.solutionType;
     this.submissionId = this.apiConfig?.solutionId;
     this.entityType = this.apiConfig?.entityType;
+    console.log('this.apiService.baseUrl', this.apiService.baseUrl )
     if (this.submissionId) {
       this.loadObservationReport(this.submissionId, false, false);
     }
@@ -298,7 +309,7 @@ export class ReportComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/previous-page']); // Update with the correct route
+    this.location.back();
   }
 
   openUrl(url: string) {
@@ -327,5 +338,13 @@ export class ReportComponent implements OnInit {
       .subscribe((res: any) => {
         this.openUrl(res?.result?.pdfUrl);
       });
+  }
+
+
+  navigateTo(data?: any): void {
+    this.router.navigate(['observation'],{ queryParams: { 'type':'listing','reports':true} })
+  }
+  navigateToObj(data?: any): void {
+    this.router.navigate(['observation'],{ queryParams: { 'type':'listing'} })
   }
 }
