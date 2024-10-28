@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { booleanAttribute, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import * as urlConfig from '../../constants/url-config.json';
@@ -54,31 +54,9 @@ export class ReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (typeof this.apiConfig === 'string') {
-    //   try {
-    //     this.apiConfig = JSON.parse(this.apiConfig);
-        // this.setApiService();
-    //   } catch (error) {
-    //     throw new Error('Invalid Assessment Structure', error);
-    //   }
-    // }
     this.submissionId = this.apiService?.solutionId;
     this.entityType = this.apiService?.entityType;
-
-    console.log('this.submissionId', this.submissionId )
-
     this.loadObservationReport(this.submissionId, false, false);
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (
-      this.angular
-    ) {
-      this.loadObservationReport(this.submissionId, false, false);
-
-      // this.setApiService();
-    }
   }
 
   setApiService() {
@@ -87,7 +65,6 @@ export class ReportComponent implements OnInit {
     this.apiService.solutionType = this.apiConfig?.solutionType;
     this.submissionId = this.apiConfig?.solutionId;
     this.entityType = this.apiConfig?.entityType;
-    console.log('this.apiService.baseUrl', this.apiService.baseUrl )
     if (this.submissionId) {
       this.loadObservationReport(this.submissionId, false, false);
     }
@@ -338,13 +315,5 @@ export class ReportComponent implements OnInit {
       .subscribe((res: any) => {
         this.openUrl(res?.result?.pdfUrl);
       });
-  }
-
-
-  navigateTo(data?: any): void {
-    this.router.navigate(['observation'],{ queryParams: { 'type':'listing','reports':true} })
-  }
-  navigateToObj(data?: any): void {
-    this.router.navigate(['observation'],{ queryParams: { 'type':'listing'} })
   }
 }

@@ -6,6 +6,7 @@
     },
     "observation":{
         "listing":"/survey/v1/solutions/targetedSolutions",
+        "reportListing":"/survey/v1/observationSubmissions/solutionList",
         "details":"/v1/surveys/details/?solutionId=",
         "update":"/samiksha/v1/surveySubmissions/update/",
         "getSelectedEntities":"/survey/v1/observations/entities?solutionId="

@@ -1,6 +1,6 @@
 .header {
   background-color: #f8f8f8;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .toolbar {
@@ -13,12 +13,12 @@
   background-color: #832215;
   color: white;
   border: none;
-  padding: 8px;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
 .report-container {
-  padding: 15px;
+  padding: 0.9375rem;
 }
 
 .header-container {
@@ -30,22 +30,22 @@
 .filter-button {
   background-color: #832215;
   color: white;
-  padding: 5px;
+  padding: 0.3125rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   cursor: pointer;
 }
 
 .questions-list {
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 }
 
 .question-card,
 .question-card2 {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  padding: 15px;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.3125rem;
+  margin-bottom: 0.9375rem;
+  padding: 0.9375rem;
 }
 
 .question-card:hover {
@@ -54,36 +54,36 @@
 
 .question-card2-hover:hover {
   border-left: solid 0.625rem #832215;
-  padding-left: 7px;
+  padding-left: 0.4375rem;
 }
 
 .question-header {
   background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 3px;
+  padding: 0.625rem;
+  border-radius: 0.1875rem;
 }
 
 .evidence-section {
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 }
 
 .evidence-icons {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .iconList {
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .chip {
   background-color: #007bff;
   color: white;
-  padding: 5px;
-  border-radius: 3px;
-  margin-right: 5px;
-  line-height: 30px;
+  padding: 0.3125rem;
+  border-radius: 0.1875rem;
+  margin-right: 0.3125rem;
+  line-height: 1.875rem;
 }
 
 .modal {
@@ -100,10 +100,10 @@
 
 .modal-content {
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
   width: 90%;
-  max-width: 500px;
+  max-width: 31.25rem;
 }
 
 .modal-content header {
@@ -116,7 +116,7 @@
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 8px;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -124,7 +124,7 @@
 .modal-content video,
 .modal-content iframe {
   width: 100%;
-  max-height: 500px;
+  max-height: 31.25rem;
 }
 
 ul {
@@ -135,7 +135,7 @@ ul {
 li {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .heading {
@@ -147,7 +147,7 @@ li {
 }
 
 .canvas-chart {
-  height: 300px;
+  height: 18.75rem;
   display: flex;
   justify-content: center;
 }
@@ -159,20 +159,20 @@ li {
 
 .buttons-right {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .buttons-left {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .apply-filter {
-  border-radius: 20px;
-  padding: 10px 15px;
+  border-radius: 1.25rem;
+  padding: 0.625rem 0.9375rem;
   background-color: #007bff;
   color: #ffff;
-  margin: 5px;
+  margin: 0.3125rem;
   border-color: #007bff;
   cursor: pointer;
 }
@@ -180,21 +180,21 @@ li {
 .switch-buttons {
   background: none;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: border-color 0.3s;
-  margin-bottom: -9px;
+  margin-bottom: -0.5625rem;
 }
 
 .border-bottom-button {
-  border-bottom: 2px solid #007BFF;
+  border-bottom: 0.125rem solid #007BFF;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 47.9375rem) {
   .chip {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
   }
 }
 
@@ -205,5 +205,5 @@ mat-icon {
 .close-btn:hover {
   background-color: red;
   color: #ffff;
-  border-radius: 20px;
+  border-radius: 1.25rem;
 }
