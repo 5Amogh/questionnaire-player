@@ -1,0 +1,57 @@
+{
+    "message": "Solutions fetched successfully",
+    "status": 200,
+    "result": {
+        "entityType": [
+            "district",
+            "state"
+        ],
+        "count": 2,
+        "data": [
+            {
+                "isRubricDriven": false,
+                "solutionId": "6054abd9823d601f0af5c3a0",
+                "programId": "60545d541fc23d6d2d44c0c9",
+                "entityType": "district",
+                "scoringSystem": null,
+                "observationId": "605824c5f74dc33920023f00",
+                "completedDate": "2021-08-17T09:01:49.308Z",
+                "entities": [
+                    {
+                        "_id": "5f82a3797e12ffbb3d92fdc5",
+                        "externalId": "jhSimdega",
+                        "name": "Simdega"
+                    },
+                    {
+                        "_id": "5fd098e2e049735a86b748ae",
+                        "externalId": "03f321d5-c398-4315-8d7c-58b92242d7ab",
+                        "name": "VISAKHAPATNAM"
+                    }
+                ],
+                "programName": "3.8.0 testing program - 2",
+                "name": "Obs Form for All Question type",
+                "allowMultipleAssessemts": true
+            },
+            {
+                "isRubricDriven": true,
+                "solutionId": "605084a02df993615443f06a",
+                "programId": "605083ba09b7bd61555580fb",
+                "entityType": "state",
+                "observationId": "6051dbe1f39f6f3d6a493d29",
+                "scoringSystem": "percentage",
+                "completedDate": "2021-03-25T04:16:42.596Z",
+                "criteriaLevelReport": true,
+                "entities": [
+                    {
+                        "_id": "5fd1b52ab53a6416aaeefb23",
+                        "externalId": "bcdef8ec-4630-4964-b994-022b3f60b7ac",
+                        "name": "POLAKI"
+                    }
+                ],
+                "programName": "3.8 Test AP program",
+                "name": "multiple domain and multiple criteria 2",
+                "allowMultipleAssessemts": true
+            }
+        ]
+    }
+}

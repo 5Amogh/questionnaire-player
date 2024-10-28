@@ -1,10 +1,10 @@
 <div class="content">
     <div class="listTitle">
       <div>
-        <h1>Observation</h1>
+        <h1>{{pageTitle}}</h1>
         <p>Access and record your observations easily and plan your improvement journeys</p>
       </div>
-  
+     
       <div class="srch" >
         <mat-form-field  class="srchBar" style="background-color: white;border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
@@ -14,12 +14,18 @@
     </div>
   
     <div class="observation-list">
+      <div class="select-filter">
+        <select class="entity-filter" *ngIf="reportPage == 'true'" [(ngModel)]="selectedEntityType" (change)="changeEntityType($event.target)">
+          <option value="" disabled selected>Entity Type</option>
+          <option [value]="type" *ngFor="let type of entityType">{{type}}</option>
+        </select>
+      </div>
         <div class="grid-container">
           <div class="grid-item" *ngFor="let solution of solutionList?.data" (click)="navigateTo(solution)">
             <mat-card class="observation-card">
               <mat-card-content>
                 <h2 class="observation-name">{{ solution?.name }}</h2>
-                <p>{{ solution?.description }}</p>
+                <p>{{ reportPage == 'true' ? solution?.programName : solution?.description }}</p>
               </mat-card-content>
             </mat-card>
           </div>

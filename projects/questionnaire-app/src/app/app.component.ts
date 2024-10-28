@@ -19,12 +19,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('message', this.receiveMessage.bind(this), false);
-    this.assessment = mockData;
     this.apiConfig ={
       baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
       userAuthToken:'',
-      solutionId:'66cc1fd6933415620e0cebe9',
-      solutionType:'survey'
+      solutionId:'66e03d1cbe48d96e6842d25d',
+      solutionType:'survey',
+      entityType:'school'
     }
   }
 

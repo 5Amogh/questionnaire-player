@@ -206,5 +206,6 @@ export interface ApiConfiguration{
   userAuthToken:string;
   solutionId:string;
   solutionType:'survey' | 'observation';
-  fileSizeLimit:number
+  fileSizeLimit:number;
+  entityType:string;
 }

@@ -1,8 +1,7 @@
 .listTitle {
-  padding: 16px;
+  padding: 1rem;
   background-color: #832215; 
-  color: white;/* Adjust the color to match the theme */
-
+  color: white;
 }
 
 .srchBar {
@@ -11,52 +10,62 @@
 }
 
 .observation-list {
-  padding: 16px;
+  padding: 1rem;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
-  gap: 20px; /* 10px gap between the columns */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
 }
 
 .grid-item {
-cursor: pointer;
+  cursor: pointer;
 }
 
 .mat-card {
-background-color: white;
-border-radius: 8px;
-padding: 4px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-transition: box-shadow 0.3s ease;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .mat-card:hover {
-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Add hover effect */
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .observation-name {
-font-size: 18px;
-font-weight: bold;
-margin-bottom: 8px;
-color: #832215;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #832215;
 }
 
-@media (max-width: 768px) {
-.grid-container {
-  grid-template-columns: 1fr; /* Single column on smaller screens */
-}
+@media (max-width: 48rem) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }
 
-::ng-deep{
-  .mat-mdc-form-field-subscript-wrapper{
+::ng-deep {
+  .mat-mdc-form-field-subscript-wrapper {
     display: none !important;
   }
 
   .srch .mat-mdc-text-field-wrapper {
-    height: 40px !important;
+    height: 2.5rem !important;
     align-items: center;
-    border-radius: 8px !important;
+    border-radius: 0.5rem !important;
   }
+}
+
+.select-filter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.entity-filter {
+  padding: 0.5rem;
+  font-weight: 700;
 }
