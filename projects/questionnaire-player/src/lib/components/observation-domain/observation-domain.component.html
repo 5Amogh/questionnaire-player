@@ -1,0 +1,51 @@
+<div class="listTitle">
+    <div>
+        <h1>Domains</h1>
+    </div>
+</div>
+
+
+<div class="d-flex flex-dc gap-4">
+    <div class="observation-list">
+        <div class="grid-container">
+            <ng-container>
+                <div class="grid-item" *ngFor="let entity of evidencesStatus; let i = index"
+                    >
+                    <mat-card class="observation-card">
+                        <mat-card-content>
+                            <div class="card-header" (click)="toggleAccordion(i)">
+                                <div>
+                                    <h2 class="observation-name">{{ entity?.name }}</h2>
+                                    <p>Status: {{ entity?.status }}</p>
+                                </div>
+                                <!-- Icon indicating accordion state, aligned to the right -->
+                                <mat-icon class="accordion-icon mt-1">
+                                    {{ expandedIndex === i ? 'expand_less' : 'expand_more' }}
+                                </mat-icon>
+                            </div>
+
+                            <div *ngIf="expandedIndex === i" class="accordion-content">
+                                <!-- Additional details content -->
+                            <hr>
+
+                                <div class="btn-container">
+                                    <button class="not-applicable">Not Applicable</button>
+                                </div>
+                                <div class="card-header">
+                                    <p (click)="navigateToDetails()"><mat-icon
+                                            class="accordion-icon description-icon">description</mat-icon>Observation
+                                        questions</p>
+                                    <mat-icon class="accordion-icon arrow-icon">arrow_forward</mat-icon>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                </div>
+            </ng-container>
+            <ng-template #noData>
+                <p>No data found</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

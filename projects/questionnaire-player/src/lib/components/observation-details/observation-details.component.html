@@ -11,7 +11,7 @@
       <div class="grid-container">
         <ng-container *ngIf="getObservationsByStatus(['All']).length; else noData">
           <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['All'])">
-            <mat-card class="observation-card">
+            <mat-card class="observation-card" (click)="navigateToDetails(entity)">
               <mat-card-content>
                 <h2 class="observation-name">{{ entity?.title }}</h2>
                 <p>{{entity?.updatedAt | date:'short'}}</p>
@@ -31,7 +31,7 @@
       <div class="grid-container">
         <ng-container *ngIf="getObservationsByStatus(['draft', 'started']).length; else noDataInProgress">
           <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started'])">
-            <mat-card class="observation-card">
+            <mat-card class="observation-card" (click)="navigateToDetails(entity)">
               <mat-card-content>
                 <h2 class="observation-name">{{ entity?.title }}</h2>
                 <p>status: {{entity?.status}}</p>
@@ -51,7 +51,7 @@
       <div class="grid-container">
         <ng-container *ngIf="getObservationsByStatus(['completed']).length; else noDataCompleted">
           <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['completed'])">
-            <mat-card class="observation-card">
+            <mat-card class="observation-card" (click)="navigateToDetails(entity)">
               <mat-card-content>
                 <h2 class="observation-name">{{ entity?.title }}</h2>
                 <p>status: {{entity?.status}}</p>

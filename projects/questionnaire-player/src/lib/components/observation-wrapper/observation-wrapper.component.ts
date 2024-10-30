@@ -7,6 +7,8 @@ import { ApiService } from '../../services/api.service';
 import { ObservationEntityComponent } from '../entity-details/observation-entity.component';
 import { ObservationDetailsComponent } from '../observation-details/observation-details.component';
 import { ReportComponent } from '../report/report.component';
+import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
+import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 
 @Component({
   selector: 'lib-observation-wrapper',
@@ -23,7 +25,9 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
     listing: ListingComponent,
     entityList: ObservationEntityComponent,
     details: ObservationDetailsComponent,
-    reports: ReportComponent
+    reports: ReportComponent,
+    domain:ObservationDomainComponent,
+    questionnairePlayer:MainWrapperComponent
   };
 
   ngOnChanges(changes: SimpleChanges) {

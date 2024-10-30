@@ -59,6 +59,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ObservationDetailsComponent } from './components/observation-details/observation-details.component';
 import { ReportComponent } from './components/report/report.component';
+import { ObservationDomainComponent } from './components/observation-domain/observation-domain.component';
 
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
@@ -101,7 +102,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     ObservationWrapperComponent,
     ListingComponent,
     ObservationEntityComponent,
-    ObservationDetailsComponent
+    ObservationDetailsComponent,
+    ObservationDomainComponent
     ],
   imports: [
     CommonModule,

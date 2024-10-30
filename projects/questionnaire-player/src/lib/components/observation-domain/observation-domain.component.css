@@ -1,0 +1,24 @@
+.card-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.description-icon{
+    margin-bottom: -5px;
+    margin-right: 1px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: end;
+}
+
+.not-applicable{
+    border-radius: 20px;
+    padding: 10px;
+    background-color: transparent;
+}
+
+.arrow-icon{
+    margin-top: 15px;
+}
