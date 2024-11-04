@@ -12,6 +12,7 @@ export class ApiService {
   public profileData:any;
   public solutionId :any; 
   public entityType:any
+  public userAuthToken:any;
 
   constructor(private http:HttpClient) { }
 

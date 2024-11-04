@@ -90,4 +90,9 @@ export class ListingComponent implements OnInit {
     this.selectedEntityType = selectedType?.value;
     this.solutionList.data = this.originalData.filter(solution => solution.entityType === selectedType?.value);
   }
+
+  naviToObj(){
+    this.router.navigate(['observation'],{ queryParams: { 'type':"details"}})
+
+  }
 }

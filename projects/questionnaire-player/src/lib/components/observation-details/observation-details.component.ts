@@ -51,134 +51,138 @@ export class ObservationDetailsComponent implements OnInit {
   }
 
   getObservationByEntityId() {
-    this.apiService.post(urlConfig.observation.getSelectedEntities + "67077d62ead6ca931040bcc6", { [this.entityToAdd]: this.apiService.profileData[this.entityToAdd] })
-      .subscribe((res: any) => {
-        res = {
-          "message": "Successfully fetched observation submissions",
-          "status": 200,
-          "result": [
+    const res = {
+      "message": "Successfully fetched observation submissions",
+      "status": 200,
+      "result": [
+        {
+          "_id": "64f98031a9e54300089b2659",
+          "evidencesStatus": [],
+          "isRubricDriven": false,
+          "entityId": "5862b184-5656-4532-8163-186870b913c1",
+          "entityExternalId": "28160300702",
+          "entityType": "school",
+          "observationId": "64f813237b2e940008045df5",
+          "status": "started",
+          "scoringSystem": null,
+          "criteriaLevelReport": false,
+          "submissionNumber": 4,
+          "title": "Observation 4",
+          "updatedAt": "2023-09-07T07:48:01.347Z",
+          "createdAt": "2023-09-07T07:48:01.347Z",
+          "observationName": "Observation 3",
+          "submissionDate": "",
+          "ratingCompletedAt": ""
+        },
+        {
+          "_id": "64f8612d7b2e9400080466bd",
+          "evidencesStatus": [
             {
-              "_id": "64f98031a9e54300089b2659",
-              "evidencesStatus": [],
-              "isRubricDriven": false,
-              "entityId": "5862b184-5656-4532-8163-186870b913c1",
-              "entityExternalId": "28160300702",
-              "entityType": "school",
-              "observationId": "64f813237b2e940008045df5",
-              "status": "started",
-              "scoringSystem": null,
-              "criteriaLevelReport": false,
-              "submissionNumber": 4,
-              "title": "Observation 4",
-              "updatedAt": "2023-09-07T07:48:01.347Z",
-              "createdAt": "2023-09-07T07:48:01.347Z",
-              "observationName": "Observation 3",
-              "submissionDate": "",
-              "ratingCompletedAt": ""
+              "name": "Domain1",
+              "code": "OB",
+              "status": "notstarted",
+              "canBeNotApplicable": false,
+              "canBeNotAllowed": false,
+              "notApplicable": false
             },
             {
-              "_id": "64f8612d7b2e9400080466bd",
-              "evidencesStatus": [
-                {
-                  "name": "Domain1",
-                  "code": "OB",
-                  "status": "notstarted",
-                  "canBeNotApplicable": false,
-                  "canBeNotAllowed": false,
-                  "notApplicable": false
-                },
-                {
-                  "name": "Domain 2",
-                  "code": "OB2",
-                  "status": "notstarted",
-                  "canBeNotApplicable": false,
-                  "canBeNotAllowed": false,
-                  "notApplicable": null
-                }
-              ],
-              "isRubricDriven": false,
-              "entityId": "5862b184-5656-4532-8163-186870b913c1",
-              "entityExternalId": "28160300702",
-              "entityType": "school",
-              "observationId": "64f813237b2e940008045df5",
-              "status": "started",
-              "scoringSystem": null,
-              "criteriaLevelReport": false,
-              "submissionNumber": 3,
-              "title": "Observation 3",
-              "updatedAt": "2023-09-06T11:23:25.414Z",
-              "createdAt": "2023-09-06T11:23:25.414Z",
-              "observationName": "Observation 3",
-              "submissionDate": "",
-              "ratingCompletedAt": ""
-            },
-            {
-              "_id": "64f861217b2e940008046682",
-              "evidencesStatus": [
-                {
-                  "name": "Observation",
-                  "code": "OB",
-                  "status": "notstarted",
-                  "canBeNotApplicable": false,
-                  "canBeNotAllowed": false,
-                  "notApplicable": false
-                }
-              ],
-              "isRubricDriven": false,
-              "entityId": "5862b184-5656-4532-8163-186870b913c1",
-              "entityExternalId": "28160300702",
-              "entityType": "school",
-              "observationId": "64f813237b2e940008045df5",
-              "status": "started",
-              "scoringSystem": null,
-              "criteriaLevelReport": false,
-              "submissionNumber": 2,
-              "title": "Observation 2",
-              "updatedAt": "2023-09-06T11:23:13.530Z",
-              "createdAt": "2023-09-06T11:23:13.530Z",
-              "observationName": "Observation 3",
-              "submissionDate": "",
-              "ratingCompletedAt": ""
-            },
-            {
-              "_id": "64f8611f7b2e940008046678",
-              "evidencesStatus": [
-                {
-                  "name": "Observation",
-                  "code": "OB",
-                  "status": "notstarted",
-                  "canBeNotApplicable": false,
-                  "canBeNotAllowed": false,
-                  "notApplicable": false
-                }
-              ],
-              "isRubricDriven": false,
-              "entityId": "5862b184-5656-4532-8163-186870b913c1",
-              "entityExternalId": "28160300702",
-              "entityType": "school",
-              "scoringSystem": null,
-              "observationId": "64f813237b2e940008045df5",
-              "status": "started",
-              "criteriaLevelReport": false,
-              "submissionNumber": 1,
-              "title": "Observation 1",
-              "updatedAt": "2023-09-06T11:23:11.582Z",
-              "createdAt": "2023-09-06T11:23:11.582Z",
-              "observationName": "Observation 3",
-              "submissionDate": "",
-              "ratingCompletedAt": ""
+              "name": "Domain 2",
+              "code": "OB2",
+              "status": "notstarted",
+              "canBeNotApplicable": false,
+              "canBeNotAllowed": false,
+              "notApplicable": null
             }
           ],
-          "responseCode": "OK"
+          "isRubricDriven": false,
+          "entityId": "5862b184-5656-4532-8163-186870b913c1",
+          "entityExternalId": "28160300702",
+          "entityType": "school",
+          "observationId": "64f813237b2e940008045df5",
+          "status": "started",
+          "scoringSystem": null,
+          "criteriaLevelReport": false,
+          "submissionNumber": 3,
+          "title": "Observation 3",
+          "updatedAt": "2023-09-06T11:23:25.414Z",
+          "createdAt": "2023-09-06T11:23:25.414Z",
+          "observationName": "Observation 3",
+          "submissionDate": "",
+          "ratingCompletedAt": ""
+        },
+        {
+          "_id": "64f861217b2e940008046682",
+          "evidencesStatus": [
+            {
+              "name": "Observation",
+              "code": "OB",
+              "status": "notstarted",
+              "canBeNotApplicable": false,
+              "canBeNotAllowed": false,
+              "notApplicable": false
+            }
+          ],
+          "isRubricDriven": false,
+          "entityId": "5862b184-5656-4532-8163-186870b913c1",
+          "entityExternalId": "28160300702",
+          "entityType": "school",
+          "observationId": "64f813237b2e940008045df5",
+          "status": "started",
+          "scoringSystem": null,
+          "criteriaLevelReport": false,
+          "submissionNumber": 2,
+          "title": "Observation 2",
+          "updatedAt": "2023-09-06T11:23:13.530Z",
+          "createdAt": "2023-09-06T11:23:13.530Z",
+          "observationName": "Observation 3",
+          "submissionDate": "",
+          "ratingCompletedAt": ""
+        },
+        {
+          "_id": "64f8611f7b2e940008046678",
+          "evidencesStatus": [
+            {
+              "name": "Observation",
+              "code": "OB",
+              "status": "notstarted",
+              "canBeNotApplicable": false,
+              "canBeNotAllowed": false,
+              "notApplicable": false
+            }
+          ],
+          "isRubricDriven": false,
+          "entityId": "5862b184-5656-4532-8163-186870b913c1",
+          "entityExternalId": "28160300702",
+          "entityType": "school",
+          "scoringSystem": null,
+          "observationId": "64f813237b2e940008045df5",
+          "status": "started",
+          "criteriaLevelReport": false,
+          "submissionNumber": 1,
+          "title": "Observation 1",
+          "updatedAt": "2023-09-06T11:23:11.582Z",
+          "createdAt": "2023-09-06T11:23:11.582Z",
+          "observationName": "Observation 3",
+          "submissionDate": "",
+          "ratingCompletedAt": ""
         }
+      ],
+      "responseCode": "OK"
+    }
+    this.observations = res.result;
 
-        if (res.result) {
-          this.observations = res.result;
-          // this.filteredEntities = [...this.selectedEntities.entities]
+    this.apiService.post(urlConfig.observation.getSelectedEntities + "67077d62ead6ca931040bcc6", { [this.entityToAdd]: this.apiService.profileData[this.entityToAdd] })
+      .subscribe((res: any) => {
 
-        } else {
-          this.toaster.showToast(res.message, 'danger');
-        }
+        // this.observations = res.result;
+
+        // if (res.result) {
+        //   this.observations = res.result;
+        //   // this.filteredEntities = [...this.selectedEntities.entities]
+
+        // } else {
+        //   this.toaster.showToast(res.message, 'danger');
+        // }
       })
   }
 

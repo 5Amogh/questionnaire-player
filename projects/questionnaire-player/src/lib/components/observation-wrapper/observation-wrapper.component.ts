@@ -9,6 +9,7 @@ import { ObservationDetailsComponent } from '../observation-details/observation-
 import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
 import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
+import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
 
 @Component({
   selector: 'lib-observation-wrapper',
@@ -27,7 +28,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
     details: ObservationDetailsComponent,
     reports: ReportComponent,
     domain:ObservationDomainComponent,
-    questionnairePlayer:MainWrapperComponent
+    questionnairePlayer:PlayerBridgeComponent
   };
 
   ngOnChanges(changes: SimpleChanges) {
@@ -38,6 +39,8 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.apiService.profileData = this.apiConfig.profileData;
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
+      this.apiService.userAuthToken = this.apiConfig.userAuthToken;
+
 
       if (!this.initialLoad) {
         this.loadComponent('listing');

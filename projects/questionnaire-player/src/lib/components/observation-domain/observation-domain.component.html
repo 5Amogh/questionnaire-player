@@ -29,7 +29,10 @@
                             <hr>
 
                                 <div class="btn-container">
+                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)">View</button>
+                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)">Start</button>
                                     <button class="not-applicable">Not Applicable</button>
+
                                 </div>
                                 <div class="card-header">
                                     <p (click)="navigateToDetails()"><mat-icon
