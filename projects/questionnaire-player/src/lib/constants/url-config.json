@@ -9,7 +9,9 @@
         "reportListing":"/survey/v1/observationSubmissions/solutionList",
         "details":"/v1/surveys/details/?solutionId=",
         "update":"/samiksha/v1/surveySubmissions/update/",
-        "getSelectedEntities":"/survey/v1/observations/entities?solutionId="
+        "getSelectedEntities":"/survey/v1/observations/entities?solutionId=",
+        "targetedEntity": "/survey/v1/observations/targetedEntity/",
+        "searchEntities": "/survey/v1/observations/searchEntities?observationId="
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

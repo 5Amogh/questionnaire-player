@@ -59,7 +59,7 @@ export class ListingComponent implements OnInit {
     this.selectedEntityType = "";
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
     this.apiService.post(
-      urlPath+ `?type=${this.apiService.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,{}
+      urlPath+ `?type=${this.apiService.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,this.apiService.profileData
     ).pipe(
       finalize(() => this.showLoading = false)
     ).subscribe((res: any) => {

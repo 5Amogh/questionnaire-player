@@ -2,20 +2,20 @@
   <div class="listTitle">
     <div>
       <h1>{{solutionName}}</h1>
-      <p>Select {{selectedEntities.entityType}} from the list to observe</p>
+      <p>Select {{selectedEntities?.entityType}} from the list to observe</p>
     </div>
 
     <div class="srch">
       <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
         <mat-icon matPrefix style="color: gray;">search</mat-icon>
         <input matInput (input)="handleSearchInput($event)"
-          [placeholder]="'Search your '+ selectedEntities.entityType + ' here'" />
+          [placeholder]="'Search your '+ selectedEntities?.entityType + ' here'" />
       </mat-form-field>
     </div>
   </div>
 
   <div class="d-flex flex-dc gap-4">
-    <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities.entityType}}</button>
+    <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities?.entityType}}</button>
 
     <div class="observation-list">
       <div class="grid-container">
@@ -48,7 +48,7 @@
 
       <mat-selection-list [multiple]="true" [(ngModel)]="addedEntities">
         <mat-list-option *ngFor="let entity of filteredEntities" [value]="entity.id">
-          {{entity.name}}
+          {{entity?.metaInformation?.name}}
         </mat-list-option>
       </mat-selection-list>
     </div>
