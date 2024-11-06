@@ -11,7 +11,9 @@
         "update":"/samiksha/v1/surveySubmissions/update/",
         "getSelectedEntities":"/survey/v1/observations/entities?solutionId=",
         "targetedEntity": "/survey/v1/observations/targetedEntity/",
-        "searchEntities": "/survey/v1/observations/searchEntities?observationId="
+        "searchEntities": "/survey/v1/observations/searchEntities?observationId=",
+        "updateEntities":"/survey/v1/observations/updateEntities/",
+        "observationSubmissions":"/survey/v1/observationSubmissions/list/"
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

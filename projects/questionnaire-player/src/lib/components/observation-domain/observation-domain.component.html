@@ -13,15 +13,22 @@
                     >
                     <mat-card class="observation-card">
                         <mat-card-content>
-                            <div class="card-header" (click)="toggleAccordion(i)">
+                            <!-- <div class="card-header" (click)="toggleAccordion(i)"> -->
+                            <div class="card-header">
+
                                 <div>
                                     <h2 class="observation-name">{{ entity?.name }}</h2>
-                                    <p>Status: {{ entity?.status }}</p>
+                                    <!-- <p>Status: {{ entity?.status }}</p> -->
                                 </div>
                                 <!-- Icon indicating accordion state, aligned to the right -->
-                                <mat-icon class="accordion-icon mt-1">
+                                <!-- <mat-icon class="accordion-icon mt-1">
                                     {{ expandedIndex === i ? 'expand_less' : 'expand_more' }}
-                                </mat-icon>
+                                </mat-icon> -->
+                            </div>
+                            <div class="btn-container">
+                                <button class="not-applicable mr-5 bg-success" (click)="navigateToDetails(entity?.observationId)" *ngIf="entity?.status == 'completed'">View</button>
+                                <button class="not-applicable mr-5 bg-info" (click)="navigateToDetails(entity?.observationId)" *ngIf="entity?.status == 'notstarted'">Start</button>
+                                <button class="not-applicable">Not Applicable</button>
                             </div>
 
                             <div *ngIf="expandedIndex === i" class="accordion-content">
@@ -29,17 +36,17 @@
                             <hr>
 
                                 <div class="btn-container">
-                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)">View</button>
-                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)">Start</button>
+                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)" *ngIf="entity?.status == 'completed'">View</button>
+                                    <button class="not-applicable" (click)="navigateToDetails(entity?.observationId)" *ngIf="entity?.status == 'notstarted'">Start</button>
                                     <button class="not-applicable">Not Applicable</button>
 
                                 </div>
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                     <p (click)="navigateToDetails()"><mat-icon
                                             class="accordion-icon description-icon">description</mat-icon>Observation
                                         questions</p>
                                     <mat-icon class="accordion-icon arrow-icon">arrow_forward</mat-icon>
-                                </div>
+                                </div> -->
                             </div>
                         </mat-card-content>
                     </mat-card>

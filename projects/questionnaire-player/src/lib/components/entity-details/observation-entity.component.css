@@ -50,3 +50,8 @@
     --mat-option-selected-state-label-text-color: var(--primary-color) !important;
     }
 }
+
+.card-content{
+    display: flex;
+    justify-content: space-between;
+}

@@ -10,7 +10,7 @@
 
 .btn-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .not-applicable{
@@ -21,4 +21,14 @@
 
 .arrow-icon{
     margin-top: 15px;
+}
+
+.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.bg-info {
+    background-color: #17a2b8;
+    color: white; 
 }
