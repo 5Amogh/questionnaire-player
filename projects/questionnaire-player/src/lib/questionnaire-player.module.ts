@@ -62,7 +62,7 @@ import { ReportComponent } from './components/report/report.component';
 import { ObservationDomainComponent } from './components/observation-domain/observation-domain.component';
 import { PlayerBridgeComponent } from './components/player-bridge/player-bridge.component';
 import { QuestionnaireService } from './services/questionnaire.service';
-
+import { MatMenuModule } from '@angular/material/menu';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -135,6 +135,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatToolbarModule,
     MatTabsModule,
     RouterModule.forChild(routes),
+    MatMenuModule
     ],
   exports: [RouterModule],
   providers: [

@@ -20,8 +20,8 @@ export class PlayerBridgeComponent {
   }
 
   ngOnInit(): void {
-    const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.solutionId = queryParams['observationId'];
+    // const queryParams = this.router.parseUrl(this.router.url).queryParams
+    // this.solutionId = queryParams['observationId'];
     this.setApiService();
 
   }
@@ -31,8 +31,8 @@ export class PlayerBridgeComponent {
     this.apiConfig ={
       baseURL: this.apiService.baseUrl,
       userAuthToken: this.apiService.userAuthToken,
-      solutionType: 'survey',
-      solutionId: this.solutionId,
+      solutionType: this.apiService.solutionType,
+      solutionId: this.apiService.solutionId,
       entityType: this.apiService.entityType
     }
     console.log('this.apiConfig',this.apiConfig);

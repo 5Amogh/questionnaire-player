@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class ObsComponent {
   apiConfig ={
     baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
-    userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNzYsIm5hbWUiOiJWaW5vZEZpdmVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwic2Vzc2lvbl9pZCI6OTkwMCwib3JnYW5pemF0aW9uX2lkIjoxLCJyb2xlcyI6W3siaWQiOjE2LCJ0aXRsZSI6ImhlYWRfbWFzdGVyIiwibGFiZWwiOiJIZWFkIE1hc3RlciIsInVzZXJfdHlwZSI6MCwic3RhdHVzIjoiQUNUSVZFIiwib3JnYW5pemF0aW9uX2lkIjoyNCwidmlzaWJpbGl0eSI6IlBVQkxJQyJ9XX0sImlhdCI6MTczMDg5NTcwOSwiZXhwIjoxNzMwODk2MDA5fQ.2nQTBYWnSFKkACaXvsLZUgd31T-k5C3Yf7A7Hsgl7hU',
+    userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNzYsIm5hbWUiOiJWaW5vZEZpdmVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwic2Vzc2lvbl9pZCI6MTAwMjIsIm9yZ2FuaXphdGlvbl9pZCI6MSwicm9sZXMiOlt7ImlkIjoxNiwidGl0bGUiOiJoZWFkX21hc3RlciIsImxhYmVsIjoiSGVhZCBNYXN0ZXIiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MjQsInZpc2liaWxpdHkiOiJQVUJMSUMifV19LCJpYXQiOjE3MzA5OTM5NDIsImV4cCI6MTczMDk5NDI0Mn0.VG5-LsC_SJ_UKHMT4ws7YhEFc2IJQnwDej9hFiLhNYA ',
     solutionType:'observation',
     profileData:{
       // "state": "66bf7eb960de1616f42cb984",
@@ -25,7 +25,7 @@ export class ObsComponent {
     "school": "enf3",
     "role": "public"
     },
-    solutionId:'66cc1f27933415620e0cebad',
+    solutionId:'663c60bbe4d0a4cced6b6399',
     entityType:'school'
   }
 }

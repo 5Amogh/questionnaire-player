@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ToastService } from '../../services/toast.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { DataService } from '../../services/data.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'lib-observation-details',
@@ -13,20 +14,26 @@ import { DataService } from '../../services/data.service';
 export class ObservationDetailsComponent implements OnInit {
   entityId: any;
   entityName: any;
-  entityToAdd: any;
+  observationId: any;
   observations: any = [];
+  observationName: any;
+  count:any =1;
+
+  @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
+  @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
 
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private dialog: MatDialog
   ) { }
 
 
   ngOnInit(): void {
     const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.entityId = queryParams['id'];
+    this.entityId = queryParams['entityId'];
     this.entityName = queryParams['name'];
-    this.entityToAdd = queryParams['entityType'];
+    this.observationId = queryParams['observationId'];
     this.getObservationByEntityId();
   }
 
@@ -51,132 +58,20 @@ export class ObservationDetailsComponent implements OnInit {
   }
 
   getObservationByEntityId() {
-    // const res = {
-    //   "message": "Successfully fetched observation submissions",
-    //   "status": 200,
-    //   "result": [
-    //     {
-    //       "_id": "64f98031a9e54300089b2659",
-    //       "evidencesStatus": [],
-    //       "isRubricDriven": false,
-    //       "entityId": "5862b184-5656-4532-8163-186870b913c1",
-    //       "entityExternalId": "28160300702",
-    //       "entityType": "school",
-    //       "observationId": "64f813237b2e940008045df5",
-    //       "status": "started",
-    //       "scoringSystem": null,
-    //       "criteriaLevelReport": false,
-    //       "submissionNumber": 4,
-    //       "title": "Observation 4",
-    //       "updatedAt": "2023-09-07T07:48:01.347Z",
-    //       "createdAt": "2023-09-07T07:48:01.347Z",
-    //       "observationName": "Observation 3",
-    //       "submissionDate": "",
-    //       "ratingCompletedAt": ""
-    //     },
-    //     {
-    //       "_id": "64f8612d7b2e9400080466bd",
-    //       "evidencesStatus": [
-    //         {
-    //           "name": "Domain1",
-    //           "code": "OB",
-    //           "status": "notstarted",
-    //           "canBeNotApplicable": false,
-    //           "canBeNotAllowed": false,
-    //           "notApplicable": false
-    //         },
-    //         {
-    //           "name": "Domain 2",
-    //           "code": "OB2",
-    //           "status": "notstarted",
-    //           "canBeNotApplicable": false,
-    //           "canBeNotAllowed": false,
-    //           "notApplicable": null
-    //         }
-    //       ],
-    //       "isRubricDriven": false,
-    //       "entityId": "5862b184-5656-4532-8163-186870b913c1",
-    //       "entityExternalId": "28160300702",
-    //       "entityType": "school",
-    //       "observationId": "64f813237b2e940008045df5",
-    //       "status": "started",
-    //       "scoringSystem": null,
-    //       "criteriaLevelReport": false,
-    //       "submissionNumber": 3,
-    //       "title": "Observation 3",
-    //       "updatedAt": "2023-09-06T11:23:25.414Z",
-    //       "createdAt": "2023-09-06T11:23:25.414Z",
-    //       "observationName": "Observation 3",
-    //       "submissionDate": "",
-    //       "ratingCompletedAt": ""
-    //     },
-    //     {
-    //       "_id": "64f861217b2e940008046682",
-    //       "evidencesStatus": [
-    //         {
-    //           "name": "Observation",
-    //           "code": "OB",
-    //           "status": "notstarted",
-    //           "canBeNotApplicable": false,
-    //           "canBeNotAllowed": false,
-    //           "notApplicable": false
-    //         }
-    //       ],
-    //       "isRubricDriven": false,
-    //       "entityId": "5862b184-5656-4532-8163-186870b913c1",
-    //       "entityExternalId": "28160300702",
-    //       "entityType": "school",
-    //       "observationId": "64f813237b2e940008045df5",
-    //       "status": "started",
-    //       "scoringSystem": null,
-    //       "criteriaLevelReport": false,
-    //       "submissionNumber": 2,
-    //       "title": "Observation 2",
-    //       "updatedAt": "2023-09-06T11:23:13.530Z",
-    //       "createdAt": "2023-09-06T11:23:13.530Z",
-    //       "observationName": "Observation 3",
-    //       "submissionDate": "",
-    //       "ratingCompletedAt": ""
-    //     },
-    //     {
-    //       "_id": "64f8611f7b2e940008046678",
-    //       "evidencesStatus": [
-    //         {
-    //           "name": "Observation",
-    //           "code": "OB",
-    //           "status": "notstarted",
-    //           "canBeNotApplicable": false,
-    //           "canBeNotAllowed": false,
-    //           "notApplicable": false
-    //         }
-    //       ],
-    //       "isRubricDriven": false,
-    //       "entityId": "5862b184-5656-4532-8163-186870b913c1",
-    //       "entityExternalId": "28160300702",
-    //       "entityType": "school",
-    //       "scoringSystem": null,
-    //       "observationId": "64f813237b2e940008045df5",
-    //       "status": "started",
-    //       "criteriaLevelReport": false,
-    //       "submissionNumber": 1,
-    //       "title": "Observation 1",
-    //       "updatedAt": "2023-09-06T11:23:11.582Z",
-    //       "createdAt": "2023-09-06T11:23:11.582Z",
-    //       "observationName": "Observation 3",
-    //       "submissionDate": "",
-    //       "ratingCompletedAt": ""
-    //     }
-    //   ],
-    //   "responseCode": "OK"
-    // }
-    // this.observations = res.result;
 
-    // this.apiService.post(urlConfig.observation.getSelectedEntities + "67077d62ead6ca931040bcc6", { [this.entityToAdd]: this.apiService.profileData[this.entityToAdd] })
-    this.apiService.post(urlConfig.observation.observationSubmissions + "672b087572f4ef94700087c9" + `?entityId=663c60bbe4d0a4cced6b6399`, this.apiService.profileData)
+    this.apiService.post(urlConfig.observation.observationSubmissions + this.observationId + `?entityId=${this.entityId}`, this.apiService.profileData)
+      // this.apiService.post(urlConfig.observation.observationSubmissions + "672b087572f4ef94700087c9" + `?entityId=663c60bbe4d0a4cced6b6399`, this.apiService.profileData)
 
       .subscribe((res: any) => {
 
+
+        if(this.count == 1 && res?.result?.length == 0){
+          this.count++;
+          this.observeAgain();
+        }else{
         this.observations = res.result;
+
+        }
 
         // if (res.result) {
         //   this.observations = res.result;
@@ -190,14 +85,109 @@ export class ObservationDetailsComponent implements OnInit {
 
   navigateToDetails(data) {
     console.log('routes', data);
-    if (data?.evidencesStatus?.length > 0) {
-      this.dataService.setData(data?.evidencesStatus);
+    // if (data?.evidencesStatus?.length == 0) {
+    //   this.toaster.showToast("No solution found.", 'Close')
+
+
+    // } else 
+    if (data?.isRubricDriven) {
+      // this.dataService.setData(data?.evidencesStatus);
 
       this.router.navigate(['observation'], {
-        queryParams: { type: 'domain', name: data.name }
+        queryParams: { type: 'domain', observationId: data?.observationId, entityId: data.entityId, id:data?._id }
       });
     } else {
-      this.toaster.showToast("No solution found.", 'Close')
+      this.router.navigate(['observation'], {
+        queryParams: { type: 'questionnairePlayer', observationId: data?.observationId }
+      });
     }
   }
+
+
+
+  editEntity(entity: any, id: any) {
+    console.log("Edit", entity);
+    this.observationName = entity;
+    const dialogRef = this.dialog.open(this.updateDialogModel);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'update') {
+        this.updateEntity(id);
+      }
+    });
+  }
+
+
+  deleteEntity(id: any) {
+
+    const dialogRef = this.dialog.open(this.confirmDialogModel);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.apiService.delete(urlConfig.observation.update + id, { data: [] })
+
+          .subscribe((res: any) => {
+
+            if (res.status == 200) {
+              console.log('deleteEntities', res);
+              this.getObservationByEntityId();
+            } else {
+              this.toaster.showToast(res.message, 'Close');
+            }
+          }, (err: any) => {
+            this.toaster.showToast(err.error.message, 'Close');
+          })
+      }
+    });
+  }
+
+  updateEntity(id: any) {
+    console.log("this.observationName", this.observationName);
+    const payload = {
+      title: this.observationName
+    }
+    this.apiService.post(urlConfig.observation.update + id, payload)
+
+      .subscribe((res: any) => {
+
+        if (res.status == 200) {
+          console.log('updateEntities', res);
+          this.getObservationByEntityId();
+        } else {
+          this.toaster.showToast(res.message, 'Close');
+        }
+      }, (err: any) => {
+        this.toaster.showToast(err.error.message, 'Close');
+      })
+
+  }
+
+  observeAgain() {
+    console.log("this.observeAgain");
+    // this.apiService.post(urlConfig.observation.create + "672b087572f4ef94700087c9" + `?entityId=663c60bbe4d0a4cced6b6399`, {})
+    this.apiService.post(urlConfig.observation.create + this.observationId + `?entityId=${this.entityId}`, {})
+
+
+      .subscribe((res: any) => {
+
+        console.log('create', res);
+        this.getObservationByEntityId();
+
+        // if (res.result) {
+        //   this.observations = res.result;
+        //   // this.filteredEntities = [...this.selectedEntities.entities]
+
+        // } else {
+        //   this.toaster.showToast(res.message, 'danger');
+        // }
+      })
+  }
+
+  viewReport() {
+    console.log("this.viewReport");
+  }
+
+
+
+
 }

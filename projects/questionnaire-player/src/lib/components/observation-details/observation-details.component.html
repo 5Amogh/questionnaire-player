@@ -12,11 +12,24 @@
         <ng-container *ngIf="getObservationsByStatus(['All']).length; else noData">
           <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['All'])">
             <mat-card class="observation-card" (click)="navigateToDetails(entity)">
-              <mat-card-content>
-                <h2 class="observation-name">{{ entity?.title }}</h2>
-                <p>{{entity?.updatedAt | date:'short'}}</p>
-              </mat-card-content>
+              <div class="card-content-container">
+                <mat-card-content class="observation-content">
+                  <h2 class="observation-name">{{ entity?.title }}</h2>
+                  <p>{{entity?.updatedAt | date:'short'}}</p>
+                </mat-card-content>
+            
+                <!-- 3-dot menu icon with mat-menu -->
+                <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
+                  <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
+                </mat-menu>
+              </div>
             </mat-card>
+            
           </div>
         </ng-container>
         <ng-template #noData>
@@ -34,7 +47,8 @@
             <mat-card class="observation-card" (click)="navigateToDetails(entity)">
               <mat-card-content>
                 <h2 class="observation-name">{{ entity?.title }}</h2>
-                <p>status: {{entity?.status}}</p>
+                <p>{{entity?.updatedAt | date:'short'}}</p>
+
               </mat-card-content>
             </mat-card>
           </div>
@@ -54,7 +68,8 @@
             <mat-card class="observation-card" (click)="navigateToDetails(entity)">
               <mat-card-content>
                 <h2 class="observation-name">{{ entity?.title }}</h2>
-                <p>status: {{entity?.status}}</p>
+                <p>{{entity?.updatedAt | date:'short'}}</p>
+
               </mat-card-content>
             </mat-card>
           </div>
@@ -66,3 +81,38 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+
+<div class="fixed-bottom-buttons" *ngIf="observations?.length > 0">
+  <button mat-raised-button color="primary" (click)="observeAgain()">Observe again</button>
+  <button mat-raised-button color="accent" (click)="viewReport()">View report</button>
+</div>
+
+<ng-template #updateDialogModel>
+  <h2 mat-dialog-title>Instance Name</h2>
+  
+  <!-- Dialog Content with Input Field -->
+  <mat-dialog-content>
+    <!-- <p>Please enter the name:</p> -->
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <!-- <mat-label>Name</mat-label> -->
+      <input matInput [(ngModel)]="observationName" placeholder="Enter name here">
+    </mat-form-field>
+  </mat-dialog-content>
+  
+  <!-- Dialog Actions with Cancel and Update Buttons -->
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="cancel">Cancel</button>
+    <button mat-button color="primary" [mat-dialog-close]="'update'">Update</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
+<ng-template #confirmDialogModel>
+  <h2 mat-dialog-title>Confirm Deletion</h2>
+  <mat-dialog-content>Are you sure you want to delete this observation instance?</mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close="no">No</button>
+    <button mat-button color="warn" [mat-dialog-close]="'yes'">Yes</button>
+  </mat-dialog-actions>
+</ng-template>

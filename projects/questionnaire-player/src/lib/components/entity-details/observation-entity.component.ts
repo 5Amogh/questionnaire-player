@@ -20,6 +20,8 @@ export class ObservationEntityComponent {
   addedEntities: any;
   entities = new FormControl();
   @ViewChild('searchEntityModal') searchEntityModal: TemplateRef<any>;
+  @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
+
   dialogRef: any;
   observationId: any;
   searchEntities:any=[];
@@ -41,54 +43,7 @@ export class ObservationEntityComponent {
     this.apiService.post(urlConfig.observation.getSelectedEntities + this.solutionId, this.apiService.profileData)
 
     .subscribe((res: any) => {
-      //   res = {
-      //     "message": "Observation entities fetched successfully",
-      //     "status": 200,
-      //     "result": {
-      //         "allowMultipleAssessemts": true,
-      //         "_id": "60c73101dc627d53d2bbe0c2",
-      //         "entities": [
-      //             {
-      //                 "_id": "b54a5c6d-98be-4313-af1c-33040b1703aa",
-      //                 "externalId": "2812",
-      //                 "name": "Vizianagaram",
-      //                 "submissionsCount": 0
-      //             },
-      //             {
-      //                 "_id": "2f76dcf5-e43b-4f71-a3f2-c8f19e1fce03",
-      //                 "externalId": "2822",
-      //                 "name": "Ananthapuram",
-      //                 "submissionsCount": 1,
-      //                 "submissionId": "60c7310bdc627d53d2bbe0c3"
-      //             }
-      //         ],
-      //         "entityType": "district",
-      //         "license": {
-      //             "author": "CBSE",
-      //             "creator": "CBSE",
-      //             "copyright": "CBSE",
-      //             "copyrightYear": 1998,
-      //             "contentType": "Course",
-      //             "organisation": [
-      //                 "CBSE"
-      //             ],
-      //             "orgDetails": {
-      //                 "email": null,
-      //                 "orgName": "CBSE"
-      //             },
-      //             "licenseDetails": {
-      //                 "name": "CC BY 4.0",
-      //                 "url": "https://creativecommons.org/licenses/by/4.0/legalcode",
-      //                 "description": "For details see below:"
-      //             },
-      //             "createdOn": "2021-08-06T16:07:21+05:30",
-      //             "lastUpdatedOn": "2021-08-06T16:07:21+05:30"
-      //         },
-      //         "programJoined": false,
-      //         "consentShared": false
-      //     },
-      //     "responseCode": "OK"
-      // }
+     
       if (res.result) {
         this.selectedEntities = res?.result;
         // this.filteredEntities = [...this.selectedEntities.entities]
@@ -237,7 +192,14 @@ export class ObservationEntityComponent {
   }
 
   navigateToDetails(data) {
-    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name } })
+// console.log("data?.allowMultipleAssessemts",data?.allowMultipleAssessemts)
+    // if(data?.allowMultipleAssessemts){
+      this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId':this.observationId, 'entityId':data?._id } })
+    // }else{
+    //   this.router.navigate(['observation'], {
+    //     queryParams: { type: 'domain', name: data.name }
+    //   });
+    // }
   }
 
   submitDialog() {
@@ -246,18 +208,25 @@ export class ObservationEntityComponent {
 
   deleteEntity(id){
     console.log("delete",id);
-    this.apiService.delete(urlConfig.observation.updateEntities + this.observationId, {data:[id]})
+    const dialogRef = this.dialog.open(this.confirmDialogModel);
 
-      .subscribe((res: any) => {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.apiService.delete(urlConfig.observation.updateEntities + this.observationId, {data:[id]})
 
-        if (res.status == 200) {
-          console.log('deleteEntities', res);
-          this.getEntities();
-        } else {
-          this.toaster.showToast(res.message, 'Close');
-        }
-      }, (err: any) => {
-        this.toaster.showToast(err.error.message, 'Close');
-      })
+        .subscribe((res: any) => {
+  
+          if (res.status == 200) {
+            console.log('deleteEntities', res);
+            this.getEntities();
+          } else {
+            this.toaster.showToast(res.message, 'Close');
+          }
+        }, (err: any) => {
+          this.toaster.showToast(err.error.message, 'Close');
+        })
+      }
+    });
+  
   }
 }
