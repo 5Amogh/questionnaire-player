@@ -1,28 +1,81 @@
-.card-content-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.card-content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.mat-mdc-card-content{
-    padding: 16px;
+.mat-mdc-card-content {
+  padding: 1rem; 
 }
 
 .fixed-bottom-buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 93%;
-    display: flex;
-    justify-content: space-around;
-    padding: 1em;
-    background-color: white; /* or any color you want */
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Ensure it stays above other content */
-  }
-  
-  .fixed-bottom-buttons button {
-    flex: 1;
-    margin: 0 1em;
-  }
-  
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem; 
+  background-color: white;
+  box-shadow: 0 -0.125rem 0.5rem rgba(0, 0, 0, 0.2); 
+  z-index: 1000;
+}
+
+.fixed-bottom-buttons button {
+  flex: 1;
+  margin: 0 1rem; 
+  background-color: var(--primary-color);
+  color: var(--general-btn-text-color);
+}
+
+.secondary-btn {
+  background-color: var(--primary-color);
+  color: var(--general-btn-text-color);
+  border: none;
+}
+
+.primary-btn {
+  background-color: var(--color-light);
+  color: var(--primary-color);
+  border: 0.063rem solid var(--primary-color); 
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem 1.5rem; 
+}
+
+.mat-dialog-actions button {
+  cursor: pointer;
+  text-transform: none;
+  width: 45%;
+  min-width: 4rem; 
+  border-radius: 0.25rem; 
+  font-weight: 700;
+  font-size: 0.75rem; 
+  padding: 0.375rem 1.313rem; 
+}
+
+::ng-deep .mat-mdc-tab-group, 
+::ng-deep .mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-color: var(--primary-color);
+    --mat-tab-header-disabled-ripple-color: var(--primary-color);
+    --mat-tab-header-pagination-icon-color: var(--primary-color);
+    --mat-tab-header-inactive-label-text-color: var(--primary-color);
+    --mat-tab-header-active-label-text-color: var(--primary-color);
+    --mat-tab-header-active-ripple-color: var(--primary-color);
+    --mat-tab-header-inactive-ripple-color: var(--primary-color);
+    --mat-tab-header-inactive-focus-label-text-color: var(--primary-color);
+    --mat-tab-header-inactive-hover-label-text-color: var(--primary-color);
+    --mat-tab-header-active-focus-label-text-color: var(--primary-color);
+    --mat-tab-header-active-hover-label-text-color: var(--primary-color);
+    --mat-tab-header-active-focus-indicator-color: var(--primary-color);
+    --mat-tab-header-active-hover-indicator-color: var(--primary-color);
+}
+
+.disabled-button {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+}

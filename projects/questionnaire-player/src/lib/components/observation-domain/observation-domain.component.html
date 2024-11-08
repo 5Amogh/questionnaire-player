@@ -4,51 +4,27 @@
     </div>
 </div>
 
-
 <div class="d-flex flex-dc gap-4">
     <div class="observation-list">
         <div class="grid-container">
             <ng-container>
-                <div class="grid-item" *ngFor="let entity of evidences; let i = index"
-                    >
+                <div class="grid-item" *ngFor="let entity of evidences; let i = index">
                     <mat-card class="observation-card">
                         <mat-card-content>
-                            <!-- <div class="card-header" (click)="toggleAccordion(i)"> -->
                             <div class="card-header">
-
                                 <div>
                                     <h2 class="observation-name">{{ entity?.name }}</h2>
-                                    <!-- <p>Status: {{ entity?.status }}</p> -->
                                 </div>
-                                <!-- Icon indicating accordion state, aligned to the right -->
-                                <!-- <mat-icon class="accordion-icon mt-1">
-                                    {{ expandedIndex === i ? 'expand_less' : 'expand_more' }}
-                                </mat-icon> -->
                             </div>
                             <div class="btn-container" *ngIf="!entity?.notApplicable">
-                                <button class="not-applicable mr-5 bg-success" (click)="navigateToDetails()" *ngIf="entity?.status == 'completed'">View</button>
-                                <button class="not-applicable mr-5 bg-info" (click)="navigateToDetails()" *ngIf="entity?.status == 'notstarted'">Start</button>
-                                <button class="not-applicable" (click)="notApplicable(entity)"  *ngIf="!entity?.notApplicable">Not Applicable</button>
+                                <button class="not-applicable mr-5 primary-btn" (click)="navigateToDetails()"
+                                    *ngIf="entity?.status == 'completed'">View</button>
+                                <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails()"
+                                    *ngIf="entity?.status == 'notstarted'">Start</button>
+                                <button class="not-applicable" (click)="notApplicable(entity)"
+                                    *ngIf="!entity?.notApplicable">Not Applicable</button>
                             </div>
                             <p *ngIf="entity?.notApplicable">Not Applicable !</p>
-
-                            <div *ngIf="expandedIndex === i" class="accordion-content">
-                                <!-- Additional details content -->
-                            <hr>
-
-                                <div class="btn-container">
-                                    <button class="not-applicable" (click)="navigateToDetails()" *ngIf="entity?.status == 'completed'">View</button>
-                                    <button class="not-applicable" (click)="navigateToDetails()" *ngIf="entity?.status == 'notstarted'">Start</button>
-                                    <button class="not-applicable">Not Applicable</button>
-
-                                </div>
-                                <!-- <div class="card-header">
-                                    <p (click)="navigateToDetails()"><mat-icon
-                                            class="accordion-icon description-icon">description</mat-icon>Observation
-                                        questions</p>
-                                    <mat-icon class="accordion-icon arrow-icon">arrow_forward</mat-icon>
-                                </div> -->
-                            </div>
                         </mat-card-content>
                     </mat-card>
 
@@ -61,21 +37,18 @@
     </div>
 </div>
 
-  <ng-template #notApplicableModel>
-    <h2 mat-dialog-title>Not Applicable</h2>
-    
-    <!-- Dialog Content with Input Field -->
+<ng-template #notApplicableModel>
+    <h1 mat-dialog-title>Not Applicable</h1>
     <mat-dialog-content>
-      <p>Please add your remarks here before making the Domain Not applicable.</p>
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <!-- <mat-label>Remark</mat-label> -->
-        <input matInput [(ngModel)]="remark" placeholder="Enter remark">
-      </mat-form-field>
+        <p>Please add your remarks here before making the Domain Not applicable.</p>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput [(ngModel)]="remark" placeholder="Enter remark">
+        </mat-form-field>
     </mat-dialog-content>
-    
-    <!-- Dialog Actions with Cancel and Update Buttons -->
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close="cancel">Cancel</button>
-      <button mat-button color="primary" [mat-dialog-close]="'confirm'">Confirm</button>
+
+    <mat-dialog-actions class="mat-dialog-actions">
+        <button mat-button color="primary" [mat-dialog-close]="'confirm'" class="primary-btn"
+            [disabled]="!remark" [ngClass]="{'disabled-button': !remark}">Confirm</button>
+        <button mat-button mat-dialog-close="cancel" class="secondary-btn">Cancel</button>
     </mat-dialog-actions>
-  </ng-template>
+</ng-template>

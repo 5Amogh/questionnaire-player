@@ -45,31 +45,12 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       if (!this.initialLoad) {
         this.loadComponent('listing');
       }
-      // else {
-      //   console.log('else')
-      //   const queryParams = this.router.parseUrl(this.router.url).queryParams;
-      //   const type = queryParams['type'];
-      //   console.log('this.router.url2', this.router.url)
-
-      //   console.log('type2', type)
-      //   this.loadComponent(type);
-      //   this.initialLoad = true;
-      // }
     }
 
   }
 
   ngOnInit() {
-    // console.log('else2')
-    // const queryParams = this.router.parseUrl(this.router.url).queryParams;
-    // const type = queryParams['type'];
-    // console.log('this.router.url', this.router.url)
-
-    // console.log('type', type)
-    // this.loadComponent(type);
-    // this.initialLoad = true;
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-      console.log('else3')
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
       const type = urlTree.queryParams['type'];

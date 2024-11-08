@@ -1,34 +1,67 @@
-.card-header{
+.card-header {
     display: flex;
     justify-content: space-between;
 }
 
-.description-icon{
-    margin-bottom: -5px;
-    margin-right: 1px;
+.description-icon {
+    margin-bottom: -0.313rem;
+    margin-right: 0.063rem;
 }
 
-.btn-container{
+.btn-container {
     display: flex;
     justify-content: end;
 }
 
-.not-applicable{
-    border-radius: 20px;
-    padding: 10px;
+.btn-container button {
+    cursor: pointer;
+    padding: 0.438rem 0.938rem;
+    margin: 0.125rem;
+}
+
+.not-applicable {
+    border-radius: 1.25rem;
+    padding: 0.625rem;
     background-color: transparent;
 }
 
-.arrow-icon{
-    margin-top: 15px;
+.arrow-icon {
+    margin-top: 0.938rem;
 }
 
-.bg-success {
-    background-color: #28a745;
-    color: white;
+.secondary-btn {
+    background-color: var(--primary-color);
+    color: var(--general-btn-text-color);
+    border: none;
+}
+  
+.primary-btn {
+    background-color: var(--color-light);
+    color: var(--primary-color);
+    border: 0.063rem solid var(--primary-color);
 }
 
-.bg-info {
-    background-color: #17a2b8;
-    color: white; 
+.mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem 1.5rem;
 }
+  
+.mat-dialog-actions button {
+    cursor: pointer;
+    text-transform: none;
+    width: 45%;
+    min-width: 4rem;
+    border-radius: 0.25rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.375rem 1.313rem;
+}
+
+
+.disabled-button {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    border-color: #666666 !important;
+    cursor: not-allowed;
+  }

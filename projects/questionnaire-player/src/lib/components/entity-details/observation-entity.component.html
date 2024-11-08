@@ -8,8 +8,8 @@
     <div class="srch">
       <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
         <mat-icon matPrefix style="color: gray;">search</mat-icon>
-        <input matInput (input)="handleSearchInput($event)"
-          [placeholder]="'Search your '+ selectedEntities?.entityType + ' here'" />
+        <input matInput (input)="handleSearchInputOne($event)"
+          [placeholder]="'Search '+ selectedEntities?.entityType" />
       </mat-form-field>
     </div>
   </div>
@@ -19,12 +19,13 @@
 
     <div class="observation-list">
       <div class="grid-container">
-        <div class="grid-item" *ngFor="let entity of selectedEntities?.entities">
+        <div class="grid-item" *ngFor="let entity of filteredEntitiesOne">
           <mat-card class="observation-card" (click)="navigateToDetails(entity)">
             <mat-card-content class="card-content">
               <h2 class="observation-name">{{ entity?.name }}</h2>
-              <button *ngIf="entity?.submissionsCount == 0" mat-icon-button color="warn" (click)="deleteEntity(entity?._id); $event.stopPropagation()">
-                <mat-icon>delete</mat-icon>
+              <button *ngIf="entity?.submissionsCount == 0" mat-icon-button color="warn"
+                (click)="deleteEntity(entity?._id); $event.stopPropagation()">
+                <mat-icon style="color: gray;">delete</mat-icon>
               </button>
             </mat-card-content>
           </mat-card>
@@ -44,33 +45,32 @@
       <div class="srch">
         <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input matInput (input)="handleSearchInput($event)"
-            [placeholder]="'Search your '+ selectedEntities.entityType + ' here'" />
+          <input matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" />
         </mat-form-field>
       </div>
 
       <mat-selection-list [multiple]="true" [(ngModel)]="addedEntities">
-        <mat-list-option *ngFor="let entity of filteredEntities" [value]="entity?._id">
+        <mat-list-option *ngFor="let entity of filteredEntities" [value]="entity?._id"
+          [disabled]="isEntityInFilteredEntitiesOne(entity)" [selected]="isEntityInFilteredEntitiesOne(entity)">
           {{entity?.name}}
         </mat-list-option>
       </mat-selection-list>
     </div>
-    <div mat-dialog-actions class="d-flex flex-jc-center flex-dr flex-gap-16">
-      <button mat-dialog-close class="btn" (click)="closeDialog()">
-        cancel
-      </button>
-      <button mat-dialog-close class="btn" (click)="submitDialog()">
-        submit
-      </button>
-    </div>
+
+    <mat-dialog-actions class="mat-dialog-actions">
+      <button mat-button color="primary" [mat-dialog-close]="'yes'" class="primary-btn"
+        (click)="submitDialog()">Add</button>
+      <button mat-button mat-dialog-close class="btn" (click)="closeDialog()" class="secondary-btn">Cancel</button>
+    </mat-dialog-actions>
   </div>
 </ng-template>
 
 <ng-template #confirmDialogModel>
-  <h2 mat-dialog-title>Confirm Deletion</h2>
+  <h1 mat-dialog-title>Confirm Deletion</h1>
   <mat-dialog-content>Are you sure you want to delete this entity?</mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close="no">No</button>
-    <button mat-button color="warn" [mat-dialog-close]="'yes'">Yes</button>
+
+  <mat-dialog-actions class="mat-dialog-actions">
+    <button mat-button color="primary" [mat-dialog-close]="'yes'" class="primary-btn">Yes</button>
+    <button mat-button mat-dialog-close="no" class="secondary-btn">No</button>
   </mat-dialog-actions>
 </ng-template>
