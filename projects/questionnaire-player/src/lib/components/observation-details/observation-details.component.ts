@@ -20,6 +20,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   firstVisit: boolean = true;
   selectedTabIndex = 0;
   allowMultipleAssessemts:any;
+  submissionId:any;
 
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
   @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
@@ -38,6 +39,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     this.entityId = queryParams['entityId'];
     this.entityName = queryParams['name'];
     this.observationId = queryParams['observationId'];
+    this.submissionId = queryParams['submissionId'];
     this.allowMultipleAssessemts = queryParams['allowMultipleAssessemts'];
     this.getObservationByEntityId();
   }
@@ -149,7 +151,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   viewReport() {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports' } })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports','submissionId':this.submissionId, 'entityType':this.observations?.entityType } })
   }
 
   isViewReportDisabled(): boolean {

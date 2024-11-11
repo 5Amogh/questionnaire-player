@@ -130,7 +130,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   navigateToDetails(data) {
     // if(data?.allowMultipleAssessemts){
-    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
+    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId':data?.submissionId, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
     // }else{
     //   this.router.navigate(['observation'], {
     //     queryParams: { type: 'domain', name: data.name }

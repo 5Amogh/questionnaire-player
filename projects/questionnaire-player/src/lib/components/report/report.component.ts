@@ -54,8 +54,9 @@ export class ReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.submissionId = this.apiService?.solutionId;
-    this.entityType = this.apiService?.entityType;
+    const queryParams = this.router.parseUrl(this.router.url).queryParams
+    this.submissionId = queryParams['submissionId'];
+    this.entityType = queryParams['entityType'];
     this.loadObservationReport(this.submissionId, false, false);
   }
 
@@ -79,8 +80,7 @@ export class ReportComponent implements OnInit {
     this.allQuestions = [];
     this.reportDetails = [];
 
-    // let payload = this.createPayload(submissionId, criteria, pdf);
-    let payload = this.createPayload("663c60bbe4d0a4cced6b6399", criteria, pdf);
+    let payload = this.createPayload(submissionId, criteria, pdf);
 
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
