@@ -208,4 +208,9 @@ export interface ApiConfiguration{
   solutionType:'survey' | 'observation';
   fileSizeLimit:number;
   entityType:string;
+  observationId:string;
+  entityId:string;
+  submissionNumber:string;
+  evidenceCode:string;
+
 }

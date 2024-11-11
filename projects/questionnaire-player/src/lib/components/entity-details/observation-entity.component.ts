@@ -22,7 +22,6 @@ export class ObservationEntityComponent {
   entities = new FormControl();
   @ViewChild('searchEntityModal') searchEntityModal: TemplateRef<any>;
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
-
   dialogRef: any;
   observationId: any;
   searchEntities: any = [];
@@ -127,7 +126,7 @@ export class ObservationEntityComponent {
 
   navigateToDetails(data) {
     // if(data?.allowMultipleAssessemts){
-    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id } })
+    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
     // }else{
     //   this.router.navigate(['observation'], {
     //     queryParams: { type: 'domain', name: data.name }

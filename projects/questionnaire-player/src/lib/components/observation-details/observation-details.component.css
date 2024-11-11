@@ -79,3 +79,7 @@
   color: #666666 !important;
   cursor: not-allowed;
 }
+
+.observation-list, .grid-container, .mat-tab-group   {
+  padding-bottom: 5rem;
+}

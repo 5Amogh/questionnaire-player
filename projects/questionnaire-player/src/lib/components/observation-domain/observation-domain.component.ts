@@ -67,9 +67,9 @@ export class ObservationDomainComponent implements OnInit {
     this.expandedIndex = this.expandedIndex === index ? null : index;
   }
 
-  navigateToDetails() {
+  navigateToDetails(data, i) {
     this.router.navigate(['observation'], {
-      queryParams: { type: 'questionnairePlayer' }
+      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:i,evidenceCode:data?.code }
     });
   }
 

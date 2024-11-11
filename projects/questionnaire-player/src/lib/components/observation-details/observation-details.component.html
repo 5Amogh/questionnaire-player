@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<mat-tab-group mat-stretch-tabs="true" [(selectedIndex)]="selectedTabIndex">
+<mat-tab-group mat-stretch-tabs="true" [(selectedIndex)]="selectedTabIndex" class="mb-5">
   <mat-tab label="All">
     <div class="observation-list">
       <div class="grid-container">
@@ -101,7 +101,7 @@
 </mat-tab-group>
 
 <div class="fixed-bottom-buttons" *ngIf="observations?.length > 0">
-  <button mat-raised-button color="primary" (click)="observeAgain()">Observe again</button>
+  <button mat-raised-button color="primary" (click)="observeAgain()" *ngIf="allowMultipleAssessemts == 'true'">Observe again</button>
   <button mat-raised-button color="accent" [disabled]="isViewReportDisabled()" [ngClass]="{'disabled-button': isViewReportDisabled()}" (click)="viewReport()">View report</button>
 </div>
 

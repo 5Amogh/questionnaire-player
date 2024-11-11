@@ -95,10 +95,17 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.apiService.baseUrl = this.apiConfig.baseURL;
     this.apiService.token = this.apiConfig.userAuthToken;
     this.apiService.solutionType = this.apiConfig.solutionType;
+    this.apiService.observationId = this.apiConfig.observationId;
+    this.apiService.entityId = this.apiConfig.entityId;
+    this.apiService.submissionNumber = this.apiConfig.submissionNumber;
+    this.apiService.evidenceCode = this.apiConfig.evidenceCode;
+
+
   }
   
   fetchDetails(){
-    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+this.apiConfig.solutionId,{})
+    const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}`: this.apiConfig.solutionId
+    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,{})
     .pipe(
       catchError((err) => {
         throw new Error('Could not fetch the details');

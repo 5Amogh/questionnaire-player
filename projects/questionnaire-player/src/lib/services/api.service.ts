@@ -13,6 +13,12 @@ export class ApiService {
   public solutionId :any; 
   public entityType:any
   public userAuthToken:any;
+  public observationId:any;
+  public entityId:any;
+  public submissionNumber:any;
+  public evidenceCode:any;
+
+
 
   constructor(private http:HttpClient) { }
 

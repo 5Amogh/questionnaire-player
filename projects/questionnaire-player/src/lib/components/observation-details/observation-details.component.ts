@@ -18,6 +18,7 @@ export class ObservationDetailsComponent implements OnInit {
   observationName: any;
   firstVisit: boolean = true;
   selectedTabIndex = 0;
+  allowMultipleAssessemts:any;
 
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
   @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
@@ -33,6 +34,7 @@ export class ObservationDetailsComponent implements OnInit {
     this.entityId = queryParams['entityId'];
     this.entityName = queryParams['name'];
     this.observationId = queryParams['observationId'];
+    this.allowMultipleAssessemts = queryParams['allowMultipleAssessemts'];
     this.getObservationByEntityId();
   }
 
