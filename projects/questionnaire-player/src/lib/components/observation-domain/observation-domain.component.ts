@@ -4,13 +4,14 @@ import { ApiService } from '../../services/api.service';
 import { ToastService } from '../../services/toast.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-domain',
   templateUrl: './observation-domain.component.html',
   styleUrls: ['./observation-domain.component.css', '../listing/listing.component.scss']
 })
-export class ObservationDomainComponent implements OnInit {
+export class ObservationDomainComponent extends BackNavigationHandlerComponent implements OnInit {
   entityId: any;
   entityName: any;
   entityToAdd: any;
@@ -20,13 +21,14 @@ export class ObservationDomainComponent implements OnInit {
   remark: any = "";
   observationId: any = "";
   id: any = "";
+  entities:any=[]
   @ViewChild('notApplicableModel') notApplicableModel: TemplateRef<any>;
-
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
     private dialog: MatDialog
-  ) { }
-
+  ) {
+    super(router);
+   }
 
   ngOnInit(): void {
     const queryParams = this.router.parseUrl(this.router.url).queryParams
@@ -42,8 +44,8 @@ export class ObservationDomainComponent implements OnInit {
       .subscribe((res: any) => {
         
         if (res.result) {
-          const result = res.result;
-        let evidencesStatus = result
+          this.entities = res?.result;
+        let evidencesStatus = this.entities
           .filter((obj: any) => obj?._id == this.id)
           .map((obj: any) => obj.evidencesStatus);
         this.evidences = evidencesStatus.flat();
@@ -67,21 +69,22 @@ export class ObservationDomainComponent implements OnInit {
     this.expandedIndex = this.expandedIndex === index ? null : index;
   }
 
-  navigateToDetails(data, i) {
+  navigateToDetails(data,index) {
     this.router.navigate(['observation'], {
-      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:i,evidenceCode:data?.code }
+      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:this.entities?.submissionNumber,evidenceCode:data?.code, index:index }
     });
   }
 
 
   notApplicable(entity) {
+    this.remark = "";
     const dialogRef = this.dialog.open(this.notApplicableModel);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
         const evidence = {
           externalId: entity?.code,
-          remark: this.remark,
+          remarks: this.remark,
           notApplicable: true
         }
         this.updateEntity(evidence)
@@ -90,7 +93,7 @@ export class ObservationDomainComponent implements OnInit {
   }
 
   updateEntity(evidence) {
-    this.apiService.post(urlConfig.observation.update + this.observationId, { evidencesStatus: evidence })
+    this.apiService.post(urlConfig.observation.update + this.id, { evidence: evidence })
 
       .subscribe((res: any) => {
 

@@ -17,8 +17,7 @@ export class ApiService {
   public entityId:any;
   public submissionNumber:any;
   public evidenceCode:any;
-
-
+  public index:any;
 
   constructor(private http:HttpClient) { }
 

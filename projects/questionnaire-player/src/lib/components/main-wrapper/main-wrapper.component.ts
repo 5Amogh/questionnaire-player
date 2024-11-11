@@ -99,8 +99,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.apiService.entityId = this.apiConfig.entityId;
     this.apiService.submissionNumber = this.apiConfig.submissionNumber;
     this.apiService.evidenceCode = this.apiConfig.evidenceCode;
-
-
+    this.apiService.index = this.apiConfig.index;
   }
   
   fetchDetails(){
@@ -116,7 +115,12 @@ export class MainWrapperComponent implements OnInit, OnChanges {
         this.assessment = this.questionnaireService.mapSubmissionToAssessment(
           res.result
         );
-        this.evidence = this.assessment.assessment.evidences[0];
+        const ev = +[this.apiConfig.index];
+        console.log("ev",ev, typeof(ev));
+
+        this.evidence = this.apiConfig.solutionType == 'observation' ?  this.assessment?.assessment?.evidences[+[this.apiConfig.index]]: this.assessment?.assessment?.evidences[0];
+        console.log("v",this.assessment);
+        console.log("this.evidence",this.evidence);
         this.evidence.startTime = Date.now();
         this.endDate = new Date(
           new Date(this.assessment.assessment.endDate).getTime() +

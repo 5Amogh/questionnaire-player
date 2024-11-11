@@ -10,6 +10,7 @@ import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
 import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-wrapper',
@@ -20,7 +21,10 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
-  constructor(public router: Router, public apiService: ApiService) { }
+  type:any;
+  constructor(public router: Router, public apiService: ApiService) { 
+
+  }
 
   private componentMapper: any = {
     listing: ListingComponent,
@@ -40,9 +44,9 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
-
-
       if (!this.initialLoad) {
+      console.log("url11",this.initialLoad);
+
         this.loadComponent('listing');
       }
     }
@@ -53,9 +57,10 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
-      const type = urlTree.queryParams['type'];
-      this.loadComponent(type);
+      this.type = urlTree.queryParams['type'];
+      console.log("this.type",this.type);
       this.initialLoad = true;
+      this.loadComponent(this.type);
     });
   }
 

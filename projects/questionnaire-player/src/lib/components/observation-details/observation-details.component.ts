@@ -4,13 +4,14 @@ import { ApiService } from '../../services/api.service';
 import { ToastService } from '../../services/toast.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-details',
   templateUrl: './observation-details.component.html',
   styleUrls: ['./observation-details.component.css', '../listing/listing.component.scss']
 })
-export class ObservationDetailsComponent implements OnInit {
+export class ObservationDetailsComponent extends BackNavigationHandlerComponent implements OnInit {
   entityId: any;
   entityName: any;
   observationId: any;
@@ -26,7 +27,10 @@ export class ObservationDetailsComponent implements OnInit {
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
     private dialog: MatDialog
-  ) { }
+  ) {
+    super(router);
+
+   }
 
 
   ngOnInit(): void {

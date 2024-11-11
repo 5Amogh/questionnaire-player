@@ -5,13 +5,14 @@ import { ToastService } from '../../services/toast.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-entity',
   templateUrl: './observation-entity.component.html',
   styleUrls: ['./observation-entity.component.css', '../listing/listing.component.scss']
 })
-export class ObservationEntityComponent {
+export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   selectedEntities: any;
   solutionId: any;
   solutionName: any;
@@ -26,7 +27,10 @@ export class ObservationEntityComponent {
   observationId: any;
   searchEntities: any = [];
 
-  constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog) { }
+  constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog) { 
+    super(router);
+
+  }
 
   ngOnInit() {
     const queryParams = this.router.parseUrl(this.router.url).queryParams

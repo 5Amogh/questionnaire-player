@@ -15,6 +15,7 @@ export class PlayerBridgeComponent {
   observationId:any;
   submissionNumber:any;
   evidenceCode:any;
+  index:any;
 
 
   
@@ -30,16 +31,11 @@ export class PlayerBridgeComponent {
     this.entityId = queryParams['entityId'];
     this.submissionNumber = queryParams['submissionNumber'];
     this.evidenceCode = queryParams['evidenceCode'];
-
-
-
-    
+    this.index = queryParams['index'];
     this.setApiService();
-
   }
 
   setApiService(){
-    console.log('set api',this.solutionId);
     this.apiConfig ={
       baseURL: this.apiService.baseUrl,
       userAuthToken: this.apiService.userAuthToken,
@@ -49,9 +45,9 @@ export class PlayerBridgeComponent {
       entityId: this.entityId,
       submissionNumber: this.submissionNumber,
       evidenceCode: this.evidenceCode,
-      entityType: this.apiService.entityType
+      entityType: this.apiService.entityType,
+      index:this.index
     }
     console.log('this.apiConfig',this.apiConfig);
-
   }
 }

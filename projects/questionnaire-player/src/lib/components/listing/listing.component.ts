@@ -4,13 +4,14 @@ import { finalize } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss'],
 })
-export class ListingComponent implements OnInit {
+export class ListingComponent extends BackNavigationHandlerComponent implements OnInit {
   solutionList: any = { data: [], count: 0 };
   solutionId!: string;
   listType = 'observation';
@@ -29,7 +30,9 @@ export class ListingComponent implements OnInit {
     private router: Router,
     private toaster: ToastService,
     private apiService:ApiService
-  ) {}
+  ) {
+    super(router);
+  }
 
   ngOnInit(): void {
     this.reportPage = this.router.parseUrl(this.router.url).queryParams['reports'] === 'true';

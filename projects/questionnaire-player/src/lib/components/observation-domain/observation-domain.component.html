@@ -16,15 +16,18 @@
                                     <h2 class="observation-name">{{ entity?.name }}</h2>
                                 </div>
                             </div>
+
                             <div class="btn-container" *ngIf="!entity?.notApplicable">
-                                <button class="not-applicable mr-5 primary-btn" (click)="navigateToDetails(entity, i+1)"
+                                <button class="not-applicable mr-5 primary-btn" (click)="navigateToDetails(entity,i)"
                                     *ngIf="entity?.status == 'completed'">View</button>
-                                <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity, i+1)"
+                                <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity,i)"
                                     *ngIf="entity?.status == 'notstarted'">Start</button>
-                                <button class="not-applicable" (click)="notApplicable(entity)"
-                                    *ngIf="!entity?.notApplicable">Not Applicable</button>
+                                <button class="not-applicable primary-btn" (click)="notApplicable(entity)"
+                                    *ngIf="!entity?.notApplicable && entity?.status != 'completed'">Not Applicable</button>
                             </div>
-                            <p *ngIf="entity?.notApplicable">Not Applicable !</p>
+                            <div class="btn-container" *ngIf="entity?.notApplicable">
+                            <p>Not Applicable !</p>
+                        </div>
                         </mat-card-content>
                     </mat-card>
 
