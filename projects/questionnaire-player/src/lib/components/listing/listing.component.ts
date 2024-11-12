@@ -57,9 +57,9 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   async getListData(): Promise<void> {
     this.showLoading = true;
-    this.solutionList = { data: [], count: 0 };
-    this.originalData = [];
-    this.selectedEntityType = "";
+    // this.solutionList = { data: [], count: 0 };
+    // this.originalData = [];
+    // this.selectedEntityType = "";
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
     this.apiService.post(
       urlPath+ `?type=${this.apiService.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,this.apiService.profileData
@@ -68,9 +68,9 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     ).subscribe((res: any) => {
       if (res?.status === 200) {
         this.entityType = this.reportPage ? res?.result?.entityType : "";
-        this.solutionList.data = [...this.solutionList.data, ...res.result.data];
-        this.solutionList.count = res.result.count;
-        this.originalData = this.solutionList.data;
+        this.solutionList.data = [...this.solutionList?.data, ...res?.result?.data];
+        this.solutionList.count = res?.result?.count;
+        this.originalData = this.solutionList?.data;
       } else {
         this.toaster.showToast(res.message, 'Close');
       }

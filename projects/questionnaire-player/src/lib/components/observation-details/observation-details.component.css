@@ -32,12 +32,20 @@
   background-color: var(--primary-color);
   color: var(--general-btn-text-color);
   border: none;
+  cursor: pointer;
 }
 
 .primary-btn {
   background-color: var(--color-light);
   color: var(--primary-color);
   border: 0.063rem solid var(--primary-color); 
+  cursor: pointer;
+}
+
+.report-btn{
+  margin-right: 10px;
+  border-radius: 20px;
+  padding: 9px;
 }
 
 .mat-dialog-actions {

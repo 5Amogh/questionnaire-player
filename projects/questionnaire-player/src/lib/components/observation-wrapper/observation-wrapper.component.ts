@@ -54,6 +54,24 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+      // console.log("first");
+
+      // let urlQueryParams = this.getQueryParams(window.location.search)
+
+      // console.log('urlQueryParams',urlQueryParams)
+
+  //  if(urlQueryParams?.type){
+  //   this.type = urlQueryParams?.type;
+  //   this.initialLoad = true;
+
+  //   console.log('this.type',this.type)
+
+  //   this.loadComponent(this.type);
+  //  }
+
+
+
+
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
@@ -63,6 +81,23 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.loadComponent(this.type);
     });
   }
+
+  // getQueryParams(queryParams:any){
+  //   console.log('getQueryParams',queryParams)
+  //   const queryObj: any = {}
+
+  //   if (queryParams.startsWith('?')) {
+  //     queryParams = queryParams.substring(1);
+  //   }
+
+  //   const queryArray = queryParams.split('&');
+
+  //   queryArray.forEach((query:any) => {
+  //       const [key, value] = query.split('=');
+  //       queryObj[key] = value 
+  //   });
+  //   return queryObj;
+  // }
 
   loadComponent(type: string) {
     if (this.dynamicComponent) {
@@ -76,6 +111,10 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
 
   navigate() {
     this.router.navigate(['/observation'], { queryParams: { 'type': 'listing' } })
+  }
+
+  navigateReport() {
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports' } })
   }
 
 }

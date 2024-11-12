@@ -17,6 +17,7 @@ import {
   Legend
 } from 'chart.js';
 import { Location } from '@angular/common';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -25,7 +26,7 @@ Chart.register(PieController, BarController, ArcElement, BarElement, CategorySca
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent extends BackNavigationHandlerComponent implements OnInit {
 
   reportDetails: any[] = [];
   objectURL: any;
@@ -44,6 +45,7 @@ export class ReportComponent implements OnInit {
   totalSubmissions: any;
   observationId: any;
   observationType: any = 'questions';
+  entityId:any
 
   constructor(
     private router: Router,
@@ -51,12 +53,17 @@ export class ReportComponent implements OnInit {
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
     private location : Location
-  ) { }
+  ) {
+    super(router);
+   }
 
   ngOnInit() {
     const queryParams = this.router.parseUrl(this.router.url).queryParams
     this.submissionId = queryParams['submissionId'];
     this.entityType = queryParams['entityType'];
+    this.entityId = queryParams['entityId'];
+    this.observationId = queryParams['observationId'];
+
     this.loadObservationReport(this.submissionId, false, false);
   }
 
@@ -65,7 +72,7 @@ export class ReportComponent implements OnInit {
     this.apiService.token = this.apiConfig?.userAuthToken;
     this.apiService.solutionType = this.apiConfig?.solutionType;
     this.submissionId = this.apiConfig?.solutionId;
-    this.entityType = this.apiConfig?.entityType;
+    this.entityType = this.entityType;
     if (this.submissionId) {
       this.loadObservationReport(this.submissionId, false, false);
     }
@@ -76,7 +83,7 @@ export class ReportComponent implements OnInit {
     this.resultData = [];
     this.surveyName = '';
     this.totalSubmissions = [];
-    this.observationId = [];
+    // this.observationId = "";
     this.allQuestions = [];
     this.reportDetails = [];
 
@@ -110,6 +117,8 @@ export class ReportComponent implements OnInit {
       entityType: this.entityType,
       pdf,
       criteriaWise: criteria,
+      entityId:this.entityId,
+      observationId:this.observationId
     };
   }
 

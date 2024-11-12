@@ -29,12 +29,14 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.scss'],
 })
-export class MainWrapperComponent implements OnInit, OnChanges {
+export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
   questions: Array<Question>;
   @Input({ transform: booleanAttribute }) angular = false;
   evidence: Evidence;
@@ -65,8 +67,12 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     public apiService:ApiService,
     public toaster:ToastService,
     public location:Location,
-    private renderer: Renderer2, private el: ElementRef
-  ) {}
+    private renderer: Renderer2, private el: ElementRef,
+    public router: Router
+  ) {
+    super(router);
+
+  }
 
   checkFormValidity(){
     window.parent.postMessage({

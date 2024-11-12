@@ -5,6 +5,7 @@ import { ToastService } from '../../services/toast.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-observation-details',
@@ -27,7 +28,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
 
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,private location : Location
   ) {
     super(router);
 
@@ -56,21 +57,22 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   getObservationByEntityId() {
     this.apiService.post(urlConfig.observation.observationSubmissions + this.observationId + `?entityId=${this.entityId}`, this.apiService.profileData)
       .subscribe((res: any) => {
-        if (res.result) {
+        if (res?.result) {
           if (this.firstVisit && res?.result?.length === 0) {
             this.firstVisit = false;
             this.observeAgain();
           } else {
-            this.observations = res.result;
+            this.observations = res?.result;
           }
 
         } else {
-          this.toaster.showToast(res.message, 'danger');
+          this.toaster.showToast(res?.message, 'danger');
         }
       })
   }
 
   navigateToDetails(data) {
+    console.log("data",data)
     // if (data?.evidencesStatus?.length == 0) {
     //   this.toaster.showToast("No solution found.", 'Close')
 
@@ -84,7 +86,8 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
       });
     } else {
       this.router.navigate(['observation'], {
-        queryParams: { type: 'questionnairePlayer', observationId: data?.observationId }
+        queryParams: { type: 'questionnairePlayer', observationId: data?.observationId, entityId:data?.entityId, submissionNumber:data?.submissionNumber,evidenceCode:data?.evidencesStatus[0]?.code, index:0
+         }
       });
     }
   }
@@ -150,8 +153,8 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
       })
   }
 
-  viewReport() {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports','submissionId':this.submissionId, 'entityType':this.observations?.entityType } })
+  viewReport(entity?) {
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports','submissionId':entity?._id,'observationId':this.observationId, entityId:this.entityId, 'entityType':entity?entity?.entityType:this.observations[0]?.entityType } })
   }
 
   isViewReportDisabled(): boolean {
@@ -166,4 +169,9 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
         return true;
     }
   }
+
+  goBack() {
+    this.location.back();
+  }
+
 }

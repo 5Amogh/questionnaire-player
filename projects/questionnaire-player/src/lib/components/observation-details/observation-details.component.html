@@ -1,3 +1,8 @@
+<header class="header">
+  <div class="toolbar">
+    <mat-icon class="back-button" (click)="goBack()">keyboard_backspace</mat-icon>
+  </div>
+</header>
 <div class="listTitle">
   <div>
     <h1>{{entityName}}</h1>
@@ -17,15 +22,18 @@
                   <h2 class="observation-name">{{ entity?.title }}</h2>
                   <p>{{entity?.updatedAt | date:'short'}}</p>
                 </mat-card-content>
-
-                <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
-                  <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
-                </mat-menu>
+                <div *ngIf="entity?.status !== 'completed'">
+                  <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+  
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
+                    <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
+                  </mat-menu>
+                </div>
+               
+                <button class="secondary-btn report-btn" *ngIf="entity?.status == 'completed'" (click)="viewReport(entity)">Reports</button>
               </div>
             </mat-card>
           </div>
