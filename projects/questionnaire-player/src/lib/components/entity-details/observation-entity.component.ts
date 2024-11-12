@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-observation-entity',
@@ -27,15 +28,17 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   observationId: any;
   searchEntities: any = [];
 
-  constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog) { 
+  constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
+    ,private location : Location
+  ) { 
     super(router);
 
   }
 
   ngOnInit() {
-    const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.solutionId = queryParams['id'];
-    this.solutionName = queryParams['name'];
+      const queryParams = this.router.parseUrl(this.router.url).queryParams
+      this.solutionId = queryParams['id'];
+      this.solutionName = decodeURIComponent(decodeURIComponent(queryParams['name'] || ''));
     this.entityToAdd = queryParams['entityType'];
     this.getEntities();
   }
@@ -165,6 +168,10 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.filteredEntitiesOne.some((filteredEntity: any) => filteredEntity._id === entity._id);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

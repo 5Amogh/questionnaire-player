@@ -5,6 +5,7 @@ import { ToastService } from '../../services/toast.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-observation-domain',
@@ -25,7 +26,7 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   @ViewChild('notApplicableModel') notApplicableModel: TemplateRef<any>;
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,private location : Location
   ) {
     super(router);
    }
@@ -106,5 +107,9 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
         this.toaster.showToast(err.error.message, 'Close');
       })
 
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
