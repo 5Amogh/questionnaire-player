@@ -18,6 +18,7 @@ import {
 } from 'chart.js';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -52,18 +53,18 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
-    private location : Location
+    private location : Location,
+    private queryParamsService: QueryParamsService
   ) {
     super(router);
    }
 
   ngOnInit() {
-    const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.submissionId = queryParams['submissionId'];
-    this.entityType = queryParams['entityType'];
-    this.entityId = queryParams['entityId'];
-    this.observationId = queryParams['observationId'];
-
+    this.queryParamsService.parseQueryParams();
+    this.observationId = this.queryParamsService?.observationId;
+    this.submissionId = this.queryParamsService?.submissionId;
+    this.entityType = this.queryParamsService?.entityType;
+    this.entityId = this.queryParamsService?.entityId;
     this.loadObservationReport(this.submissionId, false, false);
   }
 

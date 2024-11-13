@@ -5,6 +5,7 @@ import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
   selector: 'lib-listing',
@@ -29,13 +30,15 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   constructor(
     private router: Router,
     private toaster: ToastService,
-    private apiService:ApiService
+    private apiService:ApiService,
+    private queryParamsService: QueryParamsService
   ) {
     super(router);
   }
 
   ngOnInit(): void {
-    this.reportPage = this.router.parseUrl(this.router.url).queryParams['reports'] === 'true';
+    this.queryParamsService.parseQueryParams();
+    this.reportPage = this.queryParamsService.reports === 'true';
     this.pageTitle = this.reportPage ? 'Report Listing' : 'Observation';
     this.loadInitialData();
   }

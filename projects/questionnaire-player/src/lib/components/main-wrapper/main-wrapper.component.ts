@@ -142,6 +142,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
 
   });
 }
+
   ngOnInit() {
     if (typeof this.apiConfig === 'string') {
       try {

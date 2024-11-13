@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { Location } from '@angular/common';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
   selector: 'lib-observation-entity',
@@ -29,17 +30,17 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   searchEntities: any = [];
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
-    ,private location : Location
-  ) { 
+    , private location: Location, private queryParamsService: QueryParamsService
+  ) {
     super(router);
 
   }
 
   ngOnInit() {
-      const queryParams = this.router.parseUrl(this.router.url).queryParams
-      this.solutionId = queryParams['id'];
-      this.solutionName = decodeURIComponent(decodeURIComponent(queryParams['name'] || ''));
-    this.entityToAdd = queryParams['entityType'];
+    this.queryParamsService.parseQueryParams();
+    this.solutionId = this.queryParamsService?.id;
+    this.solutionName = decodeURIComponent(decodeURIComponent(this.queryParamsService?.name || ''));
+    this.entityToAdd = this.queryParamsService?.entityType;
     this.getEntities();
   }
 
@@ -133,7 +134,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   navigateToDetails(data) {
     // if(data?.allowMultipleAssessemts){
-    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId':data?.submissionId, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
+    this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId': data?.submissionId, 'allowMultipleAssessemts': this.selectedEntities?.allowMultipleAssessemts } })
     // }else{
     //   this.router.navigate(['observation'], {
     //     queryParams: { type: 'domain', name: data.name }

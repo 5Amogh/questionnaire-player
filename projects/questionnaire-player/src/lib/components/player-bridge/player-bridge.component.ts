@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
   selector: 'lib-player-bridge',
@@ -22,16 +23,17 @@ export class PlayerBridgeComponent {
   constructor(
     private apiService:ApiService,
     private router: Router,
+    private queryParamsService: QueryParamsService
   ) {
   }
 
   ngOnInit(): void {
-    const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.observationId = queryParams['observationId'];
-    this.entityId = queryParams['entityId'];
-    this.submissionNumber = queryParams['submissionNumber'];
-    this.evidenceCode = queryParams['evidenceCode'];
-    this.index = queryParams['index'];
+    this.queryParamsService.parseQueryParams();
+    this.observationId = this.queryParamsService?.observationId;
+    this.entityId = this.queryParamsService?.entityId;
+    this.submissionNumber = this.queryParamsService?.submissionNumber;
+    this.evidenceCode = this.queryParamsService?.evidenceCode;
+    this.index = this.queryParamsService?.index;
     this.setApiService();
   }
 

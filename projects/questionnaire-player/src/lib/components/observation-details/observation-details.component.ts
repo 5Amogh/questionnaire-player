@@ -6,6 +6,7 @@ import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { Location } from '@angular/common';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
   selector: 'lib-observation-details',
@@ -28,20 +29,18 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
 
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
-    private dialog: MatDialog,private location : Location
+    private dialog: MatDialog,private location : Location, private queryParamsService: QueryParamsService
   ) {
     super(router);
-
    }
 
-
   ngOnInit(): void {
-    const queryParams = this.router.parseUrl(this.router.url).queryParams
-    this.entityId = queryParams['entityId'];
-    this.entityName = queryParams['name'];
-    this.observationId = queryParams['observationId'];
-    this.submissionId = queryParams['submissionId'];
-    this.allowMultipleAssessemts = queryParams['allowMultipleAssessemts'];
+    this.queryParamsService.parseQueryParams();
+    this.entityId = this.queryParamsService?.entityId;
+      this.entityName = decodeURIComponent(decodeURIComponent(this.queryParamsService?.entityName || ''));
+      this.observationId = this.queryParamsService?.observationId;
+      this.submissionId = this.queryParamsService?.submissionId;
+      this.allowMultipleAssessemts = this.queryParamsService?.allowMultipleAssessemts
     this.getObservationByEntityId();
   }
 

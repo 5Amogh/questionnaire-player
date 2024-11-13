@@ -11,19 +11,20 @@ import { ObservationDomainComponent } from '../observation-domain/observation-do
 import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
   selector: 'lib-observation-wrapper',
   templateUrl: './observation-wrapper.component.html',
   styleUrls: ['./observation-wrapper.component.css']
 })
-export class ObservationWrapperComponent implements OnInit, OnChanges {
+export class ObservationWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
   @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type:any;
-  constructor(public router: Router, public apiService: ApiService) { 
-
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) { 
+    super(router);
   }
 
   private componentMapper: any = {
@@ -44,34 +45,42 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
-      if (!this.initialLoad) {
-      console.log("url11",this.initialLoad);
+      // if (!this.initialLoad) {
+      // console.log("url11",this.initialLoad);
+
+      //   this.loadComponent('listing');
+      // }
+
+
+
+
+
+            console.log("first");
+
+            this.queryParamsService.parseQueryParams();
+
+      console.log('urlQueryParams',this.queryParamsService?.type)
+
+   if(this.queryParamsService?.type){
+    this.type = this.queryParamsService?.type;
+    this.initialLoad = true;
+
+    console.log('this.type',this.type)
+// if(urlQueryParams?.type == 'details'){
+  // this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId':data?.submissionId, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
+
+// }
+    this.loadComponent(this.type);
+   }else{
+     console.log("listing page nav");
 
         this.loadComponent('listing');
-      }
+   }
     }
 
   }
 
   ngOnInit() {
-      // console.log("first");
-
-      // let urlQueryParams = this.getQueryParams(window.location.search)
-
-      // console.log('urlQueryParams',urlQueryParams)
-
-  //  if(urlQueryParams?.type){
-  //   this.type = urlQueryParams?.type;
-  //   this.initialLoad = true;
-
-  //   console.log('this.type',this.type)
-
-  //   this.loadComponent(this.type);
-  //  }
-
-
-
-
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
@@ -81,23 +90,6 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.loadComponent(this.type);
     });
   }
-
-  // getQueryParams(queryParams:any){
-  //   console.log('getQueryParams',queryParams)
-  //   const queryObj: any = {}
-
-  //   if (queryParams.startsWith('?')) {
-  //     queryParams = queryParams.substring(1);
-  //   }
-
-  //   const queryArray = queryParams.split('&');
-
-  //   queryArray.forEach((query:any) => {
-  //       const [key, value] = query.split('=');
-  //       queryObj[key] = value 
-  //   });
-  //   return queryObj;
-  // }
 
   loadComponent(type: string) {
     if (this.dynamicComponent) {
