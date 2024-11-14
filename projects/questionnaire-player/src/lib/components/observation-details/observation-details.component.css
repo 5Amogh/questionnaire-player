@@ -1,22 +1,3 @@
-.header {
-  background-color: #f8f8f8;
-  padding: 0.625rem;
-}
-
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.back-button {
-  background-color: #832215;
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
 .card-content-container {
   display: flex;
   justify-content: space-between;

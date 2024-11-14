@@ -12,14 +12,14 @@ export class QueryParamsService implements OnDestroy {
   public observationId: any;
   public submissionId: any;
   public allowMultipleAssessemts: any;
-  public reports:any;
-  public id:any;
-  public name:any;
-  public entityType:any;
-  public submissionNumber:any;
-  public evidenceCode:any;
-  public index:any;
-  public type:any;
+  public reports: any;
+  public id: any;
+  public name: any;
+  public entityType: any;
+  public submissionNumber: any;
+  public evidenceCode: any;
+  public index: any;
+  public type: any;
   private routerSubscription: Subscription;
 
   constructor(private router: Router) {
@@ -29,10 +29,7 @@ export class QueryParamsService implements OnDestroy {
   }
 
   parseQueryParams() {
-    // const queryParams = this.router.parseUrl(this.router.url).queryParams;
-      let queryParams = this.getQueryParams(window.location.search);
-    console.log("queryParams222",queryParams);
-
+    let queryParams = this.getQueryParams(window.location.search);
     this.entityId = queryParams?.entityId;
     this.entityName = queryParams?.name;
     this.observationId = queryParams?.observationId;
@@ -48,7 +45,7 @@ export class QueryParamsService implements OnDestroy {
     this.type = queryParams?.type;
   }
 
-  getQueryParams(queryParams:any){
+  getQueryParams(queryParams: any) {
     const queryObj: any = {}
 
     if (queryParams.startsWith('?')) {
@@ -57,9 +54,9 @@ export class QueryParamsService implements OnDestroy {
 
     const queryArray = queryParams.split('&');
 
-    queryArray.forEach((query:any) => {
-        const [key, value] = query.split('=');
-        queryObj[key] = value 
+    queryArray.forEach((query: any) => {
+      const [key, value] = query.split('=');
+      queryObj[key] = value
     });
     return queryObj;
   }

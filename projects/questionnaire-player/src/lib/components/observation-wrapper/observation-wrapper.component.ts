@@ -10,8 +10,8 @@ import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
 import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
-import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-wrapper',
@@ -22,8 +22,8 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
   @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
-  type:any;
-  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) { 
+  type: any;
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) {
     super(router);
   }
 
@@ -32,8 +32,8 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
     entityList: ObservationEntityComponent,
     details: ObservationDetailsComponent,
     reports: ReportComponent,
-    domain:ObservationDomainComponent,
-    questionnairePlayer:PlayerBridgeComponent
+    domain: ObservationDomainComponent,
+    questionnairePlayer: PlayerBridgeComponent
   };
 
   ngOnChanges(changes: SimpleChanges) {
@@ -45,37 +45,25 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
+      this.queryParamsService.parseQueryParams();
+      console.log('111',this.queryParamsService)
+      if (this.queryParamsService.type) {
+        this.type = this.queryParamsService?.type;
+        this.initialLoad = true;
+        console.log('this.type', this.type)
+        this.loadComponent(this.type);
+      } else {
+        console.log("listing page nav");
+
+        this.loadComponent('listing');
+      }
+
       // if (!this.initialLoad) {
-      // console.log("url11",this.initialLoad);
+      //   console.log("url11", this.initialLoad);
 
       //   this.loadComponent('listing');
       // }
 
-
-
-
-
-            console.log("first");
-
-            this.queryParamsService.parseQueryParams();
-
-      console.log('urlQueryParams',this.queryParamsService?.type)
-
-   if(this.queryParamsService?.type){
-    this.type = this.queryParamsService?.type;
-    this.initialLoad = true;
-
-    console.log('this.type',this.type)
-// if(urlQueryParams?.type == 'details'){
-  // this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId':data?.submissionId, 'allowMultipleAssessemts':this.selectedEntities?.allowMultipleAssessemts }})
-
-// }
-    this.loadComponent(this.type);
-   }else{
-     console.log("listing page nav");
-
-        this.loadComponent('listing');
-   }
     }
 
   }
@@ -85,7 +73,7 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
       this.type = urlTree.queryParams['type'];
-      console.log("this.type",this.type);
+      console.log("this.type", this.type);
       this.initialLoad = true;
       this.loadComponent(this.type);
     });

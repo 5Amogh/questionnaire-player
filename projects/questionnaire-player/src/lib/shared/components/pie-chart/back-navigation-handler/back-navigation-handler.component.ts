@@ -11,20 +11,15 @@ export class BackNavigationHandlerComponent {
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event: any) {
-    console.log("first")
     this.handlePopState(event);
-
   }
 
   protected handlePopState(event: any) {
     let urlQueryParams = this.getQueryParams(event.target.location.search)
-    console.log("urlQueryParams",urlQueryParams)
     if(urlQueryParams){
-    //   this.outer.navigate(event.target.location.pathname, urlQueryParams)
     this.outer.navigate(['/observation'], { queryParams: urlQueryParams })
-
     }else{
-      this.loc?.back()
+    this.outer.navigate(['/observation'], { queryParams: {type:'listing'} })
     }
   }
 

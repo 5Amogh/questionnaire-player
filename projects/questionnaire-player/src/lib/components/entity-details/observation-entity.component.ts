@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
-import { Location } from '@angular/common';
 import { QueryParamsService } from '../../services/queryParams.service';
 
 @Component({
@@ -30,10 +29,9 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   searchEntities: any = [];
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
-    , private location: Location, private queryParamsService: QueryParamsService
+    , private queryParamsService: QueryParamsService
   ) {
     super(router);
-
   }
 
   ngOnInit() {
@@ -169,10 +167,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.filteredEntitiesOne.some((filteredEntity: any) => filteredEntity._id === entity._id);
-  }
-
-  goBack() {
-    this.location.back();
   }
 
 }

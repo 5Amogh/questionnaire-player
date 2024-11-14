@@ -16,7 +16,6 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
 
@@ -53,7 +52,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
-    private location : Location,
     private queryParamsService: QueryParamsService
   ) {
     super(router);
@@ -295,10 +293,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.allQuestions.forEach(question => question.selected = false);
     this.filteredQuestions = [];
     this.applyFilter(true);
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   openUrl(url: string) {

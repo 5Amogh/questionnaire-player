@@ -63,6 +63,7 @@ import { ObservationDomainComponent } from './components/observation-domain/obse
 import { PlayerBridgeComponent } from './components/player-bridge/player-bridge.component';
 import { QuestionnaireService } from './services/questionnaire.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { CommonHeaderComponent } from './shared/components/common-header/common-header.component';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -106,7 +107,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     ObservationEntityComponent,
     ObservationDetailsComponent,
     ObservationDomainComponent,
-    PlayerBridgeComponent
+    PlayerBridgeComponent,
+    CommonHeaderComponent
     ],
   imports: [
     CommonModule,
