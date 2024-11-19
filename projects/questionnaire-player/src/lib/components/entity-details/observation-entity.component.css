@@ -89,3 +89,8 @@
 .search {
     margin-top: 5px;
   }
+
+  .delete-btn{
+    background-color: transparent;
+    border: none
+  }

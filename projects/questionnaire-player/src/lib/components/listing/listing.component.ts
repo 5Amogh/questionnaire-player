@@ -10,7 +10,7 @@ import { QueryParamsService } from '../../services/queryParams.service';
 @Component({
   selector: 'lib-listing',
   templateUrl: './listing.component.html',
-  styleUrls: ['./listing.component.scss'],
+  styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent extends BackNavigationHandlerComponent implements OnInit {
   solutionList: any = { data: [], count: 0 };

@@ -20,6 +20,8 @@
                             <div class="btn-container" *ngIf="!entity?.notApplicable">
                                 <button class="not-applicable mr-5 primary-btn" (click)="navigateToDetails(entity,i)"
                                     *ngIf="entity?.status == 'completed'">View</button>
+                                    <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity,i)"
+                                    *ngIf="entity?.status == 'draft'">Continue</button> 
                                 <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity,i)"
                                     *ngIf="entity?.status == 'notstarted'">Start</button>
                                 <button class="not-applicable primary-btn" (click)="notApplicable(entity)"

@@ -23,7 +23,7 @@
           <mat-card class="observation-card" (click)="navigateToDetails(entity)">
             <mat-card-content class="card-content">
               <h2 class="observation-name">{{ entity?.name }}</h2>
-              <button *ngIf="entity?.submissionsCount == 0" mat-icon-button color="warn"
+              <button *ngIf="entity?.submissionsCount == 0" class="delete-btn" color="warn"
                 (click)="deleteEntity(entity?._id); $event.stopPropagation()">
                 <mat-icon style="color: gray;">delete</mat-icon>
               </button>
