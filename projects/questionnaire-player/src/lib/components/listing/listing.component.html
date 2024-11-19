@@ -31,7 +31,7 @@
           </div>
         </div>
     </div>
-    <div *ngIf="solutionList?.count === 0">
+    <div *ngIf="solutionList?.count === 0" class="no-data-container">
       <img src="/assets/images/no_data.jpg" alt="No data" />
     </div>
     <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">

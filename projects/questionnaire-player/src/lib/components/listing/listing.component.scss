@@ -84,12 +84,21 @@
   margin-bottom: 1.563rem;
 }
 
-img{
-  width: 100%;
-}
+img {
+  width: 50%;
+  max-width: 300px;
+  }
 
 @media (max-width: 48rem) {
   .grid-container {
     grid-template-columns: 1fr;
   }
+}
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
