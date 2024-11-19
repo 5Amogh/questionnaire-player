@@ -70,6 +70,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
             this.observationInit = false;
             this.observeAgain();
           } else {
+            this.observationInit = false;
             this.observations = res?.result;
           }
         } else {

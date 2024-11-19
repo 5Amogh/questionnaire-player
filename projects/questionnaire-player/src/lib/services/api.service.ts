@@ -41,7 +41,7 @@ export class ApiService {
     return this.http.put<T>(url, body, { headers });
   }
   
-  delete<T>(url: string, body: { data: any[] }): Observable<T> {
-    return this.http.delete<T>(this.baseUrl + url, { body });
+  delete<T>(url: string, body: any): Observable<T> {
+    return this.http.delete<T>(this.baseUrl + url, {body} );
   }
 }
