@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
-import { catchError } from 'rxjs';
+import { catchError, finalize } from 'rxjs';
 import { ApiConfiguration } from '../../interfaces/questionnaire.type';
 import {
   Chart,
@@ -47,6 +47,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   observationType: any = 'questions';
   entityId:any;
   resMessage:any;
+  loaded = false;
+
 
   constructor(
     private router: Router,
@@ -79,9 +81,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
       .pipe(
+        finalize(() =>this.loaded = true),
         catchError((err) => {
           this.toaster.showToast(err?.error?.message, 'danger', 5000)
-
           throw new Error('Could not fetch the details');
         })
       )
@@ -303,6 +305,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
       .pipe(
+        finalize(() =>this.loaded = true),
         catchError((err) => {
           throw new Error('Could not fetch the details');
         })

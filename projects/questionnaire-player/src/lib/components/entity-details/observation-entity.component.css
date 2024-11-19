@@ -140,3 +140,10 @@
   img{
     width: 100%;
   }
+
+  .disabled-button {
+    background-color: var(--disabled-btn-bg) !important;
+    color: var(--disabled-btn-text) !important;
+    border-color: var(--disabled-btn-text)  !important;
+    cursor: not-allowed;
+  }

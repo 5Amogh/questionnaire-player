@@ -73,11 +73,11 @@
           {{entity?.name}}
         </mat-list-option>
       </mat-selection-list>
-        <p class="no-data" *ngIf="!filteredEntities?.length">No {{selectedEntities?.entityType}} Found</p>
+        <p class="no-data" *ngIf="!filteredEntities?.length">No {{selectedEntities?.entityType}} found</p>
     </div>
 
-    <mat-dialog-actions class="mat-dialog-actions" *ngIf="!filteredEntities?.length">
-      <button [mat-dialog-close]="'yes'" class="secondary-btn"
+    <mat-dialog-actions class="mat-dialog-actions">
+      <button [mat-dialog-close]="'yes'" class="secondary-btn" [disabled]="!filteredEntities?.length" [ngClass]="{'disabled-button': !filteredEntities?.length}"
         (click)="submitDialog()">Add</button>
       <button mat-dialog-close (click)="closeDialog()" class="primary-btn">Cancel</button>
     </mat-dialog-actions>
