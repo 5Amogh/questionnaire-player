@@ -46,14 +46,14 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
       this.queryParamsService.parseQueryParams();
-      console.log('111',this.queryParamsService)
+      console.log('this.apiConfig',this.apiConfig)
       if (this.queryParamsService.type) {
         this.type = this.queryParamsService?.type;
         this.initialLoad = true;
-        console.log('this.type', this.type)
+        // console.log('this.type', this.type)
         this.loadComponent(this.type);
       } else {
-        console.log("listing page nav");
+        // console.log("listing page nav");
 
         this.loadComponent('listing');
       }
@@ -73,7 +73,7 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
 
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
       this.type = urlTree.queryParams['type'];
-      console.log("this.type", this.type);
+      // console.log("this.type", this.type);
       this.initialLoad = true;
       this.loadComponent(this.type);
     });

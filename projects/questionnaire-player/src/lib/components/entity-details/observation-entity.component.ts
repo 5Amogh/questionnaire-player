@@ -50,9 +50,9 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
       .subscribe((res: any) => {
 
         if (res.result) {
+          this.observationId = res?.result?._id;
           this.selectedEntities = res?.result;
           this.filteredEntitiesOne = [...this.selectedEntities.entities]
-          this.observationId = res?.result?._id
         } else {
           this.toaster.showToast(res.message, 'Close');
         }

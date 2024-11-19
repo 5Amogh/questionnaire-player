@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
@@ -63,22 +63,32 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     // this.solutionList = { data: [], count: 0 };
     // this.originalData = [];
     // this.selectedEntityType = "";
+    // console.log('getListData entered');
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
+    console.log("urlPath", urlPath)
+    console.log("api service",this.apiService.baseUrl)
     this.apiService.post(
-      urlPath+ `?type=${this.apiService.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,this.apiService.profileData
+      // urlPath+ `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,this.apiService?.profileData
+      urlPath+ `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`,this.apiService?.profileData
     ).pipe(
-      finalize(() => this.showLoading = false)
+      finalize(() => this.showLoading = false),
+      catchError((err: any) => {
+    // console.log('getListData error', err);
+
+        this.toaster.showToast(err?.error?.message, 'Close');
+        throw Error(err);
+      })
     ).subscribe((res: any) => {
+    // console.log('getListData response', res);
+
       if (res?.status === 200) {
         this.entityType = this.reportPage ? res?.result?.entityType : "";
         this.solutionList.data = [...this.solutionList?.data, ...res?.result?.data];
         this.solutionList.count = res?.result?.count;
         this.originalData = this.solutionList?.data;
       } else {
-        this.toaster.showToast(res.message, 'Close');
+        this.toaster.showToast(res?.message, 'Close');
       }
-    }, (err: any) => {
-      this.toaster.showToast(err.error.message, 'Close');
     });
   }
 
