@@ -6,6 +6,7 @@ import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'lib-observation-domain',
@@ -24,6 +25,7 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   id: any = "";
   entities:any=[]
   @ViewChild('notApplicableModel') notApplicableModel: TemplateRef<any>;
+  loaded = false;
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
     private dialog: MatDialog, private queryParamsService: QueryParamsService
@@ -42,6 +44,13 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   getObservationByEntityId() {
     this.evidences = [];
     this.apiService.post(urlConfig.observation.observationSubmissions + this.observationId + `?entityId=${this.entityId}`, this.apiService.profileData)
+    .pipe(
+      finalize(() =>this.loaded = true),
+      catchError((err: any) => {
+        this.toaster.showToast(err?.error?.message, 'Close');
+        throw Error(err);
+      })
+    )
       .subscribe((res: any) => {
         
         if (res.result) {
@@ -66,7 +75,6 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   }
 
   toggleAccordion(index: number) {
-    // If the clicked index is already expanded, close it; otherwise, open the new index
     this.expandedIndex = this.expandedIndex === index ? null : index;
   }
 

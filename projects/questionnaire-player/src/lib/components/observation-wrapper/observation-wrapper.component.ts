@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart, UrlTree } from '@angular/router';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router, NavigationEnd, UrlTree } from '@angular/router';
 import { ListingComponent } from '../listing/listing.component';
 import { filter } from 'rxjs';
 import { ApiConfiguration } from '../../interfaces/questionnaire.type';
@@ -8,7 +8,6 @@ import { ObservationEntityComponent } from '../entity-details/observation-entity
 import { ObservationDetailsComponent } from '../observation-details/observation-details.component';
 import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
-import { MainWrapperComponent } from '../main-wrapper/main-wrapper.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
 import { QueryParamsService } from '../../services/queryParams.service';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
@@ -46,34 +45,20 @@ export class ObservationWrapperComponent extends BackNavigationHandlerComponent 
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
       this.queryParamsService.parseQueryParams();
-      console.log('this.apiConfig',this.apiConfig)
       if (this.queryParamsService.type) {
         this.type = this.queryParamsService?.type;
         this.initialLoad = true;
-        // console.log('this.type', this.type)
         this.loadComponent(this.type);
       } else {
-        // console.log("listing page nav");
-
         this.loadComponent('listing');
       }
-
-      // if (!this.initialLoad) {
-      //   console.log("url11", this.initialLoad);
-
-      //   this.loadComponent('listing');
-      // }
-
     }
-
   }
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
       this.type = urlTree.queryParams['type'];
-      // console.log("this.type", this.type);
       this.initialLoad = true;
       this.loadComponent(this.type);
     });

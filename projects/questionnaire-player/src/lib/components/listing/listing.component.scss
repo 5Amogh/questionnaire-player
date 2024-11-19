@@ -1,12 +1,18 @@
-.listTitle {
+.list-title {
   padding: 1rem;
-  background-color: #832215; 
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--color-light);
+}
+
+.srch .mat-mdc-text-field-wrapper {
+  height: 2.5rem !important;
+  align-items: center;
+  border-radius: 0.5rem !important;
 }
 
 .srchBar {
   width: 100%;
-  color: white;
+  color: var(--color-light);
 }
 
 .observation-list {
@@ -24,28 +30,23 @@
 }
 
 .mat-card {
-  background-color: white;
+  background-color: var(--color-light);
   border-radius: 0.5rem;
   padding: 0.25rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.5rem var(--color-dark);
   transition: box-shadow 0.3s ease;
 }
 
 .mat-card:hover {
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.25rem 1rem var(--color-dark);
 }
 
 .observation-name {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #832215;
-}
-
-@media (max-width: 48rem) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
+  color: var(--primary-color);
+  ;
 }
 
 ::ng-deep {
@@ -71,5 +72,24 @@
 }
 
 .search {
-  margin-top: 5px;
+  margin-top: 0.313rem;
+  height: 2.938rem !important;
+}
+
+.heading {
+  font-size: 1.563rem;
+}
+
+.heading-paragraph {
+  margin-bottom: 1.563rem;
+}
+
+img{
+  width: 100%;
+}
+
+@media (max-width: 48rem) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }

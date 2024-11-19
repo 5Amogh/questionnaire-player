@@ -9,8 +9,8 @@
 }
 
 .filter-button {
-  background-color: #832215;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-light);
   padding: 0.3125rem;
   border: none;
   border-radius: 0.3125rem;
@@ -23,18 +23,18 @@
 
 .question-card,
 .question-card2 {
-  border: 0.0625rem solid #ddd;
+  border: 0.0625rem solid var(--color-grey);
   border-radius: 0.3125rem;
   margin-bottom: 0.9375rem;
   padding: 0.9375rem;
 }
 
 .question-card:hover {
-  border-left: solid 0.625rem #832215;
+  border-left: solid 0.625rem var(--color-primary);
 }
 
 .question-card2-hover:hover {
-  border-left: solid 0.625rem #832215;
+  border-left: solid 0.625rem var(--color-primary);
   padding-left: 0.4375rem;
 }
 
@@ -59,8 +59,8 @@
 }
 
 .chip {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-light);
   padding: 0.3125rem;
   border-radius: 0.1875rem;
   margin-right: 0.3125rem;
@@ -76,11 +76,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-dark);
 }
 
 .modal-content {
-  background-color: white;
+  background-color: var(--color-light);
   padding: 1.25rem;
   border-radius: 0.625rem;
   width: 90%;
@@ -94,8 +94,8 @@
 }
 
 .modal-content button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-secondary);
+  color: var(--color-light);
   border: none;
   padding: 0.5rem;
   cursor: pointer;
@@ -151,10 +151,10 @@ li {
 .apply-filter {
   border-radius: 1.25rem;
   padding: 0.625rem 0.9375rem;
-  background-color: #007bff;
-  color: #ffff;
+  background-color: var(--color-primary);
+  color: var(--color-light);
   margin: 0.3125rem;
-  border-color: #007bff;
+  border-color: var(--color-secondary);;
   cursor: pointer;
 }
 
@@ -169,7 +169,7 @@ li {
 }
 
 .border-bottom-button {
-  border-bottom: 0.125rem solid #007BFF;
+  border-bottom: 0.125rem solid var(--color-secondary);;
 }
 
 @media (max-width: 47.9375rem) {
@@ -184,7 +184,13 @@ mat-icon {
 }
 
 .close-btn:hover {
-  background-color: red;
-  color: #ffff;
+  background-color: var(--color-danger);
+  color: var(--color-light);
   border-radius: 1.25rem;
+}
+
+.no-data{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }

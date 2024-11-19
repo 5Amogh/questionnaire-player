@@ -60,8 +60,12 @@
 
 
 .disabled-button {
-    background-color: #cccccc !important;
-    color: #666666 !important;
-    border-color: #666666 !important;
+    background-color: var(--disabled-btn-bg) !important;
+    color: var(--disabled-btn-text) !important;
+    border-color: var(--disabled-btn-text)  !important;
     cursor: not-allowed;
+  }
+
+  .heading{
+    font-size: 1.563rem;
   }

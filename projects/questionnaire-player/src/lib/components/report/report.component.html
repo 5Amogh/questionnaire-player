@@ -1,4 +1,4 @@
-<main *ngIf="resultData">
+<main *ngIf="resultData; else noData">
   <div class="report-container">
     <div class="header-container">
       <p class="heading">{{surveyName}}</p>
@@ -200,3 +200,7 @@
     </div>
   </div>
 </main>
+
+<ng-template #noData>
+  <p class="no-data">{{resMessage}}</p>
+</ng-template>

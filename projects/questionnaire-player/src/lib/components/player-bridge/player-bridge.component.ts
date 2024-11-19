@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { QueryParamsService } from '../../services/queryParams.service';
-
 @Component({
   selector: 'lib-player-bridge',
   templateUrl: './player-bridge.component.html',
@@ -17,12 +16,9 @@ export class PlayerBridgeComponent {
   submissionNumber:any;
   evidenceCode:any;
   index:any;
-
-
   
   constructor(
     private apiService:ApiService,
-    private router: Router,
     private queryParamsService: QueryParamsService
   ) {
   }
@@ -50,6 +46,5 @@ export class PlayerBridgeComponent {
       entityType: this.apiService.entityType,
       index:this.index
     }
-    console.log('this.apiConfig',this.apiConfig);
   }
 }

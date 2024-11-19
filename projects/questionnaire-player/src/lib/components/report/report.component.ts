@@ -45,7 +45,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   totalSubmissions: any;
   observationId: any;
   observationType: any = 'questions';
-  entityId:any
+  entityId:any;
+  resMessage:any;
 
   constructor(
     private router: Router,
@@ -82,7 +83,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.resultData = [];
     this.surveyName = '';
     this.totalSubmissions = [];
-    // this.observationId = "";
     this.allQuestions = [];
     this.reportDetails = [];
 
@@ -98,6 +98,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         })
       )
       .subscribe((res: any) => {
+        this.resMessage = res?.message;
         this.resultData = res?.result?.result;
         this.surveyName = res?.result?.solutionName;
         this.totalSubmissions = res?.result?.totalSubmissions;

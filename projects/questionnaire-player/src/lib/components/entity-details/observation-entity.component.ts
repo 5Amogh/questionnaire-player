@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'lib-observation-entity',
@@ -27,6 +28,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   dialogRef: any;
   observationId: any;
   searchEntities: any = [];
+  loaded = false;
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
     , private queryParamsService: QueryParamsService
@@ -46,7 +48,13 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.selectedEntities = [];
     this.observationId = "";
     this.apiService.post(urlConfig.observation.getSelectedEntities + this.solutionId, this.apiService.profileData)
-
+    .pipe(
+      finalize(() =>this.loaded = true),
+      catchError((err: any) => {
+        this.toaster.showToast(err.error.message, 'Close');
+        throw Error(err);
+      })
+    )
       .subscribe((res: any) => {
 
         if (res.result) {
@@ -56,8 +64,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
         } else {
           this.toaster.showToast(res.message, 'Close');
         }
-      }, (err: any) => {
-        this.toaster.showToast(err.error.message, 'Close');
       })
   }
 
@@ -131,13 +137,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   navigateToDetails(data) {
-    // if(data?.allowMultipleAssessemts){
     this.router.navigate(['observation'], { queryParams: { 'type': 'details', 'name': data.name, 'observationId': this.observationId, 'entityId': data?._id, 'submissionId': data?.submissionId, 'allowMultipleAssessemts': this.selectedEntities?.allowMultipleAssessemts } })
-    // }else{
-    //   this.router.navigate(['observation'], {
-    //     queryParams: { type: 'domain', name: data.name }
-    //   });
-    // }
   }
 
   submitDialog() {

@@ -20,17 +20,18 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   stateData: any;
   page: number = 1;
   limit: number = 10;
-  showLoading: boolean = true;
   reportPage: any = 'false';
-  pageTitle:string = 'Observation';
-  entityType:any;
+  pageTitle: string = 'Observation';
+  entityType: any;
   originalData: any = [];
-  selectedEntityType:any='';
+  selectedEntityType: any = '';
+  loaded = false;
+
 
   constructor(
     private router: Router,
     private toaster: ToastService,
-    private apiService:ApiService,
+    private apiService: ApiService,
     private queryParamsService: QueryParamsService
   ) {
     super(router);
@@ -45,11 +46,9 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   loadInitialData(): void {
     this.page = 1;
-    this.solutionList = { data: [], count: 25};
-    this.showLoading = true;
+    this.solutionList = { data: [], count: 0 };
     this.getListData();
   }
-
 
   handleInput(event: any): void {
     this.searchTerm = event.target.value;
@@ -59,28 +58,17 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   }
 
   async getListData(): Promise<void> {
-    this.showLoading = true;
-    // this.solutionList = { data: [], count: 0 };
-    // this.originalData = [];
-    // this.selectedEntityType = "";
-    // console.log('getListData entered');
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
-    console.log("urlPath", urlPath)
-    console.log("api service",this.apiService.baseUrl)
     this.apiService.post(
-      // urlPath+ `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&filter=''&search=${this.searchTerm}`,this.apiService?.profileData
-      urlPath+ `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`,this.apiService?.profileData
+      urlPath + `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`, this.apiService?.profileData
     ).pipe(
-      finalize(() => this.showLoading = false),
+      finalize(() =>this.loaded = true),
       catchError((err: any) => {
-    // console.log('getListData error', err);
-
         this.toaster.showToast(err?.error?.message, 'Close');
         throw Error(err);
       })
-    ).subscribe((res: any) => {
-    // console.log('getListData response', res);
-
+    )
+    .subscribe((res: any) => {
       if (res?.status === 200) {
         this.entityType = this.reportPage ? res?.result?.entityType : "";
         this.solutionList.data = [...this.solutionList?.data, ...res?.result?.data];
@@ -99,7 +87,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   navigateTo(data?: any): void {
     const type = this.reportPage ? 'reports' : 'entityList';
-    this.router.navigate(['observation'],{ queryParams: { 'type':type, 'id':data.solutionId, 'name':`${data.name}`, 'entityType':data.entityType} })
+    this.router.navigate(['observation'], { queryParams: { 'type': type, 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
   }
 
   changeEntityType(selectedType: any) {

@@ -1,8 +1,8 @@
-<ng-container *ngIf="selectedEntities">
-  <div class="listTitle">
+<ng-container *ngIf="loaded">
+  <div class="list-title">
     <div>
-      <h1>{{solutionName}}</h1>
-      <p>Select {{selectedEntities?.entityType}} from the list to observe</p>
+      <h1 class="heading">{{solutionName}}</h1>
+      <p class="heading-paragraph">Select {{selectedEntities?.entityType}} from the list to observe</p>
     </div>
 
     <div class="srch">
@@ -13,27 +13,45 @@
       </mat-form-field>
     </div>
   </div>
-  <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities?.entityType}}</button>
 
-  <div class="d-flex flex-dc gap-4">
-
-    <div class="observation-list">
-      <div class="grid-container">
-        <div class="grid-item" *ngFor="let entity of filteredEntitiesOne">
-          <mat-card class="observation-card" (click)="navigateToDetails(entity)">
-            <mat-card-content class="card-content">
-              <h2 class="observation-name">{{ entity?.name }}</h2>
-              <button *ngIf="entity?.submissionsCount == 0" class="delete-btn" color="warn"
-                (click)="deleteEntity(entity?._id); $event.stopPropagation()">
-                <mat-icon style="color: gray;">delete</mat-icon>
-              </button>
-            </mat-card-content>
-          </mat-card>
+  <div *ngIf="filteredEntitiesOne?.length">
+    <div class="add-btn-container">
+      <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities?.entityType}}</button>
+    </div>
+  
+    <div class="d-flex flex-dc gap-4">
+      <div class="observation-list">
+        <div class="grid-container">
+          <div class="grid-item" *ngFor="let entity of filteredEntitiesOne">
+            <mat-card class="observation-card" (click)="navigateToDetails(entity)">
+              <mat-card-content class="card-content">
+                <h2 class="observation-name">{{ entity?.name }}</h2>
+                <div class="delete-container">
+                  <button
+                    *ngIf="entity?.submissionsCount == 0"
+                    class="delete-btn"
+                    color="warn"
+                    (click)="deleteEntity(entity?._id); $event.stopPropagation()"
+                  >
+                    <mat-icon style="color: gray;">delete</mat-icon>
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div *ngIf="!filteredEntitiesOne?.length">
+    <img src="/assets/images/no_data.jpg" alt="No data" />
+  </div>
 </ng-container>
+
+<lib-spinner *ngIf="!loaded"></lib-spinner>
+
 
 <ng-template #searchEntityModal>
   <div class="p-16 searchEntity">
@@ -45,7 +63,7 @@
       <div class="srch">
         <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" />
+          <input class="search-add-entity" matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" />
         </mat-form-field>
       </div>
 
@@ -55,12 +73,13 @@
           {{entity?.name}}
         </mat-list-option>
       </mat-selection-list>
+        <p class="no-data" *ngIf="!filteredEntities?.length">No Entity Found</p>
     </div>
 
-    <mat-dialog-actions class="mat-dialog-actions">
-      <button mat-button color="primary" [mat-dialog-close]="'yes'" class="primary-btn"
+    <mat-dialog-actions class="mat-dialog-actions" *ngIf="!filteredEntities?.length">
+      <button [mat-dialog-close]="'yes'" class="secondary-btn"
         (click)="submitDialog()">Add</button>
-      <button mat-button mat-dialog-close class="btn" (click)="closeDialog()" class="secondary-btn">Cancel</button>
+      <button mat-dialog-close (click)="closeDialog()" class="primary-btn">Cancel</button>
     </mat-dialog-actions>
   </div>
 </ng-template>
@@ -70,7 +89,7 @@
   <mat-dialog-content>Are you sure you want to delete this entity?</mat-dialog-content>
 
   <mat-dialog-actions class="mat-dialog-actions">
-    <button mat-button color="primary" [mat-dialog-close]="'yes'" class="primary-btn">Yes</button>
-    <button mat-button mat-dialog-close="no" class="secondary-btn">No</button>
+    <button [mat-dialog-close]="'yes'" class="primary-btn">Yes</button>
+    <button mat-dialog-close="no" class="secondary-btn">No</button>
   </mat-dialog-actions>
 </ng-template>

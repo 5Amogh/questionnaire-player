@@ -3,7 +3,7 @@
     background-color: var(--primary-color);
     color: var(--general-btn-text-color);
     border-radius: 0.5rem;
-    padding: 0px 1rem;
+    padding: 0 1rem;
     cursor: pointer;
     min-width: 5.6rem;
     min-height: 2.5rem;
@@ -55,6 +55,7 @@
 .card-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .secondary-btn {
@@ -87,10 +88,55 @@
 }
 
 .search {
-    margin-top: 5px;
+    margin-top: 0.313rem;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+}
+
+.delete-container:empty {
+    visibility: hidden;
+}
+
+.mat-mdc-list-option,
+.mat-mdc-list-option.mat-accent {
+    --mdc-checkbox-selected-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-hover-icon-color: var(--color-secondary);
+}
+
+.heading {
+    font-size: 1.563rem;
+}
+
+.heading-paragraph {
+    margin-bottom: 1.563rem;
+}
+
+.search-add-entity {
+    height: 2.938rem !important;
+}
+
+.no-data{
+    display: flex;
+    justify-content: center;
   }
 
-  .delete-btn{
-    background-color: transparent;
-    border: none
+  img{
+    width: 100%;
   }

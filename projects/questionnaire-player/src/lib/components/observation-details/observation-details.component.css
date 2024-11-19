@@ -16,8 +16,8 @@
   display: flex;
   justify-content: space-around;
   padding: 1rem; 
-  background-color: white;
-  box-shadow: 0 -0.125rem 0.5rem rgba(0, 0, 0, 0.2); 
+  background-color: var(--color-light);
+  box-shadow: 0 -0.125rem 0.5rem var(--color-dark); 
   z-index: 1000;
 }
 
@@ -43,15 +43,15 @@
 }
 
 .report-btn{
-  margin-right: 10px;
-  border-radius: 20px;
-  padding: 9px;
+  margin-right: 0.625rem;
+  border-radius: 1.25rem;
+  padding: 0.563rem;
 }
 
 .mat-dialog-actions {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 1.5rem 1.5rem; 
+  padding: 0.5rem 0.5rem 0.5rem; 
 }
 
 .mat-dialog-actions button {
@@ -83,11 +83,19 @@
 }
 
 .disabled-button {
-  background-color: #cccccc !important;
-  color: #666666 !important;
+  background-color: var(--disabled-btn-bg) !important;
+  color: var(--disabled-btn-text) !important;
   cursor: not-allowed;
 }
 
 .observation-list, .grid-container, .mat-tab-group   {
   padding-bottom: 5rem;
+}
+
+.heading{
+  font-size: 1.563rem;
+}
+
+.heading-paragraph{
+  margin-bottom: 1.563rem;
 }

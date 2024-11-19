@@ -6,6 +6,7 @@ import * as urlConfig from '../../constants/url-config.json';
 import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'lib-observation-details',
@@ -20,8 +21,9 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   observationName: any;
   firstVisit: boolean = true;
   selectedTabIndex = 0;
-  allowMultipleAssessemts:any;
-  submissionId:any;
+  allowMultipleAssessemts: any;
+  submissionId: any;
+  loaded = false;
 
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
   @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
@@ -31,15 +33,15 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     private dialog: MatDialog, private queryParamsService: QueryParamsService
   ) {
     super(router);
-   }
+  }
 
   ngOnInit(): void {
     this.queryParamsService.parseQueryParams();
     this.entityId = this.queryParamsService?.entityId;
-      this.entityName = decodeURIComponent(decodeURIComponent(this.queryParamsService?.entityName || ''));
-      this.observationId = this.queryParamsService?.observationId;
-      this.submissionId = this.queryParamsService?.submissionId;
-      this.allowMultipleAssessemts = this.queryParamsService?.allowMultipleAssessemts
+    this.entityName = decodeURIComponent(decodeURIComponent(this.queryParamsService?.entityName || ''));
+    this.observationId = this.queryParamsService?.observationId;
+    this.submissionId = this.queryParamsService?.submissionId;
+    this.allowMultipleAssessemts = this.queryParamsService?.allowMultipleAssessemts
     this.getObservationByEntityId();
   }
 
@@ -54,6 +56,13 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
 
   getObservationByEntityId() {
     this.apiService.post(urlConfig.observation.observationSubmissions + this.observationId + `?entityId=${this.entityId}`, this.apiService.profileData)
+    .pipe(
+      finalize(() =>this.loaded = true),
+      catchError((err: any) => {
+        this.toaster.showToast(err?.error?.message, 'Close');
+        throw Error(err);
+      })
+    )
       .subscribe((res: any) => {
         if (res?.result) {
           if (this.firstVisit && res?.result?.length === 0) {
@@ -62,7 +71,6 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
           } else {
             this.observations = res?.result;
           }
-
         } else {
           this.toaster.showToast(res?.message, 'danger');
         }
@@ -70,27 +78,19 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   navigateToDetails(data) {
-    console.log("data",data)
-    // if (data?.evidencesStatus?.length == 0) {
-    //   this.toaster.showToast("No solution found.", 'Close')
 
-
-    // } else 
     if (data?.isRubricDriven) {
-      // this.dataService.setData(data?.evidencesStatus);
-
       this.router.navigate(['observation'], {
         queryParams: { type: 'domain', observationId: data?.observationId, entityId: data.entityId, id: data?._id }
       });
     } else {
       this.router.navigate(['observation'], {
-        queryParams: { type: 'questionnairePlayer', observationId: data?.observationId, entityId:data?.entityId, submissionNumber:data?.submissionNumber,evidenceCode:data?.evidencesStatus[0]?.code, index:0
-         }
+        queryParams: {
+          type: 'questionnairePlayer', observationId: data?.observationId, entityId: data?.entityId, submissionNumber: data?.submissionNumber, evidenceCode: data?.evidencesStatus[0]?.code, index: 0
+        }
       });
     }
   }
-
-
 
   editEntity(entity: any, id: any) {
     this.observationName = entity;
@@ -141,7 +141,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   observeAgain() {
-  this.apiService.post(urlConfig.observation.create + this.observationId + `?entityId=${this.entityId}`, {})
+    this.apiService.post(urlConfig.observation.create + this.observationId + `?entityId=${this.entityId}`, {})
       .subscribe((res: any) => {
         if (res.result) {
           this.getObservationByEntityId();
@@ -152,14 +152,14 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   viewReport(entity?) {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports','submissionId':entity?._id,'observationId':this.observationId, entityId:this.entityId, 'entityType':entity?entity?.entityType:this.observations[0]?.entityType } })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType } })
   }
 
   isViewReportDisabled(): boolean {
     switch (this.selectedTabIndex) {
-      case 0: 
+      case 0:
         return this.getObservationsByStatus(['All']).length === 0;
-      case 1: 
+      case 1:
         return this.getObservationsByStatus(['draft', 'started']).length === 0;
       case 2:
         return this.getObservationsByStatus(['completed']).length === 0;

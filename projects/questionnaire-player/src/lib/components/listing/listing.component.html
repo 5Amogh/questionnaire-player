@@ -1,8 +1,8 @@
-<div class="content">
-    <div class="listTitle">
+<div class="content" *ngIf="loaded">
+    <div class="list-title">
       <div>
-        <h1>{{pageTitle}}</h1>
-        <p>Access and record your observations easily and plan your improvement journeys</p>
+        <h1 class="heading">{{pageTitle}}</h1>
+        <p class="heading-paragraph">Access and record your observations easily and plan your improvement journeys</p>
       </div>
      
       <div class="srch" >
@@ -13,7 +13,7 @@
       </div>
     </div>
   
-    <div class="observation-list">
+    <div class="observation-list" *ngIf="solutionList?.count !== 0">
       <div class="select-filter">
         <select class="entity-filter" *ngIf="reportPage == 'true'" [(ngModel)]="selectedEntityType" (change)="changeEntityType($event.target)">
           <option value="" disabled selected>Entity Type</option>
@@ -32,9 +32,11 @@
         </div>
     </div>
     <div *ngIf="solutionList?.count === 0">
-      <img src="assets/images/no_data.jpg" alt="No data" />
+      <img src="/assets/images/no_data.jpg" alt="No data" />
     </div>
     <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
       <button mat-raised-button style="background-color: #832215;color: white;" (click)="loadData()">Load More</button>
     </mat-toolbar>
   </div>
+
+    <lib-spinner *ngIf="!loaded"></lib-spinner>
