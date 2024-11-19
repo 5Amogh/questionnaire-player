@@ -137,13 +137,22 @@
     justify-content: center;
   }
 
-  img{
-    width: 100%;
-  }
+  img {
+    width: 50%;
+    max-width: 300px;
+    }
 
   .disabled-button {
     background-color: var(--disabled-btn-bg) !important;
     color: var(--disabled-btn-text) !important;
     border-color: var(--disabled-btn-text)  !important;
     cursor: not-allowed;
+  }
+
+  .no-data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
