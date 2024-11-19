@@ -121,12 +121,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         this.assessment = this.questionnaireService.mapSubmissionToAssessment(
           res.result
         );
-        const ev = +[this.apiConfig.index];
-        console.log("ev",ev, typeof(ev));
-
         this.evidence = this.apiConfig.solutionType == 'observation' ?  this.assessment?.assessment?.evidences[+[this.apiConfig.index]]: this.assessment?.assessment?.evidences[0];
-        console.log("v",this.assessment);
-        console.log("this.evidence",this.evidence);
         this.evidence.startTime = Date.now();
         this.endDate = new Date(
           new Date(this.assessment.assessment.endDate).getTime() +

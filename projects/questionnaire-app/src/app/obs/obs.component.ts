@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class ObsComponent {
   apiConfig ={
     baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
-    userAuthToken:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNzYsIm5hbWUiOiJWaW5vZEZpdmVhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwic2Vzc2lvbl9pZCI6MTAzMzUsIm9yZ2FuaXphdGlvbl9pZCI6MSwicm9sZXMiOlt7ImlkIjoxNiwidGl0bGUiOiJoZWFkX21hc3RlciIsImxhYmVsIjoiSGVhZCBNYXN0ZXIiLCJ1c2VyX3R5cGUiOjAsInN0YXR1cyI6IkFDVElWRSIsIm9yZ2FuaXphdGlvbl9pZCI6MjQsInZpc2liaWxpdHkiOiJQVUJMSUMifV19LCJpYXQiOjE3MzIwMTMyODQsImV4cCI6MTczMjAxNjg4NH0.9Zg1G3gUQjRw3vT4_-4MA0jwoqEHxL9l-tqk33k3Vio',
+    userAuthToken:'',
     solutionType:'observation',
     profileData:{
       "cluster": "22763910-f79f-4746-900b-b429fb7f9d24",
