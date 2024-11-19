@@ -73,7 +73,7 @@
           {{entity?.name}}
         </mat-list-option>
       </mat-selection-list>
-        <p class="no-data" *ngIf="!filteredEntities?.length">No Entity Found</p>
+        <p class="no-data" *ngIf="!filteredEntities?.length">No {{selectedEntities?.entityType}} Found</p>
     </div>
 
     <mat-dialog-actions class="mat-dialog-actions" *ngIf="!filteredEntities?.length">
@@ -86,7 +86,7 @@
 
 <ng-template #confirmDialogModel>
   <h1 mat-dialog-title>Confirm Deletion</h1>
-  <mat-dialog-content>Are you sure you want to delete this entity?</mat-dialog-content>
+  <mat-dialog-content>Are you sure you want to delete this {{selectedEntities?.entityType}}?</mat-dialog-content>
 
   <mat-dialog-actions class="mat-dialog-actions">
     <button [mat-dialog-close]="'yes'" class="primary-btn">Yes</button>
