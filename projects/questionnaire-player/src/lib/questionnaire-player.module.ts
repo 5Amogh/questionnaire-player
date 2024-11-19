@@ -59,7 +59,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ObservationDetailsComponent } from './components/observation-details/observation-details.component';
 import { ReportComponent } from './components/report/report.component';
-
+import { ObservationDomainComponent } from './components/observation-domain/observation-domain.component';
+import { PlayerBridgeComponent } from './components/player-bridge/player-bridge.component';
+import { QuestionnaireService } from './services/questionnaire.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -101,7 +105,10 @@ const MAT_CUSTOM_DATE_FORMATS = {
     ObservationWrapperComponent,
     ListingComponent,
     ObservationEntityComponent,
-    ObservationDetailsComponent
+    ObservationDetailsComponent,
+    ObservationDomainComponent,
+    PlayerBridgeComponent,
+    SpinnerComponent
     ],
   imports: [
     CommonModule,
@@ -129,7 +136,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatGridListModule,
     MatToolbarModule,
     MatTabsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatMenuModule
     ],
   exports: [RouterModule],
   providers: [

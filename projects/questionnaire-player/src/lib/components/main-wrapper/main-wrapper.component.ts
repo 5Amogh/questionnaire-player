@@ -29,12 +29,14 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.scss'],
 })
-export class MainWrapperComponent implements OnInit, OnChanges {
+export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
   questions: Array<Question>;
   @Input({ transform: booleanAttribute }) angular = false;
   evidence: Evidence;
@@ -65,8 +67,12 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     public apiService:ApiService,
     public toaster:ToastService,
     public location:Location,
-    private renderer: Renderer2, private el: ElementRef
-  ) {}
+    private renderer: Renderer2, private el: ElementRef,
+    public router: Router
+  ) {
+    super(router);
+
+  }
 
   checkFormValidity(){
     window.parent.postMessage({
@@ -95,10 +101,16 @@ export class MainWrapperComponent implements OnInit, OnChanges {
     this.apiService.baseUrl = this.apiConfig.baseURL;
     this.apiService.token = this.apiConfig.userAuthToken;
     this.apiService.solutionType = this.apiConfig.solutionType;
+    this.apiService.observationId = this.apiConfig.observationId;
+    this.apiService.entityId = this.apiConfig.entityId;
+    this.apiService.submissionNumber = this.apiConfig.submissionNumber;
+    this.apiService.evidenceCode = this.apiConfig.evidenceCode;
+    this.apiService.index = this.apiConfig.index;
   }
   
   fetchDetails(){
-    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+this.apiConfig.solutionId,{})
+    const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}`: this.apiConfig.solutionId
+    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,{})
     .pipe(
       catchError((err) => {
         throw new Error('Could not fetch the details');
@@ -109,7 +121,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
         this.assessment = this.questionnaireService.mapSubmissionToAssessment(
           res.result
         );
-        this.evidence = this.assessment.assessment.evidences[0];
+        this.evidence = this.apiConfig.solutionType == 'observation' ?  this.assessment?.assessment?.evidences[+[this.apiConfig.index]]: this.assessment?.assessment?.evidences[0];
         this.evidence.startTime = Date.now();
         this.endDate = new Date(
           new Date(this.assessment.assessment.endDate).getTime() +
@@ -125,6 +137,7 @@ export class MainWrapperComponent implements OnInit, OnChanges {
 
   });
 }
+
   ngOnInit() {
     if (typeof this.apiConfig === 'string') {
       try {

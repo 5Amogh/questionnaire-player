@@ -16,7 +16,8 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { Location } from '@angular/common';
+import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
+import { QueryParamsService } from '../../services/queryParams.service';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -25,7 +26,7 @@ Chart.register(PieController, BarController, ArcElement, BarElement, CategorySca
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent extends BackNavigationHandlerComponent implements OnInit {
 
   reportDetails: any[] = [];
   objectURL: any;
@@ -44,42 +45,37 @@ export class ReportComponent implements OnInit {
   totalSubmissions: any;
   observationId: any;
   observationType: any = 'questions';
+  entityId:any;
+  resMessage:any;
 
   constructor(
     private router: Router,
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
-    private location : Location
-  ) { }
+    private queryParamsService: QueryParamsService
+  ) {
+    super(router);
+   }
 
   ngOnInit() {
-    this.submissionId = this.apiService?.solutionId;
-    this.entityType = this.apiService?.entityType;
+    this.queryParamsService.parseQueryParams();
+    this.observationId = this.queryParamsService?.observationId;
+    this.submissionId = this.queryParamsService?.submissionId;
+    this.entityType = this.queryParamsService?.entityType;
+    this.entityId = this.queryParamsService?.entityId;
     this.loadObservationReport(this.submissionId, false, false);
   }
-
-  setApiService() {
-    this.apiService.baseUrl = this.apiConfig?.baseURL;
-    this.apiService.token = this.apiConfig?.userAuthToken;
-    this.apiService.solutionType = this.apiConfig?.solutionType;
-    this.submissionId = this.apiConfig?.solutionId;
-    this.entityType = this.apiConfig?.entityType;
-    if (this.submissionId) {
-      this.loadObservationReport(this.submissionId, false, false);
-    }
-  }
-
 
   loadObservationReport(submissionId: string, criteria: boolean, pdf: boolean) {
     this.resultData = [];
     this.surveyName = '';
     this.totalSubmissions = [];
-    this.observationId = [];
     this.allQuestions = [];
     this.reportDetails = [];
 
     let payload = this.createPayload(submissionId, criteria, pdf);
+
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
       .pipe(
@@ -90,6 +86,7 @@ export class ReportComponent implements OnInit {
         })
       )
       .subscribe((res: any) => {
+        this.resMessage = res?.message;
         this.resultData = res?.result?.result;
         this.surveyName = res?.result?.solutionName;
         this.totalSubmissions = res?.result?.totalSubmissions;
@@ -108,6 +105,8 @@ export class ReportComponent implements OnInit {
       entityType: this.entityType,
       pdf,
       criteriaWise: criteria,
+      entityId:this.entityId,
+      observationId:this.observationId
     };
   }
 
@@ -283,10 +282,6 @@ export class ReportComponent implements OnInit {
     this.allQuestions.forEach(question => question.selected = false);
     this.filteredQuestions = [];
     this.applyFilter(true);
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   openUrl(url: string) {

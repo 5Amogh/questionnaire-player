@@ -1,9 +1,4 @@
-<header class="header">
-  <div class="toolbar">
-    <mat-icon class="back-button" (click)="goBack()">keyboard_backspace</mat-icon>
-  </div>
-</header>
-<main *ngIf="resultData">
+<main *ngIf="resultData; else noData">
   <div class="report-container">
     <div class="header-container">
       <p class="heading">{{surveyName}}</p>
@@ -188,7 +183,7 @@
         </footer>
       </div>
     </div>
-
+    
     <div *ngIf="isModalOpen" class="modal">
       <div class="modal-content">
         <header>
@@ -204,3 +199,7 @@
     </div>
   </div>
 </main>
+
+<ng-template #noData>
+  <p class="no-data">{{resMessage}}</p>
+</ng-template>

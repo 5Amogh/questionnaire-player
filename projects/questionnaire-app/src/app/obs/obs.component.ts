@@ -11,14 +11,14 @@ export class ObsComponent {
     userAuthToken:'',
     solutionType:'observation',
     profileData:{
-      "state": "66bf7eb960de1616f42cb984",
-      "district": "66bf7f3560de1616f42cb993",
-      "block": "66bb0f8a8d2c4516ea1b44c2",
-      "cluster": "66bf7fa78d2c4516ea1b44fe",
-      "role": "district_education_officer",
-      "school":"123e4567-e89b-12d3-a456-426614174042"
+      "cluster": "22763910-f79f-4746-900b-b429fb7f9d24",
+    "district": "24c36610-0640-45a3-b88e-fa92c9ebbec2",
+    "state": "bc75cc99-9205-463e-a722-5326857838f8",
+    "block": "e5be5e9c-3eea-4822-8754-9009c47c6782",
+    "school": "enf3",
+    "role": "public"
     },
-    solutionId:'66e03d1cbe48d96e6842d25d',
+    solutionId:'663c60bbe4d0a4cced6b6399',
     entityType:'school'
   }
 }

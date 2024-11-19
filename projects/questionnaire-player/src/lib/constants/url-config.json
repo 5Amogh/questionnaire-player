@@ -7,9 +7,14 @@
     "observation":{
         "listing":"/survey/v1/solutions/targetedSolutions",
         "reportListing":"/survey/v1/observationSubmissions/solutionList",
-        "details":"/v1/surveys/details/?solutionId=",
-        "update":"/samiksha/v1/surveySubmissions/update/",
-        "getSelectedEntities":"/survey/v1/observations/entities?solutionId="
+        "details":"/survey/v1/observations/assessment/",
+        "getSelectedEntities":"/survey/v1/observations/entities?solutionId=",
+        "targetedEntity": "/survey/v1/observations/targetedEntity/",
+        "searchEntities": "/survey/v1/observations/searchEntities?observationId=",
+        "updateEntities":"/survey/v1/observations/updateEntities/",
+        "observationSubmissions":"/survey/v1/observationSubmissions/list/",
+        "update":"/survey/v1/observationSubmissions/update/",
+        "create":"/survey/v1/observationSubmissions/create/"
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

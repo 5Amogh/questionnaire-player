@@ -12,6 +12,12 @@ export class ApiService {
   public profileData:any;
   public solutionId :any; 
   public entityType:any
+  public userAuthToken:any;
+  public observationId:any;
+  public entityId:any;
+  public submissionNumber:any;
+  public evidenceCode:any;
+  public index:any;
 
   constructor(private http:HttpClient) { }
 
@@ -34,8 +40,8 @@ export class ApiService {
   putWithFullURL<T>(url: string, body: any, headers?: HttpHeaders): Observable<T> {
     return this.http.put<T>(url, body, { headers });
   }
-
-  delete<T>(url: string): Observable<T> {
-    return this.http.delete<T>(this.baseUrl+url);
+  
+  delete<T>(url: string, body: any): Observable<T> {
+    return this.http.delete<T>(this.baseUrl + url, {body} );
   }
 }
