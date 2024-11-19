@@ -67,18 +67,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.loadObservationReport(this.submissionId, false, false);
   }
 
-  setApiService() {
-    this.apiService.baseUrl = this.apiConfig?.baseURL;
-    this.apiService.token = this.apiConfig?.userAuthToken;
-    this.apiService.solutionType = this.apiConfig?.solutionType;
-    this.submissionId = this.apiConfig?.solutionId;
-    this.entityType = this.entityType;
-    if (this.submissionId) {
-      this.loadObservationReport(this.submissionId, false, false);
-    }
-  }
-
-
   loadObservationReport(submissionId: string, criteria: boolean, pdf: boolean) {
     this.resultData = [];
     this.surveyName = '';
