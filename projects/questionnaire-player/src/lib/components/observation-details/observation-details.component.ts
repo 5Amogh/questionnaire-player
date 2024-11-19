@@ -19,7 +19,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   observationId: any;
   observations: any = [];
   observationName: any;
-  firstVisit: boolean = false;
+  observationInit: boolean = false;
   selectedTabIndex = 0;
   allowMultipleAssessemts: any;
   submissionId: any;
@@ -42,7 +42,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     this.observationId = this.queryParamsService?.observationId;
     this.submissionId = this.queryParamsService?.submissionId;
     this.allowMultipleAssessemts = this.queryParamsService?.allowMultipleAssessemts;
-    this.firstVisit = true;
+    this.observationInit = true;
     this.getObservationByEntityId();
   }
 
@@ -66,8 +66,8 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     )
       .subscribe((res: any) => {
         if (res?.result) {
-          if (this.firstVisit && !res?.result?.length) {
-            this.firstVisit = false;
+          if (this.observationInit && !res?.result?.length) {
+            this.observationInit = false;
             this.observeAgain();
           } else {
             this.observations = res?.result;
