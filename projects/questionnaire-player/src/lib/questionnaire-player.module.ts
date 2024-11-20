@@ -64,6 +64,7 @@ import { PlayerBridgeComponent } from './components/player-bridge/player-bridge.
 import { QuestionnaireService } from './services/questionnaire.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { MatSelectModule } from '@angular/material/select';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -137,7 +138,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatToolbarModule,
     MatTabsModule,
     RouterModule.forChild(routes),
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule,
     ],
   exports: [RouterModule],
   providers: [

@@ -46,13 +46,13 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     this.getObservationByEntityId();
   }
 
-  getObservationsByStatus(statuses: ('All' | 'draft' | 'completed' | 'started')[]) {
+  getObservationsByStatus(statuses: ('All' | 'draft' | 'inprogress' | 'completed' | 'started')[]) {
     if (!this.observations) {
       return [];
     }
     return statuses.includes('All')
       ? this.observations
-      : this.observations.filter(obs => statuses.includes(obs.status));
+      : this.observations.filter(obs => statuses.includes(obs?.status));
   }
 
   getObservationByEntityId() {

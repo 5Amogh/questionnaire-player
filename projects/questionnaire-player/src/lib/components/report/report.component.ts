@@ -35,19 +35,20 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   isFilterModalOpen: boolean = false;
   filteredQuestions: any[] = [];
   allQuestions: any[] = [];
-  surveyName!: string;
+  surveyDetails: any;
   objectKeys = Object.keys;
   submissionId: any;
   entityType: any;
   @Input() apiConfig: ApiConfiguration;
   @Input({ transform: booleanAttribute }) angular = false;
-  resultData = [];
+  resultData:any;
   totalSubmissions: any;
   observationId: any;
   observationType: any = 'questions';
   entityId:any;
   resMessage:any;
   loaded = false;
+  filterData:any;
 
 
   constructor(
@@ -71,13 +72,13 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
   loadObservationReport(submissionId: string, criteria: boolean, pdf: boolean) {
     this.resultData = [];
-    this.surveyName = '';
+    this.surveyDetails = '';
     this.totalSubmissions = [];
     this.allQuestions = [];
     this.reportDetails = [];
+    this.loaded = false;
 
     let payload = this.createPayload(submissionId, criteria, pdf);
-
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
       .pipe(
@@ -90,7 +91,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       .subscribe((res: any) => {
         this.resMessage = res?.message;
         this.resultData = res?.result?.result;
-        this.surveyName = res?.result?.solutionName;
+        this.surveyDetails = res?.result;
+        this.filterData = submissionId ? this.filterData : this.surveyDetails?.filters[0]?.filter?.data;
+        // this.filterData = this.surveyDetails?.filters[0]?.filter?.data;
+        console.log('filterData',this.filterData);
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
         this.allQuestions = res?.result?.reportSections;
@@ -300,7 +304,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   }
 
   downloadPDF(submissionId: string, criteria: boolean, pdf: boolean) {
-
+    this.loaded = false;
     let payload = this.createPayload(submissionId, criteria, pdf);
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
@@ -313,5 +317,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       .subscribe((res: any) => {
         this.openUrl(res?.result?.pdfUrl);
       });
+  }
+
+  onSelectionChange(submissionId: string): void {
+    this.loadObservationReport(submissionId, false, false);
   }
 }
