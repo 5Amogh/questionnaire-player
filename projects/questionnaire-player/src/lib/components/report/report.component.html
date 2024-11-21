@@ -1,18 +1,11 @@
-<div *ngIf="loaded">
+
   <main *ngIf="resultData; else noData">
     <div class="report-container">
-      <!-- <div class="header-container">
-        <h2>{{surveyDetails?.entityName}}</h2>
-        <p class="heading">{{surveyDetails?.solutionName}}</p>
-      </div> -->
+          <h1 class="heading">{{ surveyDetails?.entityName }}</h1>
+          <p class="heading-two">{{ surveyDetails?.solutionName }}</p>
 
-      <div class="d-flex justify-content-between">
-        <div>
-          <h1 class="heading">{{surveyDetails?.entityName}}</h1>
-          <p class="heading-two">{{surveyDetails?.solutionName}}</p>
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
+        <div class="select-wrapper mt-5" *ngIf="isMultiple == 'true'">
+          <mat-form-field class="custom-select">
             <mat-label>Select Submission</mat-label>
             <mat-select (selectionChange)="onSelectionChange($event.value)">
               <mat-option *ngFor="let item of filterData" [value]="item._id">
@@ -21,7 +14,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
+      
       
       <div class="buttons-left">
         <button [ngClass]="{'border-bottom-button': observationType === 'questions'}"
@@ -199,7 +192,6 @@
                   {{ observationType === 'questions' ? question.question : question.criteriaName }}
                 </label>
               </li>
-
             </ul>
           </div>
           <footer class="question-footer">
@@ -223,10 +215,9 @@
       </div>
     </div>
   </main>
-</div>
 
 <ng-template #noData>
   <p class="no-data">{{resMessage}}</p>
 </ng-template>
 
-<lib-spinner *ngIf="!loaded"></lib-spinner>
+<!-- <lib-spinner *ngIf="!loaded"></lib-spinner> -->

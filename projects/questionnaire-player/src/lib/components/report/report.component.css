@@ -191,12 +191,12 @@ mat-icon {
 }
 
 .modal-title{
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
   font-size: large;
 }
 
 .modal-input{
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .question-content label{
@@ -209,4 +209,8 @@ mat-icon {
 
 .heading-two{
   font-size: 1rem;
+}
+
+.modal-input {
+  accent-color: var(--color-primary);;
 }

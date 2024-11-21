@@ -49,10 +49,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   resMessage:any;
   loaded = false;
   filterData:any;
-
+  isMultiple:any;
 
   constructor(
-    private router: Router,
+    router: Router,
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
@@ -67,6 +67,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.submissionId = this.queryParamsService?.submissionId;
     this.entityType = this.queryParamsService?.entityType;
     this.entityId = this.queryParamsService?.entityId;
+    this.isMultiple = this.queryParamsService?.isMultiple;
     this.loadObservationReport(this.submissionId, false, false);
   }
 
@@ -93,11 +94,11 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.resultData = res?.result?.result;
         this.surveyDetails = res?.result;
         this.filterData = submissionId ? this.filterData : this.surveyDetails?.filters[0]?.filter?.data;
-        // this.filterData = this.surveyDetails?.filters[0]?.filter?.data;
-        console.log('filterData',this.filterData);
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
-        this.allQuestions = res?.result?.reportSections;
+        this.allQuestions = res?.result?.reportSections.map(question => {
+          return { ...question, selected: true };
+        });
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
@@ -320,6 +321,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   }
 
   onSelectionChange(submissionId: string): void {
-    this.loadObservationReport(submissionId, false, false);
+    this.submissionId = submissionId;
+    this.observationType == 'questions' ? this.loadObservationReport(submissionId, false, false) : this.loadObservationReport(submissionId, true, false);
   }
 }
