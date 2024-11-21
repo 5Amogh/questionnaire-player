@@ -24,7 +24,7 @@ Chart.register(PieController, BarController, ArcElement, BarElement, CategorySca
 @Component({
   selector: 'lib-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  styleUrls: ['./report.component.css','../listing/listing.component.scss']
 })
 export class ReportComponent extends BackNavigationHandlerComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   isFilterModalOpen: boolean = false;
   filteredQuestions: any[] = [];
   allQuestions: any[] = [];
-  surveyDetails: any;
+  observationDetails: any;
   objectKeys = Object.keys;
   submissionId: any;
   entityType: any;
@@ -73,7 +73,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
   loadObservationReport(submissionId: string, criteria: boolean, pdf: boolean) {
     this.resultData = [];
-    this.surveyDetails = '';
+    this.observationDetails = '';
     this.totalSubmissions = [];
     this.allQuestions = [];
     this.reportDetails = [];
@@ -92,8 +92,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       .subscribe((res: any) => {
         this.resMessage = res?.message;
         this.resultData = res?.result?.result;
-        this.surveyDetails = res?.result;
-        this.filterData = submissionId ? this.filterData : this.surveyDetails?.filters[0]?.filter?.data;
+        this.observationDetails = res?.result;
+        this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
         this.allQuestions = res?.result?.reportSections.map(question => {

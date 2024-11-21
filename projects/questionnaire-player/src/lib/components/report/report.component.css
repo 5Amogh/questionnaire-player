@@ -76,7 +76,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #00000052;
+  background-color: var(--light-opacity);
 }
 
 .modal-content {
@@ -212,5 +212,5 @@ mat-icon {
 }
 
 .modal-input {
-  accent-color: var(--color-primary);;
+  accent-color: var(--color-primary);
 }
