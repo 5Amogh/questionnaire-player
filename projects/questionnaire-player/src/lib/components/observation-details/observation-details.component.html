@@ -1,9 +1,7 @@
 
   <div class="list-title">
-    <div>
       <h1 class="heading">{{entityName}}</h1>
       <p class="heading-paragraph">Select Observation from the list to observe</p>
-    </div>
   </div>
   
   <div *ngIf="loaded">
@@ -13,7 +11,8 @@
           <div class="grid-container">
             <ng-container *ngIf="getObservationsByStatus(['All']).length; else noData">
               <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['All'])">
-                <mat-card class="observation-card" (click)="navigateToDetails(entity)">
+                <mat-card class="observation-card" (click)="navigateToDetails(entity)"
+                >
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
                       <h2 class="observation-name">{{ entity?.title }}</h2>
@@ -45,7 +44,7 @@
       <mat-tab label="In progress">
         <div class="observation-list">
           <div class="grid-container">
-            <ng-container *ngIf="getObservationsByStatus(['draft', 'started']).length; else noDataInProgress">
+            <ng-container *ngIf="getObservationsByStatus(['draft', 'started', 'inprogress']).length; else noDataInProgress">
               <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started'])">
                 <mat-card class="observation-card" (click)="navigateToDetails(entity)">
                   <div class="card-content-container">
@@ -85,14 +84,18 @@
                       <p>{{entity?.updatedAt | date:'short'}}</p>
                     </mat-card-content>
     
-                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-    
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
-                      <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
-                    </mat-menu>
+                    <div *ngIf="entity?.status !== 'completed'">
+                      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+      
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
+                        <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
+                      </mat-menu>
+                    </div>
+                   
+                    <button class="secondary-btn report-btn" *ngIf="entity?.status == 'completed'" (click)="viewReport(entity)">Reports</button>
                   </div>
                 </mat-card>
               </div>

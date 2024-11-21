@@ -46,13 +46,13 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     this.getObservationByEntityId();
   }
 
-  getObservationsByStatus(statuses: ('All' | 'draft' | 'completed' | 'started')[]) {
+  getObservationsByStatus(statuses: ('All' | 'draft' | 'inprogress' | 'completed' | 'started')[]) {
     if (!this.observations) {
       return [];
     }
     return statuses.includes('All')
       ? this.observations
-      : this.observations.filter(obs => statuses.includes(obs.status));
+      : this.observations.filter(obs => statuses.includes(obs?.status));
   }
 
   getObservationByEntityId() {
@@ -154,7 +154,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   viewReport(entity?) {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType } })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true } })
   }
 
   isViewReportDisabled(): boolean {

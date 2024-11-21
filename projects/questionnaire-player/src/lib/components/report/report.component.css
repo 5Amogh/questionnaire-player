@@ -76,7 +76,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-dark);
+  background-color: var(--light-opacity);
 }
 
 .modal-content {
@@ -90,14 +90,13 @@
 .modal-content header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .modal-content button {
   background-color: var(--color-secondary);
   color: var(--color-light);
   border: none;
-  padding: 0.5rem;
+  padding: 0.7rem;
   cursor: pointer;
 }
 
@@ -117,10 +116,6 @@ li {
   display: flex;
   align-items: center;
   margin-bottom: 0.625rem;
-}
-
-.heading {
-  font-size: large;
 }
 
 .questionTitle {
@@ -193,4 +188,29 @@ mat-icon {
   display: flex;
   justify-content: center;
   padding-top: 2rem;
+}
+
+.modal-title{
+  margin-bottom: 0.938rem;
+  font-size: large;
+}
+
+.modal-input{
+  margin-right: 0.625rem;
+}
+
+.question-content label{
+  display: block;
+}
+
+.heading{
+  font-size: 1.563rem;
+}
+
+.heading-two{
+  font-size: 1rem;
+}
+
+.modal-input {
+  accent-color: var(--color-primary);
 }

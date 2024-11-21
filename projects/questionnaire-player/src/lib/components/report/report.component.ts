@@ -24,7 +24,7 @@ Chart.register(PieController, BarController, ArcElement, BarElement, CategorySca
 @Component({
   selector: 'lib-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  styleUrls: ['./report.component.css','../listing/listing.component.scss']
 })
 export class ReportComponent extends BackNavigationHandlerComponent implements OnInit {
 
@@ -35,23 +35,24 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   isFilterModalOpen: boolean = false;
   filteredQuestions: any[] = [];
   allQuestions: any[] = [];
-  surveyName!: string;
+  observationDetails: any;
   objectKeys = Object.keys;
   submissionId: any;
   entityType: any;
   @Input() apiConfig: ApiConfiguration;
   @Input({ transform: booleanAttribute }) angular = false;
-  resultData = [];
+  resultData:any;
   totalSubmissions: any;
   observationId: any;
   observationType: any = 'questions';
   entityId:any;
   resMessage:any;
   loaded = false;
-
+  filterData:any;
+  isMultiple:any;
 
   constructor(
-    private router: Router,
+    router: Router,
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
@@ -66,18 +67,19 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.submissionId = this.queryParamsService?.submissionId;
     this.entityType = this.queryParamsService?.entityType;
     this.entityId = this.queryParamsService?.entityId;
+    this.isMultiple = this.queryParamsService?.isMultiple;
     this.loadObservationReport(this.submissionId, false, false);
   }
 
   loadObservationReport(submissionId: string, criteria: boolean, pdf: boolean) {
     this.resultData = [];
-    this.surveyName = '';
+    this.observationDetails = '';
     this.totalSubmissions = [];
     this.allQuestions = [];
     this.reportDetails = [];
+    this.loaded = false;
 
     let payload = this.createPayload(submissionId, criteria, pdf);
-
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
       .pipe(
@@ -90,10 +92,13 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       .subscribe((res: any) => {
         this.resMessage = res?.message;
         this.resultData = res?.result?.result;
-        this.surveyName = res?.result?.solutionName;
+        this.observationDetails = res?.result;
+        this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
-        this.allQuestions = res?.result?.reportSections;
+        this.allQuestions = res?.result?.reportSections.map(question => {
+          return { ...question, selected: true };
+        });
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
@@ -300,7 +305,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   }
 
   downloadPDF(submissionId: string, criteria: boolean, pdf: boolean) {
-
+    this.loaded = false;
     let payload = this.createPayload(submissionId, criteria, pdf);
 
     this.apiService.post(urlConfig.survey.reportUrl, payload)
@@ -313,5 +318,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       .subscribe((res: any) => {
         this.openUrl(res?.result?.pdfUrl);
       });
+  }
+
+  onSelectionChange(submissionId: string): void {
+    this.submissionId = submissionId;
+    this.observationType == 'questions' ? this.loadObservationReport(submissionId, false, false) : this.loadObservationReport(submissionId, true, false);
   }
 }
