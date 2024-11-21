@@ -22,6 +22,7 @@ export class QueryParamsService implements OnDestroy {
   public type: any;
   private routerSubscription: Subscription;
   public isMultiple: any;
+  public reportPage: any;
 
   constructor(private router: Router) {
     this.routerSubscription = this.router.events
@@ -45,6 +46,7 @@ export class QueryParamsService implements OnDestroy {
     this.index = queryParams?.index;
     this.type = queryParams?.type;
     this.isMultiple = queryParams?.isMultiple;
+    this.reportPage = queryParams?.reportPage;
   }
 
   getQueryParams(queryParams: any) {

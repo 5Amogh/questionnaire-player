@@ -39,8 +39,8 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   ngOnInit(): void {
     this.queryParamsService.parseQueryParams();
-    this.reportPage = this.queryParamsService.reports === 'true';
-    this.pageTitle = this.reportPage ? 'Report Listing' : 'Observation';
+    this.reportPage = this.queryParamsService.reportPage === 'true';
+    this.pageTitle = this.reportPage ? 'Observation Reports' : 'Observation';
     this.loadInitialData();
   }
 
@@ -60,7 +60,10 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   async getListData(): Promise<void> {
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
     this.apiService.post(
-      urlPath + `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`, this.apiService?.profileData
+      urlPath +
+        `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}` +
+        (this.reportPage ? `&surveyReportPage=${this.reportPage}` : ''),
+      this.apiService?.profileData
     ).pipe(
       finalize(() =>this.loaded = true),
       catchError((err: any) => {

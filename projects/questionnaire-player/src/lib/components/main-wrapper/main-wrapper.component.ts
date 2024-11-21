@@ -106,11 +106,13 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.apiService.submissionNumber = this.apiConfig.submissionNumber;
     this.apiService.evidenceCode = this.apiConfig.evidenceCode;
     this.apiService.index = this.apiConfig.index;
+    this.apiService.profileData = this.apiConfig.profileData;
   }
   
   fetchDetails(){
     const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}`: this.apiConfig.solutionId
-    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,{})
+    console.log('palyer this.apiConfig.profileData',this.apiConfig.profileData)
+    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,this.apiConfig.profileData)
     .pipe(
       catchError((err) => {
         throw new Error('Could not fetch the details');
