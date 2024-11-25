@@ -29,6 +29,8 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   observationId: any;
   searchEntities: any = [];
   loaded = false;
+  searchValue:string = "";
+  searchAddEntityValue:string = "";
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
     , private queryParamsService: QueryParamsService
@@ -119,20 +121,20 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.dialogRef.close();
   }
 
-  handleSearchInputOne(event: any) {
+  handleSearchInputOne(event?: any) {
     this.filteredEntitiesOne = []
-    const searchValue = event.target.value.toLowerCase();
+    this.searchValue = event ? event.target.value.toLowerCase() : "";
 
     this.filteredEntitiesOne = this.selectedEntities?.entities.filter((item: any) =>
-      item?.name.toLowerCase().includes(searchValue)
+      item?.name.toLowerCase().includes(this.searchValue)
     );
   }
 
-  handleSearchInput(event: any) {
+  handleSearchInput(event?: any) {
     this.filteredEntities = []
-    const searchValue = event.target.value.toLowerCase();
+    this.searchAddEntityValue = event ? event.target.value.toLowerCase() : "";
     this.filteredEntities = this.searchEntities.filter((item: any) =>
-      item?.name.toLowerCase().includes(searchValue)
+      item?.name.toLowerCase().includes(this.searchAddEntityValue)
     );
   }
 

@@ -4,13 +4,23 @@
         <h1 class="heading">{{pageTitle}}</h1>
         <p class="heading-paragraph">Access and record your observations easily and plan your improvement journeys</p>
       </div>
-     
-      <div class="srch" >
-        <mat-form-field  class="srchBar" style="background-color: white;border-radius: 16px;">
+
+      <div class="srch">
+        <mat-form-field class="srchBar" style="background-color: white; border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input matInput (input)="handleInput($event)" placeholder="Search your observation here" class="search" />
+          <input 
+            matInput 
+            [(ngModel)]="searchTerm" 
+            (input)="handleInput($event)" 
+            placeholder="Search your observation here" 
+            class="search" 
+          />
+          <button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="handleInput()">
+            <mat-icon style="color: gray;">close</mat-icon>
+          </button>
         </mat-form-field>
       </div>
+      
     </div>
   
     <div class="observation-list" *ngIf="solutionList?.count !== 0">
@@ -34,9 +44,13 @@
     <div *ngIf="solutionList?.count === 0" class="no-data-container">
       <img src="/assets/images/no_data.jpg" alt="No data" />
     </div>
-    <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
+    <!-- <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
       <button mat-raised-button style="background-color: #832215;color: white;" (click)="loadData()">Load More</button>
-    </mat-toolbar>
+    </mat-toolbar> -->
+
+    <div class="fixed-bottom-buttons" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
+      <button mat-raised-button color="accent" (click)="loadData()">Load More</button>
+    </div>
   </div>
 
     <lib-spinner *ngIf="!loaded"></lib-spinner>

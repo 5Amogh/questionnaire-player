@@ -26,6 +26,8 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   originalData: any = [];
   selectedEntityType: any = '';
   loaded = false;
+  observationId:any;
+  entityId:any;
 
 
   constructor(
@@ -50,19 +52,21 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     this.getListData();
   }
 
-  handleInput(event: any): void {
-    this.searchTerm = event.target.value;
+  handleInput(event?: any): void {
+    this.searchTerm = event ? event?.target?.value : "";
+    console.log("searchTerm",this.searchTerm)
     this.page = 1;
     this.solutionList = { data: [], count: 0 };
     this.getListData();
   }
 
   async getListData(): Promise<void> {
+    console.log("this.listType",this.listType);
+    console.log("this.reportPage ",this.reportPage );
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
+    const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
     this.apiService.post(
-      urlPath +
-        `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}` +
-        (this.reportPage ? `&surveyReportPage=${this.reportPage}` : ''),
+      urlPath + queryItems,
       this.apiService?.profileData
     ).pipe(
       finalize(() =>this.loaded = true),
@@ -89,8 +93,26 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   }
 
   navigateTo(data?: any): void {
-    const type = this.reportPage ? 'reports' : 'entityList';
-    this.router.navigate(['observation'], { queryParams: { 'type': type, 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
+console.log("datttaa",data)
+    if(this.reportPage){
+    // const type = data?.entities?.length > 1 ? 'domain' : 'reports';
+    let entities:any;
+    // if(data?.entities?.length == 0 ){
+    //   entities = "No solution found".
+    // }else 
+    if(data?.entities?.length == 1 ){
+      entities = data?.entities[0];
+    }else{
+      entities ="";
+    }
+    const queryParams = data?.entities?.length > 1 ? { type: 'domain', observationId: data?.observationId, entityId: data.entityId, id: data?._id } :{ 'type': 'reports', 'observationId': `${data.observationId}`, entityId: `${entities?._id }`, 'entityType': entities?.entityType, isMultiple: data?.entities?.length > 1? true : false };
+
+    this.router.navigate(['/observation'], { queryParams: queryParams })
+
+    }else{
+      this.router.navigate(['observation'], { queryParams: { 'type': "entityList", 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
+    }
+
   }
 
   changeEntityType(selectedType: any) {
