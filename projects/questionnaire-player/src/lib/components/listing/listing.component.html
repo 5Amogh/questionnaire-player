@@ -53,4 +53,26 @@
     </div>
   </div>
 
+  <div *ngIf="isFilterModalOpen" class="modal">
+    <div class="modal-content">
+      <header class="d-flex align-items-center">
+        <h1 class="modal-title">Select entity</h1>
+        <mat-icon class="close-btn" (click)="closeFilter()">close</mat-icon>
+      </header>
+      <div>
+        <ul>
+          <li *ngFor="let question of allEntities; let i = index">
+            <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i">
+            <label [for]="'question-' + i">
+              {{ question?.name }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <footer class="question-footer">
+        <button (click)="applyFilter()" class="apply-filter">Submit</button>
+      </footer>
+    </div>
+  </div>
+
     <lib-spinner *ngIf="!loaded"></lib-spinner>

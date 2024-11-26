@@ -4,12 +4,12 @@
       <!-- <h1 class="heading">{{ observationDetails?.entityName }}</h1>
       <p class="heading-two">{{ observationDetails?.solutionName }}</p> -->
 
-    <div class="select-wrapper mt-5" *ngIf="isMultiple == 'true'">
+    <div class="select-wrapper mt-5">
       <div>
         <h1 class="heading">{{ observationDetails?.entityName }}</h1>
         <p class="heading-two">{{ observationDetails?.solutionName }}</p>
       </div>
-      <mat-form-field class="custom-select">
+      <mat-form-field class="custom-select" *ngIf="isMultiple == 'true'">
         <mat-label>Select Submission</mat-label>
         <mat-select (selectionChange)="onSelectionChange($event.value)">
           <mat-option *ngFor="let item of filterData" [value]="item._id">

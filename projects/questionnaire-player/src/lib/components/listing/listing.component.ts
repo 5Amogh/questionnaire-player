@@ -12,7 +12,7 @@ import { QueryParamsService } from '../../services/queryParams.service';
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss']
 })
-export class ListingComponent implements OnInit {
+export class ListingComponent extends BackNavigationHandlerComponent implements OnInit {
   solutionList: any = { data: [], count: 0 };
   solutionId!: string;
   listType = 'observation';
@@ -28,14 +28,18 @@ export class ListingComponent implements OnInit {
   loaded = false;
   observationId: any;
   entityId: any;
+  isFilterModalOpen: boolean = false;
+  allEntities:any;
 
 
   constructor(
-    private router: Router,
+    public router: Router,
     private toaster: ToastService,
     private apiService: ApiService,
     private queryParamsService: QueryParamsService
-  ) {}
+  ) {
+    super(router);
+  }
 
   ngOnInit(): void {
     this.queryParamsService.parseQueryParams();
@@ -51,6 +55,8 @@ export class ListingComponent implements OnInit {
   }
 
   handleInput(event?: any): void {
+    console.log("event", event)
+
     this.searchTerm = event ? event?.target?.value : "";
     console.log("searchTerm", this.searchTerm)
     this.page = 1;
@@ -59,10 +65,8 @@ export class ListingComponent implements OnInit {
   }
 
   async getListData(): Promise<void> {
-    console.log("this.listType", this.listType);
-    console.log("this.reportPage ", this.reportPage);
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
-    const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
+    const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
     this.apiService.post(
       urlPath + queryItems,
       this.apiService?.profileData
@@ -94,18 +98,20 @@ export class ListingComponent implements OnInit {
     console.log("datttaa", data)
     if (this.reportPage) {
       // const type = data?.entities?.length > 1 ? 'domain' : 'reports';
-      let entities: any;
-      // if(data?.entities?.length == 0 ){
-      //   entities = "No solution found".
-      // }else 
-      if (data?.entities?.length == 1) {
-        entities = data?.entities[0];
-      } else {
-        entities = "";
+      this.observationId = data?.observationId;
+      this.entityType = data?.entityType;
+      if(data?.entities?.length > 1 ){
+        // entities = "No solution found"
+        this.allEntities = data?.entities;
+        this.openFilter()
       }
-      const queryParams = data?.entities?.length > 1 ? { type: 'domain', observationId: data?.observationId, entityId: data.entityId, id: data?.solutionId } : { 'type': 'reports', 'observationId': `${data.observationId}`, entityId: `${entities?._id}`, 'entityType': entities?.entityType, isMultiple: data?.entities?.length > 1 ? true : false };
+      else if (data?.entities?.length == 1) {
+      this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
 
-      this.router.navigate(['/observation'], { queryParams: queryParams })
+      } else {
+        
+      }
+
 
     } else {
       this.router.navigate(['observation'], { queryParams: { 'type': "entityList", 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
@@ -116,5 +122,29 @@ export class ListingComponent implements OnInit {
   changeEntityType(selectedType: any) {
     this.selectedEntityType = selectedType?.value;
     this.solutionList.data = this.originalData.filter(solution => solution.entityType === selectedType?.value);
+  }
+
+  openFilter() {
+    this.isFilterModalOpen = true;
+  }
+
+  closeFilter() {
+    this.isFilterModalOpen = false;
+  }
+
+  applyFilter(reset: boolean = false) {
+    console.log("this.allEntities",this.allEntities);
+ let selectedEntity = this.allEntities.filter(question => question.selected);
+ console.log("selected",selectedEntity);
+ this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
+      
+    
+    // if (!reset && this.filteredQuestions.length === 0) {
+    //   this.toaster.showToast('Select at least one question', 'danger');
+    // }
+
+    // if (reset || this.filteredQuestions.length > 0) {
+    //   this.closeFilter();
+    // }
   }
 }
