@@ -1,10 +1,14 @@
 
   <main *ngIf="resultData; else noData">
     <div class="list-title">
-      <h1 class="heading">{{ observationDetails?.entityName }}</h1>
-      <p class="heading-two">{{ observationDetails?.solutionName }}</p>
+      <!-- <h1 class="heading">{{ observationDetails?.entityName }}</h1>
+      <p class="heading-two">{{ observationDetails?.solutionName }}</p> -->
 
     <div class="select-wrapper mt-5" *ngIf="isMultiple == 'true'">
+      <div>
+        <h1 class="heading">{{ observationDetails?.entityName }}</h1>
+        <p class="heading-two">{{ observationDetails?.solutionName }}</p>
+      </div>
       <mat-form-field class="custom-select">
         <mat-label>Select Submission</mat-label>
         <mat-select (selectionChange)="onSelectionChange($event.value)">

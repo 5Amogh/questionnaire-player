@@ -10,21 +10,18 @@ import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
 import { QueryParamsService } from '../../services/queryParams.service';
-import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 
 @Component({
   selector: 'lib-observation-wrapper',
   templateUrl: './observation-wrapper.component.html',
   styleUrls: ['./observation-wrapper.component.css']
 })
-export class ObservationWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
+export class ObservationWrapperComponent implements OnInit, OnChanges {
   @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type: any;
-  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) {
-    super(router);
-  }
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) {}
 
   private componentMapper: any = {
     listing: ListingComponent,

@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { booleanAttribute, ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import * as urlConfig from '../../constants/url-config.json';
@@ -24,7 +24,9 @@ Chart.register(PieController, BarController, ArcElement, BarElement, CategorySca
 @Component({
   selector: 'lib-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css','../listing/listing.component.scss']
+  styleUrls: ['./report.component.css','../listing/listing.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class ReportComponent extends BackNavigationHandlerComponent implements OnInit {
 

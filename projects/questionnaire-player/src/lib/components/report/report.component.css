@@ -167,13 +167,6 @@ li {
   border-bottom: 0.125rem solid var(--color-secondary);;
 }
 
-@media (max-width: 47.9375rem) {
-  .chip {
-    display: block;
-    margin-bottom: 0.3125rem;
-  }
-}
-
 mat-icon {
   cursor: pointer;
 }
@@ -213,4 +206,55 @@ mat-icon {
 
 .modal-input {
   accent-color: var(--color-primary);
+}
+
+.mdc-text-field--filled {
+  background-color: var(--color-primary) !important;
+  color: var(--color-light) !important;
+}
+
+.select-wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 47.9375rem) {
+  .chip {
+    display: block;
+    margin-bottom: 0.3125rem;
+  }
+
+  .select-wrapper{
+    display: block;
+  }
+}
+
+/* mat-form-field{
+  background-color: red !important;
+  color: white !important;
+}
+
+
+.mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper{
+  background-color: red !important;
+  color: white !important;
+} */
+
+
+
+
+
+
+
+
+.mat-form-field-label {
+  color: var(--color-light) !important; /* Changes the label color */
+}
+
+.mat-select-value {
+  color: var(--color-light) !important; /* Changes the selected value color */
+}
+
+.mat-option {
+  color: var(--color-light) !important; /* Optional: Change dropdown text color */
 }
