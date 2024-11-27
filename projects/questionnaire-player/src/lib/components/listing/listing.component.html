@@ -5,7 +5,7 @@
         <p class="heading-paragraph">Access and record your observations easily and plan your improvement journeys</p>
       </div>
 
-      <div class="srch">
+      <div class="srch" *ngIf="!reportPage">
         <mat-form-field class="srchBar" style="background-color: white; border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
           <input 
@@ -24,12 +24,18 @@
     </div>
   
     <div class="observation-list" *ngIf="solutionList?.count !== 0">
-      <div class="select-filter">
-        <select class="entity-filter" *ngIf="reportPage == 'true'" [(ngModel)]="selectedEntityType" (change)="changeEntityType($event.target)">
-          <option value="" disabled selected>Entity Type</option>
-          <option [value]="type" *ngFor="let type of entityType">{{type}}</option>
-        </select>
-      </div>
+
+     <div class="select-filter" *ngIf="reportPage">
+      <mat-form-field>
+        <mat-label>Entity Filter</mat-label>
+        <mat-select (selectionChange)="changeEntityType($event.value)" [(ngModel)]="selectedEntityType">
+          <mat-option *ngFor="let item of entityType" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     </div>
+
         <div class="grid-container">
           <div class="grid-item" *ngFor="let solution of solutionList?.data" (click)="navigateTo(solution)">
             <mat-card class="observation-card">
@@ -53,7 +59,7 @@
     </div>
   </div>
 
-  <div *ngIf="isFilterModalOpen" class="modal">
+  <div *ngIf="isEntityFilterModalOpen" class="modal">
     <div class="modal-content">
       <header class="d-flex align-items-center">
         <h1 class="modal-title">Select entity</h1>
@@ -64,7 +70,7 @@
           <li *ngFor="let question of allEntities; let i = index">
             <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i">
             <label [for]="'question-' + i">
-              {{ question?.name }}
+              {{ question.name }}
             </label>
           </li>
         </ul>

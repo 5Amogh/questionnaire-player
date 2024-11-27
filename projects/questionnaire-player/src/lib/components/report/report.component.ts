@@ -100,7 +100,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
           return { ...question, selected: true };
         });
         this.reportDetails = this.processSurveyData(this.allQuestions);
-        this.cdr.detectChanges();
+        console.log("this.reportDetails",this.reportDetails)
+        this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
       });
   }
@@ -142,6 +143,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         const processedQuestion = { ...question };
         processedQuestion.answers = mapAnswersToLabels(question?.answers, question?.options);
         delete processedQuestion?.options;
+        processedQuestion.chartData = this.isChartNotEmpty(processedQuestion?.chart)
+        console.log("processedQuestion.chart",processedQuestion?.chart)
+
         return processedQuestion;
       }
     };
@@ -155,6 +159,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
             processedInstance[key].answers,
             processedInstance[key].options
           );
+          console.log("processedInstance[key].chart",processedInstance[key].chart)
           delete processedInstance[key].options;
         }
       }
@@ -295,8 +300,18 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     window.open(url, '_blank');
   }
 
-  isChartNotEmpty(chart: any): boolean {
-    return chart && Object.keys(chart).length > 0;
+  isChartNotEmpty(chart: any, i?:any) {
+    // console.log("charts", i+1, chart)
+    // return chart && Object.keys(chart).length > 0;
+
+    if(Object.keys(chart).length > 0){
+      return true;
+
+    }else{
+      return false;
+
+    }
+
   }
 
   toggleObservationType(type: any) {

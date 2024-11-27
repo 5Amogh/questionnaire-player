@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, finalize } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
@@ -28,15 +28,15 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   loaded = false;
   observationId: any;
   entityId: any;
-  isFilterModalOpen: boolean = false;
-  allEntities:any;
-
+  isEntityFilterModalOpen: boolean = false;
+  allEntities: any = [];
 
   constructor(
     public router: Router,
     private toaster: ToastService,
     private apiService: ApiService,
-    private queryParamsService: QueryParamsService
+    private queryParamsService: QueryParamsService,
+    private cdr: ChangeDetectorRef,
   ) {
     super(router);
   }
@@ -66,7 +66,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   async getListData(): Promise<void> {
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
-    const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}&search=${this.searchTerm}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
+    const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
     this.apiService.post(
       urlPath + queryItems,
       this.apiService?.profileData
@@ -94,51 +94,53 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     this.getListData();
   }
 
-  navigateTo(data?: any): void {
-    console.log("datttaa", data)
+  navigateTo(data?: any) {
+    // console.log("datttaa", data)
     if (this.reportPage) {
       // const type = data?.entities?.length > 1 ? 'domain' : 'reports';
       this.observationId = data?.observationId;
       this.entityType = data?.entityType;
-      if(data?.entities?.length > 1 ){
+      if (data?.entities?.length > 1) {
         // entities = "No solution found"
+    console.log("data?.entities", data?.entities)
+
         this.allEntities = data?.entities;
-        this.openFilter()
+
+        this.openFilter();
+
       }
       else if (data?.entities?.length == 1) {
-      this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
-
+        this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
       } else {
-        
+
       }
-
-
     } else {
       this.router.navigate(['observation'], { queryParams: { 'type': "entityList", 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
     }
-
   }
 
   changeEntityType(selectedType: any) {
-    this.selectedEntityType = selectedType?.value;
-    this.solutionList.data = this.originalData.filter(solution => solution.entityType === selectedType?.value);
+    this.selectedEntityType = selectedType;
+    this.solutionList.data = this.originalData.filter(solution => solution.entityType === selectedType);
   }
 
   openFilter() {
-    this.isFilterModalOpen = true;
+    console.log("this.allEntities", this.allEntities)
+
+    this.isEntityFilterModalOpen = true;
   }
 
   closeFilter() {
-    this.isFilterModalOpen = false;
+    this.isEntityFilterModalOpen = false;
   }
 
-  applyFilter(reset: boolean = false) {
-    console.log("this.allEntities",this.allEntities);
- let selectedEntity = this.allEntities.filter(question => question.selected);
- console.log("selected",selectedEntity);
- this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
-      
-    
+  applyFilter() {
+    console.log("this.allEntities", this.allEntities);
+    let selectedEntity = this.allEntities.filter(question => question.selected);
+    console.log("selected", selectedEntity);
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
+
+
     // if (!reset && this.filteredQuestions.length === 0) {
     //   this.toaster.showToast('Select at least one question', 'danger');
     // }
@@ -146,5 +148,12 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     // if (reset || this.filteredQuestions.length > 0) {
     //   this.closeFilter();
     // }
+  }
+
+  onSelectionChange(submissionId: string): void {
+
+
+    // this.submissionId = submissionId;
+    // this.observationType == 'questions' ? this.loadObservationReport(submissionId, false, false) : this.loadObservationReport(submissionId, true, false);
   }
 }

@@ -128,6 +128,12 @@ li {
   justify-content: center;
 }
 
+.canvas-chart-hidden {
+  height: 0px !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+
 .question-footer {
   display: flex;
   justify-content: center;

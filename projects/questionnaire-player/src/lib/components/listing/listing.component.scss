@@ -191,6 +191,12 @@ img {
   cursor: pointer;
 }
 
+.close-btn:hover {
+  background-color: var(--color-danger);
+  color: var(--color-light);
+  border-radius: 1.25rem;
+}
+
 @media (max-width: 48rem) {
   .grid-container {
     grid-template-columns: 1fr;
