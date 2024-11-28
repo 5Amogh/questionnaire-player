@@ -120,7 +120,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.dialogRef.close();
   }
 
-  handleSearchInputOne(event?: any) {
+  handleEntitySearchInput(event?: any) {
     this.filteredEntitiesOne = []
     this.searchValue = event ? event.target.value.toLowerCase() : "";
 
