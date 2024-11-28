@@ -76,7 +76,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     )
       .subscribe((res: any) => {
         if (res?.status === 200) {
-          this.solutionListCount = res?.result?.count;
+          this.solutionListCount = res?.result?.count;;
           this.entityType = this.reportPage ? res?.result?.entityType : "";
           this.solutionList = [...this.solutionList, ...res?.result?.data];
           this.initialSolutionData = this.solutionList;
@@ -88,6 +88,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   loadData(): void {
     this.page++;
+    this.solutionList = this.initialSolutionData;
     this.getListData();
   }
 
