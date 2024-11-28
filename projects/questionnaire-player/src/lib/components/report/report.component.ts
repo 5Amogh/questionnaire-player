@@ -18,6 +18,7 @@ import {
 } from 'chart.js';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { Location } from '@angular/common';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -56,9 +57,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
-    private queryParamsService: QueryParamsService
+    private queryParamsService: QueryParamsService,
+    location: Location
   ) {
-    super(router);
+    super(router, location);
    }
 
   ngOnInit() {

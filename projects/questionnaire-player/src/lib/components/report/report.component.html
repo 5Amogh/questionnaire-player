@@ -1,22 +1,22 @@
 
   <main *ngIf="resultData; else noData">
     <div class="list-title">
-    <div class="select-wrapper mt-5">
-      <div>
+    <div class="mt-5">
         <h1 class="heading">{{ observationDetails?.entityName }}</h1>
         <p class="heading-two">{{ observationDetails?.solutionName }}</p>
-      </div>
-      <mat-form-field class="custom-select" *ngIf="isMultiple == 'true'">
-        <mat-label>Select Submission</mat-label>
-        <mat-select (selectionChange)="onSelectionChange($event.value)">
-          <mat-option *ngFor="let item of filterData" [value]="item._id">
-            {{ item.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
     </div>
      </div>
     <div class="report-container">
+      <div class="select-wrapper">
+        <mat-form-field class="custom-select" *ngIf="isMultiple == 'true'">
+          <mat-label>Select Submission</mat-label>
+          <mat-select (selectionChange)="onSelectionChange($event.value)">
+            <mat-option *ngFor="let item of filterData" [value]="item._id">
+              {{ item.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div class="buttons-left">
         <button [ngClass]="{'border-bottom-button': observationType === 'questions'}"
           (click)="toggleObservationType('questions')" class="switch-buttons">Questions</button>

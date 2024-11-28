@@ -70,7 +70,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     private renderer: Renderer2, private el: ElementRef,
     public router: Router
   ) {
-    super(router);
+    super(router, location);
 
   }
 

@@ -6,6 +6,8 @@ import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'lib-listing',
   templateUrl: './listing.component.html',
@@ -35,9 +37,10 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     public router: Router,
     private toaster: ToastService,
     private apiService: ApiService,
-    private queryParamsService: QueryParamsService
+    private queryParamsService: QueryParamsService,
+    location: Location
   ) {
-    super(router);
+    super(router, location);
   }
 
   ngOnInit(): void {

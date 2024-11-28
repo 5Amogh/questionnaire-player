@@ -221,16 +221,12 @@ mat-icon {
 
 .select-wrapper{
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 @media (max-width: 47.9375rem) {
   .chip {
     display: block;
     margin-bottom: 0.3125rem;
-  }
-
-  .select-wrapper{
-    display: block;
   }
 }
