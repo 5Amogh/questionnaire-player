@@ -101,9 +101,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   getSearchEntities() {
     this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
-
       .subscribe((res: any) => {
-
         if (res.result) {
           const searchEntities = res?.result[0];
           this.searchEntities = searchEntities?.data;
@@ -170,5 +168,4 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.filteredEntitiesOne.some((filteredEntity: any) => filteredEntity._id === entity._id);
   }
-
 }

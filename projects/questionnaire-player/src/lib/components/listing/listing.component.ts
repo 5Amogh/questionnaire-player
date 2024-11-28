@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, finalize } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
@@ -6,14 +6,13 @@ import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
-
 @Component({
   selector: 'lib-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent extends BackNavigationHandlerComponent implements OnInit {
-  solutionList: any = { data: [], count: 0 };
+  solutionList: any;
   solutionId!: string;
   listType = 'observation';
   searchTerm: string = "";
@@ -26,17 +25,17 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   originalData: any = [];
   selectedEntityType: any = '';
   loaded = false;
-  observationId: any;
   entityId: any;
   isEntityFilterModalOpen: boolean = false;
-  allEntities: any = [];
+  allEntities: any;
+  solutionListCount :any = 0;
+  selectedObservation:any;
 
   constructor(
     public router: Router,
     private toaster: ToastService,
     private apiService: ApiService,
-    private queryParamsService: QueryParamsService,
-    private cdr: ChangeDetectorRef,
+    private queryParamsService: QueryParamsService
   ) {
     super(router);
   }
@@ -50,17 +49,15 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   loadInitialData(): void {
     this.page = 1;
-    this.solutionList = { data: [], count: 0 };
+    this.solutionList = [];
     this.getListData();
   }
 
   handleInput(event?: any): void {
-    console.log("event", event)
-
     this.searchTerm = event ? event?.target?.value : "";
-    console.log("searchTerm", this.searchTerm)
     this.page = 1;
-    this.solutionList = { data: [], count: 0 };
+    this.solutionList = [];
+    this.solutionListCount = 0;
     this.getListData();
   }
 
@@ -79,10 +76,10 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     )
       .subscribe((res: any) => {
         if (res?.status === 200) {
+          this.solutionListCount = res?.result?.count;
           this.entityType = this.reportPage ? res?.result?.entityType : "";
-          this.solutionList.data = [...this.solutionList?.data, ...res?.result?.data];
-          this.solutionList.count = res?.result?.count;
-          this.originalData = this.solutionList?.data;
+          this.solutionList = [...this.solutionList, ...res?.result?.data];
+          this.originalData = this.solutionList;
         } else {
           this.toaster.showToast(res?.message, 'Close');
         }
@@ -95,24 +92,16 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   }
 
   navigateTo(data?: any) {
-    // console.log("datttaa", data)
     if (this.reportPage) {
-      // const type = data?.entities?.length > 1 ? 'domain' : 'reports';
-      this.observationId = data?.observationId;
-      this.entityType = data?.entityType;
       if (data?.entities?.length > 1) {
-        // entities = "No solution found"
-    console.log("data?.entities", data?.entities)
-
         this.allEntities = data?.entities;
-
+        this.selectedObservation = data
         this.openFilter();
-
       }
       else if (data?.entities?.length == 1) {
-        this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
+        this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${data?.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': data?.entityType, isMultiple: false } })
       } else {
-
+        this.toaster.showToast("No solution found", 'Close');
       }
     } else {
       this.router.navigate(['observation'], { queryParams: { 'type': "entityList", 'id': data.solutionId, 'name': `${data.name}`, 'entityType': data.entityType } })
@@ -121,12 +110,10 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   changeEntityType(selectedType: any) {
     this.selectedEntityType = selectedType;
-    this.solutionList.data = this.originalData.filter(solution => solution.entityType === selectedType);
+    this.solutionList = this.originalData.filter(solution => solution?.entityType === selectedType);
   }
 
   openFilter() {
-    console.log("this.allEntities", this.allEntities)
-
     this.isEntityFilterModalOpen = true;
   }
 
@@ -135,25 +122,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   }
 
   applyFilter() {
-    console.log("this.allEntities", this.allEntities);
     let selectedEntity = this.allEntities.filter(question => question.selected);
-    console.log("selected", selectedEntity);
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.entityType, isMultiple: false } })
-
-
-    // if (!reset && this.filteredQuestions.length === 0) {
-    //   this.toaster.showToast('Select at least one question', 'danger');
-    // }
-
-    // if (reset || this.filteredQuestions.length > 0) {
-    //   this.closeFilter();
-    // }
-  }
-
-  onSelectionChange(submissionId: string): void {
-
-
-    // this.submissionId = submissionId;
-    // this.observationType == 'questions' ? this.loadObservationReport(submissionId, false, false) : this.loadObservationReport(submissionId, true, false);
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.selectedObservation?.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.selectedObservation?.entityType, isMultiple: false } })
   }
 }

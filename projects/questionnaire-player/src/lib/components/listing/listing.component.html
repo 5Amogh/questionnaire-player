@@ -23,9 +23,9 @@
       
     </div>
   
-    <div class="observation-list" *ngIf="solutionList?.count !== 0">
+    <div class="observation-list" *ngIf="solutionListCount !== 0">
 
-     <div class="select-filter" *ngIf="reportPage">
+     <div class="select-filter">
       <mat-form-field>
         <mat-label>Entity Filter</mat-label>
         <mat-select (selectionChange)="changeEntityType($event.value)" [(ngModel)]="selectedEntityType">
@@ -37,7 +37,7 @@
      </div>
 
         <div class="grid-container">
-          <div class="grid-item" *ngFor="let solution of solutionList?.data" (click)="navigateTo(solution)">
+          <div class="grid-item" *ngFor="let solution of solutionList" (click)="navigateTo(solution)">
             <mat-card class="observation-card">
               <mat-card-content>
                 <h2 class="observation-name">{{ solution?.name }}</h2>
@@ -47,14 +47,11 @@
           </div>
         </div>
     </div>
-    <div *ngIf="solutionList?.count === 0" class="no-data-container">
+    <div *ngIf="solutionListCount === 0" class="no-data-container">
       <img src="/assets/images/no_data.jpg" alt="No data" />
     </div>
-    <!-- <mat-toolbar class="d-flex flex-jc-center flex-ai-center" style="background-color: white;" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
-      <button mat-raised-button style="background-color: #832215;color: white;" (click)="loadData()">Load More</button>
-    </mat-toolbar> -->
 
-    <div class="fixed-bottom-buttons" *ngIf="!(solutionList?.count === 0 || solutionList?.count === solutionList?.data?.length)">
+    <div class="fixed-bottom-buttons" *ngIf="!(solutionListCount === 0 || solutionListCount === solutionList?.length)">
       <button mat-raised-button color="accent" (click)="loadData()">Load More</button>
     </div>
   </div>
@@ -81,4 +78,4 @@
     </div>
   </div>
 
-    <lib-spinner *ngIf="!loaded"></lib-spinner>
+<lib-spinner *ngIf="!loaded"></lib-spinner>

@@ -129,7 +129,7 @@ li {
 }
 
 .canvas-chart-hidden {
-  height: 0px !important;
+  height: 0rem !important;
   display: none !important;
   visibility: hidden !important;
 }
@@ -235,32 +235,14 @@ mat-icon {
   }
 }
 
-/* mat-form-field{
-  background-color: red !important;
-  color: white !important;
-}
-
-
-.mat-mdc-form-field-type-mat-select .mat-mdc-text-field-wrapper{
-  background-color: red !important;
-  color: white !important;
-} */
-
-
-
-
-
-
-
-
 .mat-form-field-label {
-  color: var(--color-light) !important; /* Changes the label color */
+  color: var(--color-light) !important; 
 }
 
 .mat-select-value {
-  color: var(--color-light) !important; /* Changes the selected value color */
+  color: var(--color-light) !important; 
 }
 
 .mat-option {
-  color: var(--color-light) !important; /* Optional: Change dropdown text color */
+  color: var(--color-light)
 }

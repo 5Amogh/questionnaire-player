@@ -144,8 +144,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         processedQuestion.answers = mapAnswersToLabels(question?.answers, question?.options);
         delete processedQuestion?.options;
         processedQuestion.chartData = this.isChartNotEmpty(processedQuestion?.chart)
-        console.log("processedQuestion.chart",processedQuestion?.chart)
-
         return processedQuestion;
       }
     };
@@ -159,7 +157,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
             processedInstance[key].answers,
             processedInstance[key].options
           );
-          console.log("processedInstance[key].chart",processedInstance[key].chart)
           delete processedInstance[key].options;
         }
       }
@@ -301,17 +298,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   }
 
   isChartNotEmpty(chart: any, i?:any) {
-    // console.log("charts", i+1, chart)
-    // return chart && Object.keys(chart).length > 0;
-
-    if(Object.keys(chart).length > 0){
-      return true;
-
-    }else{
-      return false;
-
-    }
-
+    return Object.keys(chart).length > 0 ? true : false;
   }
 
   toggleObservationType(type: any) {
