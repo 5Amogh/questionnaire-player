@@ -234,15 +234,3 @@ mat-icon {
     display: block;
   }
 }
-
-.mat-form-field-label {
-  color: var(--color-light) !important; 
-}
-
-.mat-select-value {
-  color: var(--color-light) !important; 
-}
-
-.mat-option {
-  color: var(--color-light)
-}

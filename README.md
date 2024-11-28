@@ -105,5 +105,3 @@ To apply custom theming in your application, you can define CSS variables in you
 }
 ```
 This allows you to control the visual appearance of the web component and ensure it aligns with your application's design.
-
-/observation?type=reports&observationId=6732f9f6d7856dc1f9f153af&entityId=66558675c6892808846230df&entityType=school&isMultiple=true
