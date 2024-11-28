@@ -25,7 +25,7 @@
   
     <div class="observation-list" *ngIf="solutionListCount !== 0">
 
-     <div class="select-filter">
+     <div class="select-filter" *ngIf="reportPage">
       <mat-form-field>
         <mat-label>Entity Filter</mat-label>
         <mat-select (selectionChange)="changeEntityType($event.value)" [(ngModel)]="selectedEntityType">
@@ -51,7 +51,7 @@
       <img src="/assets/images/no_data.jpg" alt="No data" />
     </div>
 
-    <div class="fixed-bottom-buttons" *ngIf="!(solutionListCount === 0 || solutionListCount === solutionList?.length)">
+    <div class="fixed-bottom-buttons" *ngIf="!(solutionListCount === 0 || solutionListCount === initialSolutionData?.length)">
       <button mat-raised-button color="accent" (click)="loadData()">Load More</button>
     </div>
   </div>

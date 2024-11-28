@@ -100,7 +100,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
           return { ...question, selected: true };
         });
         this.reportDetails = this.processSurveyData(this.allQuestions);
-        console.log("this.reportDetails",this.reportDetails)
         this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
       });

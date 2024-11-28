@@ -22,7 +22,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   reportPage: any = 'false';
   pageTitle: string = 'Observation';
   entityType: any;
-  originalData: any = [];
+  initialSolutionData: any = [];
   selectedEntityType: any = '';
   loaded = false;
   entityId: any;
@@ -79,7 +79,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
           this.solutionListCount = res?.result?.count;
           this.entityType = this.reportPage ? res?.result?.entityType : "";
           this.solutionList = [...this.solutionList, ...res?.result?.data];
-          this.originalData = this.solutionList;
+          this.initialSolutionData = this.solutionList;
         } else {
           this.toaster.showToast(res?.message, 'Close');
         }
@@ -110,7 +110,7 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   changeEntityType(selectedType: any) {
     this.selectedEntityType = selectedType;
-    this.solutionList = this.originalData.filter(solution => solution?.entityType === selectedType);
+    this.solutionList = this.initialSolutionData.filter(solution => solution?.entityType === selectedType);
   }
 
   openFilter() {
