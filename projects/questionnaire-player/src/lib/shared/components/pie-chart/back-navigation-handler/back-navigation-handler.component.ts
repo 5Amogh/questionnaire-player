@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class BackNavigationHandlerComponent {
 
-  constructor(public outer: Router, private loc?: Location){}
+  constructor(private outer: Router, private loc: Location){}
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event: any) {
@@ -18,7 +18,8 @@ export class BackNavigationHandlerComponent {
     let urlQueryParams = this.getQueryParams(event.target.location.search)
     if(urlQueryParams){
     this.outer.navigate(['/observation'], { queryParams: urlQueryParams })
-    }else{
+    }
+    else{
     this.outer.navigate(['/observation'], { queryParams: {type:'listing'} })
     }
   }

@@ -128,6 +128,12 @@ li {
   justify-content: center;
 }
 
+.canvas-chart-hidden {
+  height: 0rem !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+
 .question-footer {
   display: flex;
   justify-content: center;
@@ -165,13 +171,6 @@ li {
 
 .border-bottom-button {
   border-bottom: 0.125rem solid var(--color-secondary);;
-}
-
-@media (max-width: 47.9375rem) {
-  .chip {
-    display: block;
-    margin-bottom: 0.3125rem;
-  }
 }
 
 mat-icon {
@@ -213,4 +212,21 @@ mat-icon {
 
 .modal-input {
   accent-color: var(--color-primary);
+}
+
+.mdc-text-field--filled {
+  background-color: var(--color-primary) !important;
+  color: var(--color-light) !important;
+}
+
+.select-wrapper{
+  display: flex;
+  justify-content: end;
+}
+
+@media (max-width: 47.9375rem) {
+  .chip {
+    display: block;
+    margin-bottom: 0.3125rem;
+  }
 }

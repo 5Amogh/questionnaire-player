@@ -70,7 +70,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     private renderer: Renderer2, private el: ElementRef,
     public router: Router
   ) {
-    super(router);
+    super(router, location);
 
   }
 
@@ -111,7 +111,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   
   fetchDetails(){
     const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}`: this.apiConfig.solutionId
-    console.log('palyer this.apiConfig.profileData',this.apiConfig.profileData)
     this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,this.apiConfig.profileData)
     .pipe(
       catchError((err) => {

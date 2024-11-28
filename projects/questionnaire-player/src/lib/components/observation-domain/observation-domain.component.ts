@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
 import { catchError, finalize } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-observation-domain',
@@ -28,9 +29,10 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   loaded = false;
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
-    private dialog: MatDialog, private queryParamsService: QueryParamsService
+    private dialog: MatDialog, private queryParamsService: QueryParamsService, 
+    location: Location
   ) {
-    super(router);
+    super(router, location);
    }
 
   ngOnInit(): void {

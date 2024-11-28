@@ -6,10 +6,13 @@
     </div>
 
     <div class="srch">
-      <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
+      <mat-form-field class="srch-bar" style="background-color: white;border-radius: 16px;">
         <mat-icon matPrefix style="color: gray;">search</mat-icon>
-        <input matInput (input)="handleSearchInputOne($event)"
-          [placeholder]="'Search '+ selectedEntities?.entityType" class="search" />
+        <input matInput (input)="handleEntitySearchInput($event)"
+          [placeholder]="'Search '+ selectedEntities?.entityType" class="search" [(ngModel)]="searchValue" />
+          <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="handleEntitySearchInput()">
+            <mat-icon style="color: gray;">close</mat-icon>
+          </button>
       </mat-form-field>
     </div>
   </div>
@@ -62,9 +65,12 @@
     <mat-divider></mat-divider>
     <div mat-dialog-content class="flex-ai-self-start">
       <div class="srch">
-        <mat-form-field class="srchBar" style="background-color: white;border-radius: 16px;">
+        <mat-form-field class="srch-bar" style="background-color: white;border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input class="search-add-entity" matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" />
+          <input class="search-add-entity" matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" [(ngModel)]="searchAddEntityValue" />
+          <button *ngIf="searchAddEntityValue" matSuffix mat-icon-button aria-label="Clear" (click)="handleSearchInput()">
+            <mat-icon style="color: gray;">close</mat-icon>
+          </button>
         </mat-form-field>
       </div>
 

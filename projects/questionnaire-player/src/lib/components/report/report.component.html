@@ -1,21 +1,22 @@
 
   <main *ngIf="resultData; else noData">
     <div class="list-title">
-      <h1 class="heading">{{ observationDetails?.entityName }}</h1>
-      <p class="heading-two">{{ observationDetails?.solutionName }}</p>
-
-    <div class="select-wrapper mt-5" *ngIf="isMultiple == 'true'">
-      <mat-form-field class="custom-select">
-        <mat-label>Select Submission</mat-label>
-        <mat-select (selectionChange)="onSelectionChange($event.value)">
-          <mat-option *ngFor="let item of filterData" [value]="item._id">
-            {{ item.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="mt-5">
+        <h1 class="heading">{{ observationDetails?.entityName }}</h1>
+        <p class="heading-two">{{ observationDetails?.solutionName }}</p>
     </div>
      </div>
     <div class="report-container">
+      <div class="select-wrapper">
+        <mat-form-field class="custom-select" *ngIf="isMultiple == 'true'">
+          <mat-label>Select Submission</mat-label>
+          <mat-select (selectionChange)="onSelectionChange($event.value)">
+            <mat-option *ngFor="let item of filterData" [value]="item._id">
+              {{ item.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div class="buttons-left">
         <button [ngClass]="{'border-bottom-button': observationType === 'questions'}"
           (click)="toggleObservationType('questions')" class="switch-buttons">Questions</button>
@@ -35,40 +36,40 @@
         <div class="questions-list">
           <div *ngFor="let question of reportDetails; let qi = index" class="question-card">
             <div class="question-header">
-              <p class="questionTitle">{{qi + 1}}. {{ question.question }}</p>
+              <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
             </div>
-            <div class="canvas-chart" *ngIf="isChartNotEmpty(question.chart)">
+            <div class="canvas-chart" [ngClass]="{'canvas-chart-hidden':!question?.chartData}">
               <canvas class="chart-canvas"></canvas>
             </div>
 
             <div class="question-content">
-              <ng-container [ngSwitch]="question.responseType">
+              <ng-container [ngSwitch]="question?.responseType">
                 <div *ngSwitchCase="'text'">
-                  <label>{{ question.answers}}</label>
+                  <label>{{ question?.answers}}</label>
                 </div>
                 <div *ngSwitchCase="'date'">
-                  <label>{{ question.answers | date }}</label>
+                  <label>{{ question?.answers | date }}</label>
                 </div>
                 <div *ngSwitchCase="'radio'">
-                  <label>{{ question.answers }}</label>
+                  <label>{{ question?.answers }}</label>
                 </div>
                 <div *ngSwitchCase="'slider'">
-                  <label>{{ question.answers }}</label>
+                  <label>{{ question?.answers }}</label>
                 </div>
                 <div *ngSwitchCase="'multiselect'">
-                  <span *ngFor="let answer of question.answers" class="chip">{{ answer }}</span>
+                  <span *ngFor="let answer of question?.answers" class="chip">{{ answer }}</span>
                 </div>
                 <div *ngSwitchCase="'number'">
-                  <label>{{ question.answers }}</label>
+                  <label>{{ question?.answers }}</label>
                 </div>
 
                 <div *ngSwitchCase="'matrix'">
-                  <ng-container *ngFor="let key of objectKeys(question.instanceQuestions[0]); let k = index">
+                  <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
                     <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                      <h3>{{ question.instanceQuestions[0][key].questionNumber }}. {{
-                        question.instanceQuestions[0][key].question }}</h3>
+                      <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
+                        question?.instanceQuestions[0][key].question }}</h3>
 
-                      <div *ngFor="let instance of question.instanceQuestions">
+                      <div *ngFor="let instance of question?.instanceQuestions">
                         <div class="instance-card">
                           <h4>{{ instance.instanceIdentifier }}</h4>
 
@@ -85,10 +86,10 @@
               </ng-container>
             </div>
 
-            <div class="evidence-section" *ngIf="question.evidences && question.evidences.length">
-              <h4>Evidences: {{ question.evidence_count }}</h4>
+            <div class="evidence-section" *ngIf="question?.evidences && question?.evidences.length">
+              <h4>Evidences: {{ question?.evidence_count }}</h4>
               <div class="evidence-icons">
-                <div *ngFor="let evidence of question.evidences" class="iconList">
+                <div *ngFor="let evidence of question?.evidences" class="iconList">
                   <ng-container [ngSwitch]="evidence.extension">
                     <div *ngSwitchCase="'jpg'" (click)="openDialog(evidence.url, 'image')">🖼️</div>
                     <div *ngSwitchCase="'png'" (click)="openDialog(evidence.url, 'image')">🖼️</div>
@@ -109,40 +110,40 @@
 
             <div *ngFor="let question of questions; let qi = index" class="question-card2-hover">
               <div class="question-header">
-                <p class="questionTitle">{{qi + 1}}. {{ question.question }}</p>
+                <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
               </div>
-              <div class="canvas-chart" *ngIf="isChartNotEmpty(question.chart)">
+              <div class="canvas-chart" [ngClass]="{'canvas-chart-hidden':!question?.chartData}" >
                 <canvas class="chart-canvas"></canvas>
               </div>
 
               <div class="question-content">
-                <ng-container [ngSwitch]="question.responseType">
+                <ng-container [ngSwitch]="question?.responseType">
                   <div *ngSwitchCase="'text'">
-                    <label>{{ question.answers}}</label>
+                    <label>{{ question?.answers}}</label>
                   </div>
                   <div *ngSwitchCase="'date'">
-                    <label>{{ question.answers | date }}</label>
+                    <label>{{ question?.answers | date }}</label>
                   </div>
                   <div *ngSwitchCase="'radio'">
-                    <label>{{ question.answers }}</label>
+                    <label>{{ question?.answers }}</label>
                   </div>
                   <div *ngSwitchCase="'slider'">
-                    <label>{{ question.answers }}</label>
+                    <label>{{ question?.answers }}</label>
                   </div>
                   <div *ngSwitchCase="'multiselect'">
-                    <span *ngFor="let answer of question.answers" class="chip">{{ answer }}</span>
+                    <span *ngFor="let answer of question?.answers" class="chip">{{ answer }}</span>
                   </div>
                   <div *ngSwitchCase="'number'">
-                    <label>{{ question.answers }}</label>
+                    <label>{{ question?.answers }}</label>
                   </div>
 
                   <div *ngSwitchCase="'matrix'">
-                    <ng-container *ngFor="let key of objectKeys(question.instanceQuestions[0]); let k = index">
+                    <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
                       <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                        <h3>{{ question.instanceQuestions[0][key].questionNumber }}. {{
-                          question.instanceQuestions[0][key].question }}</h3>
+                        <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
+                          question?.instanceQuestions[0][key].question }}</h3>
 
-                        <div *ngFor="let instance of question.instanceQuestions">
+                        <div *ngFor="let instance of question?.instanceQuestions">
                           <div class="instance-card">
                             <h4>{{ instance.instanceIdentifier }}</h4>
 
@@ -159,10 +160,10 @@
                 </ng-container>
               </div>
 
-              <div class="evidence-section" *ngIf="question.evidences && question.evidences.length">
-                <h4>Evidences: {{ question.evidence_count }}</h4>
+              <div class="evidence-section" *ngIf="question?.evidences && question?.evidences.length">
+                <h4>Evidences: {{ question?.evidence_count }}</h4>
                 <div class="evidence-icons">
-                  <div *ngFor="let evidence of question.evidences" class="iconList">
+                  <div *ngFor="let evidence of question?.evidences" class="iconList">
                     <ng-container [ngSwitch]="evidence.extension">
                       <div *ngSwitchCase="'jpg'" (click)="openDialog(evidence.url, 'image')">🖼️</div>
                       <div *ngSwitchCase="'png'" (click)="openDialog(evidence.url, 'image')">🖼️</div>
@@ -189,7 +190,7 @@
               <li *ngFor="let question of allQuestions; let i = index">
                 <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i">
                 <label [for]="'question-' + i">
-                  {{ observationType === 'questions' ? question.question : question.criteriaName }}
+                  {{ observationType === 'questions' ? question?.question : question?.criteriaName }}
                 </label>
               </li>
             </ul>

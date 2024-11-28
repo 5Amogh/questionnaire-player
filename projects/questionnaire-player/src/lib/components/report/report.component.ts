@@ -18,6 +18,7 @@ import {
 } from 'chart.js';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { Location } from '@angular/common';
 
 Chart.register(PieController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -56,9 +57,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     public apiService: ApiService,
     public toaster: ToastService,
     private cdr: ChangeDetectorRef,
-    private queryParamsService: QueryParamsService
+    private queryParamsService: QueryParamsService,
+    location: Location
   ) {
-    super(router);
+    super(router, location);
    }
 
   ngOnInit() {
@@ -100,7 +102,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
           return { ...question, selected: true };
         });
         this.reportDetails = this.processSurveyData(this.allQuestions);
-        this.cdr.detectChanges();
+        this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
       });
   }
@@ -142,6 +144,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         const processedQuestion = { ...question };
         processedQuestion.answers = mapAnswersToLabels(question?.answers, question?.options);
         delete processedQuestion?.options;
+        processedQuestion.chartData = this.isChartNotEmpty(processedQuestion?.chart)
         return processedQuestion;
       }
     };
@@ -295,8 +298,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     window.open(url, '_blank');
   }
 
-  isChartNotEmpty(chart: any): boolean {
-    return chart && Object.keys(chart).length > 0;
+  isChartNotEmpty(chart: any, i?:any) {
+    return Object.keys(chart).length > 0 ? true : false;
   }
 
   toggleObservationType(type: any) {

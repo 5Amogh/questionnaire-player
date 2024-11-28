@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
 import { catchError, finalize } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-observation-entity',
@@ -29,11 +30,13 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   observationId: any;
   searchEntities: any = [];
   loaded = false;
+  searchValue:string = "";
+  searchAddEntityValue:string = "";
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
-    , private queryParamsService: QueryParamsService
+    , private queryParamsService: QueryParamsService, location: Location
   ) {
-    super(router);
+    super(router,location);
   }
 
   ngOnInit() {
@@ -99,9 +102,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   getSearchEntities() {
     this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
-
       .subscribe((res: any) => {
-
         if (res.result) {
           const searchEntities = res?.result[0];
           this.searchEntities = searchEntities?.data;
@@ -119,20 +120,20 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.dialogRef.close();
   }
 
-  handleSearchInputOne(event: any) {
+  handleEntitySearchInput(event?: any) {
     this.filteredEntitiesOne = []
-    const searchValue = event.target.value.toLowerCase();
+    this.searchValue = event ? event.target.value.toLowerCase() : "";
 
     this.filteredEntitiesOne = this.selectedEntities?.entities.filter((item: any) =>
-      item?.name.toLowerCase().includes(searchValue)
+      item?.name.toLowerCase().includes(this.searchValue)
     );
   }
 
-  handleSearchInput(event: any) {
+  handleSearchInput(event?: any) {
     this.filteredEntities = []
-    const searchValue = event.target.value.toLowerCase();
+    this.searchAddEntityValue = event ? event.target.value.toLowerCase() : "";
     this.filteredEntities = this.searchEntities.filter((item: any) =>
-      item?.name.toLowerCase().includes(searchValue)
+      item?.name.toLowerCase().includes(this.searchAddEntityValue)
     );
   }
 
@@ -168,5 +169,4 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.filteredEntitiesOne.some((filteredEntity: any) => filteredEntity._id === entity._id);
   }
-
 }

@@ -140,6 +140,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     RouterModule.forChild(routes),
     MatMenuModule,
     MatSelectModule,
+    FormsModule
     ],
   exports: [RouterModule],
   providers: [
