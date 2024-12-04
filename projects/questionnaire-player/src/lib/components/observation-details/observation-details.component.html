@@ -45,7 +45,7 @@
         <div class="observation-list">
           <div class="grid-container">
             <ng-container *ngIf="getObservationsByStatus(['draft', 'started', 'inprogress']).length; else noDataInProgress">
-              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started'])">
+              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started', 'inprogress'])">
                 <mat-card class="observation-card" (click)="navigateToDetails(entity)">
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">

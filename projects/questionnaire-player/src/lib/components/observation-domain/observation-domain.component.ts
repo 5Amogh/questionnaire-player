@@ -27,6 +27,7 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   entities:any=[]
   @ViewChild('notApplicableModel') notApplicableModel: TemplateRef<any>;
   loaded = false;
+  submissionNumber:any;
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router,
     private dialog: MatDialog, private queryParamsService: QueryParamsService, 
@@ -57,9 +58,22 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
         
         if (res.result) {
           this.entities = res?.result;
+    console.log("this.entities00",this.entities)
+
         let evidencesStatus = this.entities
           .filter((obj: any) => obj?._id == this.id)
           .map((obj: any) => obj.evidencesStatus);
+
+          this.entities
+          .map((obj: any) => {
+            if(obj?._id == this.id){
+              this.submissionNumber = obj?.submissionNumber;
+            }
+          }
+        )
+
+    // console.log("evidencesSubmissionId",evidencesSubmissionId)
+
         this.evidences = evidencesStatus.flat();
         } else {
           this.toaster.showToast(res.message, 'danger');
@@ -81,8 +95,10 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   }
 
   navigateToDetails(data,index) {
+    console.log("this.submissionNumber",this.submissionNumber)
+
     this.router.navigate(['observation'], {
-      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:this.entities?.submissionNumber,evidenceCode:data?.code, index:index }
+      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:this.submissionNumber,evidenceCode:data?.code, index:index }
     });
   }
 

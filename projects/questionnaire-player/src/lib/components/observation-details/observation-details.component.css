@@ -99,3 +99,9 @@
 .heading-paragraph{
   margin-bottom: 1.563rem;
 }
+
+.observation-name {
+  overflow-wrap: anywhere;
+}
+
+

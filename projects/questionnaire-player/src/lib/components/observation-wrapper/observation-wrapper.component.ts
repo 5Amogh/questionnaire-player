@@ -21,7 +21,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type: any;
-  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) {}
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) { }
 
   private componentMapper: any = {
     listing: ListingComponent,
@@ -34,14 +34,41 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['apiConfig']) {
+      console.log("this.apiConfig.profileData111", this.apiConfig);
+  
+      let profileData: any;
+  
+      // Check explicitly if profileData is undefined or null
+      if (this.apiConfig.profileData === undefined || this.apiConfig.profileData === null || this.apiConfig.profileData === "undefined" ) {
+        // Retrieve profile data from localStorage if not in apiConfig
+        const retrievedString = localStorage.getItem('profileData');
+        if (retrievedString) {
+          try {
+            profileData = JSON.parse(retrievedString);
+          } catch (error) {
+            console.error("Error parsing stored profileData", error);
+          }
+        }
+      } else {
+        // Use profileData from apiConfig and store it in localStorage
+        profileData = this.apiConfig.profileData;
+        localStorage.setItem('profileData', JSON.stringify(profileData)); // Ensure proper stringification
+      }
+  
+      // Update the service with the new profileData
       this.apiService.baseUrl = this.apiConfig.baseURL;
       this.apiService.token = this.apiConfig.userAuthToken;
       this.apiService.solutionType = 'observation';
-      this.apiService.profileData = this.apiConfig.profileData;
+      this.apiService.profileData = profileData;
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
+      
+      // Parse query params if needed
       this.queryParamsService.parseQueryParams();
+  
+      console.log('Service profileData:', this.apiService.profileData);
+  
       if (this.queryParamsService.type) {
         this.type = this.queryParamsService?.type;
         this.initialLoad = true;
@@ -51,6 +78,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       }
     }
   }
+  
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
@@ -59,6 +87,17 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.initialLoad = true;
       this.loadComponent(this.type);
     });
+  }
+
+  private initializeApiService(): void {
+    this.apiService.baseUrl = this.apiConfig.baseURL;
+    this.apiService.token = this.apiConfig.userAuthToken;
+    this.apiService.solutionType = 'observation';
+    this.apiService.profileData = this.apiConfig.profileData;
+    this.apiService.solutionId = this.apiConfig.solutionId;
+    this.apiService.entityType = this.apiConfig.entityType;
+    this.apiService.userAuthToken = this.apiConfig.userAuthToken;
+    this.queryParamsService.parseQueryParams();
   }
 
   loadComponent(type: string) {

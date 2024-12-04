@@ -9,6 +9,7 @@ import { BackNavigationHandlerComponent } from '../../shared/components/pie-char
 import { QueryParamsService } from '../../services/queryParams.service';
 import { catchError, finalize } from 'rxjs';
 import { Location } from '@angular/common';
+import { MatSelectionListChange } from '@angular/material/list';
 
 @Component({
   selector: 'lib-observation-entity',
@@ -22,7 +23,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   entityToAdd: string;
   filteredEntities: any;
   filteredEntitiesOne: any;
-  addedEntities: any;
+  addedEntities: string[] = [];
   entities = new FormControl();
   @ViewChild('searchEntityModal') searchEntityModal: TemplateRef<any>;
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
@@ -30,13 +31,13 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   observationId: any;
   searchEntities: any = [];
   loaded = false;
-  searchValue:string = "";
-  searchAddEntityValue:string = "";
+  searchValue: string = "";
+  searchAddEntityValue: string = "";
 
   constructor(private apiService: ApiService, private toaster: ToastService, private router: Router, private dialog: MatDialog
     , private queryParamsService: QueryParamsService, location: Location
   ) {
-    super(router,location);
+    super(router, location);
   }
 
   ngOnInit() {
@@ -51,13 +52,13 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.selectedEntities = [];
     this.observationId = "";
     this.apiService.post(urlConfig.observation.getSelectedEntities + this.solutionId, this.apiService.profileData)
-    .pipe(
-      finalize(() =>this.loaded = true),
-      catchError((err: any) => {
-        this.toaster.showToast(err.error.message, 'Close');
-        throw Error(err);
-      })
-    )
+      .pipe(
+        finalize(() => this.loaded = true),
+        catchError((err: any) => {
+          this.toaster.showToast(err.error.message, 'Close');
+          throw Error(err);
+        })
+      )
       .subscribe((res: any) => {
 
         if (res.result) {
@@ -121,7 +122,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   handleEntitySearchInput(event?: any) {
-    this.filteredEntitiesOne = []
+    // this.filteredEntitiesOne = []
     this.searchValue = event ? event.target.value.toLowerCase() : "";
 
     this.filteredEntitiesOne = this.selectedEntities?.entities.filter((item: any) =>
@@ -132,6 +133,8 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   handleSearchInput(event?: any) {
     this.filteredEntities = []
     this.searchAddEntityValue = event ? event.target.value.toLowerCase() : "";
+    console.log("this.searchAddEntityValue", this.searchAddEntityValue)
+
     this.filteredEntities = this.searchEntities.filter((item: any) =>
       item?.name.toLowerCase().includes(this.searchAddEntityValue)
     );
@@ -153,8 +156,8 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
         this.apiService.delete(urlConfig.observation.updateEntities + this.observationId, { data: [id] })
 
           .subscribe((res: any) => {
-
             if (res.status == 200) {
+              this.toaster.showToast(res.message, 'success', 5000);
               this.getEntities();
             } else {
               this.toaster.showToast(res.message, 'Close');
@@ -167,6 +170,18 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   isEntityInFilteredEntitiesOne(entity: any): boolean {
-    return this.filteredEntitiesOne.some((filteredEntity: any) => filteredEntity._id === entity._id);
+    const data = this.selectedEntities?.entities;
+
+    const result = data.some((filteredEntity: any) => filteredEntity._id === entity._id);
+
+    return result;
+  }
+
+  onSelectionChange(event: MatSelectionListChange): void {
+    // Extract all selected options
+    const selectedOptions = event.source.selectedOptions.selected.map(option => option.value);
+  
+    // Update addedEntities
+    this.addedEntities = selectedOptions;
   }
 }

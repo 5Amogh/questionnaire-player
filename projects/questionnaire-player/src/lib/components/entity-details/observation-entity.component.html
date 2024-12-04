@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div *ngIf="filteredEntitiesOne?.length">
+
     <div class="add-btn-container">
       <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities?.entityType}}</button>
     </div>
@@ -46,7 +46,6 @@
         </div>
       </div>
     </div>
-  </div>
 
   <div *ngIf="!filteredEntitiesOne?.length" class="no-data-container">
     <img src="/assets/images/no_data.jpg" alt="No data" />
@@ -74,18 +73,28 @@
         </mat-form-field>
       </div>
 
-      <mat-selection-list [multiple]="true" [(ngModel)]="addedEntities">
-        <mat-list-option *ngFor="let entity of filteredEntities" [value]="entity?._id"
-          [disabled]="isEntityInFilteredEntitiesOne(entity)" [selected]="isEntityInFilteredEntitiesOne(entity)">
-          {{entity?.name}}
-        </mat-list-option>
-      </mat-selection-list>
+      <mat-selection-list
+  [multiple]="true"
+  (selectionChange)="onSelectionChange($event)">
+  <mat-list-option 
+    *ngFor="let entity of filteredEntities" 
+    [value]="entity?._id"
+    [disabled]="isEntityInFilteredEntitiesOne(entity)">
+    {{ entity?.name }}
+  </mat-list-option>
+</mat-selection-list>
+    
         <p class="no-data" *ngIf="!filteredEntities?.length">No {{selectedEntities?.entityType}} found</p>
     </div>
 
     <mat-dialog-actions class="mat-dialog-actions">
-      <button [mat-dialog-close]="'yes'" class="secondary-btn" [disabled]="!filteredEntities?.length" [ngClass]="{'disabled-button': !filteredEntities?.length}"
-        (click)="submitDialog()">Add</button>
+      <button 
+        [mat-dialog-close]="'yes'" 
+        class="secondary-btn" 
+        [ngClass]="{'disabled-button': !addedEntities?.length}" 
+        [disabled]="!addedEntities?.length" 
+        (click)="submitDialog()">Add
+      </button>
       <button mat-dialog-close (click)="closeDialog()" class="primary-btn">Cancel</button>
     </mat-dialog-actions>
   </div>
