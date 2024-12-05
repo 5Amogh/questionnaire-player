@@ -106,6 +106,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.apiService.submissionNumber = this.apiConfig.submissionNumber;
     this.apiService.evidenceCode = this.apiConfig.evidenceCode;
     this.apiService.index = this.apiConfig.index;
+    
     this.apiService.profileData = this.apiConfig.profileData;
   }
   

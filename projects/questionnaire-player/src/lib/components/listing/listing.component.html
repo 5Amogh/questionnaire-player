@@ -11,7 +11,7 @@
           <input 
             matInput 
             [(ngModel)]="searchTerm" 
-            (input)="handleInput($event)" 
+            (keydown)="handleKeyDown($event)" 
             placeholder="Search your observation here" 
             class="search" 
           />

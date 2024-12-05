@@ -14,7 +14,8 @@
         "updateEntities":"/survey/v1/observations/updateEntities/",
         "observationSubmissions":"/survey/v1/observationSubmissions/list/",
         "update":"/survey/v1/observationSubmissions/update/",
-        "create":"/survey/v1/observationSubmissions/create/"
+        "create":"/survey/v1/observationSubmissions/create/",
+        "refreshTokenUrl":"/user/v1/account/generateToken"
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

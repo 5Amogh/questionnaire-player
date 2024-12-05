@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Router } from '@angular/router';
 import { QueryParamsService } from '../../services/queryParams.service';
 @Component({
   selector: 'lib-player-bridge',
@@ -44,6 +43,7 @@ export class PlayerBridgeComponent {
       submissionNumber: this.submissionNumber,
       evidenceCode: this.evidenceCode,
       entityType: this.apiService.entityType,
+      profileData: this.apiService.profileData,
       index:this.index
     }
   }

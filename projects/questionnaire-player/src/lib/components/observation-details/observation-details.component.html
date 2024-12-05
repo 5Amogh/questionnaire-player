@@ -18,7 +18,7 @@
                       <h2 class="observation-name">{{ entity?.title }}</h2>
                       <p>{{entity?.updatedAt | date:'short'}}</p>
                     </mat-card-content>
-                    <div *ngIf="entity?.status !== 'completed'">
+                    <div *ngIf="entity?.status !== 'completed' && !entity?.isRubricDriven">
                       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                       </button>
@@ -45,7 +45,7 @@
         <div class="observation-list">
           <div class="grid-container">
             <ng-container *ngIf="getObservationsByStatus(['draft', 'started', 'inprogress']).length; else noDataInProgress">
-              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started'])">
+              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started', 'inprogress'])">
                 <mat-card class="observation-card" (click)="navigateToDetails(entity)">
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">

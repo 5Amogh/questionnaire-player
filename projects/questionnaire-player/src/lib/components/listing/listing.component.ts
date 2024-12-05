@@ -56,6 +56,12 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     this.getListData();
   }
 
+  handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.handleInput(event);
+    }
+  }
+
   handleInput(event?: any): void {
     this.searchTerm = event ? event?.target?.value : "";
     this.page = 1;

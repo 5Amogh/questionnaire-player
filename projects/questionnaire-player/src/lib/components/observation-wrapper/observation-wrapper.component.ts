@@ -21,7 +21,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type: any;
-  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) {}
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) { }
 
   private componentMapper: any = {
     listing: ListingComponent,
@@ -51,6 +51,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       }
     }
   }
+  
 
   ngOnInit() {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
