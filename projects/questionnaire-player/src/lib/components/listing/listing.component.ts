@@ -64,7 +64,6 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
 
   handleInput(event?: any): void {
     this.searchTerm = event ? event?.target?.value : "";
-    console.log("this.searchTerm",this.searchTerm)
     this.page = 1;
     this.solutionList = [];
     this.solutionListCount = 0;
@@ -74,7 +73,6 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
   async getListData(): Promise<void> {
     const urlPath = this.reportPage ? urlConfig[this.listType].reportListing : urlConfig[this.listType].listing;
     const queryItems = this.reportPage ? `?page=${this.page}&limit=${this.limit}` : `?type=${this.apiService?.solutionType}&page=${this.page}&limit=${this.limit}&search=${this.searchTerm}`;
-    console.log("this.apiService-listing",this.apiService)
     this.apiService.post(
       urlPath + queryItems,
       this.apiService?.profileData

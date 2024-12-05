@@ -18,7 +18,7 @@
                       <h2 class="observation-name">{{ entity?.title }}</h2>
                       <p>{{entity?.updatedAt | date:'short'}}</p>
                     </mat-card-content>
-                    <div *ngIf="entity?.status !== 'completed'">
+                    <div *ngIf="entity?.status !== 'completed' && !entity?.isRubricDriven">
                       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                       </button>

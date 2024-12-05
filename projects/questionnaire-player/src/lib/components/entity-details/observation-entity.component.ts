@@ -10,7 +10,6 @@ import { QueryParamsService } from '../../services/queryParams.service';
 import { catchError, finalize } from 'rxjs';
 import { Location } from '@angular/common';
 import { MatSelectionListChange } from '@angular/material/list';
-
 @Component({
   selector: 'lib-observation-entity',
   templateUrl: './observation-entity.component.html',
@@ -60,7 +59,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
         })
       )
       .subscribe((res: any) => {
-
         if (res.result) {
           this.observationId = res?.result?._id;
           this.selectedEntities = res?.result;
@@ -122,7 +120,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   handleEntitySearchInput(event?: any) {
-    // this.filteredEntitiesOne = []
     this.searchValue = event ? event.target.value.toLowerCase() : "";
 
     this.filteredEntitiesOne = this.selectedEntities?.entities.filter((item: any) =>
@@ -133,8 +130,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   handleSearchInput(event?: any) {
     this.filteredEntities = []
     this.searchAddEntityValue = event ? event.target.value.toLowerCase() : "";
-    console.log("this.searchAddEntityValue", this.searchAddEntityValue)
-
     this.filteredEntities = this.searchEntities.filter((item: any) =>
       item?.name.toLowerCase().includes(this.searchAddEntityValue)
     );
@@ -171,17 +166,12 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     const data = this.selectedEntities?.entities;
-
     const result = data.some((filteredEntity: any) => filteredEntity._id === entity._id);
-
     return result;
   }
 
   onSelectionChange(event: MatSelectionListChange): void {
-    // Extract all selected options
     const selectedOptions = event.source.selectedOptions.selected.map(option => option.value);
-  
-    // Update addedEntities
     this.addedEntities = selectedOptions;
   }
 }

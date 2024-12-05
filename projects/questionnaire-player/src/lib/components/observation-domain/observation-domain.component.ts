@@ -58,7 +58,6 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
         
         if (res.result) {
           this.entities = res?.result;
-    console.log("this.entities00",this.entities)
 
         let evidencesStatus = this.entities
           .filter((obj: any) => obj?._id == this.id)
@@ -71,9 +70,6 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
             }
           }
         )
-
-    // console.log("evidencesSubmissionId",evidencesSubmissionId)
-
         this.evidences = evidencesStatus.flat();
         } else {
           this.toaster.showToast(res.message, 'danger');
@@ -95,8 +91,6 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   }
 
   navigateToDetails(data,index) {
-    console.log("this.submissionNumber",this.submissionNumber)
-
     this.router.navigate(['observation'], {
       queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:this.submissionNumber,evidenceCode:data?.code, index:index }
     });
