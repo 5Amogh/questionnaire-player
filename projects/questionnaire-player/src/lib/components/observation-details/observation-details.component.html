@@ -53,6 +53,7 @@
                       <p>{{entity?.updatedAt | date:'short'}}</p>
                     </mat-card-content>
     
+                    <div *ngIf="!entity?.isRubricDriven">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                       <mat-icon>more_vert</mat-icon>
                     </button>
@@ -61,6 +62,7 @@
                       <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
                       <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
                     </mat-menu>
+                    </div>
                   </div>
                 </mat-card>
               </div>
@@ -84,7 +86,7 @@
                       <p>{{entity?.updatedAt | date:'short'}}</p>
                     </mat-card-content>
     
-                    <div *ngIf="entity?.status !== 'completed'">
+                    <div *ngIf="entity?.status !== 'completed'  && !entity?.isRubricDriven">
                       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                       </button>

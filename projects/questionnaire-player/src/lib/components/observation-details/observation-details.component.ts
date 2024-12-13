@@ -155,7 +155,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   viewReport(entity?) {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true } })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true , scores:entity?.isRubricDriven ? true : false} })
   }
 
   isViewReportDisabled(): boolean {

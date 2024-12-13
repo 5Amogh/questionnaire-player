@@ -51,6 +51,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   loaded = false;
   filterData:any;
   isMultiple:any;
+  scores:any;
 
   constructor(
     router: Router,
@@ -70,6 +71,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.entityType = this.queryParamsService?.entityType;
     this.entityId = this.queryParamsService?.entityId;
     this.isMultiple = this.queryParamsService?.isMultiple;
+    const scoresValue = this.queryParamsService?.scores;
+    this.scores = scoresValue === 'true';
+
     this.loadObservationReport(this.submissionId, false, false);
   }
 
@@ -98,9 +102,19 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
-        this.allQuestions = res?.result?.reportSections.map(question => {
+        let reportSections:any = this.scores ? [res?.result?.reportSections] : res?.result?.reportSections;
+        console.log("reportSections",reportSections, this.scores)
+        this.allQuestions = reportSections?.map((question:any) => {
+
           return { ...question, selected: true };
         });
+
+
+        // console.log("reportSections",res?.result?.reportSections, this.scores)
+      
+        // this.allQuestions = res?.result?.reportSections.map((question:any) => {
+        //   return { ...question, selected: true };
+        // });
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
@@ -115,7 +129,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       pdf,
       criteriaWise: criteria,
       entityId:this.entityId,
-      observationId:this.observationId
+      observationId:this.observationId,
+      scores:this.scores
     };
   }
 
