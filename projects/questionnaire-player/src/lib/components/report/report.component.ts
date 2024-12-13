@@ -52,6 +52,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   filterData:any;
   isMultiple:any;
   scores:any;
+  descriptiveView:any;
 
   constructor(
     router: Router,
@@ -102,12 +103,15 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
-        let reportSections:any = this.scores ? [res?.result?.reportSections] : res?.result?.reportSections;
+        let reportSections:any = this.scores ? [res?.result?.reportSections[0]] : res?.result?.reportSections;
+        this.descriptiveView = this.scores ? [res?.result?.reportSections[1]]: ""
         console.log("reportSections",reportSections, this.scores)
         this.allQuestions = reportSections?.map((question:any) => {
 
           return { ...question, selected: true };
         });
+
+        console.log("this.allQuestions",this.allQuestions)
 
 
         // console.log("reportSections",res?.result?.reportSections, this.scores)
@@ -136,6 +140,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
   processSurveyData(data: any): any[] {
     const mapAnswersToLabels = (answers: any[], options: any[]) => {
+      console.log("mapAnswersToLabels",answers);
+
       return answers.map((answer: any) => {
         if (typeof answer === 'string') {
           const trimmedAnswer = answer.trim();
@@ -151,13 +157,13 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processQuestion = (question: any) => {
-
+console.log("processQuestion",question);
       if (question?.responseType === 'matrix' && question?.instanceQuestions) {
         const processedInstanceQuestions = question?.instanceQuestions.map(processInstanceQuestions);
         return { ...question, instanceQuestions: processedInstanceQuestions };
       } else {
         const processedQuestion = { ...question };
-        processedQuestion.answers = mapAnswersToLabels(question?.answers, question?.options);
+        processedQuestion.answers = this.scores ? "" :mapAnswersToLabels(question?.answers, question?.options);
         delete processedQuestion?.options;
         processedQuestion.chartData = this.isChartNotEmpty(processedQuestion?.chart)
         return processedQuestion;
@@ -165,6 +171,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processInstanceQuestions = (instance: any) => {
+      console.log("processInstanceQuestions",instance);
 
       const processedInstance = { ...instance };
       for (const key in processedInstance) {
@@ -180,9 +187,13 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     if (this.observationType === 'questions') {
+      console.log("observationType",this.observationType);
+
       return data.map(processQuestion);
     } else {
       return data.map((criterias) => {
+      console.log("criterias",criterias);
+
         return criterias?.questionArray.map(processQuestion);
       });
     }
