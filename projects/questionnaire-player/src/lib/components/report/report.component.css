@@ -230,3 +230,36 @@ mat-icon {
     margin-bottom: 0.3125rem;
   }
 }
+
+.panel-content {
+  border: 0.063rem solid var(--color-grey);
+}
+
+.row {
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.row:nth-child(odd) {
+  background-color: var(--color-light);
+}
+
+.row:nth-child(even) {
+  /* background-color: #f5f5f5; */
+  background-color: var(--color-grey);
+}
+
+.column {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.expansion-panel{
+  margin: 0.625rem;
+}
+
+.title-accordion{
+  font-size: large;
+}

@@ -113,6 +113,34 @@
             </div>
 
           </div>
+
+          <div class="question-card" *ngIf="domainView">
+            <mat-accordion>
+              <h2 class="mb-2">Descriptive view</h2>
+              <mat-expansion-panel class="expansion-panel" *ngFor="let view of domainView?.domains; let i = index" (opened)="togglePanel(i + 1, true)" (closed)="togglePanel(i + 1, false)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h2 class="title-accordion">{{ view?.domainName}}</h2>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="row">
+                    <div class="column"></div>
+                    <div class="column">{{ domainView?.heading[0] }}</div>
+                  </div>
+          
+                  <div class="row" *ngFor="let criteria of view?.criterias">
+                    <div class="column">{{ criteria?.name }}</div>
+                    <div class="column" *ngFor="let level of criteria?.levelsWithScores">
+                      <p>{{ level?.level }}</p>
+                      <p>{{ level?.score }}</p>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          
         </div>
       </ng-container>
       <ng-template #criteriaBlock>

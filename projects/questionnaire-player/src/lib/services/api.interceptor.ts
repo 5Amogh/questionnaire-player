@@ -6,11 +6,12 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, fromEvent, merge, of, throwError } from 'rxjs';
-import { map, startWith, catchError } from 'rxjs/operators';
+import { Observable, fromEvent, merge, of, throwError, from } from 'rxjs';
+import { map, startWith, catchError, switchMap } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import * as urlConfig from '../constants/url-config.json';
 import { ToastService } from './toast.service';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -19,7 +20,8 @@ export class ApiInterceptor implements HttpInterceptor {
 
   constructor(
     private apiService: ApiService,
-    private toaster: ToastService 
+    private toaster: ToastService,
+    private utilService: UtilsService
   ) {
     this.setupNetworkStatusListener();
   }
@@ -39,44 +41,67 @@ export class ApiInterceptor implements HttpInterceptor {
       });
   }
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    const allUrls = [
-      ...Object.values(urlConfig.survey),
-      ...Object.values(urlConfig.observation),
-      urlConfig.presignedUrl,
-    ];
-
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.onlineStatus) {
       this.offline = true;
-      this.toaster.showToast(
-        'You are offline. Please connect to a network.',
-        'danger'
-      );
-      return of(); 
+      this.toaster.showToast('You are offline. Please connect to a network.', 'danger');
+      return of();
     }
+
     this.offline = false;
 
+    return from(this.getToken()).pipe(
+      switchMap((token) => {
+        const allUrls = [
+          ...Object.values(urlConfig.survey),
+          ...Object.values(urlConfig.observation),
+          urlConfig.presignedUrl,
+        ];
 
-    if (allUrls.some((url) => request.url.includes(url))) {
-      const clonedRequest = request.clone({
+        const clonedRequest = this.addAuthHeader(request, token);
+
+        if (allUrls.some((url) => request.url.includes(url))) {
+          return next.handle(clonedRequest).pipe(
+            catchError((error: HttpErrorResponse) => this.handleError(error))
+          );
+        }
+
+        return next.handle(request);
+      })
+    );
+  }
+
+  async getToken(): Promise<string | null> {
+    let token = localStorage.getItem('accToken');
+    if (!token) {
+      return null;
+    }
+    const isValidToken = await this.utilService.validateToken(token);
+    if (!isValidToken) {
+      const data = await this.apiService.getAccessToken();
+      if (data) {
+        localStorage.setItem('accToken', data);
+        return data;
+      }
+    }
+    return token;
+  }
+
+  private addAuthHeader(request: HttpRequest<any>, token: string | null): HttpRequest<any> {
+    if (token) {
+      return request.clone({
         setHeaders: {
-          'X-auth-token': this.apiService.token,
+          'X-auth-token': token,
         },
       });
-
-      return next.handle(clonedRequest).pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (!this.onlineStatus) {
-            return throwError(() => new Error('User is offline'));
-          }
-          return throwError(() => error);
-        })
-      );
     }
+    return request;
+  }
 
-    return next.handle(request);
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (!this.onlineStatus) {
+      return throwError(() => new Error('User is offline'));
+    }
+    return throwError(() => error);
   }
 }

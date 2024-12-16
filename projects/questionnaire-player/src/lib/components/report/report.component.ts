@@ -52,7 +52,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   filterData:any;
   isMultiple:any;
   scores:any;
-  descriptiveView:any;
+  domainView:any;
 
   constructor(
     router: Router,
@@ -104,21 +104,10 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
         let reportSections:any = this.scores ? [res?.result?.reportSections[0]] : res?.result?.reportSections;
-        this.descriptiveView = this.scores ? [res?.result?.reportSections[1]]: ""
-        console.log("reportSections",reportSections, this.scores)
+        this.domainView = this.scores ? res?.result?.reportSections[1]?.chart: "";
         this.allQuestions = reportSections?.map((question:any) => {
-
           return { ...question, selected: true };
         });
-
-        console.log("this.allQuestions",this.allQuestions)
-
-
-        // console.log("reportSections",res?.result?.reportSections, this.scores)
-      
-        // this.allQuestions = res?.result?.reportSections.map((question:any) => {
-        //   return { ...question, selected: true };
-        // });
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
@@ -140,8 +129,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
 
   processSurveyData(data: any): any[] {
     const mapAnswersToLabels = (answers: any[], options: any[]) => {
-      console.log("mapAnswersToLabels",answers);
-
       return answers.map((answer: any) => {
         if (typeof answer === 'string') {
           const trimmedAnswer = answer.trim();
@@ -157,7 +144,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processQuestion = (question: any) => {
-console.log("processQuestion",question);
       if (question?.responseType === 'matrix' && question?.instanceQuestions) {
         const processedInstanceQuestions = question?.instanceQuestions.map(processInstanceQuestions);
         return { ...question, instanceQuestions: processedInstanceQuestions };
@@ -171,8 +157,6 @@ console.log("processQuestion",question);
     };
 
     const processInstanceQuestions = (instance: any) => {
-      console.log("processInstanceQuestions",instance);
-
       const processedInstance = { ...instance };
       for (const key in processedInstance) {
         if (key !== 'instanceIdentifier') {
@@ -187,13 +171,9 @@ console.log("processQuestion",question);
     };
 
     if (this.observationType === 'questions') {
-      console.log("observationType",this.observationType);
-
       return data.map(processQuestion);
     } else {
       return data.map((criterias) => {
-      console.log("criterias",criterias);
-
         return criterias?.questionArray.map(processQuestion);
       });
     }
@@ -352,5 +332,78 @@ console.log("processQuestion",question);
   onSelectionChange(submissionId: string): void {
     this.submissionId = submissionId;
     this.observationType == 'questions' ? this.loadObservationReport(submissionId, false, false) : this.loadObservationReport(submissionId, true, false);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  panel1Open = false;
+  panel2Open = false;
+
+  togglePanel(panel: number, isOpen: boolean) {
+    if (panel === 1) this.panel1Open = isOpen;
+    if (panel === 2) this.panel2Open = isOpen;
   }
 }
