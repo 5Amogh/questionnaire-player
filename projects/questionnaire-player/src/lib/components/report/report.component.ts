@@ -182,7 +182,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       return data.map(processQuestion);
     } else {
       return data.map((criterias) => {
-        return criterias?.questionArray.map(processQuestion);
+          return criterias?.questionArray.map(processQuestion);
       });
     }
   }
@@ -223,7 +223,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
           display: true,
         },
         legend: {
-          display: false,
+          display: true,
         },
         tooltip: {
           enabled: true

@@ -21,12 +21,12 @@
         <button [ngClass]="{'border-bottom-button': observationType === 'questions'}"
           (click)="toggleObservationType('questions')" class="switch-buttons">Questions</button>
         <button [ngClass]="{'border-bottom-button': observationType === 'criteria'}"
-          (click)="toggleObservationType('criteria')" class="switch-buttons">Criteria</button>
+          (click)="toggleObservationType('criteria')" class="switch-buttons" *ngIf="!domainView">Criteria</button>
       </div>
 
       <hr>
       <div class="buttons-right">
-        <button (click)="openFilter()" class="apply-filter">Filters</button>
+        <button (click)="openFilter()" class="apply-filter" *ngIf="!domainView">Filters</button>
         <button class="apply-filter"
           (click)="downloadPDF(submissionId, observationType === 'questions' ? false : true, true)">Export As
           PDF</button>
@@ -145,10 +145,11 @@
       </ng-container>
       <ng-template #criteriaBlock>
         <div class="questions-list">
-          <div *ngFor="let questions of reportDetails" class="question-card2">
-            <h4>{{questions?.criteriaName}}</h4>
+          <div *ngFor="let questions of reportDetails">
+            <div class="question-card">
+              <h4 class="mb-5">{{questions[0]?.criteriaName}}</h4>
 
-            <div *ngFor="let question of questions; let qi = index" class="question-card2-hover">
+            <div *ngFor="let question of questions; let qi = index" class="question-card">
               <div class="question-header">
                 <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
               </div>
@@ -225,6 +226,7 @@
                   </div>
                 </div>
               </div>
+            </div>
             </div>
 
           </div>
