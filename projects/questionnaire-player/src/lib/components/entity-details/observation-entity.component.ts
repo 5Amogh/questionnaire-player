@@ -70,6 +70,8 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   openAllEntityList() {
+    this.filteredEntities =[];
+    this.searchAddEntityValue ="";
     this.getTargetedEntity();
     this.dialogRef = this.dialog.open(this.searchEntityModal, {
       width: '100%',
@@ -113,10 +115,10 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
       })
   }
 
-
-
   getSearchEntities(parentEntityId) {
     this.apiService.post(urlConfig.observation.searchEntities + this.observationId + `&parentEntityId=${parentEntityId}`, this.apiService.profileData)
+    this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
+
       .subscribe((res: any) => {
         if (res.result) {
           const searchEntities = res?.result[0];
@@ -140,14 +142,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
     this.filteredEntitiesOne = this.selectedEntities?.entities.filter((item: any) =>
       item?.name.toLowerCase().includes(this.searchValue)
-    );
-  }
-
-  handleSearchInput(event?: any) {
-    this.filteredEntities = []
-    this.searchAddEntityValue = event ? event.target.value.toLowerCase() : "";
-    this.filteredEntities = this.searchEntities.filter((item: any) =>
-      item?.name.toLowerCase().includes(this.searchAddEntityValue)
     );
   }
 
@@ -181,13 +175,33 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   isEntityInFilteredEntitiesOne(entity: any): boolean {
-    const data = this.selectedEntities?.entities;
-    const result = data.some((filteredEntity: any) => filteredEntity._id === entity._id);
-    return result;
+    return this.selectedEntities?.entities?.some(
+      (filteredEntity: any) => filteredEntity._id === entity._id
+    ) ?? false;
   }
 
   onSelectionChange(event: MatSelectionListChange): void {
-    const selectedOptions = event.source.selectedOptions.selected.map(option => option.value);
-    this.addedEntities = selectedOptions;
+    event.options.forEach(option => {
+      const entityId = option.value;
+      if (option.selected) {
+        if (!this.addedEntities.includes(entityId)) {
+          this.addedEntities.push(entityId);
+        }
+      } else {
+        this.addedEntities = this.addedEntities.filter(id => id !== entityId);
+      }
+    });
+  }
+  
+  handleSearchInput(event?: any): void {
+    const searchValue = event?.target?.value?.toLowerCase() || "";
+    this.searchAddEntityValue = searchValue;
+    this.filteredEntities = this.searchEntities?.filter((item: any) =>
+      item?.name?.toLowerCase().includes(searchValue)
+    ) || [];
+  }
+  
+  isEntityInAddedEntities(entityId: string): boolean {
+    return this.addedEntities.includes(entityId);
   }
 }

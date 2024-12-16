@@ -53,6 +53,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   isMultiple:any;
   scores:any;
   domainView:any;
+  initialLoad:boolean = true;
 
   constructor(
     router: Router,
@@ -111,6 +112,13 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
+        if(this.initialLoad){
+          this.initialLoad = false;
+          let filter = this.filterData = this.observationDetails?.filters[0]?.filter?.data;
+          if(filter?.length > 1){
+            this.isMultiple = 'true';
+          }
+        }
       });
   }
 
