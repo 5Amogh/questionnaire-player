@@ -16,7 +16,9 @@
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
                       <h2 class="observation-name">{{ entity?.title }}</h2>
-                      <p>{{entity?.updatedAt | date:'short'}}</p>
+                      <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
+                      <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
+
                     </mat-card-content>
                     <div *ngIf="entity?.status !== 'completed' && !entity?.isRubricDriven">
                       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
@@ -50,7 +52,9 @@
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
                       <h2 class="observation-name">{{ entity?.title }}</h2>
-                      <p>{{entity?.updatedAt | date:'short'}}</p>
+                      <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
+                      <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
+
                     </mat-card-content>
     
                     <div *ngIf="!entity?.isRubricDriven">
@@ -83,7 +87,9 @@
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
                       <h2 class="observation-name">{{ entity?.title }}</h2>
-                      <p>{{entity?.updatedAt | date:'short'}}</p>
+                      <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
+                      <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
+
                     </mat-card-content>
     
                     <div *ngIf="entity?.status !== 'completed'  && !entity?.isRubricDriven">
