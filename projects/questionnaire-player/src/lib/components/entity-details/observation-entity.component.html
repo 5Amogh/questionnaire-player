@@ -58,47 +58,53 @@
 
 <ng-template #searchEntityModal>
   <div class="p-16 searchEntity">
-    <div mat-dialog-title class="d-flex flex-ai-start flex-dr flex-gap-4 p-0 " style="color: var(--primary-color);">
-      Add {{entityToAdd}}
+    <div mat-dialog-title class="d-flex flex-ai-start flex-dr flex-gap-4 p-0" style="color: var(--primary-color);">
+      Add {{ entityToAdd }}
     </div>
     <mat-divider></mat-divider>
     <div mat-dialog-content class="flex-ai-self-start">
       <div class="srch">
-        <mat-form-field class="srch-bar" style="background-color: white;border-radius: 16px;">
+        <mat-form-field class="srch-bar" style="background-color: white; border-radius: 16px;">
           <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input class="search-add-entity" matInput (input)="handleSearchInput($event)" [placeholder]="'Search '+ selectedEntities.entityType" [(ngModel)]="searchAddEntityValue" />
+          <input
+            class="search-add-entity"
+            matInput
+            (input)="handleSearchInput($event)"
+            [placeholder]="'Search ' + (selectedEntities?.entityType || 'items')"
+            [(ngModel)]="searchAddEntityValue"
+          />
           <button *ngIf="searchAddEntityValue" matSuffix mat-icon-button aria-label="Clear" (click)="handleSearchInput()">
             <mat-icon style="color: gray;">close</mat-icon>
           </button>
         </mat-form-field>
       </div>
-
-      <mat-selection-list
-  [multiple]="true"
+      <mat-selection-list 
+  [multiple]="true" 
   (selectionChange)="onSelectionChange($event)">
   <mat-list-option 
     *ngFor="let entity of filteredEntities" 
     [value]="entity?._id"
+    [selected]="isEntityInAddedEntities(entity?._id)"
     [disabled]="isEntityInFilteredEntitiesOne(entity)">
     {{ entity?.name }}
   </mat-list-option>
 </mat-selection-list>
-    
-        <p class="no-data" *ngIf="!filteredEntities?.length">No {{selectedEntities?.entityType}} found</p>
-    </div>
 
+      <p class="no-data" *ngIf="!filteredEntities?.length">No {{ selectedEntities?.entityType }} found</p>
+    </div>
     <mat-dialog-actions class="mat-dialog-actions">
-      <button 
-        [mat-dialog-close]="'yes'" 
-        class="secondary-btn" 
-        [ngClass]="{'disabled-button': !addedEntities?.length}" 
-        [disabled]="!addedEntities?.length" 
+      <button
+        [mat-dialog-close]="'yes'"
+        class="secondary-btn"
+        [ngClass]="{ 'disabled-button': !addedEntities?.length }"
+        [disabled]="!addedEntities?.length"
         (click)="submitDialog()">Add
       </button>
       <button mat-dialog-close (click)="closeDialog()" class="primary-btn">Cancel</button>
     </mat-dialog-actions>
   </div>
 </ng-template>
+
 
 <ng-template #confirmDialogModel>
   <h1 mat-dialog-title>Confirm Deletion</h1>

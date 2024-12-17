@@ -51,6 +51,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   loaded = false;
   filterData:any;
   isMultiple:any;
+  scores:any;
+  domainView:any;
+  initialLoad:boolean = true;
 
   constructor(
     router: Router,
@@ -70,6 +73,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     this.entityType = this.queryParamsService?.entityType;
     this.entityId = this.queryParamsService?.entityId;
     this.isMultiple = this.queryParamsService?.isMultiple;
+    const scoresValue = this.queryParamsService?.scores;
+    this.scores = scoresValue === 'true';
+
     this.loadObservationReport(this.submissionId, false, false);
   }
 
@@ -98,12 +104,21 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;
         this.totalSubmissions = res?.result?.totalSubmissions;
         this.observationId = res?.result?.observationId;
-        this.allQuestions = res?.result?.reportSections.map(question => {
+        let reportSections:any = this.scores ? [res?.result?.reportSections[0]] : res?.result?.reportSections;
+        this.domainView = this.scores ? res?.result?.reportSections[1]?.chart: "";
+        this.allQuestions = reportSections?.map((question:any) => {
           return { ...question, selected: true };
         });
         this.reportDetails = this.processSurveyData(this.allQuestions);
         this.cdr?.detectChanges();
         this.objectType == 'questions' ? this.renderCharts(this.reportDetails, false) : this.renderCharts(this.reportDetails, true);
+        if(this.initialLoad){
+          this.initialLoad = false;
+          let filter = this.filterData = this.observationDetails?.filters[0]?.filter?.data;
+          if(filter?.length > 1){
+            this.isMultiple = 'true';
+          }
+        }
       });
   }
 
@@ -115,7 +130,8 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       pdf,
       criteriaWise: criteria,
       entityId:this.entityId,
-      observationId:this.observationId
+      observationId:this.observationId,
+      scores:this.scores
     };
   }
 
@@ -136,13 +152,12 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processQuestion = (question: any) => {
-
       if (question?.responseType === 'matrix' && question?.instanceQuestions) {
         const processedInstanceQuestions = question?.instanceQuestions.map(processInstanceQuestions);
         return { ...question, instanceQuestions: processedInstanceQuestions };
       } else {
         const processedQuestion = { ...question };
-        processedQuestion.answers = mapAnswersToLabels(question?.answers, question?.options);
+        processedQuestion.answers = this.scores ? "" :mapAnswersToLabels(question?.answers, question?.options);
         delete processedQuestion?.options;
         processedQuestion.chartData = this.isChartNotEmpty(processedQuestion?.chart)
         return processedQuestion;
@@ -150,7 +165,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processInstanceQuestions = (instance: any) => {
-
       const processedInstance = { ...instance };
       for (const key in processedInstance) {
         if (key !== 'instanceIdentifier') {
@@ -168,7 +182,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
       return data.map(processQuestion);
     } else {
       return data.map((criterias) => {
-        return criterias?.questionArray.map(processQuestion);
+          return criterias?.questionArray.map(processQuestion);
       });
     }
   }
@@ -209,7 +223,7 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
           display: true,
         },
         legend: {
-          display: false,
+          display: true,
         },
         tooltip: {
           enabled: true

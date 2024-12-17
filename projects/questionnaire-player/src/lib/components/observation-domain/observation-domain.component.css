@@ -10,7 +10,7 @@
 
 .btn-container {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .btn-container button {

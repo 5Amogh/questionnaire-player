@@ -65,6 +65,7 @@ import { QuestionnaireService } from './services/questionnaire.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -140,7 +141,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     RouterModule.forChild(routes),
     MatMenuModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule
     ],
   exports: [RouterModule],
   providers: [

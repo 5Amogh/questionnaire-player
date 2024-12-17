@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,12 @@ export class UtilsService {
       return true;
     }
     return false;
+  }
+
+  async validateToken(token:any){
+    const tokenDecoded: any = await jwtDecode(token);
+    const tokenExpiryTime = new Date(tokenDecoded.exp * 1000);
+    const currentTime = new Date();
+    return currentTime < tokenExpiryTime;
   }
 }

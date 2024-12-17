@@ -4,16 +4,14 @@ import { catchError, finalize } from 'rxjs/operators';
 import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ApiService } from '../../services/api.service';
-import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { QueryParamsService } from '../../services/queryParams.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'lib-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss']
 })
-export class ListingComponent extends BackNavigationHandlerComponent implements OnInit {
+export class ListingComponent implements OnInit {
   solutionList: any;
   solutionId!: string;
   listType = 'observation';
@@ -37,10 +35,8 @@ export class ListingComponent extends BackNavigationHandlerComponent implements 
     public router: Router,
     private toaster: ToastService,
     private apiService: ApiService,
-    private queryParamsService: QueryParamsService,
-    location: Location
+    private queryParamsService: QueryParamsService
   ) {
-    super(router, location);
   }
 
   ngOnInit(): void {
