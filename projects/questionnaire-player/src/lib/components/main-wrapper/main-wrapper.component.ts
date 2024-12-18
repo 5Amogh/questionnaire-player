@@ -377,7 +377,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
           }else{
             const footer = this.el.nativeElement.querySelector('.footer-buttons');
             this.renderer.setStyle(footer, 'display', 'none');
-            this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000)
+            this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000);
+            this.evidence.isSubmitted  = true;
           }
         }
       }

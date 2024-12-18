@@ -1,5 +1,5 @@
 
-  <main *ngIf="resultData; else noData">
+  <main>
     <div class="list-title">
     <div class="mt-5">
         <h1 class="heading">{{ observationDetails?.entityName }}</h1>
@@ -25,13 +25,14 @@
       </div>
 
       <hr>
-      <div class="buttons-right">
+      <div class="buttons-right" *ngIf="reportDetails?.length > 0;">
         <button (click)="openFilter()" class="apply-filter" *ngIf="!domainView">Filters</button>
         <button class="apply-filter"
           (click)="downloadPDF(submissionId, observationType === 'questions' ? false : true, true)">Export As
           PDF</button>
       </div>
-
+      
+     <div *ngIf="reportDetails?.length > 0; else noData">
       <ng-container *ngIf="observationType === 'questions';else criteriaBlock">
         <div class="questions-list">
           <div *ngFor="let question of reportDetails; let qi = index" class="question-card">
@@ -232,6 +233,7 @@
           </div>
         </div>
       </ng-template>
+     </div>
 
       <div *ngIf="isFilterModalOpen" class="modal">
         <div class="modal-content">
@@ -272,7 +274,7 @@
   </main>
 
 <ng-template #noData>
-  <p class="no-data">{{resMessage}}</p>
+  <p class="no-data-found">No data found</p>
 </ng-template>
 
 <lib-spinner *ngIf="!loaded"></lib-spinner>

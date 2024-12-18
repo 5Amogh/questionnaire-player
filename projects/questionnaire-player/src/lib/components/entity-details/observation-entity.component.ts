@@ -117,7 +117,6 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
 
   getSearchEntities(parentEntityId) {
     this.apiService.post(urlConfig.observation.searchEntities + this.observationId + `&parentEntityId=${parentEntityId}`, this.apiService.profileData)
-    this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
 
       .subscribe((res: any) => {
         if (res.result) {
