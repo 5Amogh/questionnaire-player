@@ -127,7 +127,9 @@
                 <div class="panel-content">
                   <div class="row">
                     <div class="column"></div>
-                    <div class="column">{{ domainView?.heading[0] }}</div>
+                    <div class="column" *ngFor="let heading of domainView?.heading">
+                      <p>{{ heading }}</p>
+                    </div>
                   </div>
           
                   <div class="row" *ngFor="let criteria of view?.criterias">

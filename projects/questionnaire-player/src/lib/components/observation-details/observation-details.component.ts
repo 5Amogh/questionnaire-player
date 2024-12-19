@@ -28,6 +28,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   loaded = false;
   isPendingTabSelected: boolean = true;
   filteredObservations:any =[];
+  isRubricDriven:any;
 
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
   @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
@@ -87,6 +88,7 @@ getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'start
           } else {
             this.observationInit = false;
             this.observations = res?.result;
+            this.isRubricDriven = res?.result[0]?.isRubricDriven; 
             this.getObservationsByStatus(['draft', 'started', 'inprogress']);
           }
         } else {
@@ -170,7 +172,7 @@ getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'start
   }
 
   viewReport(entity?) {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true , scores:entity?.isRubricDriven ? true : false} })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true , scores:this.isRubricDriven ? true : false} })
   }
 
   toggleTabs(event: MatTabChangeEvent): void {
