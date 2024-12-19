@@ -49,7 +49,7 @@
                   <label>{{ question?.answers}}</label>
                 </div>
                 <div *ngSwitchCase="'date'">
-                  <label>{{ question?.answers }}</label>
+                  <label>{{ question?.answers | date:'short' }}</label>
                 </div>
                 <div *ngSwitchCase="'radio'">
                   <label>{{ question?.answers }}</label>
@@ -166,7 +166,7 @@
                     <label>{{ question?.answers}}</label>
                   </div>
                   <div *ngSwitchCase="'date'">
-                    <label>{{ question?.answers }}</label>
+                    <label>{{ question?.answers | date:'short' }}</label>
                   </div>
                   <div *ngSwitchCase="'radio'">
                     <label>{{ question?.answers }}</label>
