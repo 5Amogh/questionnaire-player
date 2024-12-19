@@ -53,20 +53,14 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
 
 getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'started')[]): void {
   if (!this.observations) {
-    this.filteredObservations = []; // Reset to an empty array if no observations exist
+    this.filteredObservations = [];
     return;
   }
 
   if (statuses.includes('completed')) {
-    this.isPendingTabSelected = false;
-    // Update filteredObservations with only completed data
     this.filteredObservations = this.observations.filter(obs => obs?.status === 'completed');
-    console.log("Filtered Observations for Completed:", this.filteredObservations);
   } else {
-    this.isPendingTabSelected = true;
-    // Update filteredObservations with matching statuses
     this.filteredObservations = this.observations.filter(obs => statuses.includes(obs?.status));
-    console.log("Filtered Observations for Pending:", this.filteredObservations);
   }
 }
 
@@ -177,8 +171,6 @@ getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'start
 
   toggleTabs(event: MatTabChangeEvent): void {
     const selectedTabLabel = event.tab.textLabel;
-    console.log('Selected Tab:', selectedTabLabel);
-  
     if (selectedTabLabel === 'In progress') {
       this.isPendingTabSelected = true;
       this.getObservationsByStatus(['draft', 'started', 'inprogress']);

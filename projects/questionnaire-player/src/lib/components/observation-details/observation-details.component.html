@@ -21,7 +21,7 @@
 
                     </mat-card-content>
     
-                    <div *ngIf="!entity?.isRubricDriven">
+                    <div *ngIf="!entity?.isRubricDriven || allowMultipleAssessemts == 'true'">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                       <mat-icon>more_vert</mat-icon>
                     </button>
@@ -53,9 +53,7 @@
                       <h2 class="observation-name">{{ entity?.title }}</h2>
                       <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
                       <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
-
                     </mat-card-content>
-                   
                     <button class="secondary-btn report-btn" *ngIf="entity?.status == 'completed'" (click)="viewReport(entity)">Reports</button>
                   </div>
                 </mat-card>
