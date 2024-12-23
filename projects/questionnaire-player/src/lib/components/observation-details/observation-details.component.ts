@@ -8,6 +8,7 @@ import { BackNavigationHandlerComponent } from '../../shared/components/pie-char
 import { QueryParamsService } from '../../services/queryParams.service';
 import { catchError, finalize } from 'rxjs';
 import { Location } from '@angular/common';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'lib-observation-details',
@@ -25,6 +26,9 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   allowMultipleAssessemts: any;
   submissionId: any;
   loaded = false;
+  isPendingTabSelected: boolean = true;
+  filteredObservations:any =[];
+  isRubricDriven:any;
 
   @ViewChild('confirmDialogModel') confirmDialogModel: TemplateRef<any>;
   @ViewChild('updateDialogModel') updateDialogModel: TemplateRef<any>;
@@ -47,14 +51,19 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
     this.getObservationByEntityId();
   }
 
-  getObservationsByStatus(statuses: ('All' | 'draft' | 'inprogress' | 'completed' | 'started')[]) {
-    if (!this.observations) {
-      return [];
-    }
-    return statuses.includes('All')
-      ? this.observations
-      : this.observations.filter(obs => statuses.includes(obs?.status));
+getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'started')[]): void {
+  if (!this.observations) {
+    this.filteredObservations = [];
+    return;
   }
+
+  if (statuses.includes('completed')) {
+    this.filteredObservations = this.observations.filter(obs => obs?.status === 'completed');
+  } else {
+    this.filteredObservations = this.observations.filter(obs => statuses.includes(obs?.status));
+  }
+}
+
 
   getObservationByEntityId() {
     this.apiService.post(urlConfig.observation.observationSubmissions + this.observationId + `?entityId=${this.entityId}`, this.apiService.profileData)
@@ -73,6 +82,8 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
           } else {
             this.observationInit = false;
             this.observations = res?.result;
+            this.isRubricDriven = res?.result[0]?.isRubricDriven; 
+            this.getObservationsByStatus(['draft', 'started', 'inprogress']);
           }
         } else {
           this.toaster.showToast(res?.message, 'danger');
@@ -155,19 +166,17 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   viewReport(entity?) {
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true , scores:entity?.isRubricDriven ? true : false} })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'submissionId': entity?._id, 'observationId': this.observationId, entityId: this.entityId, 'entityType': entity ? entity?.entityType : this.observations[0]?.entityType, isMultiple: entity ? false : true , scores:this.isRubricDriven ? true : false} })
   }
 
-  isViewReportDisabled(): boolean {
-    switch (this.selectedTabIndex) {
-      case 0:
-        return this.getObservationsByStatus(['All']).length === 0;
-      case 1:
-        return this.getObservationsByStatus(['draft', 'started']).length === 0;
-      case 2:
-        return this.getObservationsByStatus(['completed']).length === 0;
-      default:
-        return true;
+  toggleTabs(event: MatTabChangeEvent): void {
+    const selectedTabLabel = event.tab.textLabel;
+    if (selectedTabLabel === 'In progress') {
+      this.isPendingTabSelected = true;
+      this.getObservationsByStatus(['draft', 'started', 'inprogress']);
+    } else if (selectedTabLabel === 'Completed') {
+      this.isPendingTabSelected = false;
+      this.getObservationsByStatus(['completed']);
     }
-  }
+}
 }

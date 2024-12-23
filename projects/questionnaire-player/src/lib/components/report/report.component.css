@@ -256,6 +256,10 @@ mat-icon {
   font-size: large;
 }
 
+.no-data-found{
+  margin: 1.25rem
+}
+
 @media (max-width: 47.9375rem) {
   .chip {
     display: block;

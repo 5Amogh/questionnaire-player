@@ -47,7 +47,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   observationId: any;
   observationType: any = 'questions';
   entityId:any;
-  resMessage:any;
   loaded = false;
   filterData:any;
   isMultiple:any;
@@ -98,7 +97,6 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
         })
       )
       .subscribe((res: any) => {
-        this.resMessage = res?.message;
         this.resultData = res?.result?.result;
         this.observationDetails = res?.result;
         this.filterData = submissionId ? this.filterData : this.observationDetails?.filters[0]?.filter?.data;

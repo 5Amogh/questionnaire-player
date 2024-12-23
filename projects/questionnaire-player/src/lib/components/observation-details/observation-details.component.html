@@ -5,49 +5,13 @@
   </div>
   
   <div *ngIf="loaded">
-    <mat-tab-group mat-stretch-tabs="true" [(selectedIndex)]="selectedTabIndex" class="mb-5">
-      <mat-tab label="All">
-        <div class="observation-list">
-          <div class="grid-container">
-            <ng-container *ngIf="getObservationsByStatus(['All']).length; else noData">
-              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['All'])">
-                <mat-card class="observation-card" (click)="navigateToDetails(entity)"
-                >
-                  <div class="card-content-container">
-                    <mat-card-content class="observation-content">
-                      <h2 class="observation-name">{{ entity?.title }}</h2>
-                      <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
-                      <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
+    <mat-tab-group mat-stretch-tabs="true" [(selectedIndex)]="selectedTabIndex" class="mb-5" (selectedTabChange)="toggleTabs($event)">
 
-                    </mat-card-content>
-                    <div *ngIf="entity?.status !== 'completed' && !entity?.isRubricDriven">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-      
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
-                        <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
-                      </mat-menu>
-                    </div>
-                   
-                    <button class="secondary-btn report-btn" *ngIf="entity?.status == 'completed'" (click)="viewReport(entity)">Reports</button>
-                  </div>
-                </mat-card>
-              </div>
-            </ng-container>
-            <ng-template #noData>
-              <p>No data found</p>
-            </ng-template>
-          </div>
-        </div>
-      </mat-tab>
-    
       <mat-tab label="In progress">
         <div class="observation-list">
           <div class="grid-container">
-            <ng-container *ngIf="getObservationsByStatus(['draft', 'started', 'inprogress']).length; else noDataInProgress">
-              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['draft', 'started', 'inprogress'])">
+            <ng-container *ngIf="filteredObservations?.length; else noDataInProgress">
+              <div class="grid-item" *ngFor="let entity of filteredObservations">
                 <mat-card class="observation-card" (click)="navigateToDetails(entity)">
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
@@ -57,7 +21,7 @@
 
                     </mat-card-content>
     
-                    <div *ngIf="!entity?.isRubricDriven">
+                    <div *ngIf="!entity?.isRubricDriven || allowMultipleAssessemts == 'true'">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
                       <mat-icon>more_vert</mat-icon>
                     </button>
@@ -78,31 +42,18 @@
         </div>
       </mat-tab>
     
-      <mat-tab label="Completed">
+      <mat-tab label="Completed" >
         <div class="observation-list">
           <div class="grid-container">
-            <ng-container *ngIf="getObservationsByStatus(['completed']).length; else noDataCompleted">
-              <div class="grid-item" *ngFor="let entity of getObservationsByStatus(['completed'])">
+            <ng-container *ngIf="filteredObservations?.length; else noDataCompleted">
+              <div class="grid-item" *ngFor="let entity of filteredObservations">
                 <mat-card class="observation-card" (click)="navigateToDetails(entity)">
                   <div class="card-content-container">
                     <mat-card-content class="observation-content">
                       <h2 class="observation-name">{{ entity?.title }}</h2>
                       <p>Created On : {{entity?.createdAt | date:'shortDate'}}</p>
                       <p *ngIf="entity?.status == 'completed'">Submitted On : {{entity?.submissionDate | date:'shortDate'}}</p>
-
                     </mat-card-content>
-    
-                    <div *ngIf="entity?.status !== 'completed'  && !entity?.isRubricDriven">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
-      
-                      <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="editEntity(entity?.title, entity?._id)">Edit</button>
-                        <button mat-menu-item (click)="deleteEntity(entity?._id)">Delete</button>
-                      </mat-menu>
-                    </div>
-                   
                     <button class="secondary-btn report-btn" *ngIf="entity?.status == 'completed'" (click)="viewReport(entity)">Reports</button>
                   </div>
                 </mat-card>
@@ -116,9 +67,9 @@
       </mat-tab>
     </mat-tab-group>
     
-    <div class="fixed-bottom-buttons" *ngIf="observations?.length > 0">
-      <button mat-raised-button (click)="observeAgain()" *ngIf="allowMultipleAssessemts == 'true'">Observe again</button>
-      <button mat-raised-button color="accent" [disabled]="isViewReportDisabled()" [ngClass]="{'disabled-button': isViewReportDisabled()}" (click)="viewReport()">View report</button>
+    <div class="fixed-bottom-buttons">
+      <button mat-raised-button (click)="observeAgain()" *ngIf="allowMultipleAssessemts == 'true' && isPendingTabSelected">Observe again</button>
+      <button mat-raised-button color="accent" (click)="viewReport()" *ngIf="!isPendingTabSelected && filteredObservations?.length > 0">View report</button>
     </div>
   </div>
 
