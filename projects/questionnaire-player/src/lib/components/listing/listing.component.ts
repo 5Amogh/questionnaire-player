@@ -105,7 +105,7 @@ export class ListingComponent implements OnInit {
         this.openFilter();
       }
       else if (data?.entities?.length == 1) {
-        this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${data?.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': data?.entityType, isMultiple: false } })
+        this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${data?.observationId}`, entityId: `${data?.entities[0]?._id}`, 'entityType': data?.entityType, isMultiple: false, scores:data?.isRubricDriven ? true : false } })
       } else {
         this.toaster.showToast("No solution found", 'Close');
       }
@@ -129,6 +129,6 @@ export class ListingComponent implements OnInit {
 
   applyFilter() {
     let selectedEntity = this.allEntities.filter(question => question.selected);
-    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.selectedObservation?.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.selectedObservation?.entityType, isMultiple: false } })
+    this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.selectedObservation?.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.selectedObservation?.entityType, isMultiple: false, scores:this.selectedObservation?.isRubricDriven ? true : false  } })
   }
 }
