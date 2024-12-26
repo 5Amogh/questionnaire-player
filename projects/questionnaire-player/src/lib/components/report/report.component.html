@@ -49,7 +49,14 @@
                   <label>{{ question?.answers}}</label>
                 </div>
                 <div *ngSwitchCase="'date'">
-                  <label>{{ question?.answers | date:'short' }}</label>
+                  <ng-container *ngIf="question?.answers?.length > 1; else singleDate">
+                    <ng-container *ngFor="let ans of question.answers">
+                  <label>{{ ans | date:'shortDate' }}</label>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #singleDate>
+                    <label>{{ question?.answers | date:'shortDate' }}</label>
+                      </ng-template>
                 </div>
                 <div *ngSwitchCase="'radio'">
                   <label>{{ question?.answers }}</label>
@@ -166,7 +173,14 @@
                     <label>{{ question?.answers}}</label>
                   </div>
                   <div *ngSwitchCase="'date'">
-                    <label>{{ question?.answers | date:'short' }}</label>
+                    <ng-container *ngIf="question?.answers?.length > 1; else singleDate">
+                      <ng-container *ngFor="let ans of question.answers">
+                    <label>{{ ans | date:'shortDate' }}</label>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #singleDate>
+                      <label>{{ question?.answers | date:'shortDate' }}</label>
+                        </ng-template>
                   </div>
                   <div *ngSwitchCase="'radio'">
                     <label>{{ question?.answers }}</label>
