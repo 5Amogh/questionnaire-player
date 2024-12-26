@@ -25,6 +25,9 @@
   background-color: var(--primary-color);
   color: var(--general-btn-text-color);
   border-radius: 1.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05rem;
+  padding-bottom: 0.063rem;
 }
 
 .secondary-btn {
