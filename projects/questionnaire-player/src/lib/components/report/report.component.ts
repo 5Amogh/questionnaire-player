@@ -121,11 +121,18 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
   }
 
   createPayload(submissionId: string, criteria: boolean, pdf: boolean): any {
+    let filter;
+     if(pdf){
+      filter = {
+        questionId: this.filteredQuestions.map(item => item?.order)
+      };
+     }
     return {
       submissionId,
       observation: true,
       entityType: this.entityType,
       pdf,
+      filter,
       criteriaWise: criteria,
       entityId:this.entityId,
       observationId:this.observationId,

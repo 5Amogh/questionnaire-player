@@ -72,7 +72,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   openAllEntityList() {
     this.filteredEntities =[];
     this.searchAddEntityValue ="";
-    this.getTargetedEntity();
+    this.getSearchEntities();
     this.dialogRef = this.dialog.open(this.searchEntityModal, {
       width: '100%',
       height: 'auto',
@@ -101,22 +101,8 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
       })
   }
 
-  getTargetedEntity() {
-
-    this.apiService.post(urlConfig.observation.targetedEntity + this.solutionId, this.apiService.profileData)
-      .subscribe((res: any) => {
-        if (res.result) {
-          this.getSearchEntities(res?.result?._id);
-        } else {
-          this.toaster.showToast(res.message, 'Close');
-        }
-      }, (err: any) => {
-        this.toaster.showToast(err.error.message, 'Close');
-      })
-  }
-
-  getSearchEntities(parentEntityId) {
-    this.apiService.post(urlConfig.observation.searchEntities + this.observationId + `&parentEntityId=${parentEntityId}`, this.apiService.profileData)
+  getSearchEntities() {
+    this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
 
       .subscribe((res: any) => {
         if (res.result) {
