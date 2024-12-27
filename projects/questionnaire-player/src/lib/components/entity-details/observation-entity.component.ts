@@ -102,7 +102,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   getSearchEntities() {
-    this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
+    this.apiService.post(urlConfig.observation.searchEntities + this.observationId + `&parentEntityId=${this.apiService.profileData?.state}`, this.apiService.profileData)
 
       .subscribe((res: any) => {
         if (res.result) {
@@ -148,6 +148,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
           .subscribe((res: any) => {
             if (res.status == 200) {
               this.toaster.showToast(res.message, 'success', 5000);
+              this.addedEntities = [];
               this.getEntities();
             } else {
               this.toaster.showToast(res.message, 'Close');
