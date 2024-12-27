@@ -163,7 +163,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.selectedEntities?.entities?.some(
       (filteredEntity: any) => filteredEntity._id === entity._id
-    ) ?? false;
+    ) ?? false
   }
 
   onSelectionChange(event: MatSelectionListChange): void {
@@ -185,9 +185,5 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.filteredEntities = this.searchEntities?.filter((item: any) =>
       item?.name?.toLowerCase().includes(searchValue)
     ) || [];
-  }
-  
-  isEntityInAddedEntities(entityId: string): boolean {
-    return this.addedEntities.includes(entityId);
   }
 }
