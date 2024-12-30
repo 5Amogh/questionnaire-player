@@ -84,7 +84,7 @@
   <mat-list-option 
     *ngFor="let entity of filteredEntities" 
     [value]="entity?._id"
-    [selected]="isEntityInAddedEntities(entity?._id)"
+    [selected]="isEntityInFilteredEntitiesOne(entity)"
     [disabled]="isEntityInFilteredEntitiesOne(entity)">
     {{ entity?.name }}
   </mat-list-option>

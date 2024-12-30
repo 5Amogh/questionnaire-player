@@ -102,7 +102,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   }
 
   getSearchEntities() {
-    this.apiService.post(urlConfig.observation.searchEntities + this.observationId, this.apiService.profileData)
+    this.apiService.post(urlConfig.observation.searchEntities + this.observationId + `&parentEntityId=${this.apiService.profileData?.state}`, this.apiService.profileData)
 
       .subscribe((res: any) => {
         if (res.result) {
@@ -148,6 +148,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
           .subscribe((res: any) => {
             if (res.status == 200) {
               this.toaster.showToast(res.message, 'success', 5000);
+              this.addedEntities = [];
               this.getEntities();
             } else {
               this.toaster.showToast(res.message, 'Close');
@@ -162,7 +163,7 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.selectedEntities?.entities?.some(
       (filteredEntity: any) => filteredEntity._id === entity._id
-    ) ?? false;
+    ) ?? false
   }
 
   onSelectionChange(event: MatSelectionListChange): void {
@@ -184,9 +185,5 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
     this.filteredEntities = this.searchEntities?.filter((item: any) =>
       item?.name?.toLowerCase().includes(searchValue)
     ) || [];
-  }
-  
-  isEntityInAddedEntities(entityId: string): boolean {
-    return this.addedEntities.includes(entityId);
   }
 }
