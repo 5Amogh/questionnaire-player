@@ -79,16 +79,17 @@
         </mat-form-field>
       </div>
       <mat-selection-list 
-  [multiple]="true" 
-  (selectionChange)="onSelectionChange($event)">
-  <mat-list-option 
-    *ngFor="let entity of filteredEntities" 
-    [value]="entity?._id"
-    [selected]="isEntityInFilteredEntitiesOne(entity)"
-    [disabled]="isEntityInFilteredEntitiesOne(entity)">
-    {{ entity?.name }}
-  </mat-list-option>
-</mat-selection-list>
+      [multiple]="true" 
+      (selectionChange)="onSelectionChange($event)">
+      <mat-list-option 
+        *ngFor="let entity of filteredEntities" 
+        [value]="entity?._id"
+        [selected]="isEntitySelected(entity)"
+        [disabled]="isEntityInFilteredEntitiesOne(entity)">
+        {{ entity?.name }}
+      </mat-list-option>
+    </mat-selection-list>
+    
 
       <p class="no-data" *ngIf="!filteredEntities?.length">No {{ selectedEntities?.entityType }} found</p>
     </div>
