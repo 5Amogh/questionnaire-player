@@ -133,6 +133,19 @@
   }
 
   .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
-    padding: 16px !important;
+    padding: 1rem !important;
   }
+}
+
+.question-map{
+  font-size: 0.625rem;
+  color: var(--primary-color);
+}
+
+.mr-2{
+  margin-left: 1.25rem;
+}
+
+.bg-white {
+  background-color: var(--color-light);
 }
