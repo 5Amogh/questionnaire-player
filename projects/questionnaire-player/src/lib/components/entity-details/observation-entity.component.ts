@@ -163,11 +163,20 @@ export class ObservationEntityComponent extends BackNavigationHandlerComponent {
   isEntityInFilteredEntitiesOne(entity: any): boolean {
     return this.selectedEntities?.entities?.some(
       (filteredEntity: any) => filteredEntity._id === entity._id
-    ) ?? false
+    ) ?? false;
   }
-
+  
+  isEntitySelected(entity: any): boolean {
+    return (
+      this.selectedEntities?.entities?.some(
+        (filteredEntity: any) => filteredEntity._id === entity._id
+      ) ||
+      this.addedEntities.includes(entity._id)
+    );
+  }
+  
   onSelectionChange(event: MatSelectionListChange): void {
-    event.options.forEach(option => {
+    event?.options.forEach(option => {
       const entityId = option.value;
       if (option.selected) {
         if (!this.addedEntities.includes(entityId)) {
