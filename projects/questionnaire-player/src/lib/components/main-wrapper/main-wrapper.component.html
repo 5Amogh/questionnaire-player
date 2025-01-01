@@ -23,7 +23,7 @@
     </div>
   </form>
   <ng-container *ngIf="sections?.length > 1;else showAllButtons">
-  <span [ngClass]="{'sticky-footer': listing, 'bg-white': !listing}">
+  <span class="sticky-footer" [ngClass]="{'bg-white': !listing}">
     <hr class="partition" />
     <div class="footer-buttons">
     <div *ngIf="!evidence?.isSubmitted && !isExpired"
