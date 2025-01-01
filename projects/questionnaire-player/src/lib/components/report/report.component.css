@@ -226,6 +226,13 @@ mat-icon {
 
 .panel-content {
   border: 0.063rem solid var(--light-grey);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.panel-content::-webkit-scrollbar {
+  display: none;
 }
 
 .row {
@@ -233,6 +240,8 @@ mat-icon {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   text-align: center;
+  width: max-content;
+  min-width: 100%;
 }
 
 .row:nth-child(odd) {
@@ -244,8 +253,9 @@ mat-icon {
 }
 
 .column {
-  flex: 1;
+  flex: 1 0 auto;
   padding: 0.5rem;
+  min-width: 6.563rem;
 }
 
 .expansion-panel{
