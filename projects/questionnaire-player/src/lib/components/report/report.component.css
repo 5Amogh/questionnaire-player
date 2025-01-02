@@ -228,11 +228,6 @@ mat-icon {
   border: 0.063rem solid var(--light-grey);
   overflow-x: auto;
   white-space: nowrap;
-  scrollbar-width: none;
-}
-
-.panel-content::-webkit-scrollbar {
-  display: none;
 }
 
 .row {
