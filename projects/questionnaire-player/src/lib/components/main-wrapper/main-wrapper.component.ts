@@ -372,7 +372,11 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
             };
             const response = await this.openAlert(confirmationParams);
             if(response){
-              this.location.back();
+              if(this.sections?.length > 1){
+                this.backToSectionListing();
+              }else{
+                this.location.back();
+              }
             }
           }else{
             const footer = this.el.nativeElement.querySelector('.footer-buttons');

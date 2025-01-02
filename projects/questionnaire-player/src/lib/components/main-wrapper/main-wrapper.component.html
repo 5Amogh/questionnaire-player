@@ -1,7 +1,7 @@
 <div *ngIf="loaded" class="wrapper">
   <form [formGroup]="questionnaireForm" class="main custom-font">
     <div *ngIf="!listing && sections?.length != 1" style="color: var(--primary-color);">
-      <h1 style="margin-left: 1.5rem;">List of Sections</h1>
+      <h1  class="sesion-title">List of Sections</h1>
       <hr style="height: 1px;background:var(--primary-color);"/>
     </div>
     <!-- <div *ngIf="listing" (click)="backToSectionListing()" class="d-flex flex-ai-center m-20 flex-gap-10" style="color: var(--primary-color);">
@@ -23,7 +23,7 @@
     </div>
   </form>
   <ng-container *ngIf="sections?.length > 1;else showAllButtons">
-  <span [ngClass]="{'sticky-footer': listing, 'bg-white': !listing}">
+  <span class="sticky-footer" [ngClass]="{'bg-white': !listing}">
     <hr class="partition" />
     <div class="footer-buttons">
     <div *ngIf="!evidence?.isSubmitted && !isExpired"
