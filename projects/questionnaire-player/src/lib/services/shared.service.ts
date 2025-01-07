@@ -9,8 +9,6 @@ export class SharedService {
   sharedValue$ = this.sharedValue.asObservable();
 
   updateValue(value: boolean): void {
-    // if (this.sharedValue.value !== value) { 
       this.sharedValue.next(value);
-    // }
   }
 }

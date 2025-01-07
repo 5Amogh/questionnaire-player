@@ -22,7 +22,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type: any;
-  @Input() saveQuestioner:boolean | undefined | null = false;
+  @Input() saveQuestioner:boolean = false;
 
   constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService,
     private sharedService: SharedService
