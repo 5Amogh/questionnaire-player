@@ -8,7 +8,7 @@ import { QueryParamsService } from '../../services/queryParams.service';
 })
 export class PlayerBridgeComponent {
   apiConfig:any;
-  saveQuestioner:boolean = false;
+  saveQuestioner:boolean | undefined = false;
   solutionId:any;
   entityId:any;
   observationId:any;
