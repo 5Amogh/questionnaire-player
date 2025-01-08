@@ -171,7 +171,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       toggle: false
     }, '*');
 
-    this.sharedService.sharedValue$.subscribe(value => {
+    this.sharedService.sharedValue$.subscribe(value => { 
+      
       if (value) { 
         this.saveQuestioner = value; 
         if(value == true){
