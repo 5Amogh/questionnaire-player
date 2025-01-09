@@ -165,11 +165,15 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     })
   }
 
-  saveQuestionerToggle(){
+  triggerSaveButtonValueToPWA(value) {
     window.parent.postMessage({
       type: 'saveQuestionerToggle',
-      toggle: false
+      toggle: value
     }, '*');
+  }
+
+  saveQuestionerToggle(){
+  this.triggerSaveButtonValueToPWA(false);
 
     this.sharedService.sharedValue$.subscribe(value => {
       if (value) {
@@ -381,7 +385,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     )
     .subscribe(async (res: any) => {
       if(res.status == 200){
-        this.saveConfirmationToObservationPWA(true);
         if(!this.saveQuestioner){
           this.formIsNotDirty();
           if (submissionData.status == 'draft') {
@@ -406,6 +409,13 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
             this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000);
             this.evidence.isSubmitted  = true;
           }
+        }
+
+        if(this.sections?.length > 1){
+          this.backToSectionListing();
+          this.saveConfirmationToObservationPWA(false);
+        }else{
+          this.saveConfirmationToObservationPWA(true);
         }
       }
     });
@@ -444,6 +454,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.listing = true;
+    this.triggerSaveButtonValueToPWA(false);
   }
 
   backToSectionListing() {
@@ -457,6 +468,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         (sectionElements[i] as HTMLElement).style.display = 'block';
       }
     }
+    this.triggerSaveButtonValueToPWA(true);
   }
 
   closeModal() {
