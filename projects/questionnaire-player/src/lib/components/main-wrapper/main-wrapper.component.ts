@@ -166,7 +166,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   }
 
   triggerSaveButtonValueToPWA(value) {
-    console.log("value",value)
     window.parent.postMessage({
       type: 'saveQuestionerToggle',
       toggle: value
