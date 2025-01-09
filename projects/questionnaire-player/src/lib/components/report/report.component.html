@@ -36,7 +36,7 @@
       <ng-container *ngIf="observationType === 'questions';else criteriaBlock">
         <div class="questions-list">
           <div *ngFor="let question of reportDetails; let qi = index" class="question-card">
-            <div class="question-header">
+            <div class="question-header" *ngIf="!domainView">
               <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
             </div>
             <div class="canvas-chart" [ngClass]="{'canvas-chart-hidden':!question?.chartData}">
