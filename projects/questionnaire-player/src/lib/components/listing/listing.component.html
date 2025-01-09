@@ -6,21 +6,21 @@
       </div>
 
       <div class="srch" *ngIf="!reportPage">
-        <mat-form-field class="srch-bar" style="background-color: white; border-radius: 16px;">
-          <mat-icon matPrefix style="color: gray;">search</mat-icon>
+        <div class="srch-bar">
+          <span class="icon">
+            <i class="material-icons">search</i>
+          </span>
           <input 
-            matInput 
             [(ngModel)]="searchTerm" 
             (keydown)="handleKeyDown($event)" 
             placeholder="Search your observation here" 
-            class="search" 
+            class="search-input"
           />
-          <button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="handleInput()">
-            <mat-icon style="color: gray;">close</mat-icon>
+          <button *ngIf="searchTerm" aria-label="Clear" class="clear-btn" (click)="handleInput()">
+            <i class="material-icons">close</i>
           </button>
-        </mat-form-field>
+        </div>
       </div>
-      
     </div>
   
     <div class="observation-list" *ngIf="solutionListCount !== 0">
@@ -65,7 +65,7 @@
       <div>
         <ul>
           <li *ngFor="let question of allEntities; let i = index">
-            <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i">
+            <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i" (change)="onEntityChange(i)" > 
             <label [for]="'question-' + i">
               {{ question.name }}
             </label>
@@ -73,7 +73,7 @@
         </ul>
       </div>
       <footer class="question-footer">
-        <button (click)="applyFilter()" class="apply-filter">Submit</button>
+        <button (click)="applyFilter()" class="apply-filter" [ngClass]="{'disabled-button': !isAnyEntitySelected}" [disabled]="!isAnyEntitySelected">Submit</button>
       </footer>
     </div>
   </div>

@@ -30,6 +30,7 @@ export class ListingComponent implements OnInit {
   allEntities: any;
   solutionListCount :any = 0;
   selectedObservation:any;
+  isAnyEntitySelected: boolean = false;
 
   constructor(
     public router: Router,
@@ -130,5 +131,14 @@ export class ListingComponent implements OnInit {
   applyFilter() {
     let selectedEntity = this.allEntities.filter(question => question.selected);
     this.router.navigate(['/observation'], { queryParams: { 'type': 'reports', 'observationId': `${this.selectedObservation?.observationId}`, entityId: `${selectedEntity[0]?._id}`, 'entityType': this.selectedObservation?.entityType, isMultiple: false, scores:this.selectedObservation?.isRubricDriven ? true : false  } })
+  }
+
+  onEntityChange(selectedIndex: number): void {
+    this.allEntities.forEach((entity, index) => {
+      if (index !== selectedIndex) {
+        entity.selected = false;
+      }
+    });
+    this.isAnyEntitySelected = this.allEntities.some(entity => entity.selected);
   }
 }
