@@ -31,6 +31,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { Router } from '@angular/router';
+import { SharedService } from '../../services/shared.service';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -68,7 +69,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     public toaster:ToastService,
     public location:Location,
     private renderer: Renderer2, private el: ElementRef,
-    public router: Router
+    public router: Router,
+    private sharedService: SharedService
   ) {
     super(router, location);
 
@@ -92,8 +94,10 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         this.fetchDetails();
       }
 
-      if (changes['saveQuestioner'] && this.saveQuestioner) {
-        this.submission('draft');
+      if (changes['saveQuestioner']) {
+        if(this.saveQuestioner == true){
+          this.submission('draft');
+        }
       }
   }
 
@@ -141,6 +145,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
 }
 
   ngOnInit() {
+    this.saveQuestionerToggle();
     if (typeof this.apiConfig === 'string') {
       try {
         this.apiConfig = JSON.parse(this.apiConfig);
@@ -158,6 +163,21 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.questionnaireForm.valueChanges.subscribe((data:any) =>{
       this.checkFormValidity();
     })
+  }
+
+  saveQuestionerToggle(){
+    window.parent.postMessage({
+      type: 'saveQuestionerToggle',
+      toggle: false
+    }, '*');
+
+    this.sharedService.sharedValue$.subscribe(value => {
+      if (value) {
+      this.saveQuestioner = value; 
+        this.submission('draft');
+        this.sharedService.updateValue(false);
+        }
+    });
   }
 
   getQuestionMap() {
@@ -354,12 +374,14 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       })
     .pipe(
       catchError((err) => {
+        this.saveConfirmationToObservationPWA(false);
         this.toaster.showToast(err?.error?.message,'danger',5000)
         throw new Error(`Update api has failed`);
       })
     )
     .subscribe(async (res: any) => {
-      if(res.status){
+      if(res.status == 200){
+        this.saveConfirmationToObservationPWA(true);
         if(!this.saveQuestioner){
           this.formIsNotDirty();
           if (submissionData.status == 'draft') {
@@ -452,6 +474,13 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     window.parent.postMessage({
       type: 'formDirty',
       isDirty: false
+    }, '*');
+  }
+
+  saveConfirmationToObservationPWA(confirmation){
+    window.parent.postMessage({
+      type: 'saveQuestionerConfirmation',
+      confirmation: confirmation
     }, '*');
   }
 }

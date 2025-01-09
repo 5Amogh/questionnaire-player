@@ -10,6 +10,7 @@ import { ReportComponent } from '../report/report.component';
 import { ObservationDomainComponent } from '../observation-domain/observation-domain.component';
 import { PlayerBridgeComponent } from '../player-bridge/player-bridge.component';
 import { QueryParamsService } from '../../services/queryParams.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'lib-observation-wrapper',
@@ -21,7 +22,11 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   @Input() apiConfig: ApiConfiguration
   initialLoad = false;
   type: any;
-  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService) { }
+  @Input() saveQuestioner:boolean = false;
+
+  constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService,
+    private sharedService: SharedService
+  ) { }
 
   private componentMapper: any = {
     listing: ListingComponent,
@@ -49,6 +54,10 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       } else {
         this.loadComponent('listing');
       }
+    }
+
+    if (changes['saveQuestioner']) {
+      this.sharedService.updateValue(this.saveQuestioner);
     }
   }
   
@@ -79,5 +88,4 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   navigateReport() {
     this.router.navigate(['/observation'], { queryParams: { 'type': 'reports' } })
   }
-
 }

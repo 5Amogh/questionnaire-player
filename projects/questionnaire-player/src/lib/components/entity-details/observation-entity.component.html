@@ -6,20 +6,25 @@
     </div>
 
     <div class="srch">
-      <mat-form-field class="srch-bar" style="background-color: white;border-radius: 16px;">
-        <mat-icon matPrefix style="color: gray;">search</mat-icon>
-        <input matInput (input)="handleEntitySearchInput($event)"
-          [placeholder]="'Search '+ selectedEntities?.entityType" class="search" [(ngModel)]="searchValue" />
-          <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="handleEntitySearchInput()">
-            <mat-icon style="color: gray;">close</mat-icon>
-          </button>
-      </mat-form-field>
+      <div class="srch-bar">
+        <span class="icon">
+          <i class="material-icons">search</i>
+        </span>
+        <input 
+          [(ngModel)]="searchValue" 
+          (input)="handleEntitySearchInput($event)"
+          [placeholder]="'Search '+ entityToAdd" class="search"  
+          class="search-input"
+        />
+        <button *ngIf="searchValue" aria-label="Clear" class="clear-btn" (click)="handleEntitySearchInput()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
     </div>
   </div>
 
-
     <div class="add-btn-container">
-      <button class="add-entity-btn" (click)="openAllEntityList()">Add {{selectedEntities?.entityType}}</button>
+      <button class="add-entity-btn" (click)="openAllEntityList()" [disabled]="!observationId" [ngClass]="{ 'disabled-button': !observationId }">Add {{entityToAdd}}</button>
     </div>
   
     <div class="d-flex flex-dc gap-4">
@@ -36,7 +41,7 @@
                     color="warn"
                     (click)="deleteEntity(entity?._id); $event.stopPropagation()"
                   >
-                    <mat-icon style="color: gray;">delete</mat-icon>
+                    <mat-icon style="color: var(--color-grey);">delete</mat-icon>
                   </button>
                 </div>
               </mat-card-content>
@@ -63,20 +68,22 @@
     </div>
     <mat-divider></mat-divider>
     <div mat-dialog-content class="flex-ai-self-start">
+
       <div class="srch">
-        <mat-form-field class="srch-bar" style="background-color: white; border-radius: 16px;">
-          <mat-icon matPrefix style="color: gray;">search</mat-icon>
-          <input
-            class="search-add-entity"
-            matInput
+        <div class="srch-bar">
+          <span class="icon">
+            <i class="material-icons">search</i>
+          </span>
+          <input 
+            [(ngModel)]="searchAddEntityValue" 
             (input)="handleSearchInput($event)"
             [placeholder]="'Search ' + (selectedEntities?.entityType || 'items')"
-            [(ngModel)]="searchAddEntityValue"
+            class="search-input"
           />
-          <button *ngIf="searchAddEntityValue" matSuffix mat-icon-button aria-label="Clear" (click)="handleSearchInput()">
-            <mat-icon style="color: gray;">close</mat-icon>
+          <button *ngIf="searchAddEntityValue" aria-label="Clear" class="clear-btn" (click)="handleSearchInput()">
+            <i class="material-icons">close</i>
           </button>
-        </mat-form-field>
+        </div>
       </div>
       <mat-selection-list 
       [multiple]="true" 
