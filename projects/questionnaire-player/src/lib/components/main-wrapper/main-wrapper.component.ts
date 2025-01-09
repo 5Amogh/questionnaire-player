@@ -172,14 +172,11 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     }, '*');
 
     this.sharedService.sharedValue$.subscribe(value => { 
-      
-      if (value) { 
-        this.saveQuestioner = value; 
-        if(value == true){
+      this.saveQuestioner = value; 
+      if (value) {
         this.submission('draft');
         this.sharedService.updateValue(false);
         }
-      }
     });
   }
 
