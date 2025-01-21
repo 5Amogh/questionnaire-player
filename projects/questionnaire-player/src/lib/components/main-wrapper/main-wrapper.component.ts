@@ -3,6 +3,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Renderer2,
   SimpleChanges,
@@ -26,7 +27,7 @@ import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { Observable } from 'rxjs';
+import { Observable, Subscribable, Subscription } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
@@ -37,7 +38,7 @@ import { SharedService } from '../../services/shared.service';
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.scss'],
 })
-export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
+export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges, OnDestroy {
   questions: Array<Question>;
   @Input({ transform: booleanAttribute }) angular = false;
   evidence: Evidence;
@@ -60,14 +61,16 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   dialogRef: any;
   isExpired: boolean;
   @Input() saveQuestioner: boolean = false;
+  @Input() fromObservation: boolean = false;
+  subscription: Subscription;
 
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
     public questionnaireService: QuestionnaireService,
-    public apiService:ApiService,
-    public toaster:ToastService,
-    public location:Location,
+    public apiService: ApiService,
+    public toaster: ToastService,
+    public location: Location,
     private renderer: Renderer2, private el: ElementRef,
     public router: Router,
     private sharedService: SharedService
@@ -76,7 +79,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
 
   }
 
-  checkFormValidity(){
+  checkFormValidity() {
     window.parent.postMessage({
       type: 'formDirty',
       isDirty: this.questionnaireForm.dirty
@@ -90,18 +93,18 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       changes['apiConfig'].previousValue == undefined &&
       changes['apiConfig'].currentValue
     ) {
-        this.setApiService();
-        this.fetchDetails();
-      }
+      this.setApiService();
+      this.fetchDetails();
+    }
 
-      if (changes['saveQuestioner']) {
-        if(this.saveQuestioner == true){
-          this.submission('draft');
-        }
+    if (changes['saveQuestioner']) {
+      if (this.saveQuestioner == true) {
+        this.submission('draft');
       }
+    }
   }
 
-  setApiService(){
+  setApiService() {
     this.apiService.baseUrl = this.apiConfig.baseURL;
     this.apiService.token = this.apiConfig.userAuthToken;
     this.apiService.solutionType = this.apiConfig.solutionType;
@@ -110,48 +113,48 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.apiService.submissionNumber = this.apiConfig.submissionNumber;
     this.apiService.evidenceCode = this.apiConfig.evidenceCode;
     this.apiService.index = this.apiConfig.index;
-    
+
     this.apiService.profileData = this.apiConfig.profileData;
   }
-  
-  fetchDetails(){
-    const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}`: this.apiConfig.solutionId
-    this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}`+ path,this.apiConfig.profileData)
-    .pipe(
-      catchError((err) => {
-        throw new Error('Could not fetch the details');
-      })
-    )
-    .subscribe((res:any) => {
-      if(res.result){
-        this.assessment = this.questionnaireService.mapSubmissionToAssessment(
-          res.result
-        );
-        this.evidence = this.apiConfig.solutionType == 'observation' ?  this.assessment?.assessment?.evidences[+[this.apiConfig.index]]: this.assessment?.assessment?.evidences[0];
-        this.evidence.startTime = Date.now();
-        this.endDate = new Date(
-          new Date(this.assessment.assessment.endDate).getTime() +
-            new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
-              60000
-        );
-        this.isExpired = this.assessment.assessment.status == 'expired';
-        this.sections = this.evidence.sections;
-        this.loaded = true;
-      }else{
-        this.toaster.showToast('Something went wrong, Please try again later','danger',5000)
-      }
 
-  });
-}
+  fetchDetails() {
+    const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}` : this.apiConfig.solutionId
+    this.subscription = this.apiService.post(`${urlConfig[this.apiConfig.solutionType].details}` + path, this.apiConfig.profileData)
+      .pipe(
+        catchError((err) => {
+          throw new Error('Could not fetch the details');
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.result) {
+          this.assessment = this.questionnaireService.mapSubmissionToAssessment(
+            res.result
+          );
+          this.evidence = this.apiConfig.solutionType == 'observation' ? this.assessment?.assessment?.evidences[+[this.apiConfig.index]] : this.assessment?.assessment?.evidences[0];
+          this.evidence.startTime = Date.now();
+          this.endDate = new Date(
+            new Date(this.assessment.assessment.endDate).getTime() +
+            new Date(this.assessment.assessment.endDate).getTimezoneOffset() *
+            60000
+          );
+          this.isExpired = this.assessment.assessment.status == 'expired';
+          this.sections = this.evidence.sections;
+          this.loaded = true;
+        } else {
+          this.toaster.showToast('Something went wrong, Please try again later', 'danger', 5000)
+        }
+
+      });
+  }
 
   ngOnInit() {
-    this.saveQuestionerToggle();
+    this.checkIsItFromObservation();
     if (typeof this.apiConfig === 'string') {
       try {
         this.apiConfig = JSON.parse(this.apiConfig);
         this.setApiService();
         this.fetchDetails()
-        if(this.sections.length == 1){
+        if (this.sections.length == 1) {
           this.setSection(this.sections[0].name);
           this.listing = false;
         }
@@ -160,27 +163,16 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.questionnaireForm = this.fb.group({});
-    this.questionnaireForm.valueChanges.subscribe((data:any) =>{
+    this.questionnaireForm.valueChanges.subscribe((data: any) => {
       this.checkFormValidity();
     })
   }
 
-  triggerSaveButtonValueToPWA(value) {
-    window.parent.postMessage({
-      type: 'saveQuestionerToggle',
-      toggle: value
-    }, '*');
-  }
-
-  saveQuestionerToggle(){
-  this.triggerSaveButtonValueToPWA(false);
-
-    this.sharedService.sharedValue$.subscribe(value => {
+  checkIsItFromObservation() {
+    this.sharedService.sharedFromObservationValue$.subscribe(value => {
       if (value) {
-      this.saveQuestioner = value; 
-        this.submission('draft');
-        this.sharedService.updateValue(false);
-        }
+        this.fromObservation = value;
+      }
     });
   }
 
@@ -314,8 +306,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         (value && value.length > 0) || Number.isInteger(value)
           ? '#006600'
           : typeof validation !== 'string' && validation.required
-          ? '#A30000'
-          : '#595959',
+            ? '#A30000'
+            : '#595959',
       sectionName: this.sections[sectionIndex].name,
       pageIndex: qIndex,
       questionNumber: qNum,
@@ -354,9 +346,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.submitSurvey(submissionData);
   }
 
-  async submitSurvey(submissionData){
+  async submitSurvey(submissionData) {
     if (submissionData.status !== 'draft') {
-      if(!this.saveQuestioner){
+      if (!this.saveQuestioner) {
         const confirmationParams = {
           title: 'Confirmation',
           message: `Are you sure you want to submit the ${this.apiConfig.solutionType}?`,
@@ -371,54 +363,54 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.apiService
-    .post(
-      `${urlConfig[this.apiConfig.solutionType].update}${this.assessment.assessment.submissionId}`,
-      {
-        evidence: submissionData,
-      })
-    .pipe(
-      catchError((err) => {
-        this.saveConfirmationToObservationPWA(false);
-        this.toaster.showToast(err?.error?.message,'danger',5000)
-        throw new Error(`Update api has failed`);
-      })
-    )
-    .subscribe(async (res: any) => {
-      if(res.status == 200){
-        if(!this.saveQuestioner){
-          this.formIsNotDirty();
-          if (submissionData.status == 'draft') {
-            const confirmationParams = {
-              title: 'Success',
-              message: `Successfully your ${this.apiConfig.solutionType} has been saved. Do you want to continue?`,
-              acceptLabel: 'Later',
-              cancelLabel: 'Continue',
-              type:'success'
-            };
-            const response = await this.openAlert(confirmationParams);
-            if(response){
-              if(this.sections?.length > 1){
-                this.backToSectionListing();
-              }else{
-                this.location.back();
+      .post(
+        `${urlConfig[this.apiConfig.solutionType].update}${this.assessment.assessment.submissionId}`,
+        {
+          evidence: submissionData,
+        })
+      .pipe(
+        catchError((err) => {
+          this.saveConfirmationToObservationPWA(false);
+          this.toaster.showToast(err?.error?.message, 'danger', 5000)
+          throw new Error(`Update api has failed`);
+        })
+      )
+      .subscribe(async (res: any) => {
+        if (res.status == 200) {
+          if (!this.saveQuestioner) {
+            this.formIsNotDirty();
+            if (submissionData.status == 'draft') {
+              const confirmationParams = {
+                title: 'Success',
+                message: `Successfully your ${this.apiConfig.solutionType} has been saved. Do you want to continue?`,
+                acceptLabel: 'Later',
+                cancelLabel: 'Continue',
+                type: 'success'
+              };
+              const response = await this.openAlert(confirmationParams);
+              if (response) {
+                if (this.sections?.length > 1) {
+                  this.backToSectionListing();
+                } else {
+                  this.location.back();
+                }
               }
+            } else {
+              const footer = this.el.nativeElement.querySelector('.footer-buttons');
+              this.renderer.setStyle(footer, 'display', 'none');
+              this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000);
+              this.evidence.isSubmitted = true;
             }
-          }else{
-            const footer = this.el.nativeElement.querySelector('.footer-buttons');
-            this.renderer.setStyle(footer, 'display', 'none');
-            this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000);
-            this.evidence.isSubmitted  = true;
+          }
+
+          if (this.sections?.length > 1) {
+            this.backToSectionListing();
+            this.saveConfirmationToObservationPWA(false);
+          } else {
+            this.saveConfirmationToObservationPWA(true);
           }
         }
-
-        if(this.sections?.length > 1){
-          this.backToSectionListing();
-          this.saveConfirmationToObservationPWA(false);
-        }else{
-          this.saveConfirmationToObservationPWA(true);
-        }
-      }
-    });
+      });
   }
 
   async openAlert(alertDialogConfig) {
@@ -430,7 +422,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       disableClose: true
     });
 
-     this.dialogRef = dialogRef
+    this.dialogRef = dialogRef
 
     return new Observable<boolean>((observer) => {
       dialogRef.afterClosed().subscribe((res) => {
@@ -454,7 +446,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.listing = true;
-    this.triggerSaveButtonValueToPWA(false);
   }
 
   backToSectionListing() {
@@ -462,37 +453,45 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.domQuery(this.sectionName, 'none');
     let sectionElements = document.getElementsByClassName('section-listing');
     this.mainComponent.pageIndex = 0;
-    this.mainComponent.handlePageEvent({pageIndex:0})
+    this.mainComponent.handlePageEvent({ pageIndex: 0 })
     if (sectionElements.length > 0) {
       for (let i = 0; i < sectionElements.length; i++) {
         (sectionElements[i] as HTMLElement).style.display = 'block';
       }
     }
-    this.triggerSaveButtonValueToPWA(true);
   }
 
   closeModal() {
     this.dialog.closeAll();
   }
 
-  goToQuestion(id, pageIndex,sectionName) {
+  goToQuestion(id, pageIndex, sectionName) {
     this.setSection(sectionName)
     this.mainComponent.pageIndex = pageIndex;
-    this.mainComponent.handlePageEvent({pageIndex:pageIndex})
+    this.mainComponent.handlePageEvent({ pageIndex: pageIndex })
     this.closeModal();
   }
 
-  formIsNotDirty(){
+  formIsNotDirty() {
     window.parent.postMessage({
       type: 'formDirty',
       isDirty: false
     }, '*');
   }
 
-  saveConfirmationToObservationPWA(confirmation){
+  saveConfirmationToObservationPWA(confirmation) {
     window.parent.postMessage({
       type: 'saveQuestionerConfirmation',
       confirmation: confirmation
     }, '*');
+  }
+
+  ngOnDestroy(): void {
+    if (this.fromObservation) {
+      this.saveQuestioner = true;
+      this.submission('draft');
+      this.subscription.unsubscribe();
+      this.questionnaireForm.reset();
+    }
   }
 }

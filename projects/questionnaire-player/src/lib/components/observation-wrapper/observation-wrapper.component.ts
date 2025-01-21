@@ -23,6 +23,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   initialLoad = false;
   type: any;
   @Input() saveQuestioner:boolean = false;
+  @Input() fromObservation:boolean = false;
 
   constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService,
     private sharedService: SharedService
@@ -46,6 +47,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
       this.apiService.solutionId = this.apiConfig.solutionId;
       this.apiService.entityType = this.apiConfig.entityType;
       this.apiService.userAuthToken = this.apiConfig.userAuthToken;
+      this.apiService.fileSizeLimit = this.apiConfig.fileSizeLimit;
       this.queryParamsService.parseQueryParams();
       if (this.queryParamsService.type) {
         this.type = this.queryParamsService?.type;
@@ -58,6 +60,10 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
 
     if (changes['saveQuestioner']) {
       this.sharedService.updateValue(this.saveQuestioner);
+    }
+
+    if (changes['fromObservation']) {
+      this.sharedService.updateFromObservationValue(this.fromObservation);
     }
   }
   

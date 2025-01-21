@@ -242,6 +242,10 @@ img {
   cursor: not-allowed;
 }
 
+.observation-card{
+  height: 100%;
+}
+
 @media (max-width: 48rem) {
   .grid-container {
     grid-template-columns: 1fr;

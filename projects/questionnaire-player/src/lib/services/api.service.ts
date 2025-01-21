@@ -19,6 +19,7 @@ export class ApiService {
   public submissionNumber:any;
   public evidenceCode:any;
   public index:any;
+  public fileSizeLimit:any;
 
   constructor(private http:HttpClient) { }
 

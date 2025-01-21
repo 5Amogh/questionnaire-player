@@ -44,7 +44,8 @@ export class PlayerBridgeComponent {
       evidenceCode: this.evidenceCode,
       entityType: this.apiService.entityType,
       profileData: this.apiService.profileData,
-      index:this.index
+      index:this.index,
+      fileSizeLimit: this.apiService.fileSizeLimit,
     }
   }
 }
