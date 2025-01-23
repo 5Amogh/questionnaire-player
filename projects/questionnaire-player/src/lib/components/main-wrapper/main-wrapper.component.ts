@@ -370,7 +370,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         })
       .pipe(
         catchError((err) => {
-          this.saveConfirmationToObservationPWA(false);
           this.toaster.showToast(err?.error?.message, 'danger', 5000)
           throw new Error(`Update api has failed`);
         })
@@ -401,13 +400,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
               this.toaster.showToast(`Your ${this.apiConfig.solutionType} has been submitted successfully.`, 'success', 5000);
               this.evidence.isSubmitted = true;
             }
-          }
-
-          if (this.sections?.length > 1) {
-            this.backToSectionListing();
-            this.saveConfirmationToObservationPWA(false);
-          } else {
-            this.saveConfirmationToObservationPWA(true);
           }
         }
       });
@@ -479,18 +471,12 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     }, '*');
   }
 
-  saveConfirmationToObservationPWA(confirmation) {
-    window.parent.postMessage({
-      type: 'saveQuestionerConfirmation',
-      confirmation: confirmation
-    }, '*');
-  }
-
   ngOnDestroy(): void {
-    if (this.fromObservation) {
+    if (this.fromObservation && this.questionnaireForm.dirty) {
       this.saveQuestioner = true;
       this.submission('draft');
       this.subscription.unsubscribe();
+      this.sharedService.updateValue(false);
       this.questionnaireForm.reset();
     }
   }

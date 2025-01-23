@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { pairwise, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Injectable({
@@ -24,11 +24,19 @@ export class QueryParamsService implements OnDestroy {
   public isMultiple: any;
   public reportPage: any;
   public scores: any;
+  public typeFromPreviousUrl: string | null = null;
+
 
   constructor(private router: Router) {
     this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => this.parseQueryParams());
+      .pipe(filter(event => event instanceof NavigationEnd),
+      pairwise())
+      .subscribe(([previousEvent, currentEvent]: [NavigationEnd, NavigationEnd]) => {
+        let previousUrl = previousEvent.urlAfterRedirects;
+        if (previousUrl) {
+          this.typeFromPreviousUrl = this.extractTypeFromUrl(previousUrl);
+        }
+      });
   }
 
   parseQueryParams() {
@@ -62,7 +70,7 @@ export class QueryParamsService implements OnDestroy {
 
     queryArray.forEach((query: any) => {
       const [key, value] = query.split('=');
-      queryObj[key] = value
+      queryObj[key] = decodeURIComponent(value || '');
     });
     return queryObj;
   }
@@ -70,5 +78,13 @@ export class QueryParamsService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
+  }
+
+  extractTypeFromUrl(url: string): string | null {
+    const queryString = url.split('?')[1];
+    if (!queryString) return null;
+
+    const queryParams = this.getQueryParams(`?${queryString}`);
+    return queryParams.type || null;
   }
 }
