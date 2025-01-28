@@ -72,24 +72,25 @@
                 </div>
 
                 <div *ngSwitchCase="'matrix'">
-                  <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
-                    <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                      <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
-                        question?.instanceQuestions[0][key].question }}</h3>
-
-                      <div *ngFor="let instance of question?.instanceQuestions">
+                  <ng-container *ngFor="let questionGroup of question?.answers; let k = index">
+                    <div class="matrix-item" *ngIf="questionGroup !== 'instanceIdentifier'">
+                      <h3>{{ k + 1 }}. </h3>
+                
+                      <div *ngFor="let question of objectKeys(questionGroup); let j = index">
                         <div class="instance-card">
-                          <h4>{{ instance.instanceIdentifier }}</h4>
-
-                          <div *ngFor="let answer of instance[key].answers">
+                          <h4>{{ questionGroup[question]?.question }}</h4>
+                
+                          <div *ngFor="let answer of questionGroup[question]?.answers">
                             <span class="answer">{{ checkAnswerValue(answer) }}</span>
-
                           </div>
+                
+                        
                         </div>
                       </div>
                     </div>
                   </ng-container>
                 </div>
+                
 
               </ng-container>
             </div>
@@ -196,24 +197,24 @@
                   </div>
 
                   <div *ngSwitchCase="'matrix'">
-                    <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
-                      <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                        <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
-                          question?.instanceQuestions[0][key].question }}</h3>
-
-                        <div *ngFor="let instance of question?.instanceQuestions">
+                    <ng-container *ngFor="let questionGroup of question?.answers; let k = index">
+                      <div class="matrix-item" *ngIf="questionGroup !== 'instanceIdentifier'">
+                        <h3>{{ k + 1 }}. </h3>
+                  
+                        <div *ngFor="let question of objectKeys(questionGroup); let j = index">
                           <div class="instance-card">
-                            <h4>{{ instance.instanceIdentifier }}</h4>
+                            <h4>{{ questionGroup[question]?.question }}</h4>
 
-                            <div *ngFor="let answer of instance[key].answers">
+                            <div *ngFor="let answer of questionGroup[question]?.answers">
                               <span class="answer">{{ checkAnswerValue(answer) }}</span>
-
                             </div>
+                  
                           </div>
                         </div>
                       </div>
                     </ng-container>
                   </div>
+                  
 
                 </ng-container>
               </div>

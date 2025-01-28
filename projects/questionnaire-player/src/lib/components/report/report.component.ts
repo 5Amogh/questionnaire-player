@@ -157,9 +157,9 @@ export class ReportComponent extends BackNavigationHandlerComponent implements O
     };
 
     const processQuestion = (question: any) => {
-      if (question?.responseType === 'matrix' && question?.instanceQuestions) {
-        const processedInstanceQuestions = question?.instanceQuestions.map(processInstanceQuestions);
-        return { ...question, instanceQuestions: processedInstanceQuestions };
+      if (question?.responseType === 'matrix' && question?.answers) {
+        const processedInstanceQuestions = question?.answers.map(processInstanceQuestions);
+        return { ...question, answers: processedInstanceQuestions };
       } else {
         const processedQuestion = { ...question };
         processedQuestion.answers = this.scores ? "" :mapAnswersToLabels(question?.answers, question?.options);
