@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   TemplateRef,
   ViewChild,
+  ViewContainerRef,
   booleanAttribute,
 } from '@angular/core';
 import {
@@ -26,18 +27,20 @@ import * as urlConfig from '../../constants/url-config.json';
 import { ToastService } from '../../services/toast.service';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, UrlTree } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
+import { SectionListingComponent } from '../section-listing/section-listing.component';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
   styleUrls: ['./main-wrapper.component.scss'],
 })
 export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
+  @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   questions: Array<Question>;
   @Input({ transform: booleanAttribute }) angular = false;
   evidence: Evidence;
@@ -60,7 +63,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   dialogRef: any;
   isExpired: boolean;
   @Input() saveQuestioner: boolean = false;
-
+  @ViewChild('sectionListing') public sectionListing:TemplateRef<any>;
+ private componentMapper: any = {};
+  type: any;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -84,6 +89,15 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.componentMapper = {
+      listing: this.sectionListing,
+      questions:this.mainComponent
+    };
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+      const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
+      this.type = urlTree.queryParams['type'];
+      this.loadComponent(this.type);
+    });
     if (
       this.angular &&
       changes['apiConfig'] &&
@@ -99,6 +113,24 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
           this.submission('draft');
         }
       }
+  }
+
+  loadComponent(type: string = 'listing'){
+    if (this.dynamicComponent) {
+      this.dynamicComponent.clear();
+    }
+    const componentType = this.componentMapper[type];
+    if (componentType) {
+      this.dynamicComponent.createComponent(componentType);
+    }
+  }
+
+  ngAfterViewInit(){
+        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+          const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
+          this.type = urlTree.queryParams['type'];
+          this.loadComponent(this.type);
+        });
   }
 
   setApiService(){
@@ -145,6 +177,11 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
 }
 
   ngOnInit() {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+      const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
+      this.type = urlTree.queryParams['type'];
+      this.loadComponent(this.type);
+    });
     this.saveQuestionerToggle();
     if (typeof this.apiConfig === 'string') {
       try {

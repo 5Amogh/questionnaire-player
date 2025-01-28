@@ -66,6 +66,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SectionListingComponent } from './components/section-listing/section-listing.component';
 const routes: Routes = [
   { path: 'observation', component: ObservationWrapperComponent }
 ];
@@ -110,7 +111,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
     ObservationDetailsComponent,
     ObservationDomainComponent,
     PlayerBridgeComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SectionListingComponent
     ],
   imports: [
     CommonModule,

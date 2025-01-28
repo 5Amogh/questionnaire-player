@@ -8,19 +8,27 @@
       <mat-icon>arrow_back</mat-icon>
       <span>Section Listing</span>
     </div> -->
+    <ng-template #dynamicComponent></ng-template>
 
-    <div *ngFor="let section of sections; let secId = index">
-      <div class="section-listing" [ngStyle]="{display:sections.length == 1 ? 'none':'block'}">
-        <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
-          <mat-card-title>{{secId+1}}. {{section.name}}</mat-card-title>
-        </mat-card>
-      </div>
-        <span [id]="section.name" [ngStyle]="{display:sections.length == 1 ? 'block':'none'}">
+    <ng-container *ngFor="let section of sections; let secId = index">
+      <ng-template #dynamicComponent></ng-template>
+      <!-- <ng-template #sectionListing> -->
+        <div class="section-listing">
+          <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
+            <mat-card-title>{{secId+1}}. {{section.name}}</mat-card-title>
+          </mat-card>
+        </div>
+      <!-- </ng-template> -->
+
+      <!-- <ng-template #mainTemplate> -->
+        <span [id]="section.name">
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
           [isSubmitted]="evidence?.isSubmitted" [isExpired]="isExpired" [fileSizeLimit]="apiConfig.fileSizeLimit"
           ></lib-main>
         </span>
-    </div>
+      <!-- </ng-template> -->
+
+    </ng-container>
   </form>
   <ng-container *ngIf="sections?.length > 1;else showAllButtons">
   <span class="sticky-footer" [ngClass]="{'bg-white': !listing}">
