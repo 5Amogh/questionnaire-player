@@ -31,7 +31,7 @@ import { filter, Observable } from 'rxjs';
 import { AlertComponent } from '../alert/alert.component';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
-import { NavigationEnd, Router, UrlTree } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, UrlTree } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { SectionListingComponent } from '../section-listing/section-listing.component';
 @Component({
@@ -40,7 +40,6 @@ import { SectionListingComponent } from '../section-listing/section-listing.comp
   styleUrls: ['./main-wrapper.component.scss'],
 })
 export class MainWrapperComponent extends BackNavigationHandlerComponent implements OnInit, OnChanges {
-  @ViewChild('dynamicComponent', { read: ViewContainerRef, static: false }) dynamicComponent!: ViewContainerRef;
   questions: Array<Question>;
   @Input({ transform: booleanAttribute }) angular = false;
   evidence: Evidence;
@@ -63,9 +62,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   dialogRef: any;
   isExpired: boolean;
   @Input() saveQuestioner: boolean = false;
-  @ViewChild('sectionListing') public sectionListing:TemplateRef<any>;
- private componentMapper: any = {};
   type: any;
+  route: string;
   constructor(
     public fb: FormBuilder,
     private dialog: MatDialog,
@@ -75,7 +73,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     public location:Location,
     private renderer: Renderer2, private el: ElementRef,
     public router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
   ) {
     super(router, location);
 
@@ -89,15 +87,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.componentMapper = {
-      listing: this.sectionListing,
-      questions:this.mainComponent
-    };
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-      const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
-      this.type = urlTree.queryParams['type'];
-      this.loadComponent(this.type);
-    });
+    this.route = this.location.path();
+    console.log(this.route)
     if (
       this.angular &&
       changes['apiConfig'] &&
@@ -115,25 +106,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
   }
 
-  loadComponent(type: string = 'listing'){
-    if (this.dynamicComponent) {
-      this.dynamicComponent.clear();
-    }
-    const componentType = this.componentMapper[type];
-    if (componentType) {
-      this.dynamicComponent.createComponent(componentType);
-    }
-  }
-
-  ngAfterViewInit(){
-        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-          const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
-          this.type = urlTree.queryParams['type'];
-          this.loadComponent(this.type);
-        });
-  }
 
   setApiService(){
+    // this.updateQueryParam('type', 'listing');
     this.apiService.baseUrl = this.apiConfig.baseURL;
     this.apiService.token = this.apiConfig.userAuthToken;
     this.apiService.solutionType = this.apiConfig.solutionType;
@@ -180,7 +155,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
       const urlTree: UrlTree = this.router.parseUrl(event.urlAfterRedirects);
       this.type = urlTree.queryParams['type'];
-      this.loadComponent(this.type);
     });
     this.saveQuestionerToggle();
     if (typeof this.apiConfig === 'string') {
@@ -188,10 +162,10 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         this.apiConfig = JSON.parse(this.apiConfig);
         this.setApiService();
         this.fetchDetails()
-        if(this.sections.length == 1){
-          this.setSection(this.sections[0].name);
-          this.listing = false;
-        }
+        // if(this.sections.length == 1){
+        //   this.setSection(this.sections[0].name);
+        //   this.listing = false;
+        // }
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
@@ -482,6 +456,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
 
   setSection(name: string) {
     this.sectionName = name;
+    this.updateTypeParam();
     this.enableRelevantPage();
     this.mainComponent.enableRelevantPage();
     let sectionElements = document.getElementsByClassName('section-listing');
@@ -492,6 +467,14 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     }
     this.listing = true;
     this.triggerSaveButtonValueToPWA(false);
+  }
+
+  updateTypeParam(): void {
+    this.router.navigate([], {
+      // Empty array: navigate relative to the current route
+      queryParams: { type: 'form' }, // Set the new query param,
+      queryParamsHandling:'merge'
+    });
   }
 
   backToSectionListing() {

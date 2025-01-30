@@ -8,12 +8,11 @@
       <mat-icon>arrow_back</mat-icon>
       <span>Section Listing</span>
     </div> -->
-    <ng-template #dynamicComponent></ng-template>
+    <!-- <ng-template #dynamicComponent></ng-template> -->
 
     <ng-container *ngFor="let section of sections; let secId = index">
-      <ng-template #dynamicComponent></ng-template>
       <!-- <ng-template #sectionListing> -->
-        <div class="section-listing">
+        <div class="section-listing" >
           <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
             <mat-card-title>{{secId+1}}. {{section.name}}</mat-card-title>
           </mat-card>
@@ -21,7 +20,7 @@
       <!-- </ng-template> -->
 
       <!-- <ng-template #mainTemplate> -->
-        <span [id]="section.name">
+        <span [id]="section.name" >
           <lib-main #mainComponent  [questions]="section.questions" [questionnaireForm]="questionnaireForm"
           [isSubmitted]="evidence?.isSubmitted" [isExpired]="isExpired" [fileSizeLimit]="apiConfig.fileSizeLimit"
           ></lib-main>
