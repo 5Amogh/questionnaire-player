@@ -265,6 +265,51 @@ mat-icon {
   margin: 1.25rem
 }
 
+
+.card {
+  border: 0.063rem solid #ccc;
+  padding: 0.625rem;
+  margin: 2.2rem;
+  transition: border-left 0.5s ease;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+  
+  .matrix-item {
+  padding: 0.625rem;
+  }
+  
+  .card-content {
+  margin-bottom: 0.938rem;
+  }
+  
+  .card-list-item {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  }
+  
+  .answer {
+  word-wrap: break-word;
+  font-size: 0.875rem;
+  }
+  
+  .matrix-title{
+  margin: 1.25rem;
+  }
+  
+  .instance-identifier{
+  margin: 0.625rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  }
+  
+  .customizeIcon{
+  padding-top: 0.188rem;
+  font-size: 1.125rem;
+  margin-left: 0.938rem;
+  }
+
 @media (max-width: 47.9375rem) {
   .chip {
     display: block;

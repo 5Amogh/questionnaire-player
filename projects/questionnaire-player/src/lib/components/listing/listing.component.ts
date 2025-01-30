@@ -20,7 +20,7 @@ export class ListingComponent implements OnInit {
   page: number = 1;
   limit: number = 10;
   reportPage: any = 'false';
-  pageTitle: string = 'Observation';
+  pageTitle: string = 'Observations';
   entityType: any;
   initialSolutionData: any = [];
   selectedEntityType: any = '';
@@ -43,7 +43,7 @@ export class ListingComponent implements OnInit {
   ngOnInit(): void {
     this.queryParamsService.parseQueryParams();
     this.reportPage = this.queryParamsService.reportPage === 'true';
-    this.pageTitle = this.reportPage ? 'Observation Reports' : 'Observation';
+    this.pageTitle = this.reportPage ? 'Observation Reports' : 'Observations';
     this.loadInitialData();
   }
 

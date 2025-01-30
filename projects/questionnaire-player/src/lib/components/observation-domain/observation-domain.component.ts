@@ -41,7 +41,14 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
     this.observationId = this.queryParamsService?.observationId;
     this.entityId = this.queryParamsService?.entityId;
     this.id = this.queryParamsService?.id;
-    this.getObservationByEntityId()
+    let typeFromPreviousUrl = this.queryParamsService.typeFromPreviousUrl;
+    if(typeFromPreviousUrl == "questionnairePlayer"){
+      setTimeout(() => {
+        this.getObservationByEntityId();
+      }, 1000);
+    }else{
+      this.getObservationByEntityId()
+    }
   }
 
   getObservationByEntityId() {

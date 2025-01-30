@@ -71,25 +71,34 @@
                   <label>{{ question?.answers }}</label>
                 </div>
 
-                <div *ngSwitchCase="'matrix'">
-                  <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
-                    <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                      <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
-                        question?.instanceQuestions[0][key].question }}</h3>
+                <div *ngIf="isMultiple != 'true'">
+                  <div *ngSwitchCase="'matrix'" style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+                 
+                  <ng-container *ngFor="let key of objectKeys(question?.answers[0]); let k = index" style="margin-bottom: 20px;">
+                  <div class="card-content" *ngIf="key !== 'instanceIdentifier'" style="width: 100%;">
+                    <h2 class="matrix-title">{{qi + 1}}.{{ k + 1 }}. {{ question.answers[0][key].question }}</h2>
+                   
+                      <div class="col-12" *ngFor="let instance of question.answers" class="card-list-item" style="display: flex; flex: 1;">
+                        <div class="card" style="width: 100%; height: auto;">
+                          <div class="matrix-item" style="margin-top: 10px; color: var(--ion-color-primary);">
+                            <h2 class="instance-identifier" style="white-space: normal;">{{ instance.instanceIdentifier }}</h2>
+                            <hr>
+                          </div>
 
-                      <div *ngFor="let instance of question?.instanceQuestions">
-                        <div class="instance-card">
-                          <h4>{{ instance.instanceIdentifier }}</h4>
-
-                          <div *ngFor="let answer of instance[key].answers">
-                            <span class="answer">{{ checkAnswerValue(answer) }}</span>
-
+                          <div class="">
+                            <div *ngFor="let answer of instance[key].answers" lines="none" style="display: flex;align-items: flex-start;padding: 5px;">
+                              <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip">arrow_forward</mat-icon>
+                              <span class="answer" style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</span>
+                              </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </ng-container>
+                  
                 </div>
+                </div>
+                
 
               </ng-container>
             </div>
@@ -195,25 +204,34 @@
                     <label>{{ question?.answers }}</label>
                   </div>
 
-                  <div *ngSwitchCase="'matrix'">
-                    <ng-container *ngFor="let key of objectKeys(question?.instanceQuestions[0]); let k = index">
-                      <div class="matrix-item" *ngIf="key !== 'instanceIdentifier'">
-                        <h3>{{ question?.instanceQuestions[0][key].questionNumber }}. {{
-                          question?.instanceQuestions[0][key].question }}</h3>
-
-                        <div *ngFor="let instance of question?.instanceQuestions">
-                          <div class="instance-card">
-                            <h4>{{ instance.instanceIdentifier }}</h4>
-
-                            <div *ngFor="let answer of instance[key].answers">
-                              <span class="answer">{{ checkAnswerValue(answer) }}</span>
-
+                  <div *ngIf="isMultiple != 'true'">
+                    <div *ngSwitchCase="'matrix'" style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+                   
+                    <ng-container *ngFor="let key of objectKeys(question?.answers[0]); let k = index" style="margin-bottom: 20px;">
+                    <div class="card-content" *ngIf="key !== 'instanceIdentifier'" style="width: 100%;">
+                      <h2 class="matrix-title">{{qi + 1}}.{{ k + 1 }}. {{ question.answers[0][key].question }}</h2>
+                     
+                        <div class="col-12" *ngFor="let instance of question.answers" class="card-list-item" style="display: flex; flex: 1;">
+                          <div class="card" style="width: 100%; height: auto;">
+                            <div class="matrix-item" style="margin-top: 10px; color: var(--ion-color-primary);">
+                              <h2 class="instance-identifier" style="white-space: normal;">{{ instance.instanceIdentifier }}</h2>
+                              <hr>
+                            </div>
+  
+                            <div class="">
+                              <div *ngFor="let answer of instance[key].answers" lines="none" style="display: flex;align-items: flex-start;padding: 5px;">
+                                <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip">arrow_forward</mat-icon>
+                                <span class="answer" style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</span>
+                                </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </ng-container>
+                    
                   </div>
+                  </div>
+                  
 
                 </ng-container>
               </div>
