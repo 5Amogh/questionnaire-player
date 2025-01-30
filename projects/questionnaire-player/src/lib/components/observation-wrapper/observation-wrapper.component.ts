@@ -23,7 +23,6 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
   initialLoad = false;
   type: any;
   @Input() saveQuestioner:boolean = false;
-  @Input() fromObservation:boolean = false;
 
   constructor(public router: Router, public apiService: ApiService, private queryParamsService: QueryParamsService,
     private sharedService: SharedService
@@ -60,10 +59,6 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
 
     if (changes['saveQuestioner']) {
       this.sharedService.updateValue(this.saveQuestioner);
-    }
-
-    if (changes['fromObservation']) {
-      this.sharedService.updateFromObservationValue(this.fromObservation);
     }
   }
   

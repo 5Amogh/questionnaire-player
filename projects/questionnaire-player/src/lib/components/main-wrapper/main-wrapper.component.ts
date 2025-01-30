@@ -61,7 +61,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   dialogRef: any;
   isExpired: boolean;
   @Input() saveQuestioner: boolean = false;
-  @Input() fromObservation: boolean = false;
   subscription: Subscription;
 
   constructor(
@@ -148,7 +147,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   }
 
   ngOnInit() {
-    this.checkIsItFromObservation();
     if (typeof this.apiConfig === 'string') {
       try {
         this.apiConfig = JSON.parse(this.apiConfig);
@@ -166,14 +164,6 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.questionnaireForm.valueChanges.subscribe((data: any) => {
       this.checkFormValidity();
     })
-  }
-
-  checkIsItFromObservation() {
-    this.sharedService.sharedFromObservationValue$.subscribe(value => {
-      if (value) {
-        this.fromObservation = value;
-      }
-    });
   }
 
   getQuestionMap() {
@@ -472,7 +462,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   }
 
   ngOnDestroy(): void {
-    if (this.fromObservation && this.questionnaireForm.dirty) {
+    if (this.apiConfig.solutionType == 'observation' && this.questionnaireForm.dirty) {
       this.saveQuestioner = true;
       this.submission('draft');
       this.subscription.unsubscribe();
