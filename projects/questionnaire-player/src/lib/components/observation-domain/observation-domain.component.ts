@@ -98,9 +98,16 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
   }
 
   navigateToDetails(data,index) {
-    this.router.navigate(['observation'], {
-      queryParams: { type: 'questionnairePlayer', observationId:this.observationId, entityId:this.entityId, submissionNumber:this.submissionNumber,evidenceCode:data?.code, index:index }
-    });
+    const queryParams = new URLSearchParams({
+      observationId: this.observationId,
+      entityId: this.entityId,
+      submissionNumber: this.submissionNumber,
+      solutionType:"observation",
+      evidenceCode: data?.code,
+      index: index.toString()
+    }).toString();
+    
+    window.parent.location.href = `/questionnaire?${queryParams}`;
   }
 
 

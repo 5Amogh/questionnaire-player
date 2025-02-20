@@ -33,6 +33,7 @@ import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/components/pie-chart/back-navigation-handler/back-navigation-handler.component';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
+import { QueryParamsService } from '../../services/queryParams.service';
 @Component({
   selector: 'lib-main-wrapper',
   templateUrl: './main-wrapper.component.html',
@@ -112,9 +113,14 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     this.apiService.submissionNumber = this.apiConfig.submissionNumber;
     this.apiService.evidenceCode = this.apiConfig.evidenceCode;
     this.apiService.index = this.apiConfig.index;
-
     this.apiService.profileData = this.apiConfig.profileData;
+
+
+    this.apiService.solutionId= this.apiConfig.solutionId,
+    this.apiService.entityType= this.apiConfig.entityType,
+    this.apiService.fileSizeLimit= this.apiConfig.fileSizeLimit
   }
+
 
   fetchDetails() {
     const path = this.apiConfig.solutionType == 'observation' ? this.apiConfig.observationId + `?entityId=${this.apiConfig.entityId}&submissionNumber=${this.apiConfig.submissionNumber}&evidenceCode=${this.apiConfig.evidenceCode}` : this.apiConfig.solutionId

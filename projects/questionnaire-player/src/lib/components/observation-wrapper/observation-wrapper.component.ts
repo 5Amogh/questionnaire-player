@@ -34,7 +34,7 @@ export class ObservationWrapperComponent implements OnInit, OnChanges {
     details: ObservationDetailsComponent,
     reports: ReportComponent,
     domain: ObservationDomainComponent,
-    questionnairePlayer: PlayerBridgeComponent
+    // questionnairePlayer: PlayerBridgeComponent
   };
 
   ngOnChanges(changes: SimpleChanges) {

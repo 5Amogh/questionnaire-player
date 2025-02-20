@@ -98,11 +98,22 @@ getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'start
         queryParams: { type: 'domain', observationId: data?.observationId, entityId: data.entityId, id: data?._id }
       });
     } else {
-      this.router.navigate(['observation'], {
-        queryParams: {
-          type: 'questionnairePlayer', observationId: data?.observationId, entityId: data?.entityId, submissionNumber: data?.submissionNumber, evidenceCode: data?.evidencesStatus[0]?.code, index: 0
-        }
-      });
+      // this.router.navigate(['observation'], {
+      //   queryParams: {
+      //     type: 'questionnairePlayer', observationId: data?.observationId, entityId: data?.entityId, submissionNumber: data?.submissionNumber, evidenceCode: data?.evidencesStatus[0]?.code, index: 0
+      //   }
+      // });
+
+      const queryParams = new URLSearchParams({
+        observationId: data.observationId,
+        entityId: data.entityId,
+        submissionNumber: data.submissionNumber,
+        solutionType:"observation",
+        evidenceCode: data?.evidencesStatus[0]?.code,
+        index: "0"
+      }).toString();
+      
+      window.parent.location.href = `/questionnaire?${queryParams}`;
     }
   }
 
