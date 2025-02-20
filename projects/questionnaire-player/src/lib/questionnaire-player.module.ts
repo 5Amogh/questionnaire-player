@@ -1,4 +1,5 @@
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   LOCALE_ID,
   NgModule,
 } from '@angular/core';
@@ -48,6 +49,26 @@ import { ApiInterceptor } from './services/api.interceptor';
 import { PrivacyPopupComponent } from './components/privacy-popup/privacy-popup.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ObservationWrapperComponent } from './components/observation-wrapper/observation-wrapper.component';
+import { RouterModule , Routes, Router } from '@angular/router';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ListingComponent } from './components/listing/listing.component';
+import { ObservationEntityComponent } from './components/entity-details/observation-entity.component';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ObservationDetailsComponent } from './components/observation-details/observation-details.component';
+import { ReportComponent } from './components/report/report.component';
+import { ObservationDomainComponent } from './components/observation-domain/observation-domain.component';
+import { PlayerBridgeComponent } from './components/player-bridge/player-bridge.component';
+import { QuestionnaireService } from './services/questionnaire.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+const routes: Routes = [
+  { path: 'observation', component: ObservationWrapperComponent }
+];
 
 const MAT_CUSTOM_DATE_FORMATS = {
   parse: {
@@ -63,6 +84,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
 };
 @NgModule({
   declarations: [
+    ReportComponent,
     MainWrapperComponent,
     MainComponent,
     TextInputComponent,
@@ -81,7 +103,14 @@ const MAT_CUSTOM_DATE_FORMATS = {
     PaginatorComponent,
     SortKeysPipe,
     TextAreaComponent,
-    PrivacyPopupComponent
+    PrivacyPopupComponent,
+    ObservationWrapperComponent,
+    ListingComponent,
+    ObservationEntityComponent,
+    ObservationDetailsComponent,
+    ObservationDomainComponent,
+    PlayerBridgeComponent,
+    SpinnerComponent
     ],
   imports: [
     CommonModule,
@@ -92,6 +121,7 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatCheckboxModule,
     MatSliderModule,
     MatFormFieldModule,
+    MatListModule,
     MatInputModule,
     MatRadioModule,
     MatIconModule,
@@ -104,9 +134,17 @@ const MAT_CUSTOM_DATE_FORMATS = {
     MatPaginatorModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatTabsModule,
+    RouterModule.forChild(routes),
+    MatMenuModule,
+    MatSelectModule,
+    FormsModule,
+    MatExpansionModule
     ],
-  exports: [],
+  exports: [RouterModule],
   providers: [
     {
       provide: MAT_DATE_FORMATS,
@@ -125,7 +163,8 @@ const MAT_CUSTOM_DATE_FORMATS = {
       provide:HTTP_INTERCEPTORS,
       useClass:ApiInterceptor,
       multi:true
-    }
+    },
+    Router
   ]
 })
 export class QuestionnairePlayerModule {}

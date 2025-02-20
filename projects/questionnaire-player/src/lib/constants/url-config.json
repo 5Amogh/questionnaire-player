@@ -1,11 +1,21 @@
 {
     "survey":{
         "details":"/survey/v1/surveys/details?solutionId=",
-        "update":"/survey/v1/surveySubmissions/update/"
+        "update":"/survey/v1/surveySubmissions/update/",
+        "reportUrl":"/survey/v1/reports/fetch"
     },
     "observation":{
-        "details":"/samiksha/v1/surveys/details/?solutionId=",
-        "update":"/samiksha/v1/surveySubmissions/update/"
+        "listing":"/survey/v1/solutions/targetedSolutions",
+        "reportListing":"/survey/v1/observationSubmissions/solutionList",
+        "details":"/survey/v1/observations/assessment/",
+        "getSelectedEntities":"/survey/v1/observations/entities?solutionId=",
+        "targetedEntity": "/survey/v1/observations/targetedEntity/",
+        "searchEntities": "/survey/v1/observations/searchEntities?observationId=",
+        "updateEntities":"/survey/v1/observations/updateEntities/",
+        "observationSubmissions":"/survey/v1/observationSubmissions/list/",
+        "update":"/survey/v1/observationSubmissions/update/",
+        "create":"/survey/v1/observationSubmissions/create/",
+        "refreshTokenUrl":"/user/v1/account/generateToken"
     },
     "presignedUrl":"/survey/v1/files/preSignedUrls"
 }

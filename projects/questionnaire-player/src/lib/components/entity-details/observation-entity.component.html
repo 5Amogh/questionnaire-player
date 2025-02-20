@@ -1,0 +1,125 @@
+<ng-container *ngIf="loaded">
+  <div class="list-title">
+    <div>
+      <h1 class="heading">{{solutionName}}</h1>
+      <p class="heading-paragraph">Select {{selectedEntities?.entityType}} from the list to observe</p>
+    </div>
+
+    <div class="srch">
+      <div class="srch-bar">
+        <span class="icon">
+          <i class="material-icons">search</i>
+        </span>
+        <input 
+          [(ngModel)]="searchValue" 
+          (input)="handleEntitySearchInput($event)"
+          [placeholder]="'Search '+ entityToAdd" class="search"  
+          class="search-input"
+        />
+        <button *ngIf="searchValue" aria-label="Clear" class="clear-btn" (click)="handleEntitySearchInput()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <div class="add-btn-container">
+      <button class="add-entity-btn" (click)="openAllEntityList()" [disabled]="!observationId" [ngClass]="{ 'disabled-button': !observationId }">Add {{entityToAdd}}</button>
+    </div>
+  
+    <div class="d-flex flex-dc gap-4">
+      <div class="observation-list">
+        <div class="grid-container">
+          <div class="grid-item" *ngFor="let entity of filteredEntitiesOne">
+            <mat-card class="observation-card" (click)="navigateToDetails(entity)">
+              <mat-card-content class="card-content">
+                <h2 class="observation-name">{{ entity?.name }}</h2>
+                <div class="delete-container">
+                  <button
+                    *ngIf="entity?.submissionsCount == 0"
+                    class="delete-btn"
+                    color="warn"
+                    (click)="deleteEntity(entity?._id); $event.stopPropagation()"
+                  >
+                    <mat-icon style="color: var(--color-grey);">delete</mat-icon>
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div *ngIf="!filteredEntitiesOne?.length" class="no-data-container">
+    <img src="/assets/images/no_data.jpg" alt="No data" />
+  </div>
+
+</ng-container>
+
+<lib-spinner *ngIf="!loaded"></lib-spinner>
+
+
+<ng-template #searchEntityModal>
+  <div class="p-16 searchEntity">
+    <div mat-dialog-title class="d-flex flex-ai-start flex-dr flex-gap-4 p-0" style="color: var(--primary-color);">
+      Add {{ entityToAdd }}
+    </div>
+    <mat-divider></mat-divider>
+    <div mat-dialog-content class="flex-ai-self-start">
+
+      <div class="srch">
+        <div class="srch-bar">
+          <span class="icon">
+            <i class="material-icons">search</i>
+          </span>
+          <input 
+            [(ngModel)]="searchAddEntityValue" 
+            (input)="handleSearchInput($event)"
+            [placeholder]="'Search ' + (selectedEntities?.entityType || 'items')"
+            class="search-input"
+          />
+          <button *ngIf="searchAddEntityValue" aria-label="Clear" class="clear-btn" (click)="handleSearchInput()">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+      </div>
+      <mat-selection-list 
+      [multiple]="true" 
+      (selectionChange)="onSelectionChange($event)">
+      <mat-list-option 
+        *ngFor="let entity of filteredEntities" 
+        [value]="entity?._id"
+        [selected]="isEntitySelected(entity)"
+        [disabled]="isEntityInFilteredEntitiesOne(entity)">
+        {{ entity?.name }}
+      </mat-list-option>
+    </mat-selection-list>
+    
+
+      <p class="no-data" *ngIf="!filteredEntities?.length">No {{ selectedEntities?.entityType }} found</p>
+    </div>
+    <mat-dialog-actions class="mat-dialog-actions">
+      <button
+        [mat-dialog-close]="'yes'"
+        class="secondary-btn"
+        [ngClass]="{ 'disabled-button': !addedEntities?.length }"
+        [disabled]="!addedEntities?.length"
+        (click)="submitDialog()">Add
+      </button>
+      <button mat-dialog-close (click)="closeDialog()" class="primary-btn">Cancel</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>
+
+
+<ng-template #confirmDialogModel>
+  <h1 mat-dialog-title>Confirm Deletion</h1>
+  <mat-dialog-content>Are you sure you want to delete this {{selectedEntities?.entityType}}?</mat-dialog-content>
+
+  <mat-dialog-actions class="mat-dialog-actions">
+    <button [mat-dialog-close]="'yes'" class="primary-btn">Yes</button>
+    <button mat-dialog-close="no" class="secondary-btn">No</button>
+  </mat-dialog-actions>
+</ng-template>

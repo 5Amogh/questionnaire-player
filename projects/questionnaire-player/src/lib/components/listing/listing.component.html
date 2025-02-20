@@ -1,0 +1,81 @@
+<div class="content" *ngIf="loaded">
+    <div class="list-title">
+      <div>
+        <h1 class="heading">{{pageTitle}}</h1>
+        <p class="heading-paragraph">Access and record your observations easily and plan your improvement journeys</p>
+      </div>
+
+      <div class="srch" *ngIf="!reportPage">
+        <div class="srch-bar">
+          <span class="icon">
+            <i class="material-icons">search</i>
+          </span>
+          <input 
+            [(ngModel)]="searchTerm" 
+            (keydown)="handleKeyDown($event)" 
+            placeholder="Search your observation here" 
+            class="search-input"
+          />
+          <button *ngIf="searchTerm" aria-label="Clear" class="clear-btn" (click)="handleInput()">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="observation-list" *ngIf="solutionListCount !== 0">
+
+     <div class="select-filter" *ngIf="reportPage">
+      <mat-form-field>
+        <mat-label>Entity Filter</mat-label>
+        <mat-select (selectionChange)="changeEntityType($event.value)" [(ngModel)]="selectedEntityType">
+          <mat-option *ngFor="let item of entityType" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     </div>
+
+        <div class="grid-container">
+          <div class="grid-item" *ngFor="let solution of solutionList" (click)="navigateTo(solution)">
+            <mat-card class="observation-card">
+              <mat-card-content>
+                <h2 class="observation-name">{{ solution?.name }}</h2>
+                <p>{{ reportPage == 'true' ? solution?.programName : solution?.description }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="solutionListCount === 0" class="no-data-container">
+      <img src="/assets/images/no_data.jpg" alt="No data" />
+    </div>
+
+    <div class="fixed-bottom-buttons" *ngIf="!(solutionListCount === 0 || solutionListCount === initialSolutionData?.length)">
+      <button mat-raised-button color="accent" (click)="loadData()">LOAD MORE</button>
+    </div>
+  </div>
+
+  <div *ngIf="isEntityFilterModalOpen" class="modal">
+    <div class="modal-content">
+      <header class="d-flex align-items-center">
+        <h1 class="modal-title">Select entity</h1>
+        <mat-icon class="close-btn" (click)="closeFilter()">close</mat-icon>
+      </header>
+      <div>
+        <ul>
+          <li *ngFor="let question of allEntities; let i = index">
+            <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i" (change)="onEntityChange(i)" > 
+            <label [for]="'question-' + i">
+              {{ question.name }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <footer class="question-footer">
+        <button (click)="applyFilter()" class="apply-filter" [ngClass]="{'disabled-button': !isAnyEntitySelected}" [disabled]="!isAnyEntitySelected">Submit</button>
+      </footer>
+    </div>
+  </div>
+
+<lib-spinner *ngIf="!loaded"></lib-spinner>

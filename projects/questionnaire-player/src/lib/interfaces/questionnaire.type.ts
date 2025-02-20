@@ -201,9 +201,16 @@ export interface ImageCompression {
 }
 
 export interface ApiConfiguration{
+  profileData?: any;
   baseURL:string;
   userAuthToken:string;
   solutionId:string;
   solutionType:'survey' | 'observation';
-  fileSizeLimit:number
+  fileSizeLimit:number;
+  entityType:string;
+  observationId:string;
+  entityId:string;
+  submissionNumber:string;
+  evidenceCode:string;
+  index:any;
 }

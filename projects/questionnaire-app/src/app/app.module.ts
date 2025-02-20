@@ -5,10 +5,23 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule ,Routes, Router} from '@angular/router';
+import { ObsComponent } from './obs/obs.component';
 
+
+const routes:Routes = [
+  {
+    path:'', component:AppComponent,
+  },
+  {
+    path:'observation',component:ObsComponent
+
+  }
+]
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ObsComponent
   ],
   imports: [
     CommonModule,
@@ -16,9 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [Router],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

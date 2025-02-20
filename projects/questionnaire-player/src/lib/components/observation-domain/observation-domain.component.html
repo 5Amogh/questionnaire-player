@@ -1,0 +1,67 @@
+<div class="list-title">
+    <div>
+        <h1 class="heading">Domains</h1>
+    </div>
+</div>
+
+<div class="d-flex flex-dc gap-4" *ngIf="loaded">
+    <div class="observation-list">
+        <div class="grid-container">
+            <ng-container>
+                <div class="grid-item" *ngFor="let entity of evidences; let i = index">
+                    <mat-card class="observation-card">
+                        <mat-card-content>
+                            <div class="card-header">
+                                <div>
+                                    <h2 class="observation-name">{{ entity?.name }}</h2>
+                                </div>
+                            </div>
+
+                            <div class="btn-container" *ngIf="!entity?.notApplicable">
+                                <div class="">
+                                    <p>Status: {{ entity?.status == 'notstarted' ? 'not started' : entity?.status }}</p>
+                                </div>
+                                <div class="">
+                                    <button class="not-applicable mr-5 primary-btn" (click)="navigateToDetails(entity,i)"
+                                    *ngIf="entity?.status == 'completed'">View</button>
+                                    <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity,i)"
+                                    *ngIf="entity?.status == 'draft'">Continue</button> 
+                                <button class="not-applicable mr-5 secondary-btn" (click)="navigateToDetails(entity,i)"
+                                    *ngIf="entity?.status == 'notstarted'">Start</button>
+                                <button class="not-applicable primary-btn" (click)="notApplicable(entity)"
+                                    *ngIf="entity?.canBeNotApplicable && entity?.status != 'completed'">Not Applicable</button>
+                                </div>
+                            </div>
+                            <div class="btn-container" *ngIf="entity?.notApplicable">
+                            <p>Not Applicable !</p>
+                        </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                </div>
+            </ng-container>
+            <ng-template #noData>
+                <p>No data found</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<lib-spinner *ngIf="!loaded"></lib-spinner>
+
+
+<ng-template #notApplicableModel>
+    <h1 mat-dialog-title>Not Applicable</h1>
+    <mat-dialog-content>
+        <p>Please add your remarks here before making the Domain Not applicable.</p>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <input matInput [(ngModel)]="remark" placeholder="Enter remark">
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="mat-dialog-actions">
+        <button [mat-dialog-close]="'confirm'" class="primary-btn"
+            [disabled]="!remark" [ngClass]="{'disabled-button': !remark}">Confirm</button>
+        <button mat-dialog-close="cancel" class="secondary-btn">Cancel</button>
+    </mat-dialog-actions>
+</ng-template>

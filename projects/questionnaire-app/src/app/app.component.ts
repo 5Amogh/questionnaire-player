@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder} from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import * as mockData from './assesmentInfo.json'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,17 +15,21 @@ export class AppComponent implements OnInit, OnDestroy {
   fileUploadResponse: any = null;
   apiConfig = {};
   saveQuestioner:boolean = false;
-  constructor(public fb: FormBuilder, public http: HttpClient) {}
+  constructor(public fb: FormBuilder, public http: HttpClient,private router:Router) {}
 
   ngOnInit() {
     window.addEventListener('message', this.receiveMessage.bind(this), false);
-    this.assessment = mockData;
     this.apiConfig ={
       baseURL:'https://survey-dev.elevate-apis.shikshalokam.org',
       userAuthToken:'',
-      solutionId:'66cc1fd6933415620e0cebe9',
-      solutionType:'survey'
+      solutionId:'66e03d1cbe48d96e6842d25d',
+      solutionType:'survey',
+      entityType:'school'
     }
+  }
+
+  navigate(){
+    this.router.navigate(['/observation'])
   }
 
   receiveMessage(event) {

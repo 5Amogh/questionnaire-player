@@ -1,13 +1,14 @@
 <div *ngIf="loaded" class="wrapper">
   <form [formGroup]="questionnaireForm" class="main custom-font">
     <div *ngIf="!listing && sections?.length != 1" style="color: var(--primary-color);">
-      <h1 style="margin-left: 1.5rem;">List of Sections</h1>
+      <h1  class="sesion-title">List of Sections</h1>
       <hr style="height: 1px;background:var(--primary-color);"/>
     </div>
     <!-- <div *ngIf="listing" (click)="backToSectionListing()" class="d-flex flex-ai-center m-20 flex-gap-10" style="color: var(--primary-color);">
       <mat-icon>arrow_back</mat-icon>
       <span>Section Listing</span>
     </div> -->
+
     <div *ngFor="let section of sections; let secId = index">
       <div class="section-listing" [ngStyle]="{display:sections.length == 1 ? 'none':'block'}">
         <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
@@ -21,25 +22,51 @@
         </span>
     </div>
   </form>
+  <ng-container *ngIf="sections?.length > 1;else showAllButtons">
+  <span class="sticky-footer" [ngClass]="{'bg-white': !listing}">
+    <hr class="partition" />
+    <div class="footer-buttons">
+    <div *ngIf="!evidence?.isSubmitted && !isExpired"
+      class="m-16 d-flex flex-ai-center flex-jc-space-between flex-dr flex-gap-30">
+      <div>
+        <mat-icon tabindex="0" (keydown)="($event.key == 'Enter' || $event.key == ' ') && getQuestionMap()" (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px;margin-left: 15px;">map</mat-icon>
+        <p class="question-map">Question Map</p>
+      </div>
+      <div class="d-flex flex-jc-space-between">
+        <button class="btn btn-outline-secondary" (click)="submission('draft')" *ngIf="listing">
+          Save
+        </button>
+        <button class="btn btn-primary" (click)="!questionnaireForm?.valid ? getQuestionMap() : submission('submit')" *ngIf="!listing && sections?.length > 1">
+        Submit
+        </button>
+      </div>
+    </div>
+  </div>
+  </span>
+</ng-container>
+
+<ng-template #showAllButtons>
   <span class="sticky-footer">
     <hr class="partition" />
     <div class="footer-buttons">
     <div *ngIf="!evidence?.isSubmitted && !isExpired"
-      
-      class="m-16 d-flex flex-ai-center flex-jc-space-around flex-dr flex-gap-30"
-    >
-      <button class="btn btn-outline-secondary" (click)="submission('draft')" >
+      class="m-16 d-flex flex-ai-center flex-jc-space-between flex-dr flex-gap-30">
+      <div>
+        <mat-icon tabindex="0" (keydown)="($event.key == 'Enter' || $event.key == ' ') && getQuestionMap()" (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px; margin-left: 15px;">map</mat-icon>
+        <p class="question-map">Question Map</p>
+      </div>
+    <div>
+      <button class="btn btn-outline-secondary" (click)="submission('draft')">
         Save
       </button>
-  
-        <mat-icon tabindex="0" (keydown)="($event.key == 'Enter' || $event.key == ' ') && getQuestionMap()" (click)="getQuestionMap()" matTooltip="Question Map" style="height: auto;width: auto;color: var(--primary-color);font-size: 40px;">map</mat-icon>
-  
-      <button class="btn btn-primary" (click)="!questionnaireForm?.valid ? getQuestionMap() : submission('submit')">
+      <button class="btn btn-primary mr-2" (click)="!questionnaireForm?.valid ? getQuestionMap() : submission('submit')">
         Submit
       </button>
     </div>
-  </div>
+    </div>
+    </div>
   </span>
+</ng-template>
 
 </div>
 <div class="spinner-overlay" *ngIf="!loaded">

@@ -1,0 +1,127 @@
+.card-content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-mdc-card-content {
+  padding: 1rem; 
+}
+
+.fixed-bottom-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.6rem 0.1rem;
+  background-color: var(--color-light);
+  z-index: 1000;
+}
+
+.fixed-bottom-buttons button {
+  flex: 1;
+  background-color: var(--primary-color);
+  color: var(--general-btn-text-color);
+  border-radius: 1.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05rem;
+  padding-bottom: 0.063rem;
+}
+
+.secondary-btn {
+  background-color: var(--primary-color);
+  color: var(--general-btn-text-color);
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: var(--color-light);
+  color: var(--primary-color);
+  border: 0.063rem solid var(--primary-color); 
+  cursor: pointer;
+}
+
+.report-btn{
+  margin-right: 0.625rem;
+  border-radius: 1.25rem;
+  padding: 0.563rem;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0.5rem; 
+}
+
+.mat-dialog-actions button {
+  cursor: pointer;
+  text-transform: none;
+  width: 45%;
+  min-width: 4rem; 
+  border-radius: 0.25rem; 
+  font-weight: 700;
+  font-size: 0.75rem; 
+  padding: 0.375rem 1.313rem; 
+}
+
+::ng-deep .mat-mdc-tab-group, 
+::ng-deep .mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-color: var(--primary-color);
+    --mat-tab-header-disabled-ripple-color: var(--primary-color);
+    --mat-tab-header-pagination-icon-color: var(--primary-color);
+    --mat-tab-header-inactive-label-text-color: var(--primary-color);
+    --mat-tab-header-active-label-text-color: var(--primary-color);
+    --mat-tab-header-active-ripple-color: var(--primary-color);
+    --mat-tab-header-inactive-ripple-color: var(--primary-color);
+    --mat-tab-header-inactive-focus-label-text-color: var(--primary-color);
+    --mat-tab-header-inactive-hover-label-text-color: var(--primary-color);
+    --mat-tab-header-active-focus-label-text-color: var(--primary-color);
+    --mat-tab-header-active-hover-label-text-color: var(--primary-color);
+    --mat-tab-header-active-focus-indicator-color: var(--primary-color);
+    --mat-tab-header-active-hover-indicator-color: var(--primary-color);
+}
+
+.disabled-button {
+  background-color: var(--disabled-btn-bg) !important;
+  color: var(--disabled-btn-text) !important;
+  cursor: not-allowed;
+}
+
+.observation-list, .grid-container, .mat-tab-group   {
+  padding-bottom: 5rem;
+}
+
+.heading{
+  font-size: 1.563rem;
+}
+
+.heading-paragraph{
+  margin-bottom: 1.563rem;
+}
+
+.observation-name {
+  overflow-wrap: anywhere;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grid-item {
+  flex: 1 1 calc(33.333% - 1rem);
+  display: flex;
+}
+
+.observation-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%; 
+}

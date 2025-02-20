@@ -1,0 +1,253 @@
+.list-title {
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--color-light);
+}
+
+.srch .mat-mdc-text-field-wrapper {
+  height: 2.5rem !important;
+  align-items: center;
+  border-radius: 0.5rem !important;
+}
+
+.observation-list {
+  padding: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.grid-item {
+  cursor: pointer;
+}
+
+.mat-card {
+  background-color: var(--color-light);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  box-shadow: 0 0.125rem 0.5rem var(--color-dark);
+  transition: box-shadow 0.3s ease;
+}
+
+.mat-card:hover {
+  box-shadow: 0 0.25rem 1rem var(--color-dark);
+}
+
+.observation-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  ;
+}
+
+::ng-deep {
+  .srch .mat-mdc-text-field-wrapper {
+    height: 2.5rem !important;
+    align-items: center;
+    border-radius: 0.5rem !important;
+  }
+}
+
+.select-filter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.entity-filter {
+  padding: 0.5rem;
+  font-weight: 700;
+}
+
+.search {
+  margin-top: 0.313rem;
+  height: 2.938rem !important;
+}
+
+.heading {
+  font-size: 1.563rem;
+}
+
+.heading-paragraph {
+  margin-bottom: 1.563rem;
+}
+
+img {
+  width: 50%;
+  max-width: 18.75rem;
+  }
+
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.fixed-bottom-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.6rem 0.1rem;
+  background-color: var(--color-light);
+  z-index: 1000;
+}
+
+.fixed-bottom-buttons button {
+  flex: 1;
+  background-color: var(--primary-color);
+  color: var(--general-btn-text-color);
+  border-radius: 1.25rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05rem;
+  padding-bottom: 0.063rem;
+}
+
+.observation-list, .grid-container, .mat-tab-group   {
+  padding-bottom: 5rem;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-opacity);
+}
+
+.modal-content {
+  background-color: var(--color-light);
+  padding: 1.25rem;
+  border-radius: 0.625rem;
+  width: 90%;
+  max-width: 31.25rem;
+}
+
+.modal-content header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content button {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+  border: none;
+  padding: 0.7rem;
+  cursor: pointer;
+}
+
+.modal-content img,
+.modal-content video,
+.modal-content iframe {
+  width: 100%;
+  max-height: 31.25rem;
+}
+
+.modal-title{
+  margin-bottom: 0.938rem;
+  font-size: large;
+}
+
+.modal-input{
+  margin-right: 0.625rem;
+}
+
+.modal-input {
+  accent-color: var(--color-primary);
+}
+
+.question-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.apply-filter {
+  border-radius: 1.25rem;
+  padding: 0.625rem 0.9375rem;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  margin: 0.3125rem;
+  border-color: var(--color-secondary);;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: var(--color-danger);
+  color: var(--color-light);
+  border-radius: 1.25rem;
+}
+
+
+.srch-bar {
+  width: 100%;
+  color: var(--color-light);
+  display: flex;
+  align-items: center;
+  border-radius: 0.625rem;
+  background-color: var(--color-light);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  gap: 0.5rem;
+  height: 2.375rem;
+
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-grey);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: var(--color-dark);
+  padding: 0.25rem 0;
+}
+
+.search-input::placeholder {
+  color: var(--color-grey);
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-grey);
+  padding: 0.25rem;
+}
+
+.disabled-button {
+  background-color: var(--disabled-btn-bg) !important;
+  color: var(--disabled-btn-text) !important;
+  border-color: var(--disabled-btn-text)  !important;
+  cursor: not-allowed;
+}
+
+.observation-card{
+  height: 100%;
+}
+
+@media (max-width: 48rem) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}

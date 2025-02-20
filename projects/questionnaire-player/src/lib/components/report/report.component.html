@@ -1,0 +1,314 @@
+
+  <main>
+    <div class="list-title">
+    <div class="mt-5">
+        <h1 class="heading">{{ observationDetails?.entityName }}</h1>
+        <p class="heading-two">{{ observationDetails?.solutionName }}</p>
+    </div>
+     </div>
+    <div class="report-container">
+      <div class="select-wrapper">
+        <mat-form-field class="custom-select" *ngIf="isMultiple == 'true'">
+          <mat-label>Select Submission</mat-label>
+          <mat-select (selectionChange)="onSelectionChange($event.value)">
+            <mat-option *ngFor="let item of filterData" [value]="item._id">
+              {{ item.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="buttons-left">
+        <button [ngClass]="{'border-bottom-button': observationType === 'questions'}"
+          (click)="toggleObservationType('questions')" class="switch-buttons">Questions</button>
+        <button [ngClass]="{'border-bottom-button': observationType === 'criteria'}"
+          (click)="toggleObservationType('criteria')" class="switch-buttons" *ngIf="!domainView">Criteria</button>
+      </div>
+
+      <hr>
+      <div class="buttons-right" *ngIf="reportDetails?.length > 0;">
+        <button (click)="openFilter()" class="apply-filter" *ngIf="!domainView">Filters</button>
+        <button class="apply-filter"
+          (click)="downloadPDF(submissionId, observationType === 'questions' ? false : true, true)">Export As
+          PDF</button>
+      </div>
+      
+     <div *ngIf="reportDetails?.length > 0; else noData">
+      <ng-container *ngIf="observationType === 'questions';else criteriaBlock">
+        <div class="questions-list">
+          <div *ngFor="let question of reportDetails; let qi = index" class="question-card">
+            <div class="question-header" *ngIf="!domainView">
+              <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
+            </div>
+            <div class="canvas-chart" [ngClass]="{'canvas-chart-hidden':!question?.chartData}">
+              <canvas class="chart-canvas"></canvas>
+            </div>
+
+            <div class="question-content">
+              <ng-container [ngSwitch]="question?.responseType">
+                <div *ngSwitchCase="'text'">
+                  <label>{{ question?.answers}}</label>
+                </div>
+                <div *ngSwitchCase="'date'">
+                  <ng-container *ngIf="question?.answers?.length > 1; else singleDate">
+                    <ng-container *ngFor="let ans of question.answers">
+                  <label>{{ ans | date:'shortDate' }}</label>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #singleDate>
+                    <label>{{ question?.answers | date:'shortDate' }}</label>
+                      </ng-template>
+                </div>
+                <div *ngSwitchCase="'radio'">
+                  <label>{{ question?.answers }}</label>
+                </div>
+                <div *ngSwitchCase="'slider'">
+                  <label>{{ question?.answers }}</label>
+                </div>
+                <div *ngSwitchCase="'multiselect'">
+                  <span *ngFor="let answer of question?.answers" class="chip">{{ answer }}</span>
+                </div>
+                <div *ngSwitchCase="'number'">
+                  <label>{{ question?.answers }}</label>
+                </div>
+
+                <div *ngIf="isMultiple != 'true'">
+                  <div *ngSwitchCase="'matrix'" style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+                 
+                  <ng-container *ngFor="let key of objectKeys(question?.answers[0]); let k = index" style="margin-bottom: 20px;">
+                  <div class="card-content" *ngIf="key !== 'instanceIdentifier'" style="width: 100%;">
+                    <h2 class="matrix-title">{{qi + 1}}.{{ k + 1 }}. {{ question.answers[0][key].question }}</h2>
+                   
+                      <div class="col-12" *ngFor="let instance of question.answers" class="card-list-item" style="display: flex; flex: 1;">
+                        <div class="card" style="width: 100%; height: auto;">
+                          <div class="matrix-item" style="margin-top: 10px; color: var(--ion-color-primary);">
+                            <h2 class="instance-identifier" style="white-space: normal;">{{ instance.instanceIdentifier }}</h2>
+                            <hr>
+                          </div>
+
+                          <div class="">
+                            <div *ngFor="let answer of instance[key].answers" lines="none" style="display: flex;align-items: flex-start;padding: 5px;">
+                              <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip">arrow_forward</mat-icon>
+                              <span class="answer" style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</span>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  
+                </div>
+                </div>
+                
+
+              </ng-container>
+            </div>
+
+            <div class="evidence-section" *ngIf="question?.evidences && question?.evidences?.length">
+              <h4>Evidences: {{ question?.evidences?.length }}</h4>
+              <div class="evidence-icons">
+                <div *ngFor="let evidence of question?.evidences" class="iconList">
+                  <ng-container [ngSwitch]="evidence.extension">
+                    <div *ngSwitchCase="'jpg'" class="iconList">
+                      <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                        (click)="openDialog(evidence.previewUrl,'image')">image</mat-icon>
+                    </div>
+                    <div *ngSwitchCase="'png'" class="iconList">
+                      <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                        (click)="openDialog(evidence.previewUrl,'image')">image</mat-icon>
+                    </div>
+                    <div *ngSwitchCase="'pdf'" class="iconList">
+                      <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                        (click)="openUrl(evidence.previewUrl)">picture_as_pdf</mat-icon>
+                    </div>
+                    <div *ngSwitchCase="'mp4'" class="iconList">
+                      <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
+                        (click)="openDialog(evidence.previewUrl,'video')">video_file</mat-icon>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="question-card" *ngIf="domainView">
+            <mat-accordion>
+              <h2 class="mb-2">Descriptive view</h2>
+              <mat-expansion-panel class="expansion-panel" *ngFor="let view of domainView?.domains; let i = index">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <h2 class="title-accordion">{{ view?.domainName}}</h2>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="row">
+                    <div class="column"></div>
+                    <div class="column" *ngFor="let heading of domainView?.heading">
+                      <p>{{ heading }}</p>
+                    </div>
+                  </div>
+          
+                  <div class="row" *ngFor="let criteria of view?.criterias">
+                    <div class="column">{{ criteria?.name }}</div>
+                    <div class="column" *ngFor="let level of criteria?.levelsWithScores">
+                      <p>{{ level?.level }}</p>
+                      <p>{{ level?.score }}</p>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+          
+        </div>
+      </ng-container>
+      <ng-template #criteriaBlock>
+        <div class="questions-list">
+          <div *ngFor="let questions of reportDetails">
+            <div class="question-card">
+              <h4 class="mb-5">{{questions[0]?.criteriaName}}</h4>
+
+            <div *ngFor="let question of questions; let qi = index" class="question-card">
+              <div class="question-header">
+                <p class="questionTitle">{{qi + 1}}. {{ question?.question }}</p>
+              </div>
+              <div class="canvas-chart" [ngClass]="{'canvas-chart-hidden':!question?.chartData}" >
+                <canvas class="chart-canvas"></canvas>
+              </div>
+
+              <div class="question-content">
+                <ng-container [ngSwitch]="question?.responseType">
+                  <div *ngSwitchCase="'text'">
+                    <label>{{ question?.answers}}</label>
+                  </div>
+                  <div *ngSwitchCase="'date'">
+                    <ng-container *ngIf="question?.answers?.length > 1; else singleDate">
+                      <ng-container *ngFor="let ans of question.answers">
+                    <label>{{ ans | date:'shortDate' }}</label>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #singleDate>
+                      <label>{{ question?.answers | date:'shortDate' }}</label>
+                        </ng-template>
+                  </div>
+                  <div *ngSwitchCase="'radio'">
+                    <label>{{ question?.answers }}</label>
+                  </div>
+                  <div *ngSwitchCase="'slider'">
+                    <label>{{ question?.answers }}</label>
+                  </div>
+                  <div *ngSwitchCase="'multiselect'">
+                    <span *ngFor="let answer of question?.answers" class="chip">{{ answer }}</span>
+                  </div>
+                  <div *ngSwitchCase="'number'">
+                    <label>{{ question?.answers }}</label>
+                  </div>
+
+                  <div *ngIf="isMultiple != 'true'">
+                    <div *ngSwitchCase="'matrix'" style="display: flex; flex-wrap: wrap; flex-grow: 1; width: 100%;">
+                   
+                    <ng-container *ngFor="let key of objectKeys(question?.answers[0]); let k = index" style="margin-bottom: 20px;">
+                    <div class="card-content" *ngIf="key !== 'instanceIdentifier'" style="width: 100%;">
+                      <h2 class="matrix-title">{{qi + 1}}.{{ k + 1 }}. {{ question.answers[0][key].question }}</h2>
+                     
+                        <div class="col-12" *ngFor="let instance of question.answers" class="card-list-item" style="display: flex; flex: 1;">
+                          <div class="card" style="width: 100%; height: auto;">
+                            <div class="matrix-item" style="margin-top: 10px; color: var(--ion-color-primary);">
+                              <h2 class="instance-identifier" style="white-space: normal;">{{ instance.instanceIdentifier }}</h2>
+                              <hr>
+                            </div>
+  
+                            <div class="">
+                              <div *ngFor="let answer of instance[key].answers" lines="none" style="display: flex;align-items: flex-start;padding: 5px;">
+                                <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip">arrow_forward</mat-icon>
+                                <span class="answer" style="width: 100%; margin: 0;word-wrap: break-word;">{{ checkAnswerValue(answer) }}</span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    
+                  </div>
+                  </div>
+                  
+
+                </ng-container>
+              </div>
+
+              <div class="evidence-section" *ngIf="question?.evidences && question?.evidences?.length">
+                <h4>Evidences: {{ question?.evidences?.length  }}</h4>
+                <div class="evidence-icons">
+                  <div *ngFor="let evidence of question?.evidences" class="iconList">
+                    <ng-container [ngSwitch]="evidence.extension">
+                      <div *ngSwitchCase="'jpg'" class="iconList">
+                        <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                          (click)="openDialog(evidence.previewUrl,'image')">image</mat-icon>
+                      </div>
+                      <div *ngSwitchCase="'png'" class="iconList">
+                        <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                          (click)="openDialog(evidence.previewUrl,'image')">image</mat-icon>
+                      </div>
+                      <div *ngSwitchCase="'pdf'" class="iconList">
+                        <mat-icon class="customizeIcon" matTooltip="View the uploaded image" matTooltipClass="tooltip"
+                          (click)="openUrl(evidence.previewUrl)">picture_as_pdf</mat-icon>
+                      </div>
+                      <div *ngSwitchCase="'mp4'" class="iconList">
+                        <mat-icon class="customizeIcon" matTooltip="View the uploaded video" matTooltipClass="tooltip"
+                          (click)="openDialog(evidence.previewUrl,'video')">video_file</mat-icon>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </ng-template>
+     </div>
+
+      <div *ngIf="isFilterModalOpen" class="modal">
+        <div class="modal-content">
+          <header class="d-flex align-items-center">
+            <h1 class="modal-title">Select Questions to filter</h1>
+            <mat-icon class="close-btn" (click)="closeFilter()">close</mat-icon>
+          </header>
+          <div>
+            <ul>
+              <li *ngFor="let question of allQuestions; let i = index">
+                <input type="checkbox" [(ngModel)]="question.selected" class="modal-input" [id]="'question-' + i">
+                <label [for]="'question-' + i">
+                  {{ observationType === 'questions' ? question?.question : question?.criteriaName }}
+                </label>
+              </li>
+            </ul>
+          </div>
+          <footer class="question-footer">
+            <button (click)="applyFilter()" class="apply-filter">Apply Filters</button>
+          </footer>
+        </div>
+      </div>
+
+      <div *ngIf="isModalOpen" class="modal">
+        <div class="modal-content">
+          <header>
+            <h2>Preview</h2>
+            <button (click)="closeDialog()">Close</button>
+          </header>
+          <div>
+            <img *ngIf="objectType == 'image'" [src]="objectURL" alt="Preview">
+            <video *ngIf="objectType == 'video'" [src]="objectURL" controls></video>
+            <iframe *ngIf="objectType == 'pdf'" [src]="objectURL | sanitizeUrl"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<ng-template #noData>
+  <p class="no-data-found">No data found</p>
+</ng-template>
+
+<lib-spinner *ngIf="!loaded"></lib-spinner>

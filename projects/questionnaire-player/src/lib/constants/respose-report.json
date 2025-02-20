@@ -1,0 +1,371 @@
+{
+    "message": {
+        "surveyName": "Test survey 1",
+        "report": [
+            {
+                "order": "SUR_TEST_001_20240801165219-1724402134692",
+                "question": "Enter your First question adkmaldmlno",
+                "responseType": "text",
+                "answers": [
+                    "q"
+                ],
+                "chart": {
+                    "type": "pie",
+                    "data": {
+                        "labels": [
+                            "English"
+                        ],
+                        "datasets": [
+                            {
+                                "backgroundColor": [
+                                    "#FFA971",
+                                    "#F6DB6C",
+                                    "#98CBED",
+                                    "#C9A0DA",
+                                    "#5DABDC",
+                                    "#88E5B0"
+                                ],
+                                "data": [
+                                    100
+                                ]
+                            }
+                        ]
+                    },
+                    "options": {
+                        "tooltips": {
+                            "enabled": false
+                        },
+                        "plugins": {
+                            "datalabels": {
+                                "color": "#fff"
+                            }
+                        }
+                    }
+                },
+                "instanceQuestions": [],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [],
+                "evidences": [],
+                "evidence_count": 0,
+                "questionNumber": "1"
+            },
+            {
+                "order": "SUR_TEST_002_20240801165219-1724402134695",
+                "question": "Enter your First question asmsdmsno",
+                "responseType": "radio",
+                "answers": [
+                    "R1"
+                ],
+                "chart": {
+                    "type": "pie",
+                    "data": {
+                        "labels": [
+                            "R1,R2"
+                        ],
+                        "datasets": [
+                            {
+                                "backgroundColor": [
+                                    "#FFA971",
+                                    "#F6DB6C",
+                                    "#98CBED",
+                                    "#C9A0DA",
+                                    "#5DABDC",
+                                    "#88E5B0"
+                                ],
+                                "data": [
+                                    100
+                                ]
+                            }
+                        ]
+                    },
+                    "options": {
+                        "tooltips": {
+                            "enabled": false
+                        },
+                        "plugins": {
+                            "datalabels": {
+                                "color": "#fff"
+                            }
+                        }
+                    }
+                },
+                "instanceQuestions": [],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [
+                    {
+                        "value": "R1",
+                        "label": "Yes"
+                    },
+                    {
+                        "value": "R2",
+                        "label": "No"
+                    }
+                ],
+                "evidences": [],
+                "evidence_count": 0,
+                "questionNumber": "2"
+            },
+            {
+                "order": "SUR_TEST_003_20240801165219-1724402134696",
+                "question": "Are you planning to come bsndsack?",
+                "responseType": "multiselect",
+                "answers": [
+                    ""
+                ],
+                "chart": {},
+                "instanceQuestions": [],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [
+                    {
+                        "value": "R1",
+                        "label": "Simple mobile phone without internet/data pack"
+                    },
+                    {
+                        "value": "R2",
+                        "label": "Smart phone with internet/data pack"
+                    },
+                    {
+                        "value": "R3",
+                        "label": "Smart phone without internet/data pack"
+                    },
+                    {
+                        "value": "R4",
+                        "label": "TV"
+                    },
+                    {
+                        "value": "R5",
+                        "label": "Radio"
+                    }
+                ],
+                "evidences": [],
+                "evidence_count": 0,
+                "questionNumber": "2.1"
+            },
+            {
+                "order": "SUR_TEST_004_20240801165219-1724402134697",
+                "question": "How many devices are there in home/",
+                "responseType": "number",
+                "answers": [
+                    "1"
+                ],
+                "chart": {
+                    "type": "horizontalBar",
+                    "data": {
+                        "labels": [
+                            "AP_Sec_1.Curriculum and Inclusive Classrooms",
+                            "AP_Sec_2.ICT in Teaching-Learning and Assessment"
+                        ],
+                        "datasets": [
+                            {
+                                "data": [
+                                    100,
+                                    100
+                                ],
+                                "backgroundColor": "#de8657"
+                            }
+                        ]
+                    },
+                    "options": {
+                        "legend": false,
+                        "scales": {
+                            "xAxes": [
+                                {
+                                    "ticks": {
+                                        "min": 0,
+                                        "max": 100
+                                    },
+                                    "scaleLabel": {
+                                        "display": true,
+                                        "labelString": "Responses in percentage"
+                                    }
+                                }
+                            ],
+                            "yAxes": [
+                                {
+                                    "scaleLabel": {
+                                        "display": true,
+                                        "labelString": "Responses"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "instanceQuestions": [],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [],
+                "evidences": [],
+                "evidence_count": 0,
+                "questionNumber": "3"
+            },
+            {
+                "order": "SUR_TEST_005_20240801165219-1724402134698",
+                "question": "What type of device is available at home?",
+                "responseType": "date",
+                "answers": [
+                    "2024-09-27T11:58:00.000Z"
+                ],
+                "chart": {
+                    "type": "horizontalBar",
+                    "data": {
+                        "labels": [
+                            "AP_Sec_మాడ్యూలు 1: విద్యా ప్రణాళిక మరియు సహిత తరగతి గదులు",
+                            "AP_Sec_మాడ్యూలు 2: బోధన, అభ్యసన, మూల్యాంకనంలో ICT ని సమగ్రపరచడం"
+                        ],
+                        "datasets": [
+                            {
+                                "data": [
+                                    100,
+                                    100
+                                ],
+                                "backgroundColor": "#de8657"
+                            }
+                        ]
+                    },
+                    "options": {
+                        "legend": false,
+                        "scales": {
+                            "xAxes": [
+                                {
+                                    "ticks": {
+                                        "min": 0,
+                                        "max": 100
+                                    },
+                                    "scaleLabel": {
+                                        "display": true,
+                                        "labelString": "Responses in percentage"
+                                    }
+                                }
+                            ],
+                            "yAxes": [
+                                {
+                                    "scaleLabel": {
+                                        "display": true,
+                                        "labelString": "Responses"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "instanceQuestions": [],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [],
+                "evidences": [],
+                "evidence_count": 0,
+                "questionNumber": "4"
+            },
+            {
+                "order": "SUR_TEST_006_20240801165219-1724402134699",
+                "question": "Does the child have a quiet place to study?",
+                "responseType": "matrix",
+                "chart": {},
+                "instanceQuestions": [
+                    {
+                        "66c849d6933415620e0ceb68": {
+                            "qid": "66c849d6933415620e0ceb68",
+                            "value": [
+                                "R2"
+                            ],
+                            "remarks": "",
+                            "fileName": [],
+                            "gpsLocation": "",
+                            "payload": {
+                                "question": [
+                                    "Were you able to enroll your child in courses on Diksha?",
+                                    ""
+                                ],
+                                "labels": [
+                                    "Not aware of classrooms on DIKSHA"
+                                ],
+                                "responseType": "multiselect",
+                                "filesNotUploaded": []
+                            },
+                            "startTime": 1727092730388,
+                            "endTime": 1727092732382,
+                            "criteriaId": "66c849d6933415620e0ceb75",
+                            "responseType": "multiselect",
+                            "evidenceMethod": "SF",
+                            "rubricLevel": "",
+                            "optionsAvailableForUser": [
+                                {
+                                    "value": "R1",
+                                    "label": "Not able to use the app"
+                                },
+                                {
+                                    "value": "R2",
+                                    "label": "Not aware of classrooms on DIKSHA"
+                                },
+                                {
+                                    "value": "R3",
+                                    "label": "Not aware of the enrolment process in the classroom"
+                                },
+                                {
+                                    "value": "R4",
+                                    "label": "Not aware of enrolment process in the courses"
+                                },
+                                {
+                                    "value": "R5",
+                                    "label": "Don’t find the courses useful"
+                                },
+                                {
+                                    "value": "R6",
+                                    "label": "Others"
+                                }
+                            ],
+                            "question": "Were you able to enroll your child in courses on Diksha?",
+                            "answers": [
+                                "R2"
+                            ],
+                            "questionNumber": "5.1"
+                        },
+                        "66c849d6933415620e0ceb69": {
+                            "qid": "66c849d6933415620e0ceb69",
+                            "value": 2,
+                            "remarks": "",
+                            "fileName": [],
+                            "gpsLocation": "",
+                            "payload": {
+                                "question": [
+                                    "What are the challenges that you are facing in enrolment?",
+                                    ""
+                                ],
+                                "labels": [
+                                    2
+                                ],
+                                "responseType": "slider",
+                                "filesNotUploaded": []
+                            },
+                            "startTime": 1727092730400,
+                            "endTime": 1727092734891,
+                            "criteriaId": "66c849d6933415620e0ceb75",
+                            "responseType": "slider",
+                            "evidenceMethod": "SF",
+                            "rubricLevel": "",
+                            "optionsAvailableForUser": [],
+                            "question": "What are the challenges that you are facing in enrolment?",
+                            "answers": [
+                                2
+                            ],
+                            "questionNumber": "5.2"
+                        },
+                        "instanceIdentifier": "Student 1"
+                    }
+                ],
+                "criteriaName": "Survey and Feedback",
+                "criteriaId": "66c849d6933415620e0ceb75",
+                "optionsAvailableForUser": [],
+                "evidences": [],
+                "evidence_count": 0,
+                "instanceIdentifier": "Student",
+                "questionNumber": "5"
+            }
+        ]
+    },
+    "status": 200
+}

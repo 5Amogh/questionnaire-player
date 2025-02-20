@@ -1,0 +1,203 @@
+.add-entity-btn {
+    margin: 1rem;
+    background-color: var(--primary-color);
+    color: var(--general-btn-text-color);
+    border-radius: 0.5rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    min-width: 5.6rem;
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    float: right;
+    border: none;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: var(--general-btn-text-color);
+    border: solid transparent 0.063rem;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    min-width: 5.6rem;
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.btn:hover {
+    background-color: var(--general-btn-hover-bg);
+    color: var(--primary-color);
+    border: solid var(--primary-color) 0.063rem;
+}
+
+::ng-deep {
+    .searchEntity {
+        --mdc-radio-selected-focus-icon-color: var(--primary-color) !important;
+        --mdc-radio-selected-hover-icon-color: var(--primary-color) !important;
+        --mdc-radio-selected-icon-color: var(--primary-color) !important;
+        --mdc-radio-selected-pressed-icon-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-focus-icon-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-hover-icon-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-icon-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-pressed-icon-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-focus-state-layer-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-hover-state-layer-color: var(--primary-color) !important;
+        --mdc-checkbox-selected-pressed-state-layer-color: var(--primary-color) !important;
+        --mat-option-selected-state-label-text-color: var(--primary-color) !important;
+    }
+}
+
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.secondary-btn {
+    background-color: var(--primary-color);
+    color: var(--general-btn-text-color);
+    border: none;
+}
+
+.primary-btn {
+    background-color: var(--color-light);
+    color: var(--primary-color);
+    border: .063rem solid var(--primary-color);
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 1.5rem 1.5rem;
+}
+
+.mat-dialog-actions button {
+    cursor: pointer;
+    text-transform: none;
+    width: 45%;
+    min-width: 4rem;
+    border-radius: .25rem;
+    font-weight: 700;
+    font-size: .75rem;
+    padding: .375rem 1.313rem;
+}
+
+.search {
+    margin-top: 0.313rem;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+}
+
+.delete-container:empty {
+    visibility: hidden;
+}
+
+.mat-mdc-list-option,
+.mat-mdc-list-option.mat-accent {
+    --mdc-checkbox-selected-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-hover-icon-color: var(--color-secondary);
+}
+
+.heading {
+    font-size: 1.563rem;
+}
+
+.heading-paragraph {
+    margin-bottom: 1.563rem;
+}
+
+.search-add-entity {
+    height: 2.938rem !important;
+}
+
+.no-data{
+    display: flex;
+    justify-content: center;
+  }
+
+  img {
+    width: 50%;
+    max-width: 18.75rem;
+    }
+
+  .disabled-button {
+    background-color: var(--disabled-btn-bg) !important;
+    color: var(--disabled-btn-text) !important;
+    border-color: var(--disabled-btn-text)  !important;
+    cursor: not-allowed;
+  }
+
+  .no-data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+.srch-bar {
+    width: 100%;
+    color: var(--color-light);
+    display: flex;
+    align-items: center;
+    border-radius: 0.625rem;
+    background-color: var(--color-light);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    gap: 0.5rem;
+    height: 2.375rem;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-grey);
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: var(--color-dark);
+    padding: 0.25rem 0;
+  }
+  
+  .search-input::placeholder {
+    color: var(--color-grey);
+  }
+  
+  .clear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-grey);
+    padding: 0.25rem;
+  }
+  
