@@ -94,6 +94,11 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     ) {
       this.setApiService();
       this.fetchDetails();
+      if (this.sections?.length == 1) {
+        this.setSection(this.sections[0].name);
+        document.getElementById('observation-ion-toolbar').style.display = 'none'
+        this.listing = false;
+      }
     }
 
     if (changes['saveQuestioner']) {
@@ -152,18 +157,23 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
         this.apiConfig = JSON.parse(this.apiConfig);
         this.setApiService();
         this.fetchDetails()
-        if (this.sections.length == 1) {
-          this.setSection(this.sections[0].name);
-          this.listing = false;
-        }
+       
       } catch (error) {
         throw new Error('Invalid Assessment Structure', error);
       }
+    }
+    if (this.sections?.length == 1) {
+      this.setSection(this.sections[0].name);
+      document.getElementById('observation-ion-toolbar').style.display = 'none'
+      this.listing = false;
     }
     this.questionnaireForm = this.fb.group({});
     this.questionnaireForm.valueChanges.subscribe((data: any) => {
       this.checkFormValidity();
     })
+    if (this.sections?.length == 1) {
+    document.getElementById('observation-ion-toolbar').style.display = 'none'
+    }
   }
 
   getQuestionMap() {
@@ -314,6 +324,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.domQuery(this.sectionName, 'block');
+    document.getElementById('observation-ion-toolbar').style.display = 'block';
+
   }
 
   domQuery(elemendId: string, action: string) {
@@ -420,6 +432,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   setSection(name: string) {
     this.sectionName = name;
     this.enableRelevantPage();
+    document.getElementById('observation-ion-toolbar').style.display = 'none'
     this.mainComponent.enableRelevantPage();
     let sectionElements = document.getElementsByClassName('section-listing');
     if (sectionElements.length > 0) {
@@ -433,6 +446,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   backToSectionListing() {
     this.listing = false;
     this.domQuery(this.sectionName, 'none');
+    document.getElementById('observation-ion-toolbar').style.display = 'block'
     let sectionElements = document.getElementsByClassName('section-listing');
     this.mainComponent.pageIndex = 0;
     this.mainComponent.handlePageEvent({ pageIndex: 0 })
@@ -440,6 +454,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       for (let i = 0; i < sectionElements.length; i++) {
         (sectionElements[i] as HTMLElement).style.display = 'block';
       }
+    }
+    if(this.sections.length == 1){
+      this.location.back();
     }
   }
 
@@ -468,6 +485,7 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       this.subscription.unsubscribe();
       this.sharedService.updateValue(false);
       this.questionnaireForm.reset();
+      document.getElementById('observation-ion-toolbar').style.display = 'block';
     }
   }
 }

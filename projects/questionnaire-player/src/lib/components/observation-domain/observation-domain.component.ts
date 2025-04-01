@@ -37,6 +37,7 @@ export class ObservationDomainComponent extends BackNavigationHandlerComponent i
    }
 
   ngOnInit(): void {
+    document.getElementById('observation-ion-toolbar').style.display = 'block';
     this.queryParamsService.parseQueryParams();
     this.observationId = this.queryParamsService?.observationId;
     this.entityId = this.queryParamsService?.entityId;

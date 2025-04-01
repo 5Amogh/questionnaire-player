@@ -4,11 +4,9 @@
       <h1  class="sesion-title">List of Sections</h1>
       <hr style="height: 1px;background:var(--primary-color);"/>
     </div>
-    <!-- <div *ngIf="listing" (click)="backToSectionListing()" class="d-flex flex-ai-center m-20 flex-gap-10" style="color: var(--primary-color);">
-      <mat-icon>arrow_back</mat-icon>
-      <span>Section Listing</span>
-    </div> -->
-
+    <div *ngIf="listing && sections?.length" (click)="backToSectionListing()" class="d-flex flex-gap-10 header-shadow">
+      <mat-icon class="m-10 ml-16" style="font-size: x-large;">arrow_back</mat-icon>
+    </div>
     <div *ngFor="let section of sections; let secId = index">
       <div class="section-listing" [ngStyle]="{display:sections.length == 1 ? 'none':'block'}">
         <mat-card (click)="setSection(section.name)" class="px-16 py-16 m-20" style="color: var(--primary-color);">
