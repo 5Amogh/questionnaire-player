@@ -17,7 +17,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class ObservationDetailsComponent extends BackNavigationHandlerComponent implements OnInit {
   entityId: any;
-  entityName: any;
+  entityName: string;
   observationId: any;
   observations: any = [];
   observationName: any;
@@ -43,7 +43,7 @@ export class ObservationDetailsComponent extends BackNavigationHandlerComponent 
   ngOnInit(): void {
     this.queryParamsService.parseQueryParams();
     this.entityId = this.queryParamsService?.entityId;
-    this.entityName = decodeURIComponent(decodeURIComponent(this.queryParamsService?.entityName || ''));
+    this.entityName = this.getFullyDecodedValue(this.queryParamsService?.entityName || '');
     this.observationId = this.queryParamsService?.observationId;
     this.submissionId = this.queryParamsService?.submissionId;
     this.allowMultipleAssessemts = this.queryParamsService?.allowMultipleAssessemts;
@@ -179,4 +179,24 @@ getObservationsByStatus(statuses: ('draft' | 'inprogress' | 'completed' | 'start
       this.getObservationsByStatus(['completed']);
     }
 }
+
+getFullyDecodedValue(value: string): string {
+  if (!value) return '';
+
+  let decodedValue = value;
+  let prevValue;
+
+  try {
+    do {
+      prevValue = decodedValue;
+      decodedValue = decodeURIComponent(decodedValue);
+    } while (decodedValue !== prevValue);
+  } catch (e) {
+    console.error('Decoding error:', e);
+    return value;
+  }
+
+  return decodedValue;
+}
+
 }
