@@ -96,8 +96,10 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       this.fetchDetails();
       if (this.sections?.length == 1) {
         this.setSection(this.sections[0].name);
-        document.getElementById('observation-ion-toolbar').style.display = 'none'
-        this.listing = false;
+        if(document.getElementById('observation-ion-toolbar')){
+          document.getElementById('observation-ion-toolbar').style.display = 'none';
+          this.listing = false;
+        }
       }
     }
 
@@ -164,15 +166,19 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     }
     if (this.sections?.length == 1) {
       this.setSection(this.sections[0].name);
-      document.getElementById('observation-ion-toolbar').style.display = 'none'
-      this.listing = false;
+      if(document.getElementById('observation-ion-toolbar')){
+        document.getElementById('observation-ion-toolbar').style.display = 'none';
+        this.listing = false;
+      }
     }
     this.questionnaireForm = this.fb.group({});
     this.questionnaireForm.valueChanges.subscribe((data: any) => {
       this.checkFormValidity();
     })
     if (this.sections?.length == 1) {
-    document.getElementById('observation-ion-toolbar').style.display = 'none'
+      if(document.getElementById('observation-ion-toolbar')){
+        document.getElementById('observation-ion-toolbar').style.display = 'none'
+      }
     }
   }
 
@@ -324,7 +330,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       }
     }
     this.domQuery(this.sectionName, 'block');
-    document.getElementById('observation-ion-toolbar').style.display = 'block';
+    if(document.getElementById('observation-ion-toolbar')){
+      document.getElementById('observation-ion-toolbar').style.display = 'block';
+    }
 
   }
 
@@ -432,7 +440,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   setSection(name: string) {
     this.sectionName = name;
     this.enableRelevantPage();
-    document.getElementById('observation-ion-toolbar').style.display = 'none'
+    if(document.getElementById('observation-ion-toolbar')){
+      document.getElementById('observation-ion-toolbar').style.display = 'none'
+    }
     this.mainComponent.enableRelevantPage();
     let sectionElements = document.getElementsByClassName('section-listing');
     if (sectionElements.length > 0) {
@@ -446,7 +456,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
   backToSectionListing() {
     this.listing = false;
     this.domQuery(this.sectionName, 'none');
-    document.getElementById('observation-ion-toolbar').style.display = 'block'
+    if(document.getElementById('observation-ion-toolbar')){
+      document.getElementById('observation-ion-toolbar').style.display = 'block'
+    }
     let sectionElements = document.getElementsByClassName('section-listing');
     this.mainComponent.pageIndex = 0;
     this.mainComponent.handlePageEvent({ pageIndex: 0 })
@@ -485,7 +497,9 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
       this.subscription.unsubscribe();
       this.sharedService.updateValue(false);
       this.questionnaireForm.reset();
-      document.getElementById('observation-ion-toolbar').style.display = 'block';
+      if(document.getElementById('observation-ion-toolbar')){
+        document.getElementById('observation-ion-toolbar').style.display = 'block';
+      }
     }
   }
 }
