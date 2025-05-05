@@ -119,6 +119,8 @@ export class AttachmentComponent {
         const presignedUrlData = response['result'][submissionId].files[0];
         const headers = new HttpHeaders({
           'Content-Type': 'multipart/form-data',
+          "Access-Control-Allow-Origin":"*",
+          ...(response['result'].cloudStorage === "azure" ? { "x-ms-blob-type": "BlockBlob" } : {})
         });
         this.http
           .put(`${presignedUrlData.url}`, data.file, { headers })
