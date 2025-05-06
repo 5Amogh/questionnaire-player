@@ -4,7 +4,7 @@
       <h1  class="sesion-title">List of Sections</h1>
       <hr style="height: 1px;background:var(--primary-color);"/>
     </div>
-    <div *ngIf="listing && sections?.length" (click)="backToSectionListing()" class="d-flex flex-gap-10 header-shadow">
+    <div *ngIf="listing && sections?.length && apiConfig.solutionType == 'observation'" (click)="backToSectionListing()" class="d-flex flex-gap-10 header-shadow">
       <mat-icon class="m-10 ml-16" style="font-size: x-large;">arrow_back</mat-icon>
     </div>
     <div *ngFor="let section of sections; let secId = index">

@@ -331,7 +331,8 @@ export class MainWrapperComponent extends BackNavigationHandlerComponent impleme
     }
     this.domQuery(this.sectionName, 'block');
     if(document.getElementById('observation-ion-toolbar')){
-      document.getElementById('observation-ion-toolbar').style.display = 'block';
+      document.getElementById('observation-ion-toolbar').style.display = 'none';
+      this.listing = true;
     }
 
   }
