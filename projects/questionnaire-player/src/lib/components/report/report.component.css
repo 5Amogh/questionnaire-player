@@ -227,7 +227,6 @@ mat-icon {
 .panel-content {
   border: 0.063rem solid var(--light-grey);
   overflow-x: auto;
-  white-space: nowrap;
 }
 
 .row {
@@ -316,3 +315,89 @@ mat-icon {
     margin-bottom: 0.3125rem;
   }
 }
+
+/* Add or override the following styles */
+.criteria-col {
+  min-width: 10rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.header-row {
+  font-weight: bold;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+
+.panel-content {
+  border: 0.063rem solid var(--light-grey);
+  overflow-x: auto;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  width: max-content;
+  min-width: 100%;
+  align-items: baseline;
+}
+
+.row:nth-child(1){
+  background-color: var(--color-primary);
+}
+.row:nth-child(even) {
+  background-color: var(--light-grey);
+}
+
+.column {
+  flex: 1 0 auto;
+  padding: 0.5rem;
+  min-width: 6.563rem;
+}
+
+.column > div {
+  margin: 0.125rem 0;
+}
+
+.expansion-panel {
+  margin: 0.625rem;
+}
+
+.title-accordion {
+  font-size: large;
+}
+
+.header-row .column,
+.row .column {
+  text-align: left;
+  vertical-align: top;
+}
+
+.criteria-col {
+  font-weight: 600;
+  text-align: left;
+}
+
+.criteria-col {
+  flex: 0 0 66.66%;
+  max-width: 66.66%;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding-right: 10px;
+}
+
+.column {
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Optional: Keep heading styling consistent */
+.header-row {
+  font-weight: bold;
+}
+

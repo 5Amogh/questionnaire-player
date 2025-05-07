@@ -137,28 +137,35 @@
               <mat-expansion-panel class="expansion-panel" *ngFor="let view of domainView?.domains; let i = index">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    <h2 class="title-accordion">{{ view?.domainName}}</h2>
+                    <h2 class="title-accordion">{{ view?.domainName }}</h2>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
+          
                 <div class="panel-content">
-                  <div class="row">
-                    <div class="column"></div>
+                  <!-- Header Row -->
+                  <div class="row header-row">
+                    <div class="criteria-col"><strong>Criteria</strong></div>
                     <div class="column" *ngFor="let heading of domainView?.heading">
-                      <p>{{ heading }}</p>
+                      <strong>{{ heading }}</strong>
                     </div>
                   </div>
           
+                  <!-- Data Rows -->
                   <div class="row" *ngFor="let criteria of view?.criterias">
-                    <div class="column">{{ criteria?.name }}</div>
-                    <div class="column" *ngFor="let level of criteria?.levelsWithScores">
-                      <p>{{ level?.level }}</p>
-                      <p>{{ level?.score }}</p>
+                    <div class="criteria-col">{{ criteria?.name }}</div>
+                    <div class="column">
+                      <ng-container *ngFor="let level of criteria?.levelsWithScores">
+                        <div><strong>Level:</strong> {{ level?.level }}</div>
+                        <div><strong>Score:</strong> {{ level?.score }}</div>
+                        <br />
+                      </ng-container>
                     </div>
                   </div>
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
           </div>
+          
           
         </div>
       </ng-container>
